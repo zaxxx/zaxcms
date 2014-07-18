@@ -1,0 +1,31 @@
+button:
+    uploadFile: "Nahrát soubor"
+    usageInfo: "Zobrazit/skrýt využití složek"
+    renameFile: "Přejmenovat soubor"
+    deleteFile: "Odstranit soubor"
+    deleteDir: "Odstranit složku"
+    renameDir: "Přejmenovat složku"
+    createDir: "Vytvořit složku"
+    fileLink: "Odkaz na soubor"
+    truncate: "Vyprázdnit"
+    upload: "Nahrát"
+message:
+    dirIsEmpty: "V této složce nejsou žádné soubory"
+    deleteDirConfirm: "Opravdu chcete odstranit složku '%dir%' včetně všeho, co obsahuje?"
+    deleteFileConfirm: "Opravdu chcete odstranit soubor '%file%'?"
+    maxUploadSize: "Maximální serverem povolená velikost je %size% MB."
+    xFiles: "%files% soubor|%files% soubory|%files% souborů"
+form:
+    file: "Soubor"
+alert:
+    dirCreated: "Složka byla vytvořena."
+    dirRenamed: "Složka byla přejmenována."
+    dirDeleted: "Složka byla odstraněna."
+    dirTruncated: "Složka byla vyprázdněna."
+    fileUploaded: "Soubor byl nahrán."
+    fileNotUploaded: "Při nahrávání souboru došlo k chybě."
+    fileRenamed: "Soubor byl přejmenován."
+    fileDeleted: "Soubor byl odstraněn."
+    pathNotFound: "Požadovaná cesta nebyla nalezena."
+panel:
+    fileManager: "Správce souborů"

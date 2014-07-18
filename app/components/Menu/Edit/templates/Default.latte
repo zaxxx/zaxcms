@@ -1,0 +1,32 @@
+{layout './@layout.latte'}
+
+{define panelTitle}
+	{_}menu.panel.editMenu{/_}
+{/define}
+
+{define panelContent}
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="well">
+				<ul class="nav nav-pills nav-stacked">
+					<li{if $control->selectItem === NULL} class="active"{/if}><a{if $ajaxEnabled} class="ajax"{/if} n:href="this, selectItem => NULL"><span class="glyphicon glyphicon-pencil"></span> {$root->text}</a>
+						<ul class="nav nav-pills nav-stacked">
+							<li{if (int)$control->selectItem === $item->id} class="active"{/if} n:foreach="$items as $item"><a{if $ajaxEnabled} class="ajax"{/if} n:href="this, selectItem => $item->id"><span class="glyphicon glyphicon-pencil"></span> {$item->text}</a></li>
+							<li{if (int)$control->selectItem === -1} class="active"{/if}><a{if $ajaxEnabled} class="ajax"{/if} n:href="this, selectItem => -1"><span class="glyphicon glyphicon-plus"></span> {_}menu.button.addItem{/_}</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			{if $control->selectItem > 0}
+				{control editMenuItem}
+			{elseif (int)$control->selectItem === -1}
+				{control addMenuItem}
+			{else}
+				{control editMenu}
+			{/if}
+		</div>
+	</div>
+
+{/define}

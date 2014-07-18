@@ -1,0 +1,10 @@
+.webContent-editable {
+    border-top:1px solid transparent;
+    border-bottom:1px solid transparent;
+    min-height:50px;
+}
+
+.webContent-editable:hover {
+    border-top:1px dashed #888;
+    border-bottom:1px dashed #888;
+}

@@ -1,0 +1,13 @@
+<div class="panel panel-primary" n:snippet>
+	<div class="panel-heading">
+		<h3 class="panel-title">&nbsp;<span class="hidden-xs">{include #panelTitle}</span></h3>
+		<ul class="nav panel-tabs pull-right">
+			<li><a href="{$control->parent->link('this', [view => Default])}" class="btn btn-danger" title="{_'common.button.close'}">&times;</a></li>
+		</ul>
+	</div>
+	<div class="panel-body">
+		<div class="tab-content">
+			<div class="tab-pane active">{include #panelContent}</div>
+		</div>
+	</div>
+</div>

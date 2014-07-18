@@ -1,0 +1,23 @@
+<div class="panel panel-primary" n:snippet>
+	<div class="panel-heading">
+		<h3 class="panel-title">&nbsp;<span class="hidden-xs">{include #panelTitle}</span></h3>
+        <ul class="nav panel-tabs pull-right">
+            <li n:if="$view === 'Default'" class="dropdown"><a href="#" data-toggle="dropdown"><img class="flag-small" src="{$baseUri}/img/flag/{$currentLocale}.png"> {$currentLocale} <span class="caret"></span></a>
+	            <ul class="dropdown-menu">
+		            {foreach $availableLocales as $locale}
+			            <li{if $currentLocale === $locale} class="active"{/if}><a n:href="this, locale => $locale"{if $ajaxEnabled} class="ajax"{/if}><img class="flag-small" src="{$baseUri}/img/flag/{$locale}.png">  {$locale}</a></li>
+		            {/foreach}
+	            </ul>
+            </li>
+            <li{if $view === 'Default'} class="active"{/if}><a n:href="this, view => Default"{if $ajaxEnabled} class="ajax"{/if}><span class="glyphicon glyphicon-pencil"></span> {_}webContent.button.content{/_}</a></li>
+            <li{if $view === 'Files'} class="active"{/if}><a n:href="this, view => Files"{if $ajaxEnabled} class="ajax"{/if}><span class="glyphicon glyphicon-file"></span> {_}webContent.button.files{/_}</a></li>
+            <li><a href="{$control->parent->link('this', [view => Default, edit-view => Default])}" class="btn btn-danger{if $ajaxEnabled} ajax{/if}" title="{_'common.button.close'}">&times;</a></li>
+        </ul>
+	</div>
+	<div class="panel-body">
+		<div class="tab-content">
+			<div class="tab-pane active">{include #panelContent}</div>
+		</div>
+	</div>
+</div>
+{include #afterPanel}

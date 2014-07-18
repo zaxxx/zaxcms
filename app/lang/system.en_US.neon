@@ -1,0 +1,7 @@
+button:
+    clearCache: "Clear cache"
+    regenerateDatabase: "Regenerate database"
+    regenerateDatabaseWhole: "whole"
+alert:
+    cacheCleared: "Cache cleared."
+    databaseRegenerated: "Database regenerated."

@@ -1,0 +1,27 @@
+### Zax framework services and components ###
+
+services:
+
+## Menu
+    #- Zax\Components\Menu\MenuArrayFactory(..., %menus%)
+    - Zax\Components\Menu\IMenuItemFactory
+    - Zax\Components\Menu\IMenuListFactory
+
+## Css and Js files linker
+    - Zax\Components\StaticLinker\IStaticLinkerFactory
+    - Zax\Components\StaticLinker\ICssLinkerFactory
+    - Zax\Components\StaticLinker\IJsLinkerFactory
+
+## Flash messages
+    - Zax\Components\FlashMessage\IFlashMessageFactory
+
+## File Manager
+    - Zax\Components\FileManager\ICreateDirFactory
+    - Zax\Components\FileManager\IRenameDirFactory
+    - Zax\Components\FileManager\IDeleteDirFactory
+    - Zax\Components\FileManager\IRenameFileFactory
+    - Zax\Components\FileManager\IDeleteFileFactory
+    - Zax\Components\FileManager\IUploadFileFactory
+    - Zax\Components\FileManager\IDirectoryListFactory
+    - Zax\Components\FileManager\IFileListFactory
+    - Zax\Components\FileManager\IFileManagerFactory

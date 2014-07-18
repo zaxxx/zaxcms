@@ -1,0 +1,7 @@
+button:
+    clearCache: "Promazat cache"
+    regenerateDatabase: "Přegenerovat databázi"
+    regenerateDatabaseWhole: "celou"
+alert:
+    cacheCleared: "Cache promazána."
+    databaseRegenerated: "Databáze přegenerována."

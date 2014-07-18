@@ -1,0 +1,17 @@
+{
+    "name": "zaxxx/zaxcms",
+    "description": "Test CMS",
+    "authors": [
+        {
+            "name": "Zax",
+            "email": "zax.drummer@gmail.com"
+        }
+    ],
+    "require": {
+        "nette/nette": "v2.2.2",
+        "kdyby/doctrine": "v1.2.0",
+        "rixxi/gedmo": "1.0.1",
+        "dg/texy": "v2.6",
+        "kdyby/translation": "v2.0.1"
+    }
+}

@@ -1,0 +1,27 @@
+### Zax CMS services, model and components ###
+
+parameters:
+    #menus: # <-- only needed when using array factory
+
+services:
+
+## Model
+
+    - ZaxCMS\Model\DatabaseGenerator
+
+    - ZaxCMS\Model\RoleService
+    - ZaxCMS\Model\WebContentService
+    - ZaxCMS\Model\MenuService
+
+## Components
+
+    - ZaxCMS\Components\WebContent\IEditFactory
+    - ZaxCMS\Components\WebContent\IWebContentFactory
+
+    - ZaxCMS\Components\Menu\MenuModelFactory
+    - ZaxCMS\Components\Menu\IEditFactory
+    - ZaxCMS\Components\Menu\IMenuWrapperFactory
+
+    - ZaxCMS\Components\Menu\IEditMenuFactory
+    - ZaxCMS\Components\Menu\IAddMenuItemFactory
+    - ZaxCMS\Components\Menu\IEditMenuItemFactory

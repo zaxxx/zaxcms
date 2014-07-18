@@ -1,0 +1,18 @@
+/** static alerts */
+.alerts{
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    width:100%;
+    z-index:100;
+    text-align:center;
+}
+
+.alerts .alert{
+    margin-bottom:0px;
+}
+
+.alerts .alert>.pull-right{
+    margin-top:-16px;
+    margin-right:-16px;
+}

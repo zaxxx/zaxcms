@@ -1,0 +1,14 @@
+<div class="alerts" n:snippet>
+    <div n:if="count($flashes)>0" class="container">
+        <div n:foreach="$flashes as $flash" class='alert alert-{$flash->type} fade in'>
+            <a class="close" data-dismiss="alert" aria-hidden="true" title="{_'common.button.close'}">
+                &times;
+            </a>
+
+            {if $glyphicons}
+                <span class="pull-left glyphicon glyphicon-{if $flash->type === 'success'}ok{elseif $flash->type === 'info'}info-sign{elseif $flash->type === 'warning'}warning-sign{elseif $flash->type === 'danger'}ban-circle{/if}"></span>
+            {/if}
+            {_}{$flash->message}{/_}
+        </div>
+    </div>
+</div>

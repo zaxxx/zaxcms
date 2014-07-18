@@ -1,0 +1,371 @@
+<?php
+
+namespace Zax\Application\UI;
+use Nette,
+    Nette\Utils\Strings,
+    Zax,
+	Kdyby;
+
+/**
+ * Class Control
+ *
+ * Greatly enhances Nette Control.
+ * - translated using Kdyby/Translation
+ * - no need to manually redraw snippets
+ * - no need to manually specify paths to templates
+ * - no need to manually check "if is ajax" everywhere...
+ * - has factory for translated forms
+ * - has Texy factory
+ * - support for custom snippet IDs (Nette default ones give themselves out alot in HTML output and look not so cool)
+ *
+ * @package Zax\Application\UI
+ */
+abstract class Control extends Nette\Application\UI\Control {
+    
+    /** @persistent */
+    public $view = 'Default';
+
+	/** @var bool */
+    protected $ajaxEnabled = FALSE;
+
+	/** @var bool */
+    protected $autoAjax = FALSE;
+
+	/** @var Kdyby\Translation\Translator */
+	protected $translator;
+
+	/** @var Zax\Application\UI\FormFactory */
+	protected $formFactory;
+
+	/** @var SnippetGenerators\ISnippetGenerator */
+	protected $snippetGenerator;
+
+	/** @var Zax\Forms\IBinder */
+	protected $binder;
+
+	public function injectDependencies(Kdyby\Translation\Translator $translator,
+	                                   Zax\Application\UI\FormFactory $formFactory,
+	                                   Zax\Forms\IBinder $binder) {
+		$this->translator = $translator;
+		$this->formFactory = $formFactory;
+		$this->binder = $binder;
+	}
+
+	/**
+	 * Sends flash messages to presenter.
+	 *
+	 * @param        $message
+	 * @param string $type
+	 * @return void
+	 */
+	public function flashMessage($message, $type='info') {
+        $this->presenter->flashMessage($message, $type);
+    }
+
+	/**
+	 * Enables AJAX, note that the actual AJAXization (eg. of forms and sub-components) is up to you
+	 *
+	 * @param bool $autoAjax Should call redrawControl() in attached()?
+	 * @return $this
+	 */
+	public function enableAjax($autoAjax = TRUE) {
+        $this->ajaxEnabled = TRUE;
+        $this->autoAjax = $autoAjax;
+        return $this;
+    }
+
+	/**
+	 * Does this control have a persistent property $property?
+	 *
+	 * @param $property
+	 * @return bool
+	 */
+	protected function hasPersistentProperty($property) {
+        $ref = $this->getReflection();
+        if($ref->hasProperty($property)) {
+            $refp = $ref->getProperty($property);
+            return $refp->isPublic() && $refp->hasAnnotation('persistent');
+        }
+        return FALSE;
+    }
+
+	/**
+	 * Forward using $presenter->forward()
+	 *
+	 * @param       $destination
+	 * @param array $args
+	 */
+	public function presenterForward($destination, $args = []) {
+        $name = $this->getUniqueId();
+        if($destination != 'this') {
+            $destination =  "$name-$destination";
+        }
+        $params = [];
+        foreach($args as $key => $val) {
+            $params["$name-$key"] = $val;
+        }
+        $this->presenter->forward($destination, $params);
+    }
+
+	/**
+	 * Custom hacky forward, is 'good enough' and additionaly sends anchor in payload
+	 *
+	 * @param       $destination
+	 * @param array $args
+	 */
+	public function forward($destination, $args = []) {
+
+        // Remove '!' from destination
+        $destination = str_replace('!', '', $destination);
+
+        // Remove anchor from destination and insert anchor to payload
+        $anchor = strpos($destination, '#');
+        if(is_int($anchor)) {
+            list($destination, $anchor) = explode('#', $destination);
+            if($this->ajaxEnabled && $this->presenter->isAjax()) {
+                $this->presenter->payload->anchor = $anchor;
+            }
+        }
+
+        // Process arguments
+        $params = [];
+        foreach($args as $key =>$param) {
+            $control = $this;
+            $property = $key;
+
+            // Get subcomponent from name
+            if(strpos($key, self::NAME_SEPARATOR) > 0) {
+                $names = explode(self::NAME_SEPARATOR, $key);
+                $property = array_pop($names);
+                $control = $this->getComponent(implode(self::NAME_SEPARATOR, $names));
+            }
+
+            if($property == 'view') {
+                $control->setView($param);
+            }else if($control->hasPersistentProperty($property)) {
+                $control->$property = $param;
+            } else {
+                $params[$key] = $param;
+            }
+        }
+        $this->params = $params;
+
+        // No signal
+        if($destination == 'this')
+            return;
+        
+        $this->signalReceived($destination);
+    }
+
+	/**
+	 * If AJAX forward, else redirect
+	 *
+	 * @param       $destination
+	 * @param array $args
+	 * @param array $snippets
+	 * @param bool  $presenterForward Prefer $presenter->forward() over $this->forward()
+	 */
+	final public function go($destination, $args = [], $snippets = [], $presenterForward = FALSE) {
+        if($this->ajaxEnabled && $this->presenter->isAjax()) {
+            foreach($snippets as $snippet) {
+                $this->redrawControl($snippet);
+            }
+
+	        if($presenterForward) {
+		        $this->presenterForward($destination, $args);
+	        } else {
+	            $this->forward($destination, $args);
+	        }
+        } else {
+            $this->redirect($destination, $args);
+        }
+    }
+
+	/**
+	 * @param $view
+	 * @return string
+	 */
+	static public function formatViewMethod($view) {
+        return 'view' . Strings::firstUpper($view);
+    }
+
+	/**
+	 * @param $render
+	 * @return string
+	 */
+	static public function formatBeforeRenderMethod($render) {
+        return 'beforeRender' . Strings::firstUpper($render);
+    }
+
+	/**
+	 * @param $view
+	 */
+	public function setView($view) {
+        $this->view = Strings::firstUpper($view);
+    }
+
+	/**
+	 * Throws exception if view name contains anything else than alphanumeric characters.
+	 *
+	 * @param $view
+	 * @throws Nette\Application\UI\BadSignalException
+	 */
+	protected function checkView($view) {
+        if(!preg_match('/^([a-zA-Z0-9]+)$/', $view)) {
+            throw new Nette\Application\UI\BadSignalException("Signal or view name must be alphanumeric.");
+        }
+    }
+
+	/**
+	 * Automatic snippet invalidation
+	 */
+	public function attached($presenter) {
+        parent::attached($presenter);
+        if($this->autoAjax && $this->ajaxEnabled && $presenter->isAjax()) {
+            $this->redrawControl();
+        }
+    }
+
+	/**
+	 * Descendants can override this method to customize templates hierarchy
+	 *
+	 * @param $view
+	 * @param $render
+	 * @return string
+	 */
+	protected function getTemplatePath($view, $render) {
+        return dirname($this->reflection->fileName) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $view . (strlen($render) > 0 ? '.' . $render : '') . '.latte';
+    }
+
+	/**
+	 * Template helpers factory
+	 *
+	 * @return Zax\Latte\Helpers
+	 */
+	protected function createTemplateHelpers() {
+        $helpers = new Zax\Latte\Helpers;
+	    $helpers->setTranslator($this->translator);
+	    return $helpers;
+    }
+
+	/* TODO: some stuff for Texy ;-)
+	 public function netteLinksHandler($invocation, $phrase, $content, $modifier, $link) {
+		if (!$link) return $invocation->proceed();
+
+		if(strpos($link->URL, 'link:') === 0) {
+			$linkTmp = substr($link->URL, 5);
+			$link->URL = $this->getPresenter(TRUE)->link($linkTmp);
+		}
+
+		return $invocation->proceed();
+	}*/
+
+	/**
+	 * Texy factory
+	 *
+	 * @return \Texy
+	 */
+	protected function createTexy() {
+		$texy = new \Texy;
+		$texy->encoding = 'utf-8';
+		$texy->setOutputMode(\Texy::HTML5);
+		$texy->headingModule->top = 3;
+		return $texy;
+	}
+
+	/**
+	 * Template factory
+	 *
+	 * @return Nette\Application\UI\ITemplate
+	 */
+	public function createTemplate() {
+        $this->checkView($this->view);
+        $template = parent::createTemplate();
+	    $template->setTranslator($this->translator);
+        $helpers = $this->createTemplateHelpers();
+        $template->getLatte()->addFilter(NULL, [$helpers, 'loader']);
+	    $texy = $this->createTexy();
+	    $template->getLatte()->addFilter('texy', [$texy, 'process']);
+        $template->ajaxEnabled = $this->ajaxEnabled;
+        $template->view = $this->view;
+        return $template;
+    }
+
+	/**
+	 * Translated form factory
+	 *
+	 * @return Form
+	 */
+	public function createForm() {
+		return $this->formFactory->create();
+	}
+
+	/**
+	 * replacement for render(), descendants should override this method
+	 */
+    protected function beforeRender() {}
+
+	/**
+	 * Life cycle
+	 *
+	 * @param string $render
+	 * @throws \Nette\Application\UI\BadSignalException
+	 */
+	final public function run($render = '') {
+        $template = $this->getTemplate();
+        $template->setFile($this->getTemplatePath($this->view, $render));
+        
+        if(!$this->tryCall($this->formatViewMethod($this->view), $this->params)) {
+            $class = get_class($this);
+            throw new Nette\Application\UI\BadSignalException("There is no handler for view '$this->view' in class $class.");
+        }
+        
+        if(!$this->tryCall($this->formatBeforeRenderMethod($render), array())) {
+            $class = get_class($this);
+            throw new Nette\Application\UI\BadSignalException("There is no 'beforeRender$render' method in class $class.");
+        }
+        
+        $template->render();
+    }
+
+	/**
+	 * @param SnippetGenerators\ISnippetGenerator $snippetGenerator
+	 * @return $this
+	 */
+	public function setSnippetGenerator(SnippetGenerators\ISnippetGenerator $snippetGenerator) {
+		$this->snippetGenerator = $snippetGenerator;
+		return $this;
+	}
+
+	/**
+	 * @return SnippetGenerators\ISnippetGenerator
+	 */
+	protected function getSnippetGenerator() {
+		if($this->snippetGenerator === NULL) {
+			$this->snippetGenerator = new SnippetGenerators\ShortSnippetGenerator;
+		}
+		return $this->snippetGenerator;
+	}
+
+	/**
+	 * Custom snippet format
+	 */
+	public function getSnippetId($name = NULL) {
+		return $this->getSnippetGenerator()->getSnippetId($this, $name);
+	}
+
+	/**
+	 * render method hook
+	 *
+	 * @param       $func
+	 * @param array $args
+	 * @return mixed|void
+	 */
+	public function __call($func, $args = []) {
+        if (Strings::startsWith($func, 'render')) {
+            return $this->run(Strings::substring($func, 6));
+        }
+        return parent::__call($func, $args);
+    }
+    
+}

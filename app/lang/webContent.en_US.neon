@@ -1,0 +1,11 @@
+panel:
+    editContent: "Edit content"
+    previewIsBelow: "Note that the preview is displayed below this table."
+button:
+    content: "Content"
+    files: "Files"
+form:
+    lastUpdated: "Last updated"
+    content: "Content"
+    locale: "Language"
+alert:

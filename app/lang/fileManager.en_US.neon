@@ -1,0 +1,31 @@
+button:
+    uploadFile: "Upload file"
+    usageInfo: "Toggle space usage"
+    renameFile: "Rename file"
+    deleteFile: "Delete file"
+    deleteDir: "Delete folder"
+    renameDir: "Rename folder"
+    createDir: "Create folder"
+    fileLink: "Link to file"
+    truncate: "Truncate"
+    upload: "Upload"
+message:
+    dirIsEmpty: "There are no files in this folder."
+    deleteDirConfirm: "Do you really want to delete folder '%dir%' including all it's contents?"
+    deleteFileConfirm: "Do you really want to delete file '%file%'?"
+    maxUploadSize: "Maximum allowed file size is %size% MB."
+    xFiles: "%files% file|%files% files"
+form:
+    file: "File"
+alert:
+    dirCreated: "Folder was created."
+    dirRenamed: "Folder was renamed."
+    dirDeleted: "Folder was deleted."
+    dirTruncated: "Folder was truncated.."
+    fileUploaded: "File was successfuly uploaded."
+    fileNotUploaded: "There was an error when uploading a file."
+    fileRenamed: "File was renamed."
+    fileDeleted: "File was deleted."
+    pathNotFound: "Requested path not found."
+panel:
+    fileManager: "File manager"

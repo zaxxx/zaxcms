@@ -1,0 +1,20 @@
+button:
+    addItem: "Přidat položku"
+    moveUp: "Posunout výš"
+    moveDown: "Posunout níž"
+message:
+    doNotMessWarning: "Varování: přepsání unikátního názvu může rozbít aplikaci. Prosím, buďte opatrní!"
+form:
+    uniqueName: "Unikátní název"
+    text: "Zobrazený text"
+    htmlClass: "HTML třída"
+    htmlTarget: "HTML cíl (target)"
+    url: "URL adresa"
+    nhref: "Nette adresa"
+    nhrefParams: "Parametry pro Nette adresu"
+alert:
+panel:
+    editMenu: "Upravit menu"
+    editMenuContainer: "Upravit menu"
+    addMenuItem: "Přidat položku menu"
+    editMenuItem: "Upravit položku menu"

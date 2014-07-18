@@ -1,0 +1,19 @@
+button:
+    close: "Zavřít"
+    cancel: "Zrušit"
+    edit: "Upravit"
+    save: "Uložit"
+    add: "Přidat"
+    delete: "Odstranit"
+    saveChanges: "Uložit změny"
+    editAndClose: "Upravit a zavřít"
+    chooseFile: "Vybrat soubor"
+    preview: "Náhled"
+alert:
+    changesSaved: "Změny uloženy."
+    changesError: "Chyba při ukládání změn."
+    newEntrySaved: "Položka byla přidána."
+    newEntryError: "Chyba při přidávání položky."
+general:
+    note: "Pozn."
+    never: "Nikdy"

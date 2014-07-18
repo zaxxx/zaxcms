@@ -1,0 +1,11 @@
+panel:
+    editContent: "Upravit obsah"
+    previewIsBelow: "Pozn.: náhled se zobrazuje pod tabulkou."
+button:
+    content: "Obsah"
+    files: "Soubory"
+form:
+    lastUpdated: "Naposledy upraveno"
+    content: "Obsah"
+    locale: "Jazyková verze"
+alert:

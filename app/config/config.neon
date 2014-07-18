@@ -1,0 +1,96 @@
+### Core configuration file ###
+
+
+## Database connection
+parameters:
+    host: 127.0.0.1
+    user: root
+    password: ****
+    database: 
+
+## Namespace <--> presenter mapping
+    mapping:
+        *: ZaxCMS\*Module\*Presenter
+
+## Nette settings
+nette:
+    session:
+        autoStart: true
+        expiration: 14 days
+
+## NDB won't be probably used when using Doctrine, but good fallback if needed
+    database:
+        dsn: 'mysql:host=%host%;dbname=%database%'
+        user: %user%
+        password: %password%
+        options:
+            lazy: on
+    application:
+        mapping: %mapping%
+
+## Register extensions
+extensions:
+    console: Kdyby\Console\DI\ConsoleExtension
+    events: Kdyby\Events\DI\EventsExtension
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+    gedmo: Rixxi\Gedmo\DI\OrmExtension
+    translation: Kdyby\Translation\DI\TranslationExtension
+
+## Gedmo settings
+gedmo:
+    translatableLocale: cs_CZ
+    defaultLocale: cs_CZ
+    loggable: on
+    sluggable: on
+    softDeleteable: on
+    sortable: on
+    timestampable: on
+    translatable: on
+    tree: on
+    uploadable: on
+
+## Doctrine settings
+doctrine:
+    host: %host%
+    dbname: %database%
+    user: %user%
+    password: %password%
+    charset: UTF8
+    metadataCache: default
+    queryCache: default
+    resultCache: default
+    hydrationCache: default
+    classMetadataFactory: Kdyby\Doctrine\Mapping\ClassMetadataFactory
+    defaultRepositoryClassName: Kdyby\Doctrine\EntityDao
+    autoGenerateProxyClasses: %debugMode%
+    namingStrategy: Doctrine\ORM\Mapping\UnderscoreNamingStrategy
+    quoteStrategy: Doctrine\ORM\Mapping\DefaultQuoteStrategy
+    entityListenerResolver: Kdyby\Doctrine\Mapping\EntityListenerResolver
+    proxyDir: %tempDir%/proxy
+    metadata:
+        ZaxCMS\Model: %appDir%/model
+    types:
+        bit: Doctrine\DBAL\Types\BooleanType
+    filters:
+        soft-deleteable: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+
+## Kdyby/Translation settings
+translation:
+    default: cs_CZ
+    whitelist: [cs, en]
+    fallback: [cs_CZ, cs]
+    debugger: TRUE
+
+## Mandatory services
+services:
+    - Zax\Utils\AppDir(%appDir%)
+    - Zax\Utils\RootDir(%rootDir%)
+    - Zax\Application\UI\FormFactory
+
+    - ZaxCMS\Routers\RouterFactory
+    router: @ZaxCMS\Routers\RouterFactory::create
+
+
+
+    

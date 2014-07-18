@@ -1,0 +1,15 @@
+{layout './@layout.latte'}
+
+{define panelTitle}
+	{_}webContent.panel.editContent{/_}
+{/define}
+
+{define panelContent}
+	{control editForm}
+{/define}
+
+{define afterPanel}
+	<div n:snippet="preview" data-zax-fade>
+		{$webContent->content|texy|noescape}
+	</div>
+{/define}

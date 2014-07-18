@@ -1,0 +1,13 @@
+error:
+    filled: "Tato položka je povinná."
+    minLength: "Musí mít aspoň %d znaků."
+    maxLength: "Musí mít maximálně %d znaků."
+    integer: "Musí být číslo."
+    image: "Musí být obrázek ve formátu JPG, PNG nebo GIF."
+    email: "Musí být platný e-mail."
+    url: "Musí být platná URL adresa."
+    maxFileSize: "Soubor překračuje maximální povolenou velikost."
+    mimeType: "Tento typ souboru není povolen."
+    fileExtension: "Tento typ souboru není povolen."
+    duplicateEntry: "Tato položka musí být unikátní."
+    alphanumeric: "Povolená je pouze anglická abeceda a číslice."

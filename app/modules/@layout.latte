@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8">
+		<title>{include #title} - Název webu</title>
+		{control staticLinker-default|indent:2}
+		<meta name="author" content="Zax">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div id="ajax-loading-cursor"><img src="{$baseUri}/img/ajax-loader.gif"></div>
+
+		{control flashMessage}
+
+		{include #main|indent}
+	</body>
+</html>

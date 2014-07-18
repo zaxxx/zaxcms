@@ -1,0 +1,12 @@
+{layout '../@layout.latte'}
+{block title}Administrace{/block}
+{block content}
+
+	<a class="btn btn-default" n:href="clearCache!">{_}system.button.clearCache{/_}</a>
+	<span class="btn-group">
+		<a class="btn btn-default" n:href="regenerateDatabase!">{_}system.button.regenerateDatabase{/_}</a>
+		<a class="btn btn-danger" n:href="regenerateDatabaseAll!">{_}system.button.regenerateDatabaseWhole{/_}</a>
+	</span>
+	<a class="btn btn-default" n:href="generateMenu!">{_}system.button.generateMenu{/_}</a>
+
+{/block}

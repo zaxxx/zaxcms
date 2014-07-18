@@ -1,0 +1,10 @@
+#ajax-loading-cursor {
+    display:none;
+    position:absolute;
+    z-index:20000;
+}
+
+.form-control-static.form-group {
+    margin-left:5px;
+    margin-right:5px;
+}

@@ -1,0 +1,19 @@
+button:
+    close: "Close"
+    cancel: "Cancel"
+    edit: "Edit"
+    save: "Save"
+    add: "Add"
+    delete: "Delete"
+    saveChanges: "Save changes"
+    editAndClose: "Edit and close"
+    chooseFile: "Choose file"
+    preview: "Preview"
+alert:
+    changesSaved: "Changes saved."
+    changesError: "Error while saving changes."
+    newEntrySaved: "Item added."
+    newEntryError: "Error while adding item."
+general:
+    note: "Note"
+    never: "Never"

@@ -1,0 +1,13 @@
+error:
+    filled: "This field must be filled."
+    minLength: "This field must be at least %d characters long."
+    maxLength: "This field is too long, max %d characters allowed."
+    integer: "Must be a number."
+    image: "Must be a JPG, PNG or GIF image."
+    email: "Must be a valid e-mail."
+    url: "Must be a valid URL."
+    maxFileSize: "This file is too large."
+    mimeType: "This file type is not allowed."
+    fileExtension: "This file type is not allowed."
+    duplicateEntry: "This field must be unique."
+    alphanumeric: "Only alphanumeric string allowed."

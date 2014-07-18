@@ -1,0 +1,20 @@
+button:
+    addItem: "Add item"
+    moveUp: "Move up"
+    moveDown: "Move down"
+message:
+    doNotMessWarning: "Warning: changing the unique name might break the application. Please, be careful!"
+form:
+    uniqueName: "Unique name"
+    text: "Displayed text"
+    htmlClass: "HTML class"
+    htmlTarget: "HTML target"
+    url: "URL"
+    nhref: "Nette link"
+    nhrefParams: "Params for Nette link"
+alert:
+panel:
+    editMenu: "Edit menu"
+    editMenuContainer: "Edit menu container"
+    addMenuItem: "Add menu item"
+    editMenuItem: "Edit menu item"

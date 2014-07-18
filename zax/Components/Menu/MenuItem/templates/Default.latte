@@ -1,0 +1,9 @@
+{var $classes = []}
+{if $item->nhref && $presenter->isLinkCurrent($item->nhref)}{? $classes[] = 'active'}{/if}
+{if $item->hasSubmenu()}{? $classes[] = 'dropdown'}{/if}
+<li n:class="(expand) $classes">
+	<a href="{$item->nhref ? ($item->nhrefParams !== NULL ? $presenter->link($item->nhref, $item->nhrefParams) : $presenter->link($item->nhref)) : $item->href}"{if $item->htmlTarget !== NULL} target="{$item->htmlTarget}"{/if}{if $item->hasSubmenu()} class="dropdown-toggle" data-toggle="dropdown"{/if}>{$item->text|noescape}</a>
+	{if $item->hasSubmenu()}
+		{control submenu}
+	{/if}
+</li>

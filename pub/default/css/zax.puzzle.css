@@ -1,0 +1,107 @@
+/** Composing divs as puzzle (removes border-radius) */
+@media (min-width: 768px) {
+    .puzzle-sm-top-left {
+        border-top-right-radius:0px;
+        border-bottom-right-radius:0px;
+        border-bottom-left-radius:0px;
+    }
+    .puzzle-sm-top-center {
+        border-radius:0px;
+    }
+    .puzzle-sm-top-right {
+        border-top-left-radius:0px;
+        border-bottom-left-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-sm-center {
+        border-radius:0px;
+    }
+    .puzzle-sm-bottom-left {
+        border-top-left-radius:0px;
+        border-top-right-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-sm-bottom-center {
+        border-radius:0px;
+    }
+    .puzzle-sm-bottom-right {
+        border-top-left-radius:0px;
+        border-top-right-radius:0px;
+        border-bottom-left-radius:0px;
+    }
+    .puzzle-sm-center-left {
+        border-radius:0px;
+    }
+    .puzzle-sm-center-right {
+        border-radius:0px;
+    }
+    .puzzle-sm-left {
+        border-top-right-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-sm-right {
+        border-top-left-radius:0px;
+        border-bottom-left-radius:0px;
+    }
+    .puzzle-sm-top {
+        border-bottom-left-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-sm-bottom {
+        border-top-left-radius:0px;
+        border-top-right-radius:0px;
+    }
+}
+@media (min-width: 992px) {
+    .puzzle-md-top-left {
+        border-top-right-radius:0px;
+        border-bottom-right-radius:0px;
+        border-bottom-left-radius:0px;
+    }
+    .puzzle-md-top-center {
+        border-radius:0px;
+    }
+    .puzzle-md-top-right {
+        border-top-left-radius:0px;
+        border-bottom-left-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-md-center {
+        border-radius:0px;
+    }
+    .puzzle-md-bottom-left {
+        border-top-left-radius:0px;
+        border-top-right-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-md-bottom-center {
+        border-radius:0px;
+    }
+    .puzzle-md-bottom-right {
+        border-top-left-radius:0px;
+        border-top-right-radius:0px;
+        border-bottom-left-radius:0px;
+    }
+    .puzzle-md-center-left {
+        border-radius:0px;
+    }
+    .puzzle-md-center-right {
+        border-radius:0px;
+    }
+    .puzzle-md-left {
+        border-top-right-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-md-right {
+        border-top-left-radius:0px;
+        border-bottom-left-radius:0px;
+    }
+    .puzzle-md-top {
+        border-bottom-left-radius:0px;
+        border-bottom-right-radius:0px;
+    }
+    .puzzle-md-bottom {
+        border-top-left-radius:0px;
+        border-top-right-radius:0px;
+    }
+}
