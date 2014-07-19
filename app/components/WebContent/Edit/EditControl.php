@@ -94,7 +94,9 @@ class EditControl extends Control {
 
 		$f->addStatic('localeFlag', 'webContent.form.locale')
 			->setDefaultValue($this->getLocale());
-		$f->addStatic('lastUpdated', 'webContent.form.lastUpdated')
+		$f->addDateTime('lastUpdated', 'webContent.form.lastUpdated', TRUE)
+			->setValue($this->webContent->lastUpdated);
+		$f->addStatic('lastUpdated2', 'webContent.form.lastUpdated')
 			->setDefaultValue($this->webContent->lastUpdated === NULL ? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never')) : $this->createTemplateHelpers()->beautifulDateTime($this->webContent->lastUpdated));
 		$f->addTextArea('content', 'webContent.form.content')
 			->setDefaultValue($this->webContent->content)

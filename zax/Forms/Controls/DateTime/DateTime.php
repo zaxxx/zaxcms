@@ -1,0 +1,112 @@
+<?php
+
+namespace Zax\Forms\Controls;
+use Nette,
+	Nette\Forms\Helpers,
+	Nette\Forms\Form,
+	Nette\Utils\Html;
+
+/**
+ * Class DateTimeInput
+ *
+ * @package Zax\Forms\Controls
+ */
+class DateTimeInput extends BaseControl {
+
+	const SCOPE_DATE = 1,
+		  SCOPE_TIME = 2,
+		  SCOPE_DATETIME = 3;
+
+	protected $year;
+
+	protected $month;
+
+	protected $day;
+
+	protected $hour;
+
+	protected $minute;
+
+	protected $scope = self::SCOPE_DATETIME;
+
+	protected $canBeNull = FALSE;
+
+	public function __construct($label = NULL) {
+		parent::__construct($label);
+	}
+
+	public function setScope($scope = self::SCOPE_DATETIME) {
+		$this->scope = min(3, max(1, (int)$scope));
+		return $this;
+	}
+
+	public function setCanBeNull($can = TRUE) {
+		$this->canBeNull = $can;
+		return $this;
+	}
+
+	public function setValue($value) {
+		if($value) {
+			$date = Nette\Utils\DateTime::from($value);
+			$this->year = $date->format('Y');
+			$this->month = $date->format('n');
+			$this->day = $date->format('j');
+			$this->hour = $date->format('G');
+			$this->minute = $date->format('i');
+		} else {
+			$this->year = $this->month = $this->day = $this->hour = $this->minute = NULL;
+		}
+		parent::setValue($value);
+		return $this;
+	}
+
+	protected function validTime($h, $m) {
+		return $this->scope === self::SCOPE_DATE || ($h !== NULL && $m !== NULL) && (($h > -1 && $h < 24) && ($m > -1 && $m < 60));
+	}
+
+	protected function validDate($year, $month, $day) {
+		return $this->scope === self::SCOPE_TIME || checkdate((int)$month, (int)$day, (int)$year);
+	}
+
+	protected function validDateTime($year, $month, $day, $hour, $minute) {
+		return $this->validDate($year, $month, $day) && $this->validTime($hour, $minute);
+	}
+
+	public function getValue() {
+		return ($this->validDate($this->year, $this->month, $this->day) && $this->validTime($this->hour, $this->minute)
+			? Nette\Utils\DateTime::from($this->year . '-' . $this->month . '-' . $this->day . ' ' . ($this->hour === NULL ? '00' : $this->hour) . ':' . ($this->minute === NULL ? '00' : $this->minute) . ':00')
+			: NULL);
+	}
+
+	public function loadHttpData() {
+		$this->year = $this->getHttpData(Form::DATA_LINE, '[year]');
+		$this->month = $this->getHttpData(Form::DATA_LINE, '[month]');
+		$this->day = $this->getHttpData(Form::DATA_LINE, '[day]');
+		$this->hour = $this->getHttpData(Form::DATA_LINE, '[hour]');
+		$this->minute = $this->getHttpData(Form::DATA_LINE, '[minute]');
+		parent::loadHttpData();
+	}
+
+	public function beforeRender() {
+		$t = $this->getTemplate();
+		$t->scope = $this->scope;
+		$t->selectedValue = $this->getValue();
+		$t->name = $this->name;
+		$t->input = $this;
+	}
+
+	public function handleSelectDate($date) {
+		$this->template->random = rand(0,10);
+		$this->redrawControl();
+		//$this->go('this');
+	}
+
+	public static function validateFilled(Nette\Forms\IControl $control) {
+		return $control->day !== NULL || $control->month !== NULL || $control->year !== NULL || $control->hour !== NULL || $control->minute !== NULL;
+	}
+
+	public static function validateData(Nette\Forms\IControl $control) {
+		return $control->validDate($control->year, $control->month, $control->day) && $control->validTime($control->hour, $control->minute);
+	}
+
+}

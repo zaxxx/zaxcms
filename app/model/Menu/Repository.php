@@ -15,7 +15,7 @@ class MenuRepository extends NestedTreeRepository {
 
 	public function getNodesHierarchyQuery($node = null, $direct = false, array $options = array(), $includeNode = false) {
 		$query = $this->getNodesHierarchyQueryBuilder($node, $direct, $options, $includeNode)->getQuery();
-		dump('happened'); // sadly.. not
+		//dump('happened'); // sadly.. not
 		$query->setHint(
 			Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
 			'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'

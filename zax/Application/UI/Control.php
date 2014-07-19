@@ -221,6 +221,9 @@ abstract class Control extends Nette\Application\UI\Control {
 	 */
 	public function attached($presenter) {
         parent::attached($presenter);
+		if($this->translator === NULL) {
+			$this->translator = $presenter->translator;
+		}
         if($this->autoAjax && $this->ajaxEnabled && $presenter->isAjax()) {
             $this->redrawControl();
         }
@@ -244,7 +247,7 @@ abstract class Control extends Nette\Application\UI\Control {
 	 */
 	protected function createTemplateHelpers() {
         $helpers = new Zax\Latte\Helpers;
-	    $helpers->setTranslator($this->translator);
+	    $helpers->setTranslator($this->getTranslator());
 	    return $helpers;
     }
 
@@ -273,6 +276,10 @@ abstract class Control extends Nette\Application\UI\Control {
 		return $texy;
 	}
 
+	public function getTranslator() {
+		return $this->translator === NULL ? $this->presenter->translator : $this->translator;
+	}
+
 	/**
 	 * Template factory
 	 *
@@ -281,7 +288,7 @@ abstract class Control extends Nette\Application\UI\Control {
 	public function createTemplate() {
         $this->checkView($this->view);
         $template = parent::createTemplate();
-	    $template->setTranslator($this->translator);
+	    $template->setTranslator($this->getTranslator());
 		$template->currentLocale = $this->getLocale();
 		$template->availableLocales = $this->getAvailableLocales();
         $helpers = $this->createTemplateHelpers();

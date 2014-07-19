@@ -9,6 +9,7 @@ use Nette,
 	Nette\Application\UI as NetteUI,
     Zax\Application\UI\Control;
 
+// TODO: DRY
 class EditMenuItemControl extends Control {
 
 	protected $menuItem;

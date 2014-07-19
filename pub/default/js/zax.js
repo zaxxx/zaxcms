@@ -30,6 +30,8 @@ var initFilestyle = function() {
 var refresh = function() {
     initTooltips();
     initFilestyle();
+    $('.if-js-hide').hide();
+    $('.if-not-js-hide').show();
 };
 
 var initNetteAjax = function() {

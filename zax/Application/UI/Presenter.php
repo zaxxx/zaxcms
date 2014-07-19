@@ -114,4 +114,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
         }
     }
 
+	public function getTranslator() {
+		return $this->translator;
+	}
+
 }

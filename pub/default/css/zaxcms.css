@@ -8,3 +8,7 @@
     margin-left:5px;
     margin-right:5px;
 }
+
+.if-not-js-hide {
+    display:none;
+}

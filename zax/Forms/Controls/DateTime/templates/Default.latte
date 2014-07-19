@@ -1,0 +1,26 @@
+<div n:snippet>
+	{$selectedValue}
+	<div class="if-js-hide">
+		fallback for non-js users
+		<select>
+			<option></option>
+		</select>
+		<select>
+			<option></option>
+		</select>
+		<select>
+			<option></option>
+		</select>
+		<select>
+			<option></option>
+		</select>
+		<select>
+			<option></option>
+		</select>
+	</div>
+	<div class="if-not-js-hide">
+
+		<a n:href="selectDate!" class="ajax">test</a>
+	</div>
+	{ifset $random}{$random}{/ifset}
+</div>

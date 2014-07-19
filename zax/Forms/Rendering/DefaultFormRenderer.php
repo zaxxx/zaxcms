@@ -17,6 +17,10 @@ class DefaultFormRenderer extends Nette\Forms\Rendering\DefaultFormRenderer {
     public function __construct() {
         $this->wrappers['submits']['container'] = 'div';
     }
+
+	public function init() {
+
+	}
     
     /*
      * Basically a opy&paste from Nette DefaultFormRenderer - credits to David Grudl
