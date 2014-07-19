@@ -13,7 +13,7 @@ I want a CMS which is easy for me to understand, fun to build apps on top of and
 - [Symfony translation](https://github.com/symfony/Translation) (with [Kdyby/Translation](https://github.com/Kdyby/Translation))
 - [Texy](https://github.com/dg/texy)
 - [jQuery](https://github.com/jquery/jquery)
-- [Twitter Bootstrap](https://github.com/twbs/bootstrap)
+- [Twitter Bootstrap](https://github.com/twbs/bootstrap) and [Filestyle](https://github.com/markusslima/bootstrap-filestyle)
 
 ## Task list:
 (this list will grow)
