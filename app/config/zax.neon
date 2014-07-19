@@ -3,7 +3,7 @@
 services:
 
 ## Menu
-    #- Zax\Components\Menu\MenuArrayFactory(..., %menus%)
+    - Zax\Components\Menu\IMenuFactory
     - Zax\Components\Menu\IMenuItemFactory
     - Zax\Components\Menu\IMenuListFactory
 

@@ -12,10 +12,14 @@ class MenuControl extends Zax\Application\UI\Control {
 
 	protected $class = 'navbar navbar-default navbar-static-top';
     
-    public function __construct(IMenuListFactory $menuListFactory, $menu = []) {
-        $this->menu = $menu;
+    public function __construct(IMenuListFactory $menuListFactory) {
         $this->menuListFactory = $menuListFactory;
     }
+
+	public function setMenu($menu = []) {
+		$this->menu = $menu;
+		return $this;
+	}
     
     public function viewDefault() {}
     

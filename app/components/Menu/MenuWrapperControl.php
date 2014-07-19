@@ -16,7 +16,7 @@ class MenuWrapperControl extends Control {
 
 	protected $name;
 
-	public function __construct(Zax\Components\Menu\IMenuFactory $menuFactory, IEditFactory $editFactory) {
+	public function __construct(MenuModelFactory $menuFactory, IEditFactory $editFactory) {
 		$this->menuFactory = $menuFactory;
 		$this->editFactory = $editFactory;
 	}

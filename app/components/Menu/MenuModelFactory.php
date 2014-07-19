@@ -6,42 +6,24 @@ use Nette,
 	Kdyby,
 	Zax;
 
-/** TODO: refactor into generated factory */
-class MenuModelFactory implements Zax\Components\Menu\IMenuFactory {
+class MenuModelFactory {
 
 	use Zax\Traits\TCacheable;
 
-	protected $menus;
-
-	protected $menuListFactory;
+	protected $menuFactory;
 
 	protected $menuService;
 
-	protected $translator;
-
-	protected $formFactory;
-
-	protected $binder;
-
-	public function __construct(Zax\Components\Menu\IMenuListFactory $menuListFactory,
-	                            ZaxCMS\Model\MenuService $menuService,
-								Kdyby\Translation\Translator $translator,
-								Zax\Application\UI\FormFactory $formFactory,
-								Zax\Forms\IBinder $binder) {
-		$this->menus = [];
-		$this->menuListFactory = $menuListFactory;
+	public function __construct(Zax\Components\Menu\IMenuFactory $menuFactory,
+	                            ZaxCMS\Model\MenuService $menuService) {
+		$this->menuFactory = $menuFactory;
 		$this->menuService = $menuService;
-		$this->translator = $translator;
-		$this->formFactory = $formFactory;
-		$this->binder = $binder;
 	}
 
 	/** @return Zax\Components\Menu\MenuControl */
 	public function create($menu) {
 		$menu = $this->menuService->getRepository()->findOneBy(['name' => $menu]);
-		$control = new Zax\Components\Menu\MenuControl($this->menuListFactory, $menu);
-		$control->injectDependencies($this->translator, $this->formFactory, $this->binder);
-		return $control;
+		return $this->menuFactory->create()->setMenu($menu);
 	}
 
 }
