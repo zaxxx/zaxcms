@@ -5,3 +5,4 @@ button:
 alert:
     cacheCleared: "Cache promazána."
     databaseRegenerated: "Databáze přegenerována."
+    cmsInstalled: "CMS nainstalováno."

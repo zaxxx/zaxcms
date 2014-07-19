@@ -5,3 +5,4 @@ button:
 alert:
     cacheCleared: "Cache cleared."
     databaseRegenerated: "Database regenerated."
+    cmsInstalled: "CMS installed."

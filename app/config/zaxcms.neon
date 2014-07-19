@@ -5,9 +5,12 @@ parameters:
 
 services:
 
-## Model
+## Installer scripts
 
     - ZaxCMS\Model\DatabaseGenerator
+    - ZaxCMS\Model\CMSInstaller
+
+## Model
 
     - ZaxCMS\Model\RoleService
     - ZaxCMS\Model\WebContentService
