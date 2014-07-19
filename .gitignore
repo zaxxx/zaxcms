@@ -6,6 +6,16 @@ app/temp/cache/*
 app/temp/log/*
 app/temp/proxy/*
 
+# CSS & JS
+pub/libs/css/*
+pub/libs/css/*
+pub/combined/fonts/*
+pub/combined/libs/*
+pub/combined/default/*
+
+# Upload folder
+upload/*
+
 # IDE
 .idea/*
 
