@@ -131,6 +131,7 @@ class Menu extends BaseEntity {
 
 	/**
 	 * @ORM\OneToMany(targetEntity="ZaxCMS\Model\Menu", mappedBy="parent")
+	 * @ORM\OrderBy({"lft" = "ASC"})
 	 */
 	protected $children;
 

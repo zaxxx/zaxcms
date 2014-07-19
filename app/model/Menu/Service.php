@@ -31,4 +31,12 @@ class MenuService extends Service {
 		$this->getEm()->flush();
 	}
 
+	public function moveUp(Menu $entity, $number = 1) {
+		return $this->getRepository()->moveUp($entity, $number);
+	}
+
+	public function moveDown(Menu $entity, $number = 1) {
+		return $this->getRepository()->moveDown($entity, $number);
+	}
+
 }

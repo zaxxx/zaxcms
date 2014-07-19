@@ -24,6 +24,9 @@ abstract class Service extends Nette\Object {
 		return $this->em->getRepository($this->className);
 	}
 
+	/**
+	 * @return Kdyby\Doctrine\EntityManager
+	 */
 	public function getEm() {
 		return $this->em;
 	}

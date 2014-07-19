@@ -6,6 +6,7 @@ use Nette,
 	Kdyby,
 	Zax;
 
+/** TODO: refactor into generated factory */
 class MenuModelFactory implements Zax\Components\Menu\IMenuFactory {
 
 	use Zax\Traits\TCacheable;
