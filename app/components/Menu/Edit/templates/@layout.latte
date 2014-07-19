@@ -2,6 +2,13 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">&nbsp;<span class="hidden-xs">{include #panelTitle}</span></h3>
 		<ul class="nav panel-tabs pull-right">
+			<li class="dropdown"><a href="#" data-toggle="dropdown"><img class="flag-small" src="{$baseUri}/img/flag/{$currentLocale}.png"> {$currentLocale} <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					{foreach $availableLocales as $locale}
+						<li{if $currentLocale === $locale} class="active"{/if}><a n:href="this, locale => $locale"{if $ajaxEnabled} class="ajax"{/if}><img class="flag-small" src="{$baseUri}/img/flag/{$locale}.png">  {$locale}</a></li>
+					{/foreach}
+				</ul>
+			</li>
 			<li><a href="{$control->parent->link('this', [view => Default])}" class="btn btn-danger" title="{_'common.button.close'}">&times;</a></li>
 		</ul>
 	</div>

@@ -13,7 +13,7 @@ use Zax,
 
 /**
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @ORM\Entity(repositoryClass="ZaxCMS\Model\MenuRepository")
  *
  * @property-read int $id
  * @property string $name
@@ -49,6 +49,7 @@ class Menu extends BaseEntity {
 	protected $description;
 
 	/**
+	 * @Gedmo\Translatable
 	 * @ORM\Column(type="string", length=255)
 	 */
 	protected $text;
@@ -134,5 +135,14 @@ class Menu extends BaseEntity {
 	 * @ORM\OrderBy({"lft" = "ASC"})
 	 */
 	protected $children;
+
+	/**
+	 * @Gedmo\Locale
+	 */
+	private $locale;
+
+	public function setTranslatableLocale($locale) {
+		$this->locale = $locale;
+	}
 
 }

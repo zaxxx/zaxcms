@@ -25,7 +25,7 @@ class EditMenuControl extends Control {
 	}
 
 	protected function createComponentEditMenuForm() {
-		$f = (new MenuForm)->createMenuForm($this);
+		$f = (new MenuForm)->createMenuForm($this, $this->parent->getLocale());
 
 		$f->addButtonSubmit('editMenu', 'common.button.edit', 'pencil');
 		//$f->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
@@ -38,10 +38,13 @@ class EditMenuControl extends Control {
 			$f->enableAjax();
 		}
 
+		$this->menu->setTranslatableLocale($this->parent->getLocale());
+		$this->menuService->getEm()->refresh($this->menu);
 		$this->binder->entityToForm($this->menu, $f);
 
 		$f->onSuccess[] = function(ZaxUI\Form $form, $values) {
 			$this->binder->formToEntity($form, $this->menu);
+			$this->menu->setTranslatableLocale($this->parent->getLocale());
 			try {
 				$this->menuService->getEm()->persist($this->menu);
 				$this->menuService->getEm()->flush();

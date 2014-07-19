@@ -21,18 +21,20 @@ use Nette,
  * @package Zax\Application\UI
  */
 abstract class Control extends Nette\Application\UI\Control {
-    
+
+	use Zax\Traits\TTranslatable;
+
     /** @persistent */
     public $view = 'Default';
+
+	/** @var string */
+	protected $locale;
 
 	/** @var bool */
     protected $ajaxEnabled = FALSE;
 
 	/** @var bool */
     protected $autoAjax = FALSE;
-
-	/** @var Kdyby\Translation\Translator */
-	protected $translator;
 
 	/** @var Zax\Application\UI\FormFactory */
 	protected $formFactory;
@@ -43,10 +45,8 @@ abstract class Control extends Nette\Application\UI\Control {
 	/** @var Zax\Forms\IBinder */
 	protected $binder;
 
-	public function injectDependencies(Kdyby\Translation\Translator $translator,
-	                                   Zax\Application\UI\FormFactory $formFactory,
+	public function injectDependencies(Zax\Application\UI\FormFactory $formFactory,
 	                                   Zax\Forms\IBinder $binder) {
-		$this->translator = $translator;
 		$this->formFactory = $formFactory;
 		$this->binder = $binder;
 	}
@@ -282,6 +282,8 @@ abstract class Control extends Nette\Application\UI\Control {
         $this->checkView($this->view);
         $template = parent::createTemplate();
 	    $template->setTranslator($this->translator);
+		$template->currentLocale = $this->getLocale();
+		$template->availableLocales = $this->getAvailableLocales();
         $helpers = $this->createTemplateHelpers();
         $template->getLatte()->addFilter(NULL, [$helpers, 'loader']);
 	    $texy = $this->createTexy();

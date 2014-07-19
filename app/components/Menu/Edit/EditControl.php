@@ -25,6 +25,9 @@ class EditControl extends Control {
 	/** @persistent */
 	public $selectItem; // -1 = add
 
+	/** @persistent */
+	public $locale;
+
 	public function __construct(Model\MenuService $menuService,
 	                            IAddMenuItemFactory $addMenuItemFactory,
 	                            IEditMenuItemFactory $editMenuItemFactory,
@@ -43,6 +46,7 @@ class EditControl extends Control {
 	public function getMenu() {
 		if($this->menu === NULL) {
 			$this->menu = $this->menuService->getRepository()->findOneByName($this->name);
+			$this->menu->setTranslatableLocale($this->getLocale());
 		}
 		return $this->menu;
 	}
@@ -54,6 +58,8 @@ class EditControl extends Control {
     public function beforeRender() {
 	    $this->template->root = $this->getMenu();
         $this->template->items = $this->menuService->getRepository()->children($this->getMenu(), TRUE);
+	    $this->template->currentLocale = $this->getLocale();
+	    $this->template->availableLocales = $this->getAvailableLocales();
     }
 
 	protected function createComponentAddMenuItem() {

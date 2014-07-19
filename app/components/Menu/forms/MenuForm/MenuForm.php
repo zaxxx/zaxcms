@@ -8,9 +8,10 @@ use Zax,
 
 class MenuForm extends Nette\Object {
 
-	public function createMenuForm(ZaxUI\Control $control) {
+	public function createMenuForm(ZaxUI\Control $control, $locale) {
 		$f = $control->createForm();
-
+		$f->addStatic('localeFlag', 'webContent.form.locale')
+			->setDefaultValue($locale);
 		$f->addText('name', 'menu.form.uniqueName')
 			->setRequired()
 			->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');

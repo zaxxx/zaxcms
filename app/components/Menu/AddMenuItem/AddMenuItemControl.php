@@ -32,7 +32,7 @@ class AddMenuItemControl extends Control {
 	}
 
 	protected function createComponentAddItemForm() {
-		$f = (new MenuItemForm)->createMenuItemForm($this);
+		$f = (new MenuItemForm)->createMenuItemForm($this, $this->parent->getLocale());
 
 		$f->addButtonSubmit('addItem', 'common.button.add', 'plus');
 		$f->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
@@ -49,6 +49,7 @@ class AddMenuItemControl extends Control {
 			$menuItem = new Model\Menu;
 			$menuItem->isMenuItem = TRUE;
 			$menuItem->secured = FALSE;
+			$menuItem->setTranslatableLocale($this->parent->getLocale());
 			$this->binder->formToEntity($form, $menuItem);
 			if(!empty($values->href) && strpos($values->href, $this->template->baseUri) === 0) {
 				$request = $this->router->match(new Nette\Http\Request(new Nette\Http\UrlScript(str_replace($this->template->baseUri, '', $values->href))));

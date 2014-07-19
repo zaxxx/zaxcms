@@ -8,9 +8,10 @@ use Zax,
 
 class MenuItemForm extends Nette\Object {
 
-	public function createMenuItemForm(ZaxUI\Control $control) {
+	public function createMenuItemForm(ZaxUI\Control $control, $locale) {
 		$f = $control->createForm();
-
+		$f->addStatic('localeFlag', 'webContent.form.locale')
+			->setDefaultValue($locale);
 
 		$f->addText('name', 'menu.form.uniqueName')
 			->setRequired()

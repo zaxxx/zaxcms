@@ -16,6 +16,8 @@ use Nette,
  */
 abstract class Presenter extends Nette\Application\UI\Presenter {
 
+	use Zax\Traits\TTranslatable;
+
 	/** @persistent */
 	public $locale = 'cs_CZ';
 
@@ -33,24 +35,18 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	 */
 	protected $rootDir;
 
-	/** @var Kdyby\Translation\Translator */
-	protected $translator;
-
 	/**
 	 * @param Zax\Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory
 	 * @param Zax\Components\FlashMessage\IFlashMessageFactory $flashMessageFactory
 	 * @param Zax\Utils\RootDir                                $rootDir
-	 * @param Kdyby\Translation\Translator                     $translator
 	 */
 	public function injectDependencies(
         Zax\Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory,
         Zax\Components\FlashMessage\IFlashMessageFactory $flashMessageFactory,
-	    Zax\Utils\RootDir $rootDir,
-        Kdyby\Translation\Translator $translator) {
+	    Zax\Utils\RootDir $rootDir) {
         $this->staticLinkerFactory = $staticLinkerFactory;
         $this->flashMessageFactory = $flashMessageFactory;
 	    $this->rootDir = $rootDir;
-	    $this->translator = $translator;
     }
 
 	/**
@@ -70,6 +66,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	public function createTemplate() {
         $template = parent::createTemplate();
 	    $template->setTranslator($this->translator);
+		$template->currentLocale = $this->getLocale();
+		$template->availableLocales = $this->getAvailableLocales();
         $helpers = $this->createTemplateHelpers();
         $template->getLatte()->addFilter(NULL, [$helpers, 'loader']);
         return $template;

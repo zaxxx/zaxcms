@@ -55,21 +55,6 @@ class EditControl extends Control {
 		return $this;
 	}
 
-	/**
-	 * @return NULL|string
-	 */
-	public function getLocale() {
-		if($this->locale === NULL) {
-			$this->locale = $this->translator->getLocale();
-		}
-
-		if(!in_array($this->locale, $this->translator->getAvailableLocales())) {
-			$this->locale = $this->translator->getLocale();
-		}
-
-		return $this->locale;
-	}
-
     public function viewDefault() {
         
     }
@@ -79,9 +64,7 @@ class EditControl extends Control {
 	}
     
     public function beforeRender() {
-	    $translator = $this->translator;
-	    /** @var \Kdyby\Translation\Translator $translator */
-		$this->template->availableLocales = $translator->getAvailableLocales();
+		$this->template->availableLocales = $this->getAvailableLocales();
 	    $this->template->currentLocale = $this->getLocale();
 	    $this->template->webContent = $this->webContent;
     }
