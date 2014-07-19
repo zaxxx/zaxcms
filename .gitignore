@@ -5,10 +5,11 @@ vendor/*
 app/temp/cache/*
 app/temp/log/*
 app/temp/proxy/*
+app/temp/btfj.dat
 
 # CSS & JS
 pub/libs/css/*
-pub/libs/css/*
+pub/libs/js/*
 pub/combined/fonts/*
 pub/combined/libs/*
 pub/combined/default/*
