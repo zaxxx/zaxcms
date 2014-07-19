@@ -1,3 +1,15 @@
+# Vendor
+vendor/*
+
+# Nette temp
+app/temp/cache/*
+app/temp/log/*
+app/temp/proxy/*
+
+# IDE
+.idea/*
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -26,7 +38,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
