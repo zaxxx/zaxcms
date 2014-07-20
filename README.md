@@ -43,7 +43,7 @@ I want a CMS which is easy for me to understand, fun to build apps on top of and
   - [x] Button submit
   - [x] Link submit
   - [x] NEON textarea
-  - [ ] Datetime input
+  - [x] Datetime input
   - [ ] ...
 - [x] File manager component
  - [x] Allow browsing only within specified folder
