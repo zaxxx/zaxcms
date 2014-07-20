@@ -11,7 +11,7 @@
 				<a class="dropdown-toggle" data-toggle="dropdown">{$selectedValue->format('H')}</a>
 				<ul class="dropdown-menu">
 				{for $i=0;$i<=23;$i++}
-					{? $prototype->setTime($i, (int)$prototype->format('i'))}
+					{? $prototype->setTime($i, (int)$selectedValue->format('i'))}
 					<li{if (int)$selectedValue->format('H') === $i} class="active"{/if}><a class="ajax" n:href="this, selectedValue => $prototype->format('Y-m-d H:i:s')">{$i}</a></li>
 				{/for}
 				</ul>
@@ -20,7 +20,7 @@
 				<a class="dropdown-toggle" data-toggle="dropdown">{$selectedValue->format('i')}</a>
 				<ul class="dropdown-menu">
 				{for $i=0;$i<=59;$i++}
-					{? $prototype->setTime((int)$prototype->format('H'), $i)}
+					{? $prototype->setTime((int)$selectedValue->format('H'), $i)}
 					<li{if (int)$selectedValue->format('i') === $i} class="active"{/if}><a class="ajax" n:href="this, selectedValue => $prototype->format('Y-m-d H:i:s')">{$i}</a></li>
 				{/for}
 				</ul>
