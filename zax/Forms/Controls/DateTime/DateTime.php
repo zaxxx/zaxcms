@@ -16,6 +16,9 @@ class DateTimeInput extends BaseControl {
 	/** @persistent */
 	public $selectedValue;
 
+	/** @persistent */
+	public $setNull = FALSE;
+
 	const SCOPE_DATE = 1,
 		  SCOPE_TIME = 2,
 		  SCOPE_DATETIME = 3;
@@ -58,6 +61,9 @@ class DateTimeInput extends BaseControl {
 			$this->minute = $date->format('i');
 		} else {
 			$this->year = $this->month = $this->day = $this->hour = $this->minute = NULL;
+			if($this->canBeNull) {
+				$this->setNull = TRUE;
+			}
 		}
 		parent::setValue($value);
 		return $this;
@@ -75,7 +81,18 @@ class DateTimeInput extends BaseControl {
 		return $this->validDate($year, $month, $day) && $this->validTime($hour, $minute);
 	}
 
+	protected function getSelectedValue() {
+		if($this->selectedValue !== NULL) {
+			return Nette\Utils\DateTime::from($this->selectedValue);
+		} else {
+			return $this->getValue();
+		}
+	}
+
 	public function getValue() {
+		if($this->setNull) {
+			return NULL;
+		}
 		if($this->selectedValue !== NULL) {
 			$this->setValue($this->selectedValue);
 		}
@@ -90,16 +107,20 @@ class DateTimeInput extends BaseControl {
 		$this->day = $this->getHttpData(Form::DATA_LINE, '[day]');
 		$this->hour = $this->getHttpData(Form::DATA_LINE, '[hour]');
 		$this->minute = $this->getHttpData(Form::DATA_LINE, '[minute]');
+		if($this->canBeNull && !(bool)$this->getHttpData(Form::DATA_LINE, '[null]')) {
+			$this->setNull = TRUE;
+		}
 	}
 
 	public function beforeRender() {
 		$t = $this->getTemplate();
 		$t->scope = $this->scope;
-		$t->selectedValue = $this->getValue();
+		$t->selectedValue = $this->getSelectedValue();
 		$t->name = $this->name;
 		$t->input = $this;
 		$t->htmlName = $this->getHtmlName();
 		$t->canBeNull = $this->canBeNull;
+		$t->isNull = $this->setNull;
 	}
 
 	public function handleSelectDate($date) {
@@ -122,6 +143,9 @@ class DateTimeInput extends BaseControl {
 		parent::loadState($params);
 		if(isset($params['selectedValue'])) {
 			$this->setValue(Nette\Utils\DateTime::from($params['selectedValue']));
+		}
+		if(isset($params['setNull'])) {
+			$this->setNull = (bool)$params['setNull'];
 		}
 	}
 

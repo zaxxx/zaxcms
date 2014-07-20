@@ -265,6 +265,21 @@ class Form extends Nette\Application\UI\Form {
 		return $this[$name] = $control;
 	}
 
+	public function addDate($name, $label = NULL, $canBeNull = FALSE) {
+		$control = new Zax\Forms\Controls\DateTimeInput($label);
+		$control->setCanBeNull($canBeNull);
+		$control->setScope($control::SCOPE_DATE);
+		return $this[$name] = $control;
+	}
+
+	public function addTime($name, $label = NULL, $canBeNull = FALSE) {
+		$control = new Zax\Forms\Controls\DateTimeInput($label);
+		$control->setCanBeNull($canBeNull);
+		$control->setScope($control::SCOPE_TIME);
+		$control->setView('Time');
+		return $this[$name] = $control;
+	}
+
 	/**
 	 * Enables AJAX on this form.
 	 *

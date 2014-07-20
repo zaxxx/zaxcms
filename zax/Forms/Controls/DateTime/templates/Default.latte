@@ -1,6 +1,10 @@
 {layout './@layout.latte'}
 {define dateTimeControl}
 
+	{if $selectedValue === NULL}
+		{? $selectedValue = new Nette\Utils\DateTime}
+	{/if}
+
 	{var $year = $selectedValue->format('Y')}
 	{var $month = $selectedValue->format('m')}
 	{var $day = $selectedValue->format('j')}
@@ -9,17 +13,20 @@
 
 	{* $selectedValue->format('Y-m-d h:i:s') *}
 
-	<table class="table table-bordered table-text-center">
+	<table class="table table-bordered table-text-center table-date-input">
 		<tr>
-			<th colspan="7">
+			<th colspan="5">
 				<a class="btn pull-left ajax" n:href="this, selectedValue => $selectedValue->modifyClone('-1 month')->format('Y-m-d h:i:s')"><span class="glyphicon glyphicon-arrow-left"></span></a>
 				{$month|beautifulMonth|firstUpper}
 				<a class="btn pull-right ajax" n:href="this, selectedValue => $selectedValue->modifyClone('+1 month')->format('Y-m-d h:i:s')"><span class="glyphicon glyphicon-arrow-right"></span></a>
 			</th>
-			<th colspan="7">
+			<th colspan="5">
 				<a class="btn pull-left ajax" n:href="this, selectedValue => $selectedValue->modifyClone('-1 year')->format('Y-m-d h:i:s')"><span class="glyphicon glyphicon-arrow-left"></span></a>
 				{$year}
 				<a class="btn pull-right ajax" n:href="this, selectedValue => $selectedValue->modifyClone('+1 year')->format('Y-m-d h:i:s')"><span class="glyphicon glyphicon-arrow-right"></span></a>
+			</th>
+			<th colspan="4">
+				<a class="btn ajax" n:href="this, selectedValue => (new Nette\Utils\DateTime)->format('Y-m-d h:i:s'), setNull => FALSE">{_}dateTimeInput.button.now{/_}</a>
 			</th>
 		</tr>
 		<tr>
@@ -35,9 +42,9 @@
 				<tr>
 			{/if}
 			{if $i === 1 && $dayOfWeek > 1}
-				{for $j=1;$j<$dayOfWeek;$j++}<td colspan="2">-</td>{/for}
+				{for $j=1;$j<$dayOfWeek;$j++}<td colspan="2"></td>{/for}
 			{/if}
-			<td colspan="2"{if $prototype == $selectedValue} class="bg-primary"{/if}><a n:href="this, selectedValue => $prototype->format('Y-m-d h:i:s')" class="ajax">{$prototype->format('j')}</a></td>
+			<td colspan="2"{if $prototype == $selectedValue} class="bg-primary"{/if}><a n:href="this, selectedValue => $prototype->format('Y-m-d h:i:s'), setNull => FALSE" class="ajax">{$prototype->format('j')}</a></td>
 			{if (int)$dayOfWeek % 7 === 0}
 				</tr>
 			{/if}
@@ -45,7 +52,7 @@
 			{? $dayOfWeek = $prototype->format('N')}
 		{/for}
 		{if $dayOfWeek < 7}
-			{for $i=$dayOfWeek;$i<=7;$i++}<td colspan="2">-</td>{/for}
+			{for $i=$dayOfWeek;$i<=7;$i++}<td colspan="2"></td>{/for}
 		{/if}
 
 	</table>

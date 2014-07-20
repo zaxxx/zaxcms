@@ -1,6 +1,12 @@
 {layout './@layout.latte'}
 {define dateTimeControl}
-
-	{$selectedValue|beautifulDateTime}
+	{if $selectedValue === NULL}
+		{? $selectedValue = new Nette\Utils\DateTime}
+	{/if}
+	{if $isNull}
+		null
+	{else}
+		{$selectedValue|beautifulDateTime}
+	{/if}
 
 {/define}

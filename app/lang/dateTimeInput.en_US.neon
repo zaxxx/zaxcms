@@ -1,0 +1,3 @@
+button:
+    isNull: "NULL value"
+    now: "Now"

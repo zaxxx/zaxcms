@@ -17,3 +17,5 @@ alert:
 general:
     note: "Pozn."
     never: "Nikdy"
+    is: "je"
+    isnt: "není"

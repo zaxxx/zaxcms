@@ -17,3 +17,5 @@ alert:
 general:
     note: "Note"
     never: "Never"
+    is: "is"
+    isnt: "is not"
