@@ -12,3 +12,33 @@
 .if-not-js-hide {
     display:none;
 }
+
+.nav.size-small li>a{
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.table.table-text-center td, .table.table-text-center th {
+    text-align: center;
+}
+
+.table th .btn {
+    padding-top:2px;
+    padding-bottom:2px;
+    padding-left:4px;
+    padding-right:4px;
+}
+
+input.about-4-chars-long {
+    width:50px;
+}
+
+input.about-3-chars-long {
+    width:45px;
+}
+
+input.about-2-chars-long {
+    width:40px;
+}

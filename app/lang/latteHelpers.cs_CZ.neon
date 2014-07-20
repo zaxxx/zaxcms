@@ -13,6 +13,14 @@ day:
     friday: "pátek"
     saturday: "sobota"
     sunday: "neděle"
+shortDay:
+    monday: "po"
+    tuesday: "út"
+    wednesday: "st"
+    thursday: "čt"
+    friday: "pá"
+    saturday: "so"
+    sunday: "ne"
 month:
     january: "leden"
     february: "únor"

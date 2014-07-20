@@ -23,12 +23,19 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 
 	protected $label;
 
+	protected $suppressRedraw = [];
+
 	public function __construct($caption = NULL) {
 		$this->monitor('Nette\Application\UI\Presenter');
 		parent::__construct();
 		$this->caption = $caption;
 		$this->label = Html::el('label');
 		$this->rules = new Nette\Forms\Rules($this);
+	}
+
+	public function doNotRedraw(Nette\Application\UI\Control $control) {
+		$this->suppressRedraw[] = $control;
+		return $this;
 	}
 
 	public function getLocale() {
@@ -70,8 +77,8 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 		return $this->lookup('Nette\Application\UI\Control')->translator->translate($s, $count);
 	}
 
-	public function getForm() {
-		return $this->lookup('Nette\Forms\Form');
+	public function getForm($need = TRUE) {
+		return $this->lookup('Nette\Forms\Form', $need);
 	}
 
 	public function loadHttpData() {
@@ -98,6 +105,18 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 
 	public function getOption() {}
 
+	public function isDisabled() {
+		return FALSE; // TODO
+	}
+
+	public function setDefaultValue($value) {
+		$form = $this->getForm();
+		if(!$form->isAnchored() || !$form->isSubmitted()) {
+			$this->setValue($value);
+		}
+		return $this;
+	}
+
 	public function getLabel($caption = NULL) {
 		$label = clone $this->label;
 		$label->setText($this->translate($caption === NULL ? $this->caption : $caption));
@@ -110,8 +129,12 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 	 * @param $presenter
 	 */
 	public function attached($presenter) {
+		parent::attached($presenter);
+		foreach($this->suppressRedraw as $control) {
+			$control->redrawControl(NULL, FALSE);
+		}
 		foreach($presenter->getComponents(TRUE, 'Nette\Application\UI\IRenderable') as $component) {
-			if(!$component instanceof BaseControl)
+			if(!$component instanceof BaseControl && !$component instanceof Nette\Forms\Form)
 				$component->redrawControl(NULL, FALSE);
 		}
 		$this->redrawControl();

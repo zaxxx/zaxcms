@@ -13,6 +13,9 @@ use Nette,
  */
 class DateTimeInput extends BaseControl {
 
+	/** @persistent */
+	public $selectedValue;
+
 	const SCOPE_DATE = 1,
 		  SCOPE_TIME = 2,
 		  SCOPE_DATETIME = 3;
@@ -73,6 +76,9 @@ class DateTimeInput extends BaseControl {
 	}
 
 	public function getValue() {
+		if($this->selectedValue !== NULL) {
+			$this->setValue($this->selectedValue);
+		}
 		return ($this->validDate($this->year, $this->month, $this->day) && $this->validTime($this->hour, $this->minute)
 			? Nette\Utils\DateTime::from($this->year . '-' . $this->month . '-' . $this->day . ' ' . ($this->hour === NULL ? '00' : $this->hour) . ':' . ($this->minute === NULL ? '00' : $this->minute) . ':00')
 			: NULL);
@@ -84,7 +90,6 @@ class DateTimeInput extends BaseControl {
 		$this->day = $this->getHttpData(Form::DATA_LINE, '[day]');
 		$this->hour = $this->getHttpData(Form::DATA_LINE, '[hour]');
 		$this->minute = $this->getHttpData(Form::DATA_LINE, '[minute]');
-		parent::loadHttpData();
 	}
 
 	public function beforeRender() {
@@ -93,12 +98,12 @@ class DateTimeInput extends BaseControl {
 		$t->selectedValue = $this->getValue();
 		$t->name = $this->name;
 		$t->input = $this;
+		$t->htmlName = $this->getHtmlName();
+		$t->canBeNull = $this->canBeNull;
 	}
 
 	public function handleSelectDate($date) {
-		$this->template->random = rand(0,10);
-		$this->redrawControl();
-		//$this->go('this');
+		$this->setValue($date);
 	}
 
 	public static function validateFilled(Nette\Forms\IControl $control) {
@@ -107,6 +112,17 @@ class DateTimeInput extends BaseControl {
 
 	public static function validateData(Nette\Forms\IControl $control) {
 		return $control->validDate($control->year, $control->month, $control->day) && $control->validTime($control->hour, $control->minute);
+	}
+
+	public function viewTime() {
+
+	}
+
+	public function loadState(array $params) {
+		parent::loadState($params);
+		if(isset($params['selectedValue'])) {
+			$this->setValue(Nette\Utils\DateTime::from($params['selectedValue']));
+		}
 	}
 
 }

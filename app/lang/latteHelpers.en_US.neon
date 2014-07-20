@@ -13,6 +13,14 @@ day:
     friday: "friday"
     saturday: "saturday"
     sunday: "sunday"
+shortDay:
+    monday: "mon"
+    tuesday: "tue"
+    wednesday: "wed"
+    thursday: "thu"
+    friday: "fri"
+    saturday: "sat"
+    sunday: "sun"
 month:
     january: "january"
     february: "february"

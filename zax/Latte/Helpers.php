@@ -26,7 +26,7 @@ class Helpers extends Nette\Object {
 	 * @var array
 	 */
 	protected static $days = [
-		'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'
+		'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
 	];
 
 	/**
@@ -37,6 +37,28 @@ class Helpers extends Nette\Object {
 	];
 
 	/**
+	 * @param $month 1-12
+	 * @return string
+	 */
+	public function beautifulMonth($month) {
+		return $this->translator->translate('latteHelpers.month.' . self::$months[(int)$month-1]);
+	}
+
+	/**
+	 * @param $day 1-7
+	 */
+	public function beautifulDayOfWeek($day) {
+		return $this->translator->translate('latteHelpers.day.' . self::$days[$day-1]);
+	}
+
+	/**
+	 * @param $day 1-7
+	 */
+	public function shortDayOfWeek($day) {
+		return $this->translator->translate('latteHelpers.shortDay.' . self::$days[$day-1]);
+	}
+
+	/**
 	 * @param $date
 	 * @return string
 	 */
@@ -44,9 +66,9 @@ class Helpers extends Nette\Object {
         if(is_int($date)) {
             $date = Nette\Utils\DateTime::from($date);
         }
-        return $this->translator->translate('latteHelpers.day.' . self::$days[$date->format('N')])
+        return $this->beautifulDayOfWeek($date->format('N'))
                 . ' ' . $date->format('j')
-                . '. ' . $this->translator->translate('latteHelpers.month.' . self::$months[$date->format('n')])
+                . '. ' . $this->beautifulMonth($date->format('n'))
                 . ' ' . $date->format('Y');
     }
 

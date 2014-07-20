@@ -1,0 +1,43 @@
+<div n:snippet>
+	<div class="if-js-hide">
+		<input n:if="$canBeNull" type="checkbox" name="{$htmlName}[null]"{if $selectedValue === NULL} checked{/if}>
+		{if $selectedValue === NULL}
+			{? $selectedValue = new Nette\Utils\DateTime}
+		{/if}
+		<select name="{$htmlName}[day]">
+			{for $i=1;$i<=31;$i++}
+				<option value="{$i}"{if (int)$selectedValue->format('d') === $i} selected{/if}>{$i}</option>
+			{/for}
+		</select>.
+		<select name="{$htmlName}[month]">
+			{for $i=1;$i<=12;$i++}
+				<option value="{$i}"{if (int)$selectedValue->format('m') === $i} selected{/if}>{$i|beautifulMonth}</option>
+			{/for}
+		</select>
+		<input class="about-4-chars-long" type="text" name="{$htmlName}[year]" value="{$selectedValue->format('Y')}">
+		-
+		<select name="{$htmlName}[hour]">
+			{for $i=0;$i<=23;$i++}
+				<option value="{$i}"{if (int)$selectedValue->format('h') === $i} selected{/if}>{$i}</option>
+			{/for}
+		</select>:<select name="{$htmlName}[minute]">
+			{for $i=0;$i<=59;$i++}
+				<option value="{$i}"{if (int)$selectedValue->format('i') === $i} selected{/if}>{$i}</option>
+			{/for}
+		</select>
+	</div>
+	<div class="if-not-js-hide">
+		<ul class="nav nav-tabs size-small">
+			<li n:if="$scope !== 2"{if $view === 'Default'} class="active"{/if}>
+				<a n:href="this, view=>Default" class="ajax"><span class="glyphicon glyphicon-calendar"></span>{$selectedValue|beautifulDate}</a>
+			</li>
+			<li n:if="$scope !== 1"{if $view === 'Time'} class="active"{/if}>
+				<a n:href="this, view=>Time" class="ajax"><span class="glyphicon glyphicon-time"></span> {$selectedValue|beautifulTime}</a>
+			</li>
+		</ul>
+
+		{include #dateTimeControl}
+
+		{* <a n:href="selectDate!, date => time()" class="ajax">test</a> *}
+	</div>
+</div>

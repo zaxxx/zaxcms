@@ -95,7 +95,7 @@ class EditControl extends Control {
 		$f->addStatic('localeFlag', 'webContent.form.locale')
 			->setDefaultValue($this->getLocale());
 		$f->addDateTime('lastUpdated', 'webContent.form.lastUpdated', TRUE)
-			->setValue($this->webContent->lastUpdated);
+			->setDefaultValue($this->webContent->lastUpdated);
 		$f->addStatic('lastUpdated2', 'webContent.form.lastUpdated')
 			->setDefaultValue($this->webContent->lastUpdated === NULL ? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never')) : $this->createTemplateHelpers()->beautifulDateTime($this->webContent->lastUpdated));
 		$f->addTextArea('content', 'webContent.form.content')
@@ -124,21 +124,23 @@ class EditControl extends Control {
 
 		$f->onSuccess[] = function(ZaxUI\Form $form, $values) {
 			$this->webContent->content = $values->content;
+			$this->webContent->lastUpdated = $values->lastUpdated;
 			$this->webContent->setTranslatableLocale($values->locale);
 
 			if($form->submitted === $form['editWebContent']) {
-				$this->webContent->lastUpdated = new \DateTime;
+				//$this->webContent->lastUpdated = new \DateTime;
 				$this->webContentService->getEm()->persist($this->webContent);
 				$this->webContentService->getEm()->flush();
-
+				$this->webContentService->getEm()->refresh($this->webContent);
 				$this->parent->invalidateCache();
+				$this->redrawControl();
 				$this->flashMessage('common.alert.changesSaved', 'success');
 			} else if($form->submitted === $form['previewWebContent']) {
 				$this->parent->redrawControl(NULL, FALSE);
 				$this->redrawControl('preview');
 			}
 
-			$this->go('this');
+			$this->go('this', []);
 		};
 
 		$f->onError[] = function() {
