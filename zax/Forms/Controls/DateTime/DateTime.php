@@ -17,7 +17,7 @@ class DateTimeInput extends BaseControl {
 	public $selectedValue;
 
 	/** @persistent */
-	public $setNull = FALSE;
+	public $setNull;
 
 	const SCOPE_DATE = 1,
 		  SCOPE_TIME = 2,
@@ -59,12 +59,8 @@ class DateTimeInput extends BaseControl {
 			$this->day = $date->format('j');
 			$this->hour = $date->format('G');
 			$this->minute = $date->format('i');
-			$this->setNull = FALSE;
 		} else {
 			$this->year = $this->month = $this->day = $this->hour = $this->minute = NULL;
-			if($this->canBeNull && $value === NULL) {
-				$this->setNull = TRUE;
-			}
 		}
 		parent::setValue($value);
 		return $this;
@@ -91,15 +87,19 @@ class DateTimeInput extends BaseControl {
 	}
 
 	public function getValue() {
-		if($this->setNull) {
+		if($this->isNull()) {
 			return NULL;
-		}
-		if($this->selectedValue !== NULL) {
-			$this->setValue($this->selectedValue);
 		}
 		return ($this->validDate($this->year, $this->month, $this->day) && $this->validTime($this->hour, $this->minute)
 			? Nette\Utils\DateTime::from($this->year . '-' . $this->month . '-' . $this->day . ' ' . ($this->hour === NULL ? '00' : $this->hour) . ':' . ($this->minute === NULL ? '00' : $this->minute) . ':00')
 			: NULL);
+	}
+
+	public function isNull() {
+		if($this->canBeNull) {
+			return $this->setNull;
+		}
+		return FALSE;
 	}
 
 	public function loadHttpData() {
@@ -123,7 +123,7 @@ class DateTimeInput extends BaseControl {
 		$t->input = $this;
 		$t->htmlName = $this->getHtmlName();
 		$t->canBeNull = $this->canBeNull;
-		$t->isNull = $this->setNull;
+		$t->isNull = (bool)$this->isNull();
 	}
 
 	public function handleSelectDate($date) {
@@ -148,7 +148,7 @@ class DateTimeInput extends BaseControl {
 
 	public function loadState(array $params) {
 		parent::loadState($params);
-		
+
 		if(isset($params['selectedValue'])) {
 			$this->setValue(Nette\Utils\DateTime::from($params['selectedValue']));
 		}
