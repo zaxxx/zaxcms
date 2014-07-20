@@ -59,9 +59,10 @@ class DateTimeInput extends BaseControl {
 			$this->day = $date->format('j');
 			$this->hour = $date->format('G');
 			$this->minute = $date->format('i');
+			$this->setNull = FALSE;
 		} else {
 			$this->year = $this->month = $this->day = $this->hour = $this->minute = NULL;
-			if($this->canBeNull) {
+			if($this->canBeNull && $value === NULL) {
 				$this->setNull = TRUE;
 			}
 		}
@@ -107,7 +108,9 @@ class DateTimeInput extends BaseControl {
 		$this->day = $this->getHttpData(Form::DATA_LINE, '[day]');
 		$this->hour = $this->getHttpData(Form::DATA_LINE, '[hour]');
 		$this->minute = $this->getHttpData(Form::DATA_LINE, '[minute]');
-		if($this->canBeNull && !(bool)$this->getHttpData(Form::DATA_LINE, '[null]')) {
+		$this->selectedValue = NULL;
+		$this->setNull = FALSE;
+		if($this->canBeNull && $this->getHttpData(Form::DATA_LINE, '[null]')==='1') {
 			$this->setNull = TRUE;
 		}
 	}
@@ -145,6 +148,7 @@ class DateTimeInput extends BaseControl {
 
 	public function loadState(array $params) {
 		parent::loadState($params);
+		
 		if(isset($params['selectedValue'])) {
 			$this->setValue(Nette\Utils\DateTime::from($params['selectedValue']));
 		}

@@ -3,7 +3,7 @@
 		{if $selectedValue === NULL}
 			{? $selectedValue = new Nette\Utils\DateTime}
 		{/if}
-		<label class="text-no-bold"><input n:if="$canBeNull" type="checkbox" value="1" name="{$htmlName}[null]"{if $isNull} checked{/if}>{_}dateTimeInput.button.isNull{/_}</label><br>
+		<label class="text-no-bold"><input n:if="$canBeNull" type="checkbox" value="{if $isNull}1{else}0{/if}" name="{$htmlName}[null]"{if $isNull} checked{/if}>{_}dateTimeInput.button.isNull{/_}</label><br>
 		<select name="{$htmlName}[day]">
 			{for $i=1;$i<=31;$i++}
 				<option value="{$i}"{if (int)$selectedValue->format('d') === $i} selected{/if}>{$i}</option>
