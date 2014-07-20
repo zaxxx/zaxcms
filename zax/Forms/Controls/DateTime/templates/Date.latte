@@ -66,7 +66,7 @@
 			{if $i === 1 && $dayOfWeek > 1}
 				{for $j=1;$j<$dayOfWeek;$j++}<td colspan="2"></td>{/for}
 			{/if}
-			<td colspan="2"{if $prototype == $selectedValue} class="bg-primary"{/if}><a n:href="this, selectedValue => $prototype->format('Y-m-d H:i:s'), setNull => FALSE" class="ajax">{$prototype->format('j')}</a></td>
+			<td colspan="2"{if $prototype == $selectedValue} class="bg-primary"{/if}><a n:href="this, selectedValue => $prototype->format('Y-m-d H:i:s'), setNull => FALSE" class="ajax" data-date-picker="{$htmlId}-day">{$prototype->format('j')}</a></td>
 			{if (int)$dayOfWeek % 7 === 0}
 				</tr>
 			{/if}

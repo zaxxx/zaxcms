@@ -35,7 +35,7 @@
 				<a n:href="this, view=> $view === Time ? Default : Time" class="ajax"><span class="glyphicon glyphicon-time"></span> {$selectedValue|beautifulTime}</a>
 			</li>
 			<li n:if="$canBeNull">
-				<a class="btn ajax{if $isNull} btn-danger{/if}" n:href="this, setNull => !$isNull"><span class="glyphicon glyphicon-{if $isNull}ok{else}remove{/if}"></span> {_}common.general.{if $isNull}is{else}isnt{/if}{/_} {_}dateTimeInput.button.isNull{/_}</a>
+				<a class="btn ajax{if $isNull} btn-danger{/if}" n:href="this, setNull => !$isNull, selectedValue => $selectedValue->format('Y-m-d H:i:s')"><span class="glyphicon glyphicon-{if $isNull}ok{else}remove{/if}"></span> {_}common.general.{if $isNull}is{else}isnt{/if}{/_} {_}dateTimeInput.button.isNull{/_}</a>
 			</li>
 		</ul>
 

@@ -93,6 +93,10 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 		return Nette\Forms\Helpers::generateHtmlName($this->lookupPath('Nette\Forms\Form'));
 	}
 
+	public function getHtmlId() {
+		return $this->lookupPath('Nette\Application\UI\Presenter');
+	}
+
 	public function isRequired() {
 		return $this->rules->isRequired();
 	}

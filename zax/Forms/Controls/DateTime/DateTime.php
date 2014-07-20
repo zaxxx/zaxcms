@@ -101,7 +101,7 @@ class DateTimeInput extends BaseControl {
 
 	public function isNull() {
 		if($this->canBeNull) {
-			return $this->setNull;
+			return $this->setNull || ($this->year === NULL && $this->month === NULL && $this->day === NULL && $this->hour === NULL && $this->minute === NULL);
 		}
 		return FALSE;
 	}
@@ -126,6 +126,7 @@ class DateTimeInput extends BaseControl {
 		$t->name = $this->name;
 		$t->input = $this;
 		$t->htmlName = $this->getHtmlName();
+		$t->htmlId = $this->getHtmlId();
 		$t->canBeNull = $this->canBeNull;
 		$t->isNull = (bool)$this->isNull();
 	}
