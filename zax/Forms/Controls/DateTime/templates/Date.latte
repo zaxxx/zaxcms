@@ -20,7 +20,7 @@
 				<ul class="nav nav-pills size-small nav-justified">
 					<li><a class="ajax" n:href="this, selectedValue => $selectedValue->modifyClone('-1 month')->format('Y-m-d H:i:s')"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown">{$month|beautifulMonth|firstUpper}</a>
+						<a class="dropdown-toggle cursor-pointer" data-toggle="dropdown">{$month|beautifulMonth|firstUpper}</a>
 						<ul class="dropdown-menu">
 							{for $i=1;$i<=12;$i++}
 								{? $prototype->setDate($year, $i, $day)}
@@ -35,7 +35,7 @@
 				<ul class="nav nav-pills size-small nav-justified">
 					<li><a class="ajax" n:href="this, selectedValue => $selectedValue->modifyClone('-1 year')->format('Y-m-d H:i:s')"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown">{$year}</a>
+						<a class="dropdown-toggle cursor-pointer" data-toggle="dropdown">{$year}</a>
 						<ul class="dropdown-menu">
 							{for $i=$year-10;$i<=$year+10;$i++}
 								{? $prototype->setDate($i, $month, $day)}

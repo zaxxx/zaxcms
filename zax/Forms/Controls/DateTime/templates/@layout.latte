@@ -29,7 +29,7 @@
 	<div class="if-not-js-hide">
 		<ul class="nav nav-{if $view === 'Default'}pills{else}tabs{/if} size-small">
 			<li n:if="$scope !== 2"{if $view === 'Date'} class="active"{/if}>
-				<a n:href="this, view=> $view === Date ? Default : Date" class="ajax"><span class="glyphicon glyphicon-calendar"></span>{$selectedValue|beautifulDate}</a>
+				<a n:href="this, view=> $view === Date ? Default : Date" class="ajax"><span class="glyphicon glyphicon-calendar"></span> {$selectedValue|beautifulDate}</a>
 			</li>
 			<li n:if="$scope !== 1"{if $view === 'Time'} class="active"{/if}>
 				<a n:href="this, view=> $view === Time ? Default : Time" class="ajax"><span class="glyphicon glyphicon-time"></span> {$selectedValue|beautifulTime}</a>
