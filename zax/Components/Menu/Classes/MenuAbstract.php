@@ -2,6 +2,7 @@
 
 namespace Zax\Components\Menu;
 use Nette,
+	Gedmo,
     Zax;
 
 abstract class MenuAbstract extends Nette\Object {
@@ -9,10 +10,18 @@ abstract class MenuAbstract extends Nette\Object {
     protected $data;
     
     protected $privileges;
+
+	/** @var Gedmo\Tree\Entity\Repository\NestedTreeRepository|NULL */
+	protected $menuRepository;
     
     public function __construct($data = []) {
         $this->data = $data;
     }
+
+	public function setRepository(Gedmo\Tree\Entity\Repository\NestedTreeRepository $repository) {
+		$this->menuRepository = $repository;
+		return $this;
+	}
     
     protected function getData($key, $default = NULL) {
 	    if(is_object($this->data)) {

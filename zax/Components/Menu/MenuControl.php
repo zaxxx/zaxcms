@@ -2,6 +2,7 @@
 
 namespace Zax\Components\Menu;
 use Nette,
+	Gedmo,
     Zax;
 
 class MenuControl extends Zax\Application\UI\Control {
@@ -11,6 +12,8 @@ class MenuControl extends Zax\Application\UI\Control {
     protected $menuListFactory;
 
 	protected $class = 'navbar navbar-default navbar-static-top';
+
+	protected $menuRepository;
     
     public function __construct(IMenuListFactory $menuListFactory) {
         $this->menuListFactory = $menuListFactory;
@@ -18,6 +21,11 @@ class MenuControl extends Zax\Application\UI\Control {
 
 	public function setMenu($menu = []) {
 		$this->menu = $menu;
+		return $this;
+	}
+
+	public function setRepository(Gedmo\Tree\Entity\Repository\NestedTreeRepository $repository) {
+		$this->menuRepository = $repository;
 		return $this;
 	}
     
@@ -33,8 +41,12 @@ class MenuControl extends Zax\Application\UI\Control {
 	}
     
     protected function createComponentMenu() {
+	    $menuList = new MenuList($this->menu);
+	    if($this->menuRepository !== NULL)
+		    $menuList->setRepository($this->menuRepository);
+
         return $this->menuListFactory->create()
-	        ->setMenu(new MenuList($this->menu));
+	        ->setMenu($menuList);
     }
     
 }

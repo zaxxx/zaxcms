@@ -28,7 +28,7 @@ class MenuModelFactory {
 		$menu = $this->menuService->getRepository()->findOneBy(['name' => $menu]);
 		$menu->setTranslatableLocale($this->getLocale());
 		$this->menuService->getEm()->refresh($menu);
-		return $this->menuFactory->create()->setMenu($menu);
+		return $this->menuFactory->create()->setMenu($menu)->setRepository($this->menuService->getRepository());
 	}
 
 }

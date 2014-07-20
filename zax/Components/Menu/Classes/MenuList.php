@@ -19,7 +19,7 @@ class MenuList extends MenuAbstract {
 		        return $this->items = [];
 	        }
 	        if(is_object($this->data)) {
-	            foreach($this->data->children as $item) {
+	            foreach($this->menuRepository->getChildren($this->data) as $item) {
 		            $items[$item->name] = new MenuItem($item);
 	            }
 	        }else if(is_array($this->data)) {
