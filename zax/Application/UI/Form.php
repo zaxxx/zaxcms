@@ -276,7 +276,6 @@ class Form extends Nette\Application\UI\Form {
 		$control = new Zax\Forms\Controls\DateTimeInput($label);
 		$control->setCanBeNull($canBeNull);
 		$control->setScope($control::SCOPE_TIME);
-		$control->setView('Time');
 		return $this[$name] = $control;
 	}
 

@@ -138,6 +138,10 @@ class DateTimeInput extends BaseControl {
 	public function viewTime() {
 
 	}
+	
+	public function viewDate() {
+	    
+	}
 
 	public function loadState(array $params) {
 		parent::loadState($params);
