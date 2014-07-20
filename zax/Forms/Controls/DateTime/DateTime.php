@@ -37,6 +37,8 @@ class DateTimeInput extends BaseControl {
 
 	protected $canBeNull = FALSE;
 
+	protected $rich = TRUE;
+
 	public function __construct($label = NULL) {
 		parent::__construct($label);
 	}
@@ -47,7 +49,12 @@ class DateTimeInput extends BaseControl {
 	}
 
 	public function setCanBeNull($can = TRUE) {
-		$this->canBeNull = $can;
+		$this->canBeNull = (bool)$can;
+		return $this;
+	}
+
+	public function setRich($rich = TRUE) {
+		$this->rich = (bool)$rich;
 		return $this;
 	}
 
@@ -128,7 +135,8 @@ class DateTimeInput extends BaseControl {
 		$t->htmlName = $this->getHtmlName();
 		$t->htmlId = $this->getHtmlId();
 		$t->canBeNull = $this->canBeNull;
-		$t->isNull = (bool)$this->isNull();
+		$t->isNull = $this->isNull();
+		$t->rich = $this->rich;
 	}
 
 	public function handleSelectDate($date) {

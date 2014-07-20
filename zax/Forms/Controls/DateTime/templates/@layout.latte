@@ -1,9 +1,9 @@
 <div n:snippet>
-	<div class="if-js-hide">
+	<div{if $rich} class="if-js-hide"{/if}>
 		{if $selectedValue === NULL}
 			{? $selectedValue = new Nette\Utils\DateTime}
 		{/if}
-		<label class="text-no-bold"><input n:if="$canBeNull" type="checkbox" value="{if $isNull}1{else}0{/if}" name="{$htmlName}-null"{if $isNull} checked{/if}>{_}dateTimeInput.button.isNull{/_}</label><br>
+		<label class="text-no-bold"><input n:if="$canBeNull" type="checkbox" value="1" name="{$htmlName}-null"{if $isNull} checked{/if}>{_}dateTimeInput.button.isNull{/_}</label><br>
 		<select name="{$htmlName}-day">
 			{for $i=1;$i<=31;$i++}
 				<option value="{$i}"{if (int)$selectedValue->format('d') === $i} selected{/if}>{$i}</option>
@@ -26,7 +26,7 @@
 			{/for}
 		</select>
 	</div>
-	<div class="if-not-js-hide">
+	<div n:if="$rich" class="if-not-js-hide">
 		<ul class="nav nav-{if $view === 'Default'}pills{else}tabs{/if} size-small">
 			<li n:if="$scope !== 2"{if $view === 'Date'} class="active"{/if}>
 				<a n:href="this, view=> $view === Date ? Default : Date" class="ajax"><span class="glyphicon glyphicon-calendar"></span> {$selectedValue|beautifulDate}</a>
@@ -38,9 +38,6 @@
 				<a class="btn ajax{if $isNull} btn-danger{/if}" n:href="this, setNull => !$isNull, selectedValue => $selectedValue->format('Y-m-d H:i:s')"><span class="glyphicon glyphicon-{if $isNull}ok{else}remove{/if}"></span> {_}common.general.{if $isNull}is{else}isnt{/if}{/_} {_}dateTimeInput.button.isNull{/_}</a>
 			</li>
 		</ul>
-
 		{include #dateTimeControl}
-
-		{* <a n:href="selectDate!, date => time()" class="ajax">test</a> *}
 	</div>
 </div>
