@@ -23,9 +23,11 @@ class DefaultFormRenderer extends Nette\Forms\Rendering\DefaultFormRenderer {
 	}
     
     /*
-     * Basically a opy&paste from Nette DefaultFormRenderer - credits to David Grudl
-     * 
-     * I only changed "control" to "submits" right before return keyword.
+     * The following method is derived from code of Nette Framework 2.2
+     *
+     * Code subject to the new BSD license (http://nette.org/cs/license#toc-new-bsd-license).
+     *
+     * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
      */
     public function renderPairMulti(array $controls) {
         $s = array();

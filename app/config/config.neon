@@ -84,6 +84,8 @@ translation:
 
 ## Mandatory services
 services:
+    - Gedmo\Translatable\TranslatableListener
+
     - Zax\Utils\AppDir(%appDir%)
     - Zax\Utils\RootDir(%rootDir%)
     - Zax\Application\UI\FormFactory

@@ -29,7 +29,7 @@ use Zax,
  * @property Permission[] $permissions
  * @property Menu|NULL $parent
  */
-class Menu extends BaseEntity {
+class Menu extends BaseEntity implements Translatable {
 
 	/**
 	 * @ORM\Id
