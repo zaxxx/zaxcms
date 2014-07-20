@@ -18,7 +18,7 @@
 		-
 		<select name="{$htmlName}[hour]">
 			{for $i=0;$i<=23;$i++}
-				<option value="{$i}"{if (int)$selectedValue->format('h') === $i} selected{/if}>{$i}</option>
+				<option value="{$i}"{if (int)$selectedValue->format('H') === $i} selected{/if}>{$i}</option>
 			{/for}
 		</select>:<select name="{$htmlName}[minute]">
 			{for $i=0;$i<=59;$i++}

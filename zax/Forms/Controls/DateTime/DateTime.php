@@ -86,12 +86,16 @@ class DateTimeInput extends BaseControl {
 		}
 	}
 
+	private function lz($val) {
+		return strlen($val) === 2 ? $val : '0' . ($val === NULL ? '0' : $val);
+	}
+
 	public function getValue() {
 		if($this->isNull()) {
 			return NULL;
 		}
 		return ($this->validDate($this->year, $this->month, $this->day) && $this->validTime($this->hour, $this->minute)
-			? Nette\Utils\DateTime::from($this->year . '-' . $this->month . '-' . $this->day . ' ' . ($this->hour === NULL ? '00' : $this->hour) . ':' . ($this->minute === NULL ? '00' : $this->minute) . ':00')
+			? Nette\Utils\DateTime::from($this->year . '-' . $this->lz($this->month) . '-' . $this->lz($this->day) . ' ' . $this->lz($this->hour) . ':' . $this->lz($this->minute) . ':00')
 			: NULL);
 	}
 

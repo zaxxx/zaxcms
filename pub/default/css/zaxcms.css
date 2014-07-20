@@ -50,3 +50,9 @@ input.about-3-chars-long {
 input.about-2-chars-long {
     width:40px;
 }
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

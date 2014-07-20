@@ -3,10 +3,30 @@
 	{if $selectedValue === NULL}
 		{? $selectedValue = new Nette\Utils\DateTime}
 	{/if}
-	{if $isNull}
-		null
-	{else}
-		{$selectedValue|beautifulDateTime}
-	{/if}
+	<div class="well">
+
+		{var $prototype = clone $selectedValue}
+		<ul class="nav nav-pills">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown">{$selectedValue->format('H')}</a>
+				<ul class="dropdown-menu">
+				{for $i=0;$i<=23;$i++}
+					{? $prototype->setTime($i, (int)$prototype->format('i'))}
+					<li{if (int)$selectedValue->format('H') === $i} class="active"{/if}><a class="ajax" n:href="this, selectedValue => $prototype->format('Y-m-d H:i:s')">{$i}</a></li>
+				{/for}
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown">{$selectedValue->format('i')}</a>
+				<ul class="dropdown-menu">
+				{for $i=0;$i<=59;$i++}
+					{? $prototype->setTime((int)$prototype->format('H'), $i)}
+					<li{if (int)$selectedValue->format('i') === $i} class="active"{/if}><a class="ajax" n:href="this, selectedValue => $prototype->format('Y-m-d H:i:s')">{$i}</a></li>
+				{/for}
+				</ul>
+			</li>
+		</ul>
+
+	</div>
 
 {/define}
