@@ -22,7 +22,7 @@ class DefaultFormRenderer extends Nette\Forms\Rendering\DefaultFormRenderer {
 
 	}
     
-    /*
+    /**
      * The following method is derived from code of Nette Framework 2.2
      *
      * Code subject to the new BSD license (http://nette.org/cs/license#toc-new-bsd-license).
