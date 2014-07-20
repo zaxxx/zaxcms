@@ -3,24 +3,24 @@
 		{if $selectedValue === NULL}
 			{? $selectedValue = new Nette\Utils\DateTime}
 		{/if}
-		<label class="text-no-bold"><input n:if="$canBeNull" type="checkbox" value="{if $isNull}1{else}0{/if}" name="{$htmlName}[null]"{if $isNull} checked{/if}>{_}dateTimeInput.button.isNull{/_}</label><br>
-		<select name="{$htmlName}[day]">
+		<label class="text-no-bold"><input n:if="$canBeNull" type="checkbox" value="{if $isNull}1{else}0{/if}" name="{$htmlName}-null"{if $isNull} checked{/if}>{_}dateTimeInput.button.isNull{/_}</label><br>
+		<select name="{$htmlName}-day">
 			{for $i=1;$i<=31;$i++}
 				<option value="{$i}"{if (int)$selectedValue->format('d') === $i} selected{/if}>{$i}</option>
 			{/for}
 		</select>.
-		<select name="{$htmlName}[month]">
+		<select name="{$htmlName}-month">
 			{for $i=1;$i<=12;$i++}
 				<option value="{$i}"{if (int)$selectedValue->format('m') === $i} selected{/if}>{$i|beautifulMonth}</option>
 			{/for}
 		</select>
-		<input class="about-4-chars-long" type="text" name="{$htmlName}[year]" value="{$selectedValue->format('Y')}">
+		<input class="about-4-chars-long" type="text" name="{$htmlName}-year" value="{$selectedValue->format('Y')}">
 		-
-		<select name="{$htmlName}[hour]">
+		<select name="{$htmlName}-hour">
 			{for $i=0;$i<=23;$i++}
 				<option value="{$i}"{if (int)$selectedValue->format('H') === $i} selected{/if}>{$i}</option>
 			{/for}
-		</select>:<select name="{$htmlName}[minute]">
+		</select>:<select name="{$htmlName}-minute">
 			{for $i=0;$i<=59;$i++}
 				<option value="{$i}"{if (int)$selectedValue->format('i') === $i} selected{/if}>{$i}</option>
 			{/for}

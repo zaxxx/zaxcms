@@ -107,14 +107,14 @@ class DateTimeInput extends BaseControl {
 	}
 
 	public function loadHttpData() {
-		$this->year = $this->getHttpData(Form::DATA_LINE, '[year]');
-		$this->month = $this->getHttpData(Form::DATA_LINE, '[month]');
-		$this->day = $this->getHttpData(Form::DATA_LINE, '[day]');
-		$this->hour = $this->getHttpData(Form::DATA_LINE, '[hour]');
-		$this->minute = $this->getHttpData(Form::DATA_LINE, '[minute]');
+		$this->year = $this->getHttpData(Form::DATA_LINE, '-year');
+		$this->month = $this->getHttpData(Form::DATA_LINE, '-month');
+		$this->day = $this->getHttpData(Form::DATA_LINE, '-day');
+		$this->hour = $this->getHttpData(Form::DATA_LINE, '-hour');
+		$this->minute = $this->getHttpData(Form::DATA_LINE, '-minute');
 		$this->selectedValue = NULL;
 		$this->setNull = FALSE;
-		if($this->canBeNull && $this->getHttpData(Form::DATA_LINE, '[null]')==='1') {
+		if($this->canBeNull && $this->getHttpData(Form::DATA_LINE, '-null')==='1') {
 			$this->setNull = TRUE;
 		}
 	}
