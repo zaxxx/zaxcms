@@ -38,6 +38,7 @@ I want a CMS which is easy for me to understand, fun to build apps on top of and
  - [x] Better AJAX support
  - [x] Very ~~simple~~ lame form <--> entity binding
  - [ ] Custom form inputs
+  - [x] Abstract input empowered by UI\Control
   - [x] Static input
   - [x] Button submit
   - [x] Link submit
