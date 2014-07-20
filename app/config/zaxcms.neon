@@ -18,6 +18,7 @@ services:
 
 ## Components
 
+    - ZaxCMS\Components\WebContent\IEditFormFactory
     - ZaxCMS\Components\WebContent\IEditFactory
     - ZaxCMS\Components\WebContent\IWebContentFactory
 

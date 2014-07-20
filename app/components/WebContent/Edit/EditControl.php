@@ -21,6 +21,11 @@ class EditControl extends Control {
 	protected $webContentService;
 
 	/**
+	 * @var IEditFormFactory
+	 */
+	protected $editFormFactory;
+
+	/**
 	 * @var Zax\Components\FileManager\IFileManagerFactory
 	 */
 	protected $fileManagerFactory;
@@ -34,13 +39,16 @@ class EditControl extends Control {
 	public $locale;
 
 	/**
+	 * @param IEditFormFactory                               $editFormFactory
 	 * @param Model\WebContentService                        $webContentService
 	 * @param Zax\Components\FileManager\IFileManagerFactory $fileManagerFactory
 	 * @param Zax\Utils\RootDir                              $rootDir
 	 */
-	public function __construct(Model\WebContentService $webContentService,
+	public function __construct(IEditFormFactory $editFormFactory,
+								Model\WebContentService $webContentService,
 	                            Zax\Components\FileManager\IFileManagerFactory $fileManagerFactory,
 	                            Zax\Utils\RootDir $rootDir) {
+		$this->editFormFactory = $editFormFactory;
 		$this->webContentService = $webContentService;
 		$this->fileManagerFactory = $fileManagerFactory;
 		$this->rootDir = $rootDir;
@@ -87,67 +95,9 @@ class EditControl extends Control {
 	 * @return ZaxUI\Form
 	 */
 	protected function createComponentEditForm() {
-		$f = $this->createForm();
-
-		$this->webContent->setTranslatableLocale($this->getLocale());
-		$this->webContentService->getEm()->refresh($this->webContent);
-
-		$f->addStatic('localeFlag', 'webContent.form.locale')
-			->setDefaultValue($this->getLocale());
-		$f->addDateTime('lastUpdated', 'webContent.form.lastUpdated', TRUE)
-			->setDefaultValue($this->webContent->lastUpdated);
-		$f->addStatic('lastUpdated2', 'webContent.form.lastUpdated')
-			->setDefaultValue($this->webContent->lastUpdated === NULL ? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never')) : $this->createTemplateHelpers()->beautifulDateTime($this->webContent->lastUpdated));
-		$f->addTextArea('content', 'webContent.form.content')
-			->setDefaultValue($this->webContent->content)
-			->getControlPrototype()->rows(10);
-		$f->addHidden('locale', $this->getLocale());
-
-		$f->addProtection();
-
-		$f->addButtonSubmit('editWebContent', 'common.button.saveChanges', 'pencil');
-		$f->addButtonSubmit('previewWebContent', 'common.button.preview', 'search');
-		$f->addLinkSubmit('cancel', 'common.button.close', 'remove', $this->link('cancel!'));
-
-		$f->addStatic('note', '')
-			->setDefaultValue($this->translator->translate('webContent.panel.previewIsBelow'));
-
-		$f->enableBootstrap([
-			'success' => ['editWebContent'],
-			'primary' => ['previewWebContent'],
-			'default' => ['cancel']
-		], TRUE);
-
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
-		$f->onSuccess[] = function(ZaxUI\Form $form, $values) {
-			$this->webContent->content = $values->content;
-			$this->webContent->lastUpdated = $values->lastUpdated;
-			$this->webContent->setTranslatableLocale($values->locale);
-
-			if($form->submitted === $form['editWebContent']) {
-				//$this->webContent->lastUpdated = new \DateTime;
-				$this->webContentService->getEm()->persist($this->webContent);
-				$this->webContentService->getEm()->flush();
-				$this->webContentService->getEm()->refresh($this->webContent);
-				$this->parent->invalidateCache();
-				$this->redrawControl();
-				$this->flashMessage('common.alert.changesSaved', 'success');
-			} else if($form->submitted === $form['previewWebContent']) {
-				$this->parent->redrawControl(NULL, FALSE);
-				$this->redrawControl('preview');
-			}
-
-			$this->go('this', []);
-		};
-
-		$f->onError[] = function() {
-			$this->flashMessage('common.alert.changesError', 'danger');
-		};
-
-		return $f;
+		return $this->editFormFactory->create()
+			->setService($this->webContentService)
+			->setWebContent($this->webContent);
 	}
 
 	/**

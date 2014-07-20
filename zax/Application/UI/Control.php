@@ -36,20 +36,8 @@ abstract class Control extends Nette\Application\UI\Control {
 	/** @var bool */
     protected $autoAjax = FALSE;
 
-	/** @var Zax\Application\UI\FormFactory */
-	protected $formFactory;
-
 	/** @var SnippetGenerators\ISnippetGenerator */
 	protected $snippetGenerator;
-
-	/** @var Zax\Forms\IBinder */
-	protected $binder;
-
-	public function injectDependencies(Zax\Application\UI\FormFactory $formFactory,
-	                                   Zax\Forms\IBinder $binder) {
-		$this->formFactory = $formFactory;
-		$this->binder = $binder;
-	}
 
 	/**
 	 * Sends flash messages to presenter.
@@ -299,15 +287,6 @@ abstract class Control extends Nette\Application\UI\Control {
         $template->view = $this->view;
         return $template;
     }
-
-	/**
-	 * Translated form factory
-	 *
-	 * @return Form
-	 */
-	public function createForm() {
-		return $this->formFactory->create();
-	}
 
 	/**
 	 * replacement for render(), descendants should override this method
