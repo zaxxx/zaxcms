@@ -7,7 +7,7 @@ use Zax,
 	Kdyby;
 
 
-class WebContentService extends Service implements Zax\Model\IService {
+class WebContentService extends Service {
 
 	public function __construct(Kdyby\Doctrine\EntityManager $em) {
 		$this->em = $em;

@@ -96,6 +96,7 @@ class EditControl extends Control {
 	 */
 	protected function createComponentEditForm() {
 		return $this->editFormFactory->create()
+			->enableAjax(!$this->autoAjax)
 			->setService($this->webContentService)
 			->setWebContent($this->webContent);
 	}

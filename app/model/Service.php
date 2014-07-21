@@ -6,16 +6,15 @@ use Zax,
 	Nette,
 	Kdyby;
 
-/**
- * @method findAll()
- *
- */
-abstract class Service extends Nette\Object {
+abstract class Service extends Nette\Object implements Zax\Model\IService {
 
 	protected $em;
 
 	protected $className;
 
+	/**
+	 * @return Kdyby\Doctrine\EntityDao
+	 */
 	public function getDao() {
 		return $this->em->getDao($this->className);
 	}
@@ -29,6 +28,26 @@ abstract class Service extends Nette\Object {
 	 */
 	public function getEm() {
 		return $this->em;
+	}
+
+	public function findBy($criteria, $orderBy = NULL, $limit = NULL, $offset = NULL) {
+		return $this->getDao()->findBy($criteria, $orderBy, $limit, $offset);
+	}
+
+	public function getBy($criteria, $orderBy = NULL) {
+		return $this->getDao()->findOneBy($criteria, $orderBy);
+	}
+
+	public function persist($entity) {
+		return $this->getEm()->persist($entity);
+	}
+
+	public function remove($entity) {
+		return $this->getEm()->remove($entity);
+	}
+
+	public function flush() {
+		return $this->getEm()->flush();
 	}
 
 }

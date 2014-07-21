@@ -4,6 +4,8 @@ namespace ZaxCMS\Components\WebContent;
 use Nette,
     Zax,
     ZaxCMS\Model,
+	Doctrine,
+	Kdyby,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
     Zax\Application\UI\FormControl;
@@ -29,14 +31,14 @@ class EditFormControl extends FormControl {
 
 		$f->addStatic('localeFlag', 'webContent.form.locale')
 			->setDefaultValue($this->getLocale());
-		$f->addDateTime('lastUpdated', 'webContent.form.lastUpdated', TRUE)
-			->setDefaultValue($this->webContent->lastUpdated);
-		$f->addStatic('lastUpdated2', 'webContent.form.lastUpdated')
-			->setDefaultValue($this->webContent->lastUpdated === NULL ? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never')) : $this->createTemplateHelpers()->beautifulDateTime($this->webContent->lastUpdated));
+		$f->addDateTime('lastUpdated', 'webContent.form.lastUpdated', TRUE);
+		//$f->addStatic('lastUpdated2', 'webContent.form.lastUpdated')
+		//	->setDefaultValue($this->webContent->lastUpdated === NULL ? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never')) : $this->createTemplateHelpers()->beautifulDateTime($this->webContent->lastUpdated));
 		$f->addTextArea('content', 'webContent.form.content')
-			->setDefaultValue($this->webContent->content)
 			->getControlPrototype()->rows(10);
 		$f->addHidden('locale', $this->getLocale());
+
+		$this->binder->entityToForm($this->webContent, $f);
 
 		$f->addProtection();
 
@@ -61,11 +63,25 @@ class EditFormControl extends FormControl {
 	}
 
 	public function formSuccess(Nette\Forms\Form $form, $values) {
-
+		if($form->submitted === $form['editWebContent']) {
+			$this->binder->formToEntity($form, $this->webContent);
+			$this->service->persist($this->webContent);
+			$this->service->flush();
+			$this->flashMessage('common.alert.changesSaved', 'success');
+			$this->parent->redrawControl();
+			$this->parent->go('this');
+		} else if($form->submitted === $form['previewWebContent']) {
+			$this->binder->formToEntity($form, $this->webContent);
+			$this->parent->redrawControl('preview');
+		}
 	}
 
 	public function formError(Nette\Forms\Form $form) {
+		$this->flashMessage('common.alert.changesError', 'error');
+	}
 
+	public function handleCancel() {
+		$this->parent->close();
 	}
 	
 	protected function createComponentForm() {
