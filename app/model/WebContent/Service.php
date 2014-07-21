@@ -32,4 +32,8 @@ class WebContentService extends Service {
 		return parent::persist($entity);
 	}
 
+	public function getByName($name) {
+		return $this->getBy(['name' => $name]);
+	}
+
 }

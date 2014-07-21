@@ -10,9 +10,6 @@ use Nette,
 
 class EditControl extends Control {
 
-	/**
-	 * @var Model\WebContent
-	 */
 	protected $webContent;
 
 	/**
@@ -54,15 +51,20 @@ class EditControl extends Control {
 		$this->rootDir = $rootDir;
 	}
 
-	/**
-	 * @param Model\WebContent $webContent
-	 * @return $this
-	 */
+	public function getLocale() {
+		if($this->locale === NULL || !in_array($this->locale, $this->getAvailableLocales())) {
+			return parent::getLocale();
+		}
+		return $this->locale;
+	}
+
 	public function setWebContent(Model\WebContent $webContent) {
 		$this->webContent = $webContent;
-		$this->webContent->setTranslatableLocale($this->getLocale());
-		$this->webContentService->refresh($this->webContent);
 		return $this;
+	}
+
+	public function getWebContent() {
+		return $this->webContent;
 	}
 
 	public function viewDefault() {
@@ -76,7 +78,7 @@ class EditControl extends Control {
 	public function beforeRender() {
 		$this->template->availableLocales = $this->getAvailableLocales();
 		$this->template->currentLocale = $this->getLocale();
-		$this->template->webContent = $this->webContent;
+		$this->template->webContent = $this->getWebContent();
 	}
 
 	public function handleClose() {
@@ -98,7 +100,7 @@ class EditControl extends Control {
 		return $this->editFormFactory->create()
 			->enableAjax(!$this->autoAjax)
 			->setService($this->webContentService)
-			->setWebContent($this->webContent);
+			->setWebContent($this->getWebContent());
 	}
 
 	/**

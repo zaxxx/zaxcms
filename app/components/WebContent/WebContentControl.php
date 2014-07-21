@@ -59,19 +59,24 @@ class WebContentControl extends Control {
 			return $this->webContent->name;
 	}
 
-	/**
-	 * @return null|Model\WebContent
-	 */
-	public function getWebContent() {
+	protected function loadWebContent() {
 		if($this->webContent === NULL) {
-			$webContent = $this->webContentService->getDao()->findOneByName($this->name);
+			$webContent = $this->webContentService->getByName($this->name);
 			if($webContent === NULL && $this->canEditWebContent()) {
 				$webContent = $this->webContentService->createWebContent($this->name);
 			}
 			$this->setWebContent($webContent);
 		}
-		$this->webContent->setTranslatableLocale($this->getLocale());
-		$this->webContentService->refresh($this->webContent);
+	}
+
+	/**
+	 * @return null|Model\WebContent
+	 */
+	public function getWebContent() {
+		if($this->webContent === NULL) {
+			$this->loadWebContent();
+		}
+
 		return $this->webContent;
 	}
 
@@ -102,7 +107,8 @@ class WebContentControl extends Control {
 	public function viewDefault() {
 		$texyfied = $this->cache->load('texyfied-' . $this->translator->getLocale());
 		if($texyfied === NULL) {
-			$this->webContentService->getEm()->refresh($this->getWebContent());
+			$this->getWebContent()->setTranslatableLocale($this->getLocale());
+			$this->webContentService->refresh($this->getWebContent());
 			$this->cache->save(
 				'texyfied-' . $this->translator->getLocale(),
 				$texyfied = $this->createTexy()->process($this->getWebContent()->content),

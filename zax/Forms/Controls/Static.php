@@ -14,26 +14,29 @@ use Nette,
  */
 class StaticControl extends BaseControl {
 
-	protected $value;
+	protected $filters = [];
 
 	public function loadHttpData() {
 
 	}
 
-	public function setValue($value) {
-		$this->value = $value;
+	public function addFilter($callback) {
+		$this->filters[] = $callback;
 		return $this;
-	}
-
-	public function getValue() {
-		return $this->value;
 	}
 
 	public function getControl() {
 		$this->setOption('rendered', TRUE);
 
-		// '.form-group' ensures proper vertical alignment in inline forms
-		return Html::el('p')->id($this->getHtmlId())->class('form-control-static form-group')->setText($this->value);
+		$value = $this->value;
+		foreach($this->filters as $filter) {
+			$value = $filter($value);
+		}
+		$p = Html::el('p')->id($this->getHtmlId())->class('form-control-static form-group');
+		if($value instanceof Html)
+			return $p->setHtml($value);
+		else
+			return $p->setText((string)$value);
 	}
 }
  

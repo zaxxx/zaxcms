@@ -23,13 +23,24 @@ class EditFormControl extends FormControl {
 		return $this;
 	}
 
+	public function getWebContent() {
+		return $this->webContent;
+	}
+
 	public function createForm() {
 		$f = parent::createForm();
 
+		$this->webContent->setTranslatableLocale($this->parent->getLocale());
+		$this->service->refresh($this->webContent);
+
 		$f->addStatic('localeFlag', 'webContent.form.locale')
 			->setDefaultValue($this->parent->getLocale());
-		$f->addStatic('lastUpdatedStatic', 'webContent.form.lastUpdated')
-			->setDefaultValue($this->webContent->lastUpdated === NULL ? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never')) : $this->createTemplateHelpers()->beautifulDateTime($this->webContent->lastUpdated));
+		$f->addStatic('lastUpdatedstat', 'webContent.form.lastUpdated')
+			->addFilter(function($value) {
+				return $this->getWebContent()->lastUpdated === NULL
+					? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never'))
+					: $this->createTemplateHelpers()->beautifulDateTime($this->getWebContent()->lastUpdated);
+			});
 		$f->addTextArea('content', 'webContent.form.content')
 			->getControlPrototype()->rows(10);
 		$f->addHidden('locale', $this->getLocale());
@@ -61,11 +72,10 @@ class EditFormControl extends FormControl {
 	public function formSuccess(Nette\Forms\Form $form, $values) {
 		if($form->submitted === $form['editWebContent']) {
 			$this->binder->formToEntity($form, $this->webContent);
+			$this->service->persist($this->webContent);
 			$this->service->flush();
-			$this->service->refresh($this->webContent);
 			$this->lookup('ZaxCMS\Components\WebContent\WebContentControl')->invalidateCache();
 			$this->flashMessage('common.alert.changesSaved', 'success');
-			$this->parent->redrawControl();
 			$this->parent->go('this');
 		} else if($form->submitted === $form['previewWebContent']) {
 			$this->binder->formToEntity($form, $this->webContent);
