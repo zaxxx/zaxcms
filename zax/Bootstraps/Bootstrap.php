@@ -32,6 +32,8 @@ class Bootstrap implements Zax\IBootstrap {
 
 	protected $loaderPaths = [];
 
+	protected $configs = [];
+
 	protected $defaultTimezone = 'Europe/Prague';
 
 	protected $isDebugger;
@@ -62,6 +64,11 @@ class Bootstrap implements Zax\IBootstrap {
 	 */
 	public function addDebuggerEmail($email) {
 		$this->debugEmails[] = $email;
+		return $this;
+	}
+
+	public function addConfig($config) {
+		$this->configs[] = $config;
 		return $this;
 	}
 
@@ -142,16 +149,13 @@ class Bootstrap implements Zax\IBootstrap {
 	 */
 	protected function isDebugger() {
 		if($this->isDebugger === NULL) {
-			return $this->isDebugger = in_array($_SERVER['REMOTE_ADDR'], $this->debuggers);
+			return $this->isDebugger = isset($_SERVER['REMOTE_ADDR']) && in_array($_SERVER['REMOTE_ADDR'], $this->debuggers);
 		} else {
 			return $this->isDebugger;
 		}
 	}
 
-	/**
-	 * Runs the application
-	 */
-	public function boot() {
+	public function setUp() {
 		date_default_timezone_set($this->defaultTimezone);
 
 		if($this->debug && !$this->isDebugger()) {
@@ -193,6 +197,9 @@ class Bootstrap implements Zax\IBootstrap {
 		foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir) as $config) {
 			$configurator->addConfig($config->getRealPath());
 		}
+		foreach($this->configs as $config) {
+			$configurator->addConfig($config);
+		}
 
 
 
@@ -215,6 +222,15 @@ class Bootstrap implements Zax\IBootstrap {
 			}
 		}
 
+		return $container;
+	}
+
+	/**
+	 * Runs the application
+	 */
+	public function boot() {
+
+		$container = $this->setUp();
 
 		$app = $container->application;
 		if($this->debug && $this->isDebugger()) {

@@ -13,5 +13,8 @@
         "rixxi/gedmo": "1.0.1",
         "dg/texy": "v2.6",
         "kdyby/translation": "v2.0.1"
+    },
+    "require-dev": {
+        "nette/tester": "v1.2.0"
     }
 }
