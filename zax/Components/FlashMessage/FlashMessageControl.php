@@ -2,8 +2,8 @@
 
 namespace Zax\Components\FlashMessage;
 use Nette,
-    Zax,
-    Zax\Application\UI\Control;
+	Zax,
+	Zax\Application\UI\Control;
 
 class FlashMessageControl extends Control {
 
@@ -17,26 +17,26 @@ class FlashMessageControl extends Control {
 	 */
 	protected $glyphicons = FALSE;
 
-    public function setFlashes($flashes) {
-        $this->flashes = $flashes;
-        return $this;
-    }
+	public function setFlashes($flashes) {
+		$this->flashes = $flashes;
+		return $this;
+	}
 
 	/**
 	 * @return $this
 	 */
 	public function enableGlyphicons() {
-        $this->glyphicons = TRUE;
-        return $this;
-    }
+		$this->glyphicons = TRUE;
+		return $this;
+	}
 
 	public function viewDefault() {
-        $this->template->flashes = $this->flashes;
-        $this->template->glyphicons = $this->glyphicons;
-    }
-    
-    public function beforeRender() {
-        
-    }
+		$this->template->flashes = $this->flashes;
+		$this->template->glyphicons = $this->glyphicons;
+	}
+
+	public function beforeRender() {
+
+	}
 
 }

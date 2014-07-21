@@ -2,7 +2,7 @@
 
 namespace Zax\Application\UI;
 use Nette,
-    Zax,
+	Zax,
 	Kdyby;
 
 /**
@@ -22,13 +22,13 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	public $locale = 'cs_CZ';
 
 	/** @var Zax\Components\FlashMessage\IFlashMessageFactory */
-    protected $flashMessageFactory;
+	protected $flashMessageFactory;
 
 	/** @var Zax\Components\StaticLinker\IStaticLinkerFactory */
-    protected $staticLinkerFactory;
+	protected $staticLinkerFactory;
 
 	/** @var bool */
-    protected $ajaxEnabled = FALSE;
+	protected $ajaxEnabled = FALSE;
 
 	/**
 	 * @var Zax\Utils\RootDir
@@ -41,13 +41,13 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	 * @param Zax\Utils\RootDir                                $rootDir
 	 */
 	public function injectDependencies(
-        Zax\Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory,
-        Zax\Components\FlashMessage\IFlashMessageFactory $flashMessageFactory,
-	    Zax\Utils\RootDir $rootDir) {
-        $this->staticLinkerFactory = $staticLinkerFactory;
-        $this->flashMessageFactory = $flashMessageFactory;
-	    $this->rootDir = $rootDir;
-    }
+		Zax\Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory,
+		Zax\Components\FlashMessage\IFlashMessageFactory $flashMessageFactory,
+		Zax\Utils\RootDir $rootDir) {
+		$this->staticLinkerFactory = $staticLinkerFactory;
+		$this->flashMessageFactory = $flashMessageFactory;
+		$this->rootDir = $rootDir;
+	}
 
 	/**
 	 * Template helpers factory
@@ -55,8 +55,8 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	 * @return Zax\Latte\Helpers
 	 */
 	protected function createTemplateHelpers() {
-        return new Zax\Latte\Helpers;
-    }
+		return new Zax\Latte\Helpers;
+	}
 
 	/**
 	 * Template factory
@@ -64,14 +64,14 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	 * @return Nette\Application\UI\ITemplate
 	 */
 	public function createTemplate() {
-        $template = parent::createTemplate();
-	    $template->setTranslator($this->translator);
+		$template = parent::createTemplate();
+		$template->setTranslator($this->translator);
 		$template->currentLocale = $this->getLocale();
 		$template->availableLocales = $this->getAvailableLocales();
-        $helpers = $this->createTemplateHelpers();
-        $template->getLatte()->addFilter(NULL, [$helpers, 'loader']);
-        return $template;
-    }
+		$helpers = $this->createTemplateHelpers();
+		$template->getLatte()->addFilter(NULL, [$helpers, 'loader']);
+		return $template;
+	}
 
 	/**
 	 * Additionally redraws snippet with flash messages.
@@ -81,18 +81,18 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	 * @return \stdClass|void
 	 */
 	public function flashMessage($message, $type = 'info') {
-        parent::flashMessage($message, $type);
-        $this['flashMessage']->redrawControl();
-    }
+		parent::flashMessage($message, $type);
+		$this['flashMessage']->redrawControl();
+	}
 
 	/**
 	 * @return Zax\Components\FlashMessage\FlashMessageControl
 	 */
 	protected function createComponentFlashMessage() {
-        return $this->flashMessageFactory->create()
-            ->setFlashes($this->getTemplate()->flashes)
-            ->enableGlyphicons();
-    }
+		return $this->flashMessageFactory->create()
+			->setFlashes($this->getTemplate()->flashes)
+			->enableGlyphicons();
+	}
 
 
 
@@ -104,15 +104,15 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	 * @param array $snippets
 	 */
 	final public function go($destination, $args = [], $snippets = []) {
-        if($this->ajaxEnabled && $this->presenter->isAjax()) {
-            foreach($snippets as $snippet) {
-                $this->redrawControl($snippet);
-            }
-            $this->forward($destination, $args);
-        } else {
-            $this->redirect($destination, $args);
-        }
-    }
+		if($this->ajaxEnabled && $this->presenter->isAjax()) {
+			foreach($snippets as $snippet) {
+				$this->redrawControl($snippet);
+			}
+			$this->forward($destination, $args);
+		} else {
+			$this->redirect($destination, $args);
+		}
+	}
 
 	public function getTranslator() {
 		return $this->translator;

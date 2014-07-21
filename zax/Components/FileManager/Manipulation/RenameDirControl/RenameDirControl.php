@@ -2,8 +2,8 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 /**
  * Class RenameDirControl
@@ -28,30 +28,30 @@ class RenameDirControl extends DirectoryManipulationControl {
 	 * @return Zax\Application\UI\Form
 	 */
 	protected function createComponentRenameForm() {
-        $dirName = (new \SplFileInfo($this->getAbsoluteDirectory()))->getFileName();
-        $f = $this->createForm();
-        $f->addHidden('dir', $dirName);
-        $f->addText('name', '')
-            ->setDefaultValue($dirName);
-        $f->addButtonSubmit('rename', '', 'ok');
-        $f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
+		$dirName = (new \SplFileInfo($this->getAbsoluteDirectory()))->getFileName();
+		$f = $this->createForm();
+		$f->addHidden('dir', $dirName);
+		$f->addText('name', '')
+			->setDefaultValue($dirName);
+		$f->addButtonSubmit('rename', '', 'ok');
+		$f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
 
-        $f->autofocus('name');
+		$f->autofocus('name');
 
-        $f->addProtection();
-        $f->enableBootstrap([
-                'success'=>['rename'],
-                'default'=>['cancel']
-            ], TRUE, 3, 'sm', 'form-inline');
+		$f->addProtection();
+		$f->enableBootstrap([
+				'success'=>['rename'],
+				'default'=>['cancel']
+			], TRUE, 3, 'sm', 'form-inline');
 
-        if($this->ajaxEnabled) {
-            $f->enableAjax();
-        }
+		if($this->ajaxEnabled) {
+			$f->enableAjax();
+		}
 
-        $f->onSuccess[] = [$this, 'renameFormSubmitted'];
+		$f->onSuccess[] = [$this, 'renameFormSubmitted'];
 
-        return $f;
-    }
+		return $f;
+	}
 
 	/**
 	 * @param Nette\Application\UI\Form $form
@@ -59,48 +59,48 @@ class RenameDirControl extends DirectoryManipulationControl {
 	 * @throws InvalidPathException
 	 */
 	public function renameFormSubmitted(Nette\Application\UI\Form $form, $values) {
-        $newName = $values->dir;
-        if($this->fileManager->isFeatureEnabled('renameDir') && $form->submitted === $form['rename']) {
-            $newName = $values->name;
-            if($values->dir != $newName) {
-                $dir = $this->getAbsoluteDirectory();
-                $newPath = Zax\Utils\PathHelpers::rename($dir, $newName);
+		$newName = $values->dir;
+		if($this->fileManager->isFeatureEnabled('renameDir') && $form->submitted === $form['rename']) {
+			$newName = $values->name;
+			if($values->dir != $newName) {
+				$dir = $this->getAbsoluteDirectory();
+				$newPath = Zax\Utils\PathHelpers::rename($dir, $newName);
 
-                if(!Zax\Utils\PathHelpers::isSubdirOf($this->getRoot(), $newPath, TRUE)) {
-                    throw new InvalidPathException('Invalid name specified - ' . $newPath . ' is not inside ' . $this->getRoot());
-                }
-                Nette\Utils\FileSystem::rename($dir, $newPath);
-                $this->onDirRename($dir, $newPath);
-                $this->flashMessage('fileManager.alert.dirRenamed', 'success');
-	            $newPath = str_replace($this->root, '', $newPath);
-		        $this->fileManager->setDirectory($newPath);
-		        $this->fileManager->go('this', [
-		            'view' => 'Default',
-		            'dir' => $newPath,
-		            'directoryList-view' => 'Default'
-		        ]);
-            }
-        }
-    }
+				if(!Zax\Utils\PathHelpers::isSubdirOf($this->getRoot(), $newPath, TRUE)) {
+					throw new InvalidPathException('Invalid name specified - ' . $newPath . ' is not inside ' . $this->getRoot());
+				}
+				Nette\Utils\FileSystem::rename($dir, $newPath);
+				$this->onDirRename($dir, $newPath);
+				$this->flashMessage('fileManager.alert.dirRenamed', 'success');
+				$newPath = str_replace($this->root, '', $newPath);
+				$this->fileManager->setDirectory($newPath);
+				$this->fileManager->go('this', [
+					'view' => 'Default',
+					'dir' => $newPath,
+					'directoryList-view' => 'Default'
+				]);
+			}
+		}
+	}
 
 	/**
 	 * @return Zax\Components\FileManager\DirectoryListControl
 	 */
 	public function getDirectoryList() {
-        return $this->lookup('Zax\Components\FileManager\DirectoryListControl');
-    }
+		return $this->lookup('Zax\Components\FileManager\DirectoryListControl');
+	}
 
 	/**
 	 * @return Zax\Application\UI\Form
 	 */
 	public function getRenameForm() {
-        return $this['renameForm'];
-    }
+		return $this['renameForm'];
+	}
 
-    public function viewDefault() {}
+	public function viewDefault() {}
 
-    public function beforeRender() {
+	public function beforeRender() {
 
-    }
-    
+	}
+
 }

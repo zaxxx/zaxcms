@@ -2,11 +2,11 @@
 
 namespace ZaxCMS\Components\WebContent;
 use Nette,
-    Zax,
+	Zax,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+	Zax\Application\UI\Control;
 
 class EditControl extends Control {
 
@@ -46,8 +46,8 @@ class EditControl extends Control {
 	 */
 	public function __construct(IEditFormFactory $editFormFactory,
 								Model\WebContentService $webContentService,
-	                            Zax\Components\FileManager\IFileManagerFactory $fileManagerFactory,
-	                            Zax\Utils\RootDir $rootDir) {
+								Zax\Components\FileManager\IFileManagerFactory $fileManagerFactory,
+								Zax\Utils\RootDir $rootDir) {
 		$this->editFormFactory = $editFormFactory;
 		$this->webContentService = $webContentService;
 		$this->fileManagerFactory = $fileManagerFactory;
@@ -63,19 +63,19 @@ class EditControl extends Control {
 		return $this;
 	}
 
-    public function viewDefault() {
-        
-    }
+	public function viewDefault() {
+
+	}
 	
 	public function viewFiles() {
-	    
+
 	}
-    
-    public function beforeRender() {
+
+	public function beforeRender() {
 		$this->template->availableLocales = $this->getAvailableLocales();
-	    $this->template->currentLocale = $this->getLocale();
-	    $this->template->webContent = $this->webContent;
-    }
+		$this->template->currentLocale = $this->getLocale();
+		$this->template->webContent = $this->webContent;
+	}
 
 	public function handleClose() {
 		$this->close();

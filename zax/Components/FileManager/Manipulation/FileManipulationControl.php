@@ -2,8 +2,8 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 abstract class FileManipulationControl extends FileManagerAbstract implements IFileManipulation {
 
@@ -17,8 +17,8 @@ abstract class FileManipulationControl extends FileManagerAbstract implements IF
 	 * @return $this
 	 */
 	public function setFile($file) {
-        $this->file = $file;
-        return $this;
-    }
+		$this->file = $file;
+		return $this;
+	}
 
 }

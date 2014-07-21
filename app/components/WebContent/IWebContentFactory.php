@@ -5,6 +5,6 @@ namespace ZaxCMS\Components\WebContent;
 interface IWebContentFactory {
 
     /** @return WebContentControl */
-    public function create();
+	public function create();
 
 }

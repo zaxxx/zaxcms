@@ -3,7 +3,7 @@
 namespace Zax\Components\Menu;
 use Nette,
 	Nette\Application\UI as NetteUI,
-    Zax;
+	Zax;
 
 class MenuListControl extends Zax\Application\UI\SecuredControl {
 
@@ -19,16 +19,16 @@ class MenuListControl extends Zax\Application\UI\SecuredControl {
 		$this->menu = $menu;
 		return $this;
 	}
-    
-    public function viewDefault() {}
+
+	public function viewDefault() {}
 
 	public function beforeRenderItemsOnly() {
 		$this->template->menu = $this->menu;
 	}
-    
-    public function beforeRender() {
-	    $this->template->menu = $this->menu;
-    }
+
+	public function beforeRender() {
+		$this->template->menu = $this->menu;
+	}
 
 	protected function createComponentItem() {
 		return new NetteUI\Multiplier(function($id) {
@@ -36,5 +36,5 @@ class MenuListControl extends Zax\Application\UI\SecuredControl {
 				->setItem($this->menu->getMenuItem($id));
 		});
 	}
-    
+
 }

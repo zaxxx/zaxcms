@@ -29,7 +29,7 @@ class RouterFactory extends Nette\Object {
 	public function __construct(Kdyby\Translation\Translator $translator) {
 		$this->availableLocales = $translator->getAvailableLocales();
 	}
-    
+
     /** @return Nette\Application\Routers\RouteList */
     public function create() {
         $r = new Nette\Application\Routers\RouteList;

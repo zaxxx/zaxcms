@@ -4,7 +4,7 @@ namespace Zax\Components\FileManager;
 
 interface IFileListFactory {
 
-    /** @return FileListControl */
-    public function create();
+	/** @return FileListControl */
+	public function create();
 
 }

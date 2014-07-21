@@ -2,11 +2,11 @@
 
 namespace ZaxCMS;
 use Nette,
-    Zax,
+	Zax,
 	ZaxCMS,
 	ZaxCMS\Components,
-    Zax\Application\UI as ZaxUI,
-    Nette\Application\UI as NetteUI,
+	Zax\Application\UI as ZaxUI,
+	Nette\Application\UI as NetteUI,
 	Kdyby;
 
 
@@ -26,10 +26,10 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected function createComponentWebContent() {
 		return new NetteUI\Multiplier(function($name) {
-	        return $this->webContentFactory->create()
-		        ->setCacheNamespace('ZaxCMS.WebContent.' . $name)
-	            ->enableAjax(TRUE)
-		        ->setName($name);
+			return $this->webContentFactory->create()
+				->setCacheNamespace('ZaxCMS.WebContent.' . $name)
+				->enableAjax(TRUE)
+				->setName($name);
 		});
 	}
 

@@ -4,7 +4,7 @@ namespace Zax\Components\FlashMessage;
 
 interface IFlashMessageFactory {
 
-    /** @return FlashMessageControl */
-    public function create();
+	/** @return FlashMessageControl */
+	public function create();
 
 }

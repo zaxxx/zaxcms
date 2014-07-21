@@ -4,7 +4,7 @@ namespace Zax\Components\StaticLinker;
 
 interface IStaticLinkerFactory {
 
-    /** @return StaticLinkerControl */
-    public function create();
+	/** @return StaticLinkerControl */
+	public function create();
 
 }

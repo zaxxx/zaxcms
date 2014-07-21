@@ -2,12 +2,12 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 interface IRenameDirFactory {
-    
-    /** @return RenameDirControl */
-    public function create();
-    
+
+	/** @return RenameDirControl */
+	public function create();
+
 }

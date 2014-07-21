@@ -2,10 +2,10 @@
 
 namespace ZaxCMS\FrontModule;
 use Nette,
-    ZaxCMS,
-    Zax,
+	ZaxCMS,
+	Zax,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI;
+	Zax\Application\UI;
 
 
 abstract class BasePresenter extends ZaxCMS\BasePresenter {

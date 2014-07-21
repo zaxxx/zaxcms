@@ -2,14 +2,14 @@
 
 namespace Zax\Components\StaticLinker;
 use Zax,
-    Nette;
+	Nette;
 
 interface ILinker {
 
-    public function addFile($file);
+	public function addFile($file);
 
-    public function setRoot($root);
+	public function setRoot($root);
 
-    public function setOutputDirectory($directory);
+	public function setOutputDirectory($directory);
 
 }

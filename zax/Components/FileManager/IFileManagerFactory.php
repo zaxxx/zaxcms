@@ -2,12 +2,12 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 interface IFileManagerFactory {
-    
-    /** @return FileManagerControl */
-    public function create();
-    
+
+	/** @return FileManagerControl */
+	public function create();
+
 }

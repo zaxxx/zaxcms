@@ -2,11 +2,11 @@
 
 namespace ZaxCMS\Components\Menu;
 use Nette,
-    Zax,
-    ZaxCMS\Model,
-    Zax\Application\UI as ZaxUI,
+	Zax,
+	ZaxCMS\Model,
+	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+	Zax\Application\UI\Control;
 
 class EditControl extends Control {
 
@@ -29,9 +29,9 @@ class EditControl extends Control {
 	public $locale;
 
 	public function __construct(Model\MenuService $menuService,
-	                            IAddMenuItemFactory $addMenuItemFactory,
-	                            IEditMenuItemFactory $editMenuItemFactory,
-	                            IEditMenuFactory $editMenuFactory) {
+								IAddMenuItemFactory $addMenuItemFactory,
+								IEditMenuItemFactory $editMenuItemFactory,
+								IEditMenuFactory $editMenuFactory) {
 		$this->menuService = $menuService;
 		$this->addMenuItemFactory = $addMenuItemFactory;
 		$this->editMenuItemFactory = $editMenuItemFactory;
@@ -51,20 +51,20 @@ class EditControl extends Control {
 		return $this->menu;
 	}
 
-    public function viewDefault() {
-        
-    }
-    
-    public function beforeRender() {
-	    $this->template->root = $this->getMenu();
-        $this->template->items = $this->menuService->getRepository()->children($this->getMenu(), TRUE);
-	    $this->template->currentLocale = $this->getLocale();
-	    $this->template->availableLocales = $this->getAvailableLocales();
-    }
+	public function viewDefault() {
+
+	}
+
+	public function beforeRender() {
+		$this->template->root = $this->getMenu();
+		$this->template->items = $this->menuService->getRepository()->children($this->getMenu(), TRUE);
+		$this->template->currentLocale = $this->getLocale();
+		$this->template->availableLocales = $this->getAvailableLocales();
+	}
 
 	protected function createComponentAddMenuItem() {
-	    $control = $this->addMenuItemFactory->create()
-		    ->setParentMenu($this->getMenu());
+		$control = $this->addMenuItemFactory->create()
+			->setParentMenu($this->getMenu());
 		if($this->ajaxEnabled) {
 			$control->enableAjax(!$this->autoAjax);
 		}
@@ -73,7 +73,7 @@ class EditControl extends Control {
 
 	protected function createComponentEditMenuItem() {
 		$control = $this->editMenuItemFactory->create()
-		    ->setMenuItem($this->menuService->getDao()->findOneById($this->selectItem));
+			->setMenuItem($this->menuService->getDao()->findOneById($this->selectItem));
 		if($this->ajaxEnabled) {
 			$control->enableAjax(!$this->autoAjax);
 		}
@@ -82,7 +82,7 @@ class EditControl extends Control {
 
 	protected function createComponentEditMenu() {
 		$control = $this->editMenuFactory->create()
-		    ->setMenu($this->getMenu());
+			->setMenu($this->getMenu());
 		if($this->ajaxEnabled) {
 			$control->enableAjax(!$this->autoAjax);
 		}

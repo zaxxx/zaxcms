@@ -5,6 +5,6 @@ namespace ZaxCMS\Components\Menu;
 interface IAddMenuItemFactory {
 
     /** @return AddMenuItemControl */
-    public function create();
+	public function create();
 
 }

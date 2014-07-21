@@ -2,12 +2,12 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 interface ICreateDirFactory {
-    
-    /** @return CreateDirControl */
-    public function create();
-    
+
+	/** @return CreateDirControl */
+	public function create();
+
 }

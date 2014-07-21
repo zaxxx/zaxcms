@@ -17,7 +17,7 @@ abstract class FormControl extends SecuredControl {
 	protected $service;
 
 	public function injectDependencies(Zax\Application\UI\FormFactory $formFactory,
-	                                   Zax\Forms\IBinder $binder = NULL) {
+									   Zax\Forms\IBinder $binder = NULL) {
 		$this->formFactory = $formFactory;
 		$this->binder = $binder;
 	}

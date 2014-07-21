@@ -2,9 +2,9 @@
 
 namespace ZaxCMS\Components\WebContent;
 use Nette,
-    Zax,
+	Zax,
 	ZaxCMS\Model,
-    Zax\Application\UI\Control;
+	Zax\Application\UI\Control;
 
 class WebContentControl extends Control {
 
@@ -35,7 +35,7 @@ class WebContentControl extends Control {
 	 * @param IEditFactory            $editFactory
 	 */
 	public function __construct(Model\WebContentService $webContentService,
-	                            IEditFactory $editFactory) {
+								IEditFactory $editFactory) {
 		$this->webContentService = $webContentService;
 		$this->editFactory = $editFactory;
 	}
@@ -99,30 +99,30 @@ class WebContentControl extends Control {
 	}
 
 	public function viewDefault() {
-	    $texyfied = $this->cache->load('texyfied-' . $this->translator->getLocale());
-	    if($texyfied === NULL) {
-		    $this->webContentService->getEm()->refresh($this->getWebContent());
-		    $this->cache->save(
-			    'texyfied-' . $this->translator->getLocale(),
-			    $texyfied = $this->createTexy()->process($this->getWebContent()->content),
-		        [Nette\Caching\Cache::TAGS => [get_class($this) . '.' . $this->getName()] ]);
-	    }
-	    $this->template->cachedOutput = $texyfied;
-    }
+		$texyfied = $this->cache->load('texyfied-' . $this->translator->getLocale());
+		if($texyfied === NULL) {
+			$this->webContentService->getEm()->refresh($this->getWebContent());
+			$this->cache->save(
+				'texyfied-' . $this->translator->getLocale(),
+				$texyfied = $this->createTexy()->process($this->getWebContent()->content),
+				[Nette\Caching\Cache::TAGS => [get_class($this) . '.' . $this->getName()] ]);
+		}
+		$this->template->cachedOutput = $texyfied;
+	}
 
 	public function viewEdit() {
 
 	}
 
 	public function beforeRender() {
-    }
+	}
 
 	/**
 	 * @return EditControl|NULL
 	 */
 	protected function createComponentEdit() {
 		if($this->canEditWebContent()) {
-		    $c = $this->editFactory->create()->setWebContent($this->getWebContent());
+			$c = $this->editFactory->create()->setWebContent($this->getWebContent());
 			if($this->ajaxEnabled) {
 				$c->enableAjax(!$this->autoAjax);
 			}

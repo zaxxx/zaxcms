@@ -2,21 +2,21 @@
 
 namespace ZaxCMS\Components\WebContent;
 use Nette,
-    Zax,
-    ZaxCMS\Model,
+	Zax,
+	ZaxCMS\Model,
 	Doctrine,
 	Kdyby,
-    Zax\Application\UI as ZaxUI,
+	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\FormControl;
+	Zax\Application\UI\FormControl;
 
 class EditFormControl extends FormControl {
 
 	protected $webContent;
 
-    public function viewDefault() {}
-    
-    public function beforeRender() {}
+	public function viewDefault() {}
+
+	public function beforeRender() {}
 
 	public function setWebContent(Model\WebContent $webContent) {
 		$this->webContent = $webContent;
@@ -85,7 +85,7 @@ class EditFormControl extends FormControl {
 	}
 	
 	protected function createComponentForm() {
-	    return $this->createForm();
+		return $this->createForm();
 	}
 
 }

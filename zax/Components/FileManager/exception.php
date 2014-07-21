@@ -2,7 +2,7 @@
 
 namespace Zax\Components\FileManager;
 use Nette,
-    Zax;
+	Zax;
 
 class InvalidPathException extends Nette\Application\ForbiddenRequestException {}
 

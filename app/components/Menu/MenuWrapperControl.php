@@ -2,11 +2,11 @@
 
 namespace ZaxCMS\Components\Menu;
 use Nette,
-    Zax,
-    ZaxCMS\Model,
-    Zax\Application\UI as ZaxUI,
+	Zax,
+	ZaxCMS\Model,
+	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+	Zax\Application\UI\Control;
 
 class MenuWrapperControl extends Control {
 
@@ -30,20 +30,20 @@ class MenuWrapperControl extends Control {
 		return TRUE;
 	}
 
-    public function viewDefault() {
-        
-    }
+	public function viewDefault() {
+
+	}
 
 	public function viewEdit() {
 
 	}
-    
-    public function beforeRender() {
-        
-    }
+
+	public function beforeRender() {
+
+	}
 
 	protected function createComponentMenu() {
-	    $control = $this->menuFactory->create($this->name);
+		$control = $this->menuFactory->create($this->name);
 		if($this->ajaxEnabled) {
 			$control->enableAjax(!$this->autoAjax);
 		}
@@ -51,8 +51,8 @@ class MenuWrapperControl extends Control {
 	}
 
 	protected function createComponentEdit() {
-	    $control = $this->editFactory->create()
-		    ->setName($this->name);
+		$control = $this->editFactory->create()
+			->setName($this->name);
 		if($this->ajaxEnabled) {
 			$control->enableAjax(!$this->autoAjax);
 		}

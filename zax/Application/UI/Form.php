@@ -2,7 +2,7 @@
 
 namespace Zax\Application\UI;
 use Nette,
-    Zax;
+	Zax;
 
 /**
  * Class Form
@@ -21,10 +21,10 @@ use Nette,
 class Form extends Nette\Application\UI\Form {
 
 	/** @var Zax\Forms\Rendering\DefaultFormRenderer */
-    private $renderer;
+	private $renderer;
 
 	/** @var string|NULL */
-    private $autofocus;
+	private $autofocus;
 
 	/**
 	 * Custom renderer factory
@@ -32,11 +32,11 @@ class Form extends Nette\Application\UI\Form {
 	 * @return Zax\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function getRenderer() {
-        if($this->renderer === NULL) {
-            $this->renderer = new Zax\Forms\Rendering\DefaultFormRenderer;
-        }
-        return $this->renderer;
-    }
+		if($this->renderer === NULL) {
+			$this->renderer = new Zax\Forms\Rendering\DefaultFormRenderer;
+		}
+		return $this->renderer;
+	}
 
 	/**
 	 * Enables autofocus on form input - handles "autofocus" attribute and AJAX
@@ -45,9 +45,9 @@ class Form extends Nette\Application\UI\Form {
 	 * @return $this
 	 */
 	public function autofocus($name) {
-        $this->autofocus = $name;
-        return $this;
-    }
+		$this->autofocus = $name;
+		return $this;
+	}
 
 	/**
 	 * Autofocus AJAX handling.
@@ -55,57 +55,57 @@ class Form extends Nette\Application\UI\Form {
 	 * @param $presenter
 	 */
 	public function attached($presenter) {
-        parent::attached($presenter);
-        if($this->autofocus !== NULL) {
-            $this[$this->autofocus]->setAttribute('autofocus');
-            if($presenter->isAjax()) {
-                $presenter->payload->focus = $this[$this->autofocus]->getHtmlId();
-            }
-        }
-    }
+		parent::attached($presenter);
+		if($this->autofocus !== NULL) {
+			$this[$this->autofocus]->setAttribute('autofocus');
+			if($presenter->isAjax()) {
+				$presenter->payload->focus = $this[$this->autofocus]->getHtmlId();
+			}
+		}
+	}
 
 	/**
 	 * @param array $buttonTypes
 	 * @return $this
 	 */
 	protected function enableBootstrapOnInputs($buttonTypes = []) {
-        foreach($this->getControls() as $name => $control) {
-                if($control instanceof Nette\Forms\Controls\Button || $control instanceof Zax\Forms\Controls\LinkSubmitButton) {
-                    $applied = FALSE;
-                    foreach($buttonTypes as $type => $buttons) {
-                        if(in_array($name, $buttons)) {
-                            $control->getControlPrototype()->addClass('btn btn-' . $type);
-                            $applied = TRUE;
-                        }
-                    }
-                    if(!$applied) {
-                        $control->getControlPrototype()->addClass('btn');
-                    }
-                } else if ($control instanceof Nette\Forms\Controls\TextBase
-                    || $control instanceof Nette\Forms\Controls\SelectBox
-                    || $control instanceof Nette\Forms\Controls\MultiSelectBox) {
-                        $control->getControlPrototype()->addClass('form-control');
-                        
-                } else if ($control instanceof Nette\Forms\Controls\Checkbox
-                    || $control instanceof Nette\Forms\Controls\CheckboxList
-                    || $control instanceof Nette\Forms\Controls\RadioList) {
-                        $control->getSeparatorPrototype()->setName('div')->addClass($control->getControlPrototype()->type);
-                        
-                }/* else if ($control instanceof Zax\Forms\IControl) { // Just some future plans ;-)
-                    $control->enableBootstrap();
-                }*/
-        }
-        return $this;
-    }
-    
-    /**
-     * Bootstrap 3 rendering
-     * 
-     * $buttonTypes - array of $type => buttonNames[]
-     * $gridLabelSize - Size of label on scale 1-11 (Bootstrap grid system)
-     * $deviceSize - xs|sm|md|lg
-     * $type - form-horizontal|form-inline
-     */
+		foreach($this->getControls() as $name => $control) {
+				if($control instanceof Nette\Forms\Controls\Button || $control instanceof Zax\Forms\Controls\LinkSubmitButton) {
+					$applied = FALSE;
+					foreach($buttonTypes as $type => $buttons) {
+						if(in_array($name, $buttons)) {
+							$control->getControlPrototype()->addClass('btn btn-' . $type);
+							$applied = TRUE;
+						}
+					}
+					if(!$applied) {
+						$control->getControlPrototype()->addClass('btn');
+					}
+				} else if ($control instanceof Nette\Forms\Controls\TextBase
+					|| $control instanceof Nette\Forms\Controls\SelectBox
+					|| $control instanceof Nette\Forms\Controls\MultiSelectBox) {
+						$control->getControlPrototype()->addClass('form-control');
+
+				} else if ($control instanceof Nette\Forms\Controls\Checkbox
+					|| $control instanceof Nette\Forms\Controls\CheckboxList
+					|| $control instanceof Nette\Forms\Controls\RadioList) {
+						$control->getSeparatorPrototype()->setName('div')->addClass($control->getControlPrototype()->type);
+
+				}/* else if ($control instanceof Zax\Forms\IControl) { // Just some future plans ;-)
+					$control->enableBootstrap();
+				}*/
+		}
+		return $this;
+	}
+
+	/**
+	 * Bootstrap 3 rendering
+	 *
+	 * $buttonTypes - array of $type => buttonNames[]
+	 * $gridLabelSize - Size of label on scale 1-11 (Bootstrap grid system)
+	 * $deviceSize - xs|sm|md|lg
+	 * $type - form-horizontal|form-inline
+	 */
 
 	/**
 	 * Bootstrap 3 rendering
@@ -118,34 +118,34 @@ class Form extends Nette\Application\UI\Form {
 	 * @return $this
 	 */
 	public function enableBootstrap($buttonTypes = [], $groupSubmits = FALSE, $gridLabelSize = 3, $deviceSize = 'sm', $type = 'form-horizontal') {
-        
-        // Setup renderer, blah, I want this nasty code somewhere "away" from my projects
-        $r = $this->getRenderer();
-        $r->wrappers['controls']['container'] = NULL;
-        $r->wrappers['pair']['container'] = 'div class="form-group"';
-        $r->wrappers['pair']['.error'] = 'has-error';
-        if($type === 'navbar-form' || $type === 'form-inline') {
-            $r->wrappers['control']['container'] = NULL;
-            $r->wrappers['submits']['container'] = 'div' . ($groupSubmits ? ' class=btn-group' : '');
-            $r->wrappers['label']['container'] = NULL;
-        } else {
-            $r->wrappers['control']['container'] = 'div class=col-' . $deviceSize . '-' . (12-$gridLabelSize);
-            $r->wrappers['submits']['container'] = 'div class="' . ($groupSubmits ? 'btn-group ' : '') . 'col-' . $deviceSize . '-' . (12-$gridLabelSize) . '"';
-            $r->wrappers['label']['container'] = 'div class="col-' . $deviceSize . '-' . ($gridLabelSize) . ' control-label"';
-        }
-        $r->wrappers['control']['description'] = 'span class=help-block';
-        $r->wrappers['control']['errorcontainer'] = 'span class=help-block';
-        $r->wrappers['error']['container'] = 'div class=has-error';
-        $r->wrappers['error']['item'] = 'div class=help-block';
-        
-        
-        $this->getElementPrototype()->addClass($type);
-        $this->getElementPrototype()->role = 'form';
-        
-        $this->enableBootstrapOnInputs($buttonTypes);
-        
-        return $this;
-    }
+
+		// Setup renderer, blah, I want this nasty code somewhere "away" from my projects
+		$r = $this->getRenderer();
+		$r->wrappers['controls']['container'] = NULL;
+		$r->wrappers['pair']['container'] = 'div class="form-group"';
+		$r->wrappers['pair']['.error'] = 'has-error';
+		if($type === 'navbar-form' || $type === 'form-inline') {
+			$r->wrappers['control']['container'] = NULL;
+			$r->wrappers['submits']['container'] = 'div' . ($groupSubmits ? ' class=btn-group' : '');
+			$r->wrappers['label']['container'] = NULL;
+		} else {
+			$r->wrappers['control']['container'] = 'div class=col-' . $deviceSize . '-' . (12-$gridLabelSize);
+			$r->wrappers['submits']['container'] = 'div class="' . ($groupSubmits ? 'btn-group ' : '') . 'col-' . $deviceSize . '-' . (12-$gridLabelSize) . '"';
+			$r->wrappers['label']['container'] = 'div class="col-' . $deviceSize . '-' . ($gridLabelSize) . ' control-label"';
+		}
+		$r->wrappers['control']['description'] = 'span class=help-block';
+		$r->wrappers['control']['errorcontainer'] = 'span class=help-block';
+		$r->wrappers['error']['container'] = 'div class=has-error';
+		$r->wrappers['error']['item'] = 'div class=help-block';
+
+
+		$this->getElementPrototype()->addClass($type);
+		$this->getElementPrototype()->role = 'form';
+
+		$this->enableBootstrapOnInputs($buttonTypes);
+
+		return $this;
+	}
 
 	/**
 	 * Bootstrap 3 glyphicon factory
@@ -156,8 +156,8 @@ class Form extends Nette\Application\UI\Form {
 	 * @return mixed
 	 */
 	public static function makeGlyphicon($icon) {
-        return Nette\Utils\Html::el('span')->class('glyphicon glyphicon-' . $icon);
-    }
+		return Nette\Utils\Html::el('span')->class('glyphicon glyphicon-' . $icon);
+	}
 
 	/**
 	 * Submit button using <button> tag for icons
@@ -169,19 +169,19 @@ class Form extends Nette\Application\UI\Form {
 	 * @return Nette\Forms\Controls\SubmitButton
 	 */
 	public function addButtonSubmit($name, $label = NULL, $icon = NULL, $data = array()) {
-        $control = new Nette\Forms\Controls\SubmitButton($label);
-        $proto = $control->getControlPrototype();
-        $proto->setName('button');
-        $proto->setType('submit');
-        foreach($data as $key=>$value) {
-            $proto->setData($key, $value);
-        }
-        
-        $label = $this->makeLabel($this->translator->translate($label), $icon);
-        
-        $proto->setHtml($label);
-        return $this[$name] = $control;
-    }
+		$control = new Nette\Forms\Controls\SubmitButton($label);
+		$proto = $control->getControlPrototype();
+		$proto->setName('button');
+		$proto->setType('submit');
+		foreach($data as $key=>$value) {
+			$proto->setData($key, $value);
+		}
+
+		$label = $this->makeLabel($this->translator->translate($label), $icon);
+
+		$proto->setHtml($label);
+		return $this[$name] = $control;
+	}
 
 	/**
 	 * Custom file upload factory to support 'filestyle' library.
@@ -215,19 +215,19 @@ class Form extends Nette\Application\UI\Form {
 	 * @return string
 	 */
 	protected function makeLabel($label, $icon) {
-        if($icon instanceof Nette\Utils\Html) {
-            $label = $icon . ' ' . $label;
-        } else if(is_string($icon)) {
-            $label = self::makeGlyphicon($icon) . ' ' . $label;
-        } else if(is_array($icon)) {
-            $tmpLabel = '';
-            foreach($icon as $icn) {
-                $tmpLabel = $tmpLabel . ' ' . self::makeGlyphicon($icn);
-            }
-            $label = $tmpLabel . ' ' . $label;
-        }
-        return $label;
-    }
+		if($icon instanceof Nette\Utils\Html) {
+			$label = $icon . ' ' . $label;
+		} else if(is_string($icon)) {
+			$label = self::makeGlyphicon($icon) . ' ' . $label;
+		} else if(is_array($icon)) {
+			$tmpLabel = '';
+			foreach($icon as $icn) {
+				$tmpLabel = $tmpLabel . ' ' . self::makeGlyphicon($icn);
+			}
+			$label = $tmpLabel . ' ' . $label;
+		}
+		return $label;
+	}
 
 	/**
 	 * Static read-only control displayed as text (not input)
@@ -237,9 +237,9 @@ class Form extends Nette\Application\UI\Form {
 	 * @return Zax\Forms\Controls\StaticControl
 	 */
 	public function addStatic($name, $label) {
-        $control = new Zax\Forms\Controls\StaticControl($label);
-        return $this[$name] = $control;
-    }
+		$control = new Zax\Forms\Controls\StaticControl($label);
+		return $this[$name] = $control;
+	}
 
 	/**
 	 * A link that pretends to be a button. Great for 'cancel' submit buttons in forms with files (because regular
@@ -252,12 +252,12 @@ class Form extends Nette\Application\UI\Form {
 	 * @return Zax\Forms\Controls\LinkSubmitButton
 	 */
 	public function addLinkSubmit($name, $label = NULL, $icon = NULL, $destination = NULL) {
-        $control = new Zax\Forms\Controls\LinkSubmitButton($label);
-        $proto = $control->getControlPrototype();
-        $proto->href($destination);
-        $proto->setHtml($this->makeLabel($this->translator->translate($label), $icon));
-        return $this[$name] = $control;
-    }
+		$control = new Zax\Forms\Controls\LinkSubmitButton($label);
+		$proto = $control->getControlPrototype();
+		$proto->href($destination);
+		$proto->setHtml($this->makeLabel($this->translator->translate($label), $icon));
+		return $this[$name] = $control;
+	}
 
 	public function addDateTime($name, $label = NULL, $canBeNull = FALSE) {
 		$control = new Zax\Forms\Controls\DateTimeInput($label);
@@ -285,14 +285,14 @@ class Form extends Nette\Application\UI\Form {
 	 * @return $this
 	 */
 	public function enableAjax() {
-        $this->getElementPrototype()->addClass('ajax');
-        foreach($this->getComponents() as $control) {
-	        if($control instanceof Zax\Forms\Controls\LinkSubmitButton) {
-		        $control->getControlPrototype()->addClass('ajax');
-	        }
-        }
-        return $this;
-    }
+		$this->getElementPrototype()->addClass('ajax');
+		foreach($this->getComponents() as $control) {
+			if($control instanceof Zax\Forms\Controls\LinkSubmitButton) {
+				$control->getControlPrototype()->addClass('ajax');
+			}
+		}
+		return $this;
+	}
 
 	/**
 	 * Resets form values, good for AJAX.
@@ -300,8 +300,8 @@ class Form extends Nette\Application\UI\Form {
 	 * @return $this
 	 */
 	public function reset() {
-         $this->setValues(array(), TRUE);
-         return $this;
-    }
-    
+		 $this->setValues(array(), TRUE);
+		 return $this;
+	}
+
 }

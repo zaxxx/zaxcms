@@ -4,7 +4,7 @@ namespace Zax\Components\Gallery;
 
 interface IGalleryFactory {
 
-    /** @return GalleryControl */
-    public function create();
+	/** @return GalleryControl */
+	public function create();
 
 }

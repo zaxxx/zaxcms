@@ -52,7 +52,7 @@ gedmo:
 
 ## Doctrine settings
 doctrine:
-    host: %host%
+	host: %host%
     dbname: %database%
     user: %user%
     password: %password%

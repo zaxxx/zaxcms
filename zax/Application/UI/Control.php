@@ -24,7 +24,7 @@ abstract class Control extends Nette\Application\UI\Control {
 
 	use Zax\Traits\TTranslatable;
 
-    /** @persistent */
+	/** @persistent */
     public $view = 'Default';
 
 	/** @var string */

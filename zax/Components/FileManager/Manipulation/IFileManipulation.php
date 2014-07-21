@@ -8,5 +8,5 @@ interface IFileManipulation extends IFilesystemContextAware {
 	 * @param string $file
 	 */
 	public function setFile($file);
-    
+
 }

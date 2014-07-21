@@ -2,12 +2,12 @@
 
 namespace ZaxCMS\Components\Menu;
 use Nette,
-    Zax,
+	Zax,
 	Kdyby,
-    ZaxCMS\Model,
-    Zax\Application\UI as ZaxUI,
+	ZaxCMS\Model,
+	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+	Zax\Application\UI\Control;
 
 // TODO: DRY
 class EditMenuItemControl extends Control {
@@ -28,17 +28,17 @@ class EditMenuItemControl extends Control {
 		return $this;
 	}
 
-    public function viewDefault() {
-        
-    }
+	public function viewDefault() {
+
+	}
 	
 	public function viewDelete() {
-	    
-	}
-    
-    public function beforeRender() {
 
-    }
+	}
+
+	public function beforeRender() {
+
+	}
 
 	protected function getMenu() {
 		return $this->lookup('ZaxCMS\Components\MenuWrapperControl')['menu'];

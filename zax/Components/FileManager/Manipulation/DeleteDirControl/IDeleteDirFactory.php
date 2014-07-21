@@ -2,12 +2,12 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 interface IDeleteDirFactory {
-    
-    /** @return DeleteDirControl */
-    public function create();
-    
+
+	/** @return DeleteDirControl */
+	public function create();
+
 }

@@ -2,12 +2,12 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 interface IUploadFileFactory {
-    
-    /** @return UploadFileControl */
-    public function create();
-    
+
+	/** @return UploadFileControl */
+	public function create();
+
 }

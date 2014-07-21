@@ -4,7 +4,7 @@ namespace ZaxCMS\Components\Menu;
 
 interface IEditFactory {
 
-    /** @return EditControl */
-    public function create();
+	/** @return EditControl */
+	public function create();
 
 }

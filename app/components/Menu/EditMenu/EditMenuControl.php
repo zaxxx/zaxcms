@@ -2,12 +2,12 @@
 
 namespace ZaxCMS\Components\Menu;
 use Nette,
-    Zax,
-    ZaxCMS\Model,
+	Zax,
+	ZaxCMS\Model,
 	Kdyby,
-    Zax\Application\UI as ZaxUI,
+	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+	Zax\Application\UI\Control;
 
 class EditMenuControl extends Control {
 
@@ -62,12 +62,12 @@ class EditMenuControl extends Control {
 		return $f;
 	}
 
-    public function viewDefault() {
-        
-    }
-    
-    public function beforeRender() {
-        
-    }
+	public function viewDefault() {
+
+	}
+
+	public function beforeRender() {
+
+	}
 
 }

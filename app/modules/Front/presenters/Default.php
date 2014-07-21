@@ -2,9 +2,9 @@
 
 namespace ZaxCMS\FrontModule;
 use Nette,
-    Zax\Application\UI,
+	Zax\Application\UI,
 	ZaxCMS,
-    Zax;
+	Zax;
 
 class DefaultPresenter extends BasePresenter {
 

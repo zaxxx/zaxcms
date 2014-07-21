@@ -2,12 +2,12 @@
 
 namespace ZaxCMS\Components\Menu;
 use Nette,
-    Zax,
+	Zax,
 	Kdyby,
-    ZaxCMS\Model,
-    Zax\Application\UI as ZaxUI,
+	ZaxCMS\Model,
+	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+	Zax\Application\UI\Control;
 
 // TODO: DRY
 class AddMenuItemControl extends Control {
@@ -79,12 +79,12 @@ class AddMenuItemControl extends Control {
 		return $f;
 	}
 
-    public function viewDefault() {
-        
-    }
-    
-    public function beforeRender() {
-        
-    }
+	public function viewDefault() {
+
+	}
+
+	public function beforeRender() {
+
+	}
 
 }

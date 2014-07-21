@@ -2,8 +2,8 @@
 
 namespace Zax\Components\StaticLinker;
 use Nette,
-    Zax,
-    Zax\Application\UI\Control;
+	Zax,
+	Zax\Application\UI\Control;
 
 class CssLinkerControl extends StaticLinkerAbstract {
 
@@ -11,18 +11,18 @@ class CssLinkerControl extends StaticLinkerAbstract {
 	 * @return string
 	 */
 	protected function getExtension() {
-        return 'css';
-    }
+		return 'css';
+	}
 
 	/**
 	 * @return string
 	 */
 	protected function getCacheKey() {
-        return 'combinedCssName';
-    }
+		return 'combinedCssName';
+	}
 
-    public function viewDefault() {
-        
-    }
+	public function viewDefault() {
+
+	}
 
 }

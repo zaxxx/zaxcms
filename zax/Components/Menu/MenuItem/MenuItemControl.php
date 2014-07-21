@@ -2,8 +2,8 @@
 
 namespace Zax\Components\Menu;
 use Nette,
-    Zax,
-    Zax\Application\UI\Control;
+	Zax,
+	Zax\Application\UI\Control;
 
 class MenuItemControl extends Control {
 
@@ -20,17 +20,17 @@ class MenuItemControl extends Control {
 		return $this;
 	}
 
-    public function viewDefault() {
-        
-    }
-    
-    public function beforeRender() {
-        $this->template->item = $this->item;
-    }
+	public function viewDefault() {
+
+	}
+
+	public function beforeRender() {
+		$this->template->item = $this->item;
+	}
 
 	protected function createComponentSubmenu() {
-	    return $this->menuListFactory->create()
-		    ->setMenu($this->item->getSubmenu());
+		return $this->menuListFactory->create()
+			->setMenu($this->item->getSubmenu());
 	}
 
 }

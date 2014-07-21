@@ -2,8 +2,8 @@
 
 namespace Zax\Components\FileManager;
 use Zax,
-    Nette,
-    DevModule;
+	Nette,
+	DevModule;
 
 abstract class DirectoryManipulationControl extends FileManagerAbstract implements IDirectoryManipulation {
 

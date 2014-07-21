@@ -4,7 +4,7 @@ namespace ZaxCMS\Components\WebContent;
 
 interface IEditFormFactory {
 
-    /** @return EditFormControl */
-    public function create();
+	/** @return EditFormControl */
+	public function create();
 
 }
