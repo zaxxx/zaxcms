@@ -68,9 +68,10 @@ class WebContentControl extends Control {
 			if($webContent === NULL && $this->canEditWebContent()) {
 				$webContent = $this->webContentService->createWebContent($this->name);
 			}
-			$webContent->setTranslatableLocale($this->translator->getLocale());
 			$this->setWebContent($webContent);
 		}
+		$this->webContent->setTranslatableLocale($this->getLocale());
+		$this->webContentService->refresh($this->webContent);
 		return $this->webContent;
 	}
 

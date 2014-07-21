@@ -2,10 +2,10 @@
 
 namespace Zax;
 use Zax,
-    Nette;
+	Nette;
 
 interface IBootstrap {
-    
-    public function boot();
-    
+
+	public function boot();
+
 }

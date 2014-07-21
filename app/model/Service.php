@@ -50,4 +50,8 @@ abstract class Service extends Nette\Object implements Zax\Model\IService {
 		return $this->getEm()->flush();
 	}
 
+	public function refresh($entity) {
+		$this->getEm()->refresh($entity);
+	}
+
 }

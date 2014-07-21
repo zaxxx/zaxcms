@@ -27,4 +27,9 @@ class WebContentService extends Service {
 		return $webContent;
 	}
 
+	public function persist(/*WebContent */$entity) {
+		$entity->lastUpdated = new Nette\Utils\DateTime;
+		return parent::persist($entity);
+	}
+
 }

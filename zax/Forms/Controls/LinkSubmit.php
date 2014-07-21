@@ -2,7 +2,7 @@
 
 namespace Zax\Forms\Controls;
 use Nette,
-    Nette\Forms\Controls\Button;
+	Nette\Forms\Controls\Button;
 
 /**
  * Class LinkSubmitButton
@@ -11,9 +11,9 @@ use Nette,
  */
 class LinkSubmitButton extends Button {
 
-    public function __construct($caption = NULL) {
-        parent::__construct($caption);
-        $this->control->setName('a');
-    }
+	public function __construct($caption = NULL) {
+		parent::__construct($caption);
+		$this->control->setName('a');
+	}
 
 }

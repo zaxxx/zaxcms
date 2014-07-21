@@ -60,6 +60,8 @@ class EditControl extends Control {
 	 */
 	public function setWebContent(Model\WebContent $webContent) {
 		$this->webContent = $webContent;
+		$this->webContent->setTranslatableLocale($this->getLocale());
+		$this->webContentService->refresh($this->webContent);
 		return $this;
 	}
 
@@ -82,8 +84,6 @@ class EditControl extends Control {
 	}
 
 	public function close() {
-		$this->webContent->setTranslatableLocale($this->translator->locale);
-		$this->webContentService->getEm()->refresh($this->webContent);
 		$this->parent->go('this', ['view' => 'Default', 'edit-locale' => NULL, 'edit-view' => 'Default']);
 	}
 
