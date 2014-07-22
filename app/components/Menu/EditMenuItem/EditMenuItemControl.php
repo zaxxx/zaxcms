@@ -18,9 +18,19 @@ class EditMenuItemControl extends Control {
 
 	protected $router;
 
-	public function __construct(Model\MenuService $menuService, Nette\Application\IRouter $router) {
+	protected $formFactory;
+
+	protected $binder;
+
+	public function __construct(Model\MenuService $menuService, Nette\Application\IRouter $router, ZaxUI\FormFactory $formFactory, Zax\Forms\IBinder $binder) {
 		$this->menuService = $menuService;
 		$this->router = $router;
+		$this->formFactory = $formFactory;
+		$this->binder = $binder;
+	}
+
+	public function createForm() {
+		return $this->formFactory->create();
 	}
 
 	public function setMenuItem(Model\Menu $menuItem) {

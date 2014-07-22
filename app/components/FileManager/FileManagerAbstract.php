@@ -76,7 +76,7 @@ abstract class FileManagerAbstract extends Zax\Application\UI\SecuredControl imp
 	 */
 	public function setDirectory($directory) {
 		$this->dir = $directory;
-		foreach($this->getComponents(TRUE, 'Zax\Components\FileManager\IFilesystemContextAware') as $component) {
+		foreach($this->getComponents(TRUE, 'ZaxCMS\Components\FileManager\IFilesystemContextAware') as $component) {
 			$component->setDirectory($directory);
 		}
 		return $this;
@@ -143,10 +143,10 @@ abstract class FileManagerAbstract extends Zax\Application\UI\SecuredControl imp
 	}
 
 	/**
-	 * @return Zax\Components\FileManager\FileManagerControl
+	 * @return FileManagerControl
 	 */
 	public function getFileManager() {
-		return $this->lookup('Zax\Components\FileManager\FileManagerControl');
+		return $this->lookup('ZaxCMS\Components\FileManager\FileManagerControl');
 	}
 
 	/**

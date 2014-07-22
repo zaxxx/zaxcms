@@ -32,6 +32,8 @@ class Bootstrap implements Zax\IBootstrap {
 
 	protected $configs = [];
 
+	protected $autoloadConfig = FALSE;
+
 	protected $defaultTimezone = 'Europe/Prague';
 
 	protected $isDebugger;
@@ -51,7 +53,8 @@ class Bootstrap implements Zax\IBootstrap {
 		$this->rootDir = $rootDir;
 	}
 
-	/**
+	/** Debugger by IP
+	 *
 	 * @param $ip
 	 * @return $this
 	 */
@@ -60,7 +63,8 @@ class Bootstrap implements Zax\IBootstrap {
 		return $this;
 	}
 
-	/**
+	/** Debugger by e-mail
+	 *
 	 * @param $email
 	 * @return $this
 	 */
@@ -69,12 +73,28 @@ class Bootstrap implements Zax\IBootstrap {
 		return $this;
 	}
 
+	/** Add a .neon config file
+	 *
+	 * @param $config
+	 * @return $this
+	 */
 	public function addConfig($config) {
 		$this->configs[] = $config;
 		return $this;
 	}
 
-	/**
+	/** Autoload all 'config/*.neon' recursively in application dir
+	 *
+	 * @param bool $autoload
+	 * @return $this
+	 */
+	public function enableConfigAutoload($autoload = TRUE) {
+		$this->autoloadConfig = $autoload;
+		return $this;
+	}
+
+	/** Debuggers by IP and e-mail
+	 *
 	 * @param $ips
 	 * @param $emails
 	 * @return $this
@@ -90,6 +110,9 @@ class Bootstrap implements Zax\IBootstrap {
 	}
 
 	/**
+	 * @param bool $enableTracy
+	 * @param bool $catchExceptions
+	 * @param bool $enableLog - log errors and send e-mails
 	 * @return $this
 	 */
 	public function enableDebugger($enableTracy = TRUE, $catchExceptions = FALSE, $enableLog = TRUE) {
@@ -101,6 +124,7 @@ class Bootstrap implements Zax\IBootstrap {
 
 	/**
 	 * 'die's this message when web is in debug mode and visitor isn't a debugger
+	 * TODO: better solution
 	 *
 	 * @param $maintenance
 	 * @return $this
@@ -110,7 +134,8 @@ class Bootstrap implements Zax\IBootstrap {
 		return $this;
 	}
 
-	/**
+	/** Add a path for RobotLoader to sniff in
+	 *
 	 * @param $path
 	 * @return $this
 	 */
@@ -137,7 +162,8 @@ class Bootstrap implements Zax\IBootstrap {
 		return $this;
 	}
 
-	/**
+	/** Does IP match any debugger's IP?
+	 *
 	 * @return bool
 	 */
 	protected function isDebugger() {
@@ -148,6 +174,10 @@ class Bootstrap implements Zax\IBootstrap {
 		}
 	}
 
+	/** Set up the environment and return DI container
+	 *
+	 * @return Nette\DI\Container
+	 */
 	public function setUp() {
 		date_default_timezone_set($this->defaultTimezone);
 
@@ -189,8 +219,10 @@ class Bootstrap implements Zax\IBootstrap {
 		$loader->register();
 
 		// load neon files from all config folders within the app
-		foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir) as $config) {
-			$configurator->addConfig($config->getRealPath());
+		if($this->autoloadConfig) {
+			foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir) as $config) {
+				$configurator->addConfig($config->getRealPath());
+			}
 		}
 		foreach($this->configs as $config) {
 			$configurator->addConfig($config);
@@ -198,8 +230,6 @@ class Bootstrap implements Zax\IBootstrap {
 
 		/** @var Nette\DI\Container $container */
 		$container = $configurator->createContainer();
-
-		//$container->parameters['appDir'] = $this->appDir;
 
 		// Default messages for custom validators in forms
 		if(isset($container->parameters['zax.formsMessages'])) {
@@ -221,11 +251,6 @@ class Bootstrap implements Zax\IBootstrap {
 		$app = $container->application;
 
 		$app->catchExceptions = $this->catchExceptions;
-		/*if($this->debug && $this->isDebugger()) {
-			$app->catchExceptions = FALSE;
-		} else {
-			$app->catchExceptions = TRUE;
-		}*/
 
 		if($this->errorPresenter !== NULL) {
 			$app->errorPresenter = $this->errorPresenter;

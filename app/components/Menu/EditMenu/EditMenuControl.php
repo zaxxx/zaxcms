@@ -15,8 +15,18 @@ class EditMenuControl extends Control {
 
 	protected $menuService;
 
-	public function __construct(Model\MenuService $menuService) {
+	protected $formFactory;
+
+	protected $binder;
+
+	public function __construct(Model\MenuService $menuService, ZaxUI\FormFactory $formFactory, Zax\Forms\IBinder $binder) {
 		$this->menuService = $menuService;
+		$this->formFactory = $formFactory;
+		$this->binder = $binder;
+	}
+
+	public function createForm() {
+		return $this->formFactory->create();
 	}
 
 	public function setMenu(Model\Menu $menu) {
