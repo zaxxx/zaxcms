@@ -84,6 +84,7 @@ class Bootstrap implements Zax\IBootstrap {
 	}
 
 	/** Autoload all 'config/*.neon' recursively in application dir
+	 * Note that the configs will be loaded in alphabetical order
 	 *
 	 * @param bool $autoload
 	 * @return $this
