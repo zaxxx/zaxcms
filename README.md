@@ -63,7 +63,7 @@ I want a CMS which is easy for me to understand, fun to build apps on top of and
  - [x] GUI for customizing menu
  - [x] Detect URL within the app and convert to Nette format
  - [ ] Fully implemented submenus
- - [ ] Cache
+ - [x] Cache
 - [ ] ... (tons of stuff)
 - [ ] Backend and administration
  - [ ] ACL
