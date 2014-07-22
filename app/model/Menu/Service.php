@@ -10,6 +10,10 @@ use Zax,
 
 class MenuService extends Service {
 
+	use Zax\Traits\TTranslatable;
+
+	protected $locale;
+
 	public function __construct(Kdyby\Doctrine\EntityManager $em) {
 		$this->em = $em;
 		$this->className = Menu::getClassName();
@@ -17,7 +21,7 @@ class MenuService extends Service {
 
 	/** @return Gedmo\Tree\Entity\Repository\NestedTreeRepository */
 	public function getRepository() {
-		return parent::getRepository();
+		return parent::getRepository()->setLocale($this->getLocale());
 	}
 
 	public function generateDefaultMenu() {

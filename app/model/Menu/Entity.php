@@ -145,4 +145,8 @@ class Menu extends BaseEntity implements Translatable {
 		$this->locale = $locale;
 	}
 
+	public function getLocale() {
+		return $this->locale;
+	}
+
 }
