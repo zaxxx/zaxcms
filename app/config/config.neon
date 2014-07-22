@@ -30,6 +30,7 @@ nette:
 
 ## Register extensions
 extensions:
+    injects: Zax\DI\CompilerExtensions\InjectExtension
     console: Kdyby\Console\DI\ConsoleExtension
     events: Kdyby\Events\DI\EventsExtension
     annotations: Kdyby\Annotations\DI\AnnotationsExtension

@@ -24,8 +24,6 @@ class Bootstrap implements Zax\IBootstrap {
 
 	protected $debugEmails = [];
 
-	protected $enableInject = FALSE;
-
 	protected $debug = FALSE;
 
 	protected $maintenance = '';
@@ -88,17 +86,6 @@ class Bootstrap implements Zax\IBootstrap {
 		foreach($emails as $email) {
 			$this->addDebuggerEmail($email);
 		}
-		return $this;
-	}
-
-	/**
-	 * Enables @inject annotations and inject* methods in services and factories, it's kinda required
-	 * for components and honestly I think there's nothing wrong with inject methods in abstract classes.
-	 *
-	 * @return $this
-	 */
-	public function enableInject() {
-		$this->enableInject = TRUE;
 		return $this;
 	}
 
@@ -207,15 +194,6 @@ class Bootstrap implements Zax\IBootstrap {
 		}
 		foreach($this->configs as $config) {
 			$configurator->addConfig($config);
-		}
-
-
-
-		// enable inject annotations and methods
-		if($this->enableInject) {
-			$configurator->onCompile[] = function($configurator, $compiler) {
-				$compiler->addExtension('InjectExtension', new Zax\DI\CompilerExtensions\InjectExtension);
-			};
 		}
 
 		/** @var Nette\DI\Container $container */

@@ -9,7 +9,6 @@ $container = (new Zax\Bootstraps\Bootstrap(__DIR__ . '/../app', __DIR__ . '/../'
 	->addConfig(__DIR__ . '/config/config.neon')
 	->addLoaderPath(__DIR__ . '/zaxcms')
 	->setDebuggers(['10.0.2.2', '10.0.0.1'], [''])
-	->enableInject()
 	->enableDebugger(FALSE, FALSE, FALSE)
 	->setUp();
 
