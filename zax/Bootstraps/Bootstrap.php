@@ -40,6 +40,10 @@ class Bootstrap implements Zax\IBootstrap {
 
 	protected $errorPresenter;
 
+	protected $enableLog = TRUE;
+
+	protected $catchExceptions = TRUE;
+
 	/**
 	 * @param $appDir
 	 * @param $rootDir
@@ -101,8 +105,10 @@ class Bootstrap implements Zax\IBootstrap {
 	/**
 	 * @return $this
 	 */
-	public function enableDebugger() {
-		$this->debug = TRUE;
+	public function enableDebugger($enableTracy = TRUE, $catchExceptions = FALSE, $enableLog = TRUE) {
+		$this->debug = $enableTracy;
+		$this->catchExceptions = $catchExceptions;
+		$this->enableLog = $enableLog;
 		return $this;
 	}
 
@@ -178,7 +184,9 @@ class Bootstrap implements Zax\IBootstrap {
 			$configurator->setDebugMode(FALSE);
 		}
 
-		$configurator->enableDebugger($this->appDir . '/temp/log', $this->debugEmails);
+		if($this->enableLog) {
+			$configurator->enableDebugger($this->appDir . '/temp/log', $this->debugEmails);
+		}
 
 		// Load app
 		$loader = $configurator->createRobotLoader()
@@ -233,11 +241,13 @@ class Bootstrap implements Zax\IBootstrap {
 		$container = $this->setUp();
 
 		$app = $container->application;
-		if($this->debug && $this->isDebugger()) {
+
+		$app->catchExceptions = $this->catchExceptions;
+		/*if($this->debug && $this->isDebugger()) {
 			$app->catchExceptions = FALSE;
 		} else {
 			$app->catchExceptions = TRUE;
-		}
+		}*/
 
 		if($this->errorPresenter !== NULL) {
 			$app->errorPresenter = $this->errorPresenter;

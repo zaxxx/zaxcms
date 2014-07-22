@@ -12,6 +12,10 @@ class TestPresenter extends Zax\Application\UI\Presenter {
 		$this->testComponentFactory = $testComponentFactory;
 	}
 
+	public function actionDefault() {
+
+	}
+
 	protected function createComponentTestComponent() {
 	    return $this->testComponentFactory->create();
 	}

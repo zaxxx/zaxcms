@@ -10,7 +10,7 @@ $container = (new Zax\Bootstraps\Bootstrap(__DIR__ . '/../app', __DIR__ . '/../'
 	->addLoaderPath(__DIR__ . '/zaxcms')
 	->setDebuggers(['10.0.2.2', '10.0.0.1'], [''])
 	->enableInject()
-	//->enableDebugger()
+	->enableDebugger(FALSE, FALSE, FALSE)
 	->setUp();
 
 return $container;
