@@ -64,7 +64,7 @@ class PathHelpersTest extends Tester\TestCase {
 
 	public function testIsSubdirOf() {
 		Assert::true(PathHelpers::isSubdirOf($this->rootDir, $this->testsDir));
-		Assert::true(PathHelpers::isSubdirOf($this->testsDir, $this->testsDir)); // not sure
+		Assert::false(PathHelpers::isSubdirOf($this->testsDir, $this->testsDir));
 		Assert::false(PathHelpers::isSubdirOf($this->testsDir, $this->rootDir));
 	}
 

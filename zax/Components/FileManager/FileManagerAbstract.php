@@ -17,6 +17,8 @@ use Zax,
  */
 abstract class FileManagerAbstract extends Zax\Application\UI\SecuredControl implements IFilesystemContextAware {
 
+	protected $formFactory;
+
 	/**
 	 * @var array
 	 */
@@ -36,6 +38,14 @@ abstract class FileManagerAbstract extends Zax\Application\UI\SecuredControl imp
 	 * @var
 	 */
 	protected $subdirs;
+
+	public function injectFormFactory(Zax\Application\UI\FormFactory $formFactory) {
+		$this->formFactory = $formFactory;
+	}
+
+	protected function createForm() {
+		return $this->formFactory->create();
+	}
 
 	/**
 	 * @param string $root
@@ -86,7 +96,7 @@ abstract class FileManagerAbstract extends Zax\Application\UI\SecuredControl imp
 	public function getAbsoluteDirectory() {
 		$dir = realpath($this->getRoot() . $this->getDirectory());
 
-		if(!Zax\Utils\PathHelpers::isSubdirOf($this->getRoot(), $dir)) {
+		if(!(Zax\Utils\PathHelpers::isSubdirOf($this->getRoot(), $dir) || Zax\Utils\PathHelpers::isEqual($this->getRoot(), $dir))) {
 			throw new InvalidPathException('Outside of allowed folder - ' . $dir . ' is not inside ' . $this->getRoot());
 		}
 		return $dir;

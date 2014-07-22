@@ -24,7 +24,7 @@ class PathHelpers extends Nette\Object {
 			$dir = realpath($dir);
 			$subdir = realpath($subdir);
 		}
-		return (strpos($subdir, $dir) === 0) && (strlen($subdir) >= strlen($dir));
+		return (strpos($subdir, $dir) === 0) && (strlen($subdir) > strlen($dir));
 	}
 
 	/**
