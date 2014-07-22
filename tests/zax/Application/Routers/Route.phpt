@@ -36,7 +36,7 @@ class RouteTest extends Tester\TestCase {
 		$netteReq2 = $route->match(new Nette\Http\Request($url2));
 
 		Assert::same('hello', $netteReq2->getParameters()['testComponent-stringParam']);
-		Assert::same(TRUE, $netteReq2->getParameters()['testComponent-boolParam']);
+		Assert::true($netteReq2->getParameters()['testComponent-boolParam']);
 	}
 
 }

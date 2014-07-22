@@ -68,7 +68,7 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * @param $property
 	 * @return bool
 	 */
-	protected function hasPersistentProperty($property) {
+	public function hasPersistentProperty($property) {
         $ref = $this->getReflection();
         if($ref->hasProperty($property)) {
             $refp = $ref->getProperty($property);
@@ -224,7 +224,7 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * @param $render
 	 * @return string
 	 */
-	protected function getTemplatePath($view, $render) {
+	public function getTemplatePath($view, $render = '') {
         return dirname($this->reflection->fileName) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $view . (strlen($render) > 0 ? '.' . $render : '') . '.latte';
     }
 
