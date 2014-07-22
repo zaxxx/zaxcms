@@ -3,6 +3,7 @@
 namespace ZaxCMS\Components\WebContent;
 use Nette,
 	Zax,
+	ZaxCMS,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
@@ -23,7 +24,7 @@ class EditControl extends Control {
 	protected $editFormFactory;
 
 	/**
-	 * @var Zax\Components\FileManager\IFileManagerFactory
+	 * @var ZaxCMS\Components\FileManager\IFileManagerFactory
 	 */
 	protected $fileManagerFactory;
 
@@ -38,12 +39,12 @@ class EditControl extends Control {
 	/**
 	 * @param IEditFormFactory                               $editFormFactory
 	 * @param Model\WebContentService                        $webContentService
-	 * @param Zax\Components\FileManager\IFileManagerFactory $fileManagerFactory
+	 * @param ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory
 	 * @param Zax\Utils\RootDir                              $rootDir
 	 */
 	public function __construct(IEditFormFactory $editFormFactory,
 								Model\WebContentService $webContentService,
-								Zax\Components\FileManager\IFileManagerFactory $fileManagerFactory,
+								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
 								Zax\Utils\RootDir $rootDir) {
 		$this->editFormFactory = $editFormFactory;
 		$this->webContentService = $webContentService;
@@ -104,7 +105,7 @@ class EditControl extends Control {
 	}
 
 	/**
-	 * @return Zax\Components\FileManager\FileManagerControl
+	 * @return ZaxCMS\Components\FileManager\FileManagerControl
 	 */
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()

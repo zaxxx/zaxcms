@@ -3,25 +3,25 @@
 services:
 
 ## Menu
-    - Zax\Components\Menu\IMenuFactory
-    - Zax\Components\Menu\IMenuItemFactory
-    - Zax\Components\Menu\IMenuListFactory
+    - ZaxCMS\Components\Menu\IMenuFactory
+    - ZaxCMS\Components\Menu\IMenuItemFactory
+    - ZaxCMS\Components\Menu\IMenuListFactory
 
 ## Css and Js files linker
-    - Zax\Components\StaticLinker\IStaticLinkerFactory
-    - Zax\Components\StaticLinker\ICssLinkerFactory
-    - Zax\Components\StaticLinker\IJsLinkerFactory
+    - ZaxCMS\Components\StaticLinker\IStaticLinkerFactory
+    - ZaxCMS\Components\StaticLinker\ICssLinkerFactory
+    - ZaxCMS\Components\StaticLinker\IJsLinkerFactory
 
 ## Flash messages
-    - Zax\Components\FlashMessage\IFlashMessageFactory
+    - ZaxCMS\Components\FlashMessage\IFlashMessageFactory
 
 ## File Manager
-    - Zax\Components\FileManager\ICreateDirFactory
-    - Zax\Components\FileManager\IRenameDirFactory
-    - Zax\Components\FileManager\IDeleteDirFactory
-    - Zax\Components\FileManager\IRenameFileFactory
-    - Zax\Components\FileManager\IDeleteFileFactory
-    - Zax\Components\FileManager\IUploadFileFactory
-    - Zax\Components\FileManager\IDirectoryListFactory
-    - Zax\Components\FileManager\IFileListFactory
-    - Zax\Components\FileManager\IFileManagerFactory
+    - ZaxCMS\Components\FileManager\ICreateDirFactory
+    - ZaxCMS\Components\FileManager\IRenameDirFactory
+    - ZaxCMS\Components\FileManager\IDeleteDirFactory
+    - ZaxCMS\Components\FileManager\IRenameFileFactory
+    - ZaxCMS\Components\FileManager\IDeleteFileFactory
+    - ZaxCMS\Components\FileManager\IUploadFileFactory
+    - ZaxCMS\Components\FileManager\IDirectoryListFactory
+    - ZaxCMS\Components\FileManager\IFileListFactory
+    - ZaxCMS\Components\FileManager\IFileManagerFactory

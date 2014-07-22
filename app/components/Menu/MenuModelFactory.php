@@ -20,7 +20,7 @@ class MenuModelFactory {
 
 	protected $translatableListener;
 
-	public function __construct(Zax\Components\Menu\IMenuFactory $menuFactory,
+	public function __construct(IMenuFactory $menuFactory,
 	                            ZaxCMS\Model\MenuService $menuService,
 	                            Gedmo\Translatable\TranslatableListener $translatableListener) {
 		$this->menuFactory = $menuFactory;
@@ -28,7 +28,7 @@ class MenuModelFactory {
 		$this->translatableListener = $translatableListener;
 	}
 
-	/** @return Zax\Components\Menu\MenuControl */
+	/** @return MenuControl */
 	public function create($menu) {
 		$menu = $this->menuService->getRepository()->findOneBy(['name' => $menu]);
 		//$menu->setTranslatableLocale($this->getLocale());

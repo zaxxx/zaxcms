@@ -21,12 +21,6 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	/** @persistent */
 	public $locale = 'cs_CZ';
 
-	/** @var Zax\Components\FlashMessage\IFlashMessageFactory */
-	protected $flashMessageFactory;
-
-	/** @var Zax\Components\StaticLinker\IStaticLinkerFactory */
-	protected $staticLinkerFactory;
-
 	/** @var bool */
 	protected $ajaxEnabled = FALSE;
 
@@ -35,17 +29,7 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	 */
 	protected $rootDir;
 
-	/**
-	 * @param Zax\Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory
-	 * @param Zax\Components\FlashMessage\IFlashMessageFactory $flashMessageFactory
-	 * @param Zax\Utils\RootDir                                $rootDir
-	 */
-	public function injectDependencies(
-		Zax\Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory,
-		Zax\Components\FlashMessage\IFlashMessageFactory $flashMessageFactory,
-		Zax\Utils\RootDir $rootDir) {
-		$this->staticLinkerFactory = $staticLinkerFactory;
-		$this->flashMessageFactory = $flashMessageFactory;
+	public function injectRootDir(Zax\Utils\RootDir $rootDir) {
 		$this->rootDir = $rootDir;
 	}
 

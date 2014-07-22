@@ -16,6 +16,18 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected $menuWrapperFactory;
 
+	protected $staticLinkerFactory;
+
+	protected $flashMessageFactory;
+
+	public function injectFlashMessageFactory(Components\FlashMessage\IFlashMessageFactory $flashMessageFactory) {
+		$this->flashMessageFactory = $flashMessageFactory;
+	}
+
+	public function injectStaticLinkerFactory(Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory) {
+		$this->staticLinkerFactory = $staticLinkerFactory;
+	}
+
 	public function injectWebContentFactory(Components\WebContent\IWebContentFactory $webContentFactory) {
 		$this->webContentFactory = $webContentFactory;
 	}
