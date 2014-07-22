@@ -29,3 +29,4 @@ services:
     - ZaxCMS\Components\Menu\IEditMenuFactory
     - ZaxCMS\Components\Menu\IAddMenuItemFactory
     - ZaxCMS\Components\Menu\IEditMenuItemFactory
+    - ZaxCMS\Components\Menu\IEditMenuFormFactory

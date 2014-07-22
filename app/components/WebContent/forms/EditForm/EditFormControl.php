@@ -90,9 +90,5 @@ class EditFormControl extends FormControl {
 	public function handleCancel() {
 		$this->parent->close();
 	}
-	
-	protected function createComponentForm() {
-		return $this->createForm();
-	}
 
 }

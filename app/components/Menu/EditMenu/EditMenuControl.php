@@ -15,14 +15,11 @@ class EditMenuControl extends Control {
 
 	protected $menuService;
 
-	protected $formFactory;
+	protected $editMenuFormFactory;
 
-	protected $binder;
-
-	public function __construct(Model\MenuService $menuService, ZaxUI\FormFactory $formFactory, Zax\Forms\IBinder $binder) {
+	public function __construct(Model\MenuService $menuService, IEditMenuFormFactory $editMenuFormFactory) {
 		$this->menuService = $menuService;
-		$this->formFactory = $formFactory;
-		$this->binder = $binder;
+		$this->editMenuFormFactory = $editMenuFormFactory;
 	}
 
 	public function createForm() {
@@ -35,41 +32,8 @@ class EditMenuControl extends Control {
 	}
 
 	protected function createComponentEditMenuForm() {
-		$f = (new MenuForm)->createMenuForm($this, $this->parent->getLocale());
-
-		$f->addButtonSubmit('editMenu', 'common.button.edit', 'pencil');
-		//$f->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
-
-		$f->enableBootstrap(['success' => ['editMenu'], 'default' => ['cancel']], TRUE);
-
-		$f->autofocus('name');
-
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
-		$this->menu->setTranslatableLocale($this->parent->getLocale());
-		$this->menuService->getEm()->refresh($this->menu);
-		$this->binder->entityToForm($this->menu, $f);
-
-		$f->onSuccess[] = function(ZaxUI\Form $form, $values) {
-			$this->binder->formToEntity($form, $this->menu);
-			$this->menu->setTranslatableLocale($this->parent->getLocale());
-			try {
-				$this->menuService->getEm()->persist($this->menu);
-				$this->menuService->getEm()->flush();
-				$this->flashMessage('menu.alert.changesSaved');
-				$this->parent->go('this', ['view' => 'Default']);
-			} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
-				$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));
-			}
-		};
-
-		$f->onError[] = function() {
-			$this->flashMessage('menu.alert.changesError');
-		};
-
-		return $f;
+	    return $this->editMenuFormFactory->create()
+		    ->setMenu($this->menu);
 	}
 
 	public function viewDefault() {

@@ -39,7 +39,9 @@ abstract class FormControl extends SecuredControl {
 		return $form;
 	}
 
-	abstract protected function createComponentForm();
+	protected function createComponentForm() {
+		return $this->createForm();
+	}
 
 	abstract protected function formError(Nette\Forms\Form $form);
 
