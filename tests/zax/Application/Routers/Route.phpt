@@ -22,7 +22,7 @@ class RouteTest extends Tester\TestCase {
 		$meta = Zax\Application\Routers\Route::meta('Test', 'test',
 			[
 				'tc' => 'testComponent-stringParam',
-			    'yes' => 'testComponent-boolParam'
+				'yes' => 'testComponent-boolParam'
 			],
 			['yes']
 		);
