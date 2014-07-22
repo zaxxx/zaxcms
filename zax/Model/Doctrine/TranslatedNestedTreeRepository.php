@@ -1,17 +1,14 @@
 <?php
 
-namespace ZaxCMS\Model;
+namespace Zax\Model;
 use Zax,
-	ZaxCMS,
 	Nette,
 	Kdyby,
 	Gedmo,
 	Doctrine,
-	Doctrine\ORM\EntityRepository,
 	Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
-// TODO: WTF...
-class MenuRepository extends NestedTreeRepository {
+class TranslatedNestedTreeRepository extends NestedTreeRepository {
 
 	protected $locale;
 
@@ -22,7 +19,7 @@ class MenuRepository extends NestedTreeRepository {
 
 	public function childrenQuery($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
 		if($this->locale === NULL) {
-			throw new \Exception('Locale not set'); // TODO
+			throw new LocaleNotSetException('Locale not set, use setLocale() method.');
 		}
 		$query = $this->childrenQueryBuilder($node, $direct, $sortByField, $direction, $includeNode)->getQuery();
 		$query->setHint(
