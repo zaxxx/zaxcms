@@ -33,7 +33,7 @@ class PathHelpers extends Nette\Object {
 	 * @return bool
 	 */
 	static public function isEqual($dir1, $dir2) {
-		return realpath($dir1) == realpath($dir2);
+		return realpath($dir1) === realpath($dir2);
 	}
 
 	/**
@@ -49,8 +49,10 @@ class PathHelpers extends Nette\Object {
 	 * @param $dir
 	 * @return int
 	 */
-	static public function getDepth($dir) {
-		$dir = realpath($dir);
+	static public function getDepth($dir, $syntaxOnly = FALSE) {
+		if(!$syntaxOnly) {
+			$dir = realpath($dir);
+		}
 		return substr_count($dir, '/') + substr_count($dir, '\\');
 	}
 
