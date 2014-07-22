@@ -1,8 +1,4 @@
 ### Zax CMS services, model and components ###
-
-parameters:
-    #menus: # <-- only needed when using array factory
-
 services:
 
 ## Installer scripts
@@ -16,23 +12,6 @@ services:
     - ZaxCMS\Model\WebContentService
     - ZaxCMS\Model\MenuService
 
-## Components
-
-    ## WebContent
-    - ZaxCMS\Components\WebContent\IEditFormFactory
-    - ZaxCMS\Components\WebContent\IEditFactory
-    - ZaxCMS\Components\WebContent\IWebContentFactory
-
-    ## Menu
-    - ZaxCMS\Components\Menu\MenuModelFactory
-    - ZaxCMS\Components\Menu\IEditFactory
-    - ZaxCMS\Components\Menu\IMenuWrapperFactory
-
-    - ZaxCMS\Components\Menu\IEditMenuFormFactory
-    - ZaxCMS\Components\Menu\IAddMenuItemFormFactory
-    - ZaxCMS\Components\Menu\IEditMenuItemFormFactory
-    - ZaxCMS\Components\Menu\IDeleteMenuItemFormFactory
-
-    - ZaxCMS\Components\Menu\IEditMenuFactory
-    - ZaxCMS\Components\Menu\IAddMenuItemFactory
-    - ZaxCMS\Components\Menu\IEditMenuItemFactory
+## Router
+    - ZaxCMS\Routers\RouterFactory
+    router: @ZaxCMS\Routers\RouterFactory::create

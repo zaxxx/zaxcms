@@ -1,0 +1,18 @@
+services:
+## Menu
+    - ZaxCMS\Components\Menu\IMenuFactory
+    - ZaxCMS\Components\Menu\IMenuItemFactory
+    - ZaxCMS\Components\Menu\IMenuListFactory
+
+    - ZaxCMS\Components\Menu\MenuModelFactory
+    - ZaxCMS\Components\Menu\IEditFactory
+    - ZaxCMS\Components\Menu\IMenuWrapperFactory
+
+    - ZaxCMS\Components\Menu\IEditMenuFormFactory
+    - ZaxCMS\Components\Menu\IAddMenuItemFormFactory
+    - ZaxCMS\Components\Menu\IEditMenuItemFormFactory
+    - ZaxCMS\Components\Menu\IDeleteMenuItemFormFactory
+
+    - ZaxCMS\Components\Menu\IEditMenuFactory
+    - ZaxCMS\Components\Menu\IAddMenuItemFactory
+    - ZaxCMS\Components\Menu\IEditMenuItemFactory

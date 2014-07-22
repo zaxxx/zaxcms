@@ -87,13 +87,6 @@ translation:
 services:
     - Gedmo\Translatable\TranslatableListener
 
-    - Zax\Utils\AppDir(%appDir%)
-    - Zax\Utils\RootDir(%rootDir%)
-    - Zax\Application\UI\FormFactory
-
-    - ZaxCMS\Routers\RouterFactory
-    router: @ZaxCMS\Routers\RouterFactory::create
-
 
 
     

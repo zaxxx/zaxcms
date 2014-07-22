@@ -1,0 +1,3 @@
+services:
+## Flash messages
+    - ZaxCMS\Components\FlashMessage\IFlashMessageFactory

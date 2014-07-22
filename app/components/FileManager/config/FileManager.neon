@@ -1,0 +1,11 @@
+services:
+## File Manager
+    - ZaxCMS\Components\FileManager\ICreateDirFactory
+    - ZaxCMS\Components\FileManager\IRenameDirFactory
+    - ZaxCMS\Components\FileManager\IDeleteDirFactory
+    - ZaxCMS\Components\FileManager\IRenameFileFactory
+    - ZaxCMS\Components\FileManager\IDeleteFileFactory
+    - ZaxCMS\Components\FileManager\IUploadFileFactory
+    - ZaxCMS\Components\FileManager\IDirectoryListFactory
+    - ZaxCMS\Components\FileManager\IFileListFactory
+    - ZaxCMS\Components\FileManager\IFileManagerFactory

@@ -1,0 +1,5 @@
+services:
+## Css and Js files linker
+    - ZaxCMS\Components\StaticLinker\IStaticLinkerFactory
+    - ZaxCMS\Components\StaticLinker\ICssLinkerFactory
+    - ZaxCMS\Components\StaticLinker\IJsLinkerFactory
