@@ -45,6 +45,7 @@ class DeleteMenuItemFormControl extends FormControl {
     public function formSuccess(Form $form, $values) {
 	    $this->menuService->getEm()->remove($this->menuItem);
 	    $this->menuService->getEm()->flush();
+	    $this->menuService->invalidateCache();
 
 	    $this->flashMessage('Deleted');
 	    $this->lookup('ZaxCMS\Components\Menu\EditControl')->go('this', ['selectItem' => 0]);

@@ -28,13 +28,22 @@ class MenuModelFactory {
 		$this->translatableListener = $translatableListener;
 	}
 
+	protected function loadMenu($name) {
+		$menu = $this->cache->load($name . '-' . $this->getLocale());
+		if($menu === NULL) {
+			$menu = $this->menuService->getRepository()->findOneBy(['name' => $name]);
+			//$menu->setTranslatableLocale($this->getLocale());
+			$this->translatableListener->setTranslatableLocale($this->getLocale());
+			$this->menuService->getEm()->refresh($menu);
+			$this->cache->save($name . '-' . $this->getLocale(), $menu, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+		}
+		return $menu;
+	}
+
 	/** @return MenuControl */
 	public function create($menu) {
-		$menu = $this->menuService->getRepository()->findOneBy(['name' => $menu]);
-		//$menu->setTranslatableLocale($this->getLocale());
-		$this->translatableListener->setTranslatableLocale($this->getLocale());
-		$this->menuService->getEm()->refresh($menu);
-		return $this->menuFactory->create()->setMenu($menu)->setRepository($this->menuService->getRepository());
+		return $this->menuFactory->create()
+			->setMenu($this->loadMenu($menu));
 	}
 
 }

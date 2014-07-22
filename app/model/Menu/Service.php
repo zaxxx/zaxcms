@@ -10,7 +10,8 @@ use Zax,
 
 class MenuService extends Service {
 
-	use Zax\Traits\TTranslatable;
+	use Zax\Traits\TTranslatable,
+		Zax\Traits\TCacheable;
 
 	protected $locale;
 
@@ -22,6 +23,20 @@ class MenuService extends Service {
 	/** @return Gedmo\Tree\Entity\Repository\NestedTreeRepository */
 	public function getRepository() {
 		return parent::getRepository()->setLocale($this->getLocale());
+	}
+
+	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
+		$children = $this->cache->load('children-' . $node->id . '-' . $this->getLocale());
+		if($children === NULL) {
+			$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
+			$this->cache->save('children-' . $node->id . '-' . $this->getLocale(), $children, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+		}
+		return $children;
+	}
+
+	public function invalidateCache() {
+		$this->cache->clean([Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+		return $this;
 	}
 
 	public function generateDefaultMenu() {

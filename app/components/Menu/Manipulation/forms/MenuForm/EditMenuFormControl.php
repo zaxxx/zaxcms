@@ -42,6 +42,8 @@ class EditMenuFormControl extends FormControl {
 		$this->menu->setTranslatableLocale($this->parent->getLocale());
 		try {
 			$this->menuService->getEm()->flush();
+			$this->menuService->invalidateCache();
+
 			$this->flashMessage('menu.alert.changesSaved');
 			$this->parent->go('this', ['view' => 'Default']);
 		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {

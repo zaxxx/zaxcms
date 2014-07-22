@@ -43,7 +43,8 @@ class MenuWrapperControl extends Control {
 	}
 
 	protected function createComponentMenu() {
-		$control = $this->menuFactory->create($this->name);
+		$control = $this->menuFactory->create($this->name)
+			->setName($this->name);
 		if($this->ajaxEnabled) {
 			$control->enableAjax(!$this->autoAjax);
 		}

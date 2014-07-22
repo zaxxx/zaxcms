@@ -30,8 +30,9 @@ class AddMenuItemFormControl extends MenuItemFormControl {
 		try {
 			$this->menuService->getRepository()->persistAsLastChildOf($menuItem, $this->parentMenu);
 			$this->menuService->getEm()->flush();
-			$this->flashMessage('menu.alert.newEntrySaved');
+			$this->menuService->invalidateCache();
 
+			$this->flashMessage('menu.alert.newEntrySaved');
 			$this->lookup('ZaxCMS\Components\Menu\EditControl')->go('this', ['selectItem' => $menuItem->id]);
 		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));

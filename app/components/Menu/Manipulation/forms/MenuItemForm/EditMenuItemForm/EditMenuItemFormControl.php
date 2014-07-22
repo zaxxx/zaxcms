@@ -23,6 +23,7 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 		try {
 			$this->menuService->getEm()->persist($menuItem);
 			$this->menuService->getEm()->flush();
+			$this->menuService->invalidateCache();
 
 			$this->flashMessage('menu.alert.changesSaved');
 			$this->lookup('ZaxCMS\Components\Menu\EditControl')->go('this', ['selectItem' => $menuItem->id]);

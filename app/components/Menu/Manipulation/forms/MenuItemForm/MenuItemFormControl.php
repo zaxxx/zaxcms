@@ -54,16 +54,11 @@ abstract class MenuItemFormControl extends FormControl {
 	    $f->addText('htmlClass', 'menu.form.htmlClass');
 	    $f->addText('htmlTarget', 'menu.form.htmlTarget');
 
-
 	    $f->addText('href', 'menu.form.url');
 	    $f->addText('nhref', 'menu.form.nhref');
 	    $f->addNeonTextArea('nhrefParams', 'menu.form.nhrefParams');
 
 	    $this->createSubmitButtons($f);
-
-	    //$f->addButtonSubmit('editMenu', 'common.button.edit', 'pencil');
-	    //$f->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
-	    //$f->enableBootstrap(['success' => ['editMenu'], 'default' => ['cancel']], TRUE);
 
 	    $f->autofocus('name');
 
@@ -91,7 +86,6 @@ abstract class MenuItemFormControl extends FormControl {
 	    }
 
 	    $this->saveMenuItem($this->menuItem, $form);
-
     }
     
     public function formError(Form $form) {

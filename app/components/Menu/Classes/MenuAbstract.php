@@ -11,15 +11,14 @@ abstract class MenuAbstract extends Nette\Object {
 
 	protected $privileges;
 
-	/** @var Gedmo\Tree\Entity\Repository\NestedTreeRepository|NULL */
-	protected $menuRepository;
+	protected $service;
 
 	public function __construct($data = []) {
 		$this->data = $data;
 	}
 
-	public function setRepository(Gedmo\Tree\Entity\Repository\NestedTreeRepository $repository) {
-		$this->menuRepository = $repository;
+	public function setService(Zax\Model\IService $service) {
+		$this->service = $service;
 		return $this;
 	}
 
