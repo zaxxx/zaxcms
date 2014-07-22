@@ -59,10 +59,10 @@ class DeleteFileControl extends FileManipulationControl {
 	}
 
 	/**
-	 * @return Zax\Components\FileManager\FileListControl
+	 * @return FileListControl
 	 */
 	public function getFileList() {
-		return $this->lookup('Zax\Components\FileManager\FileListControl');
+		return $this->lookup('ZaxCMS\Components\FileManager\FileListControl');
 	}
 
 	/**

@@ -84,10 +84,10 @@ class RenameDirControl extends DirectoryManipulationControl {
 	}
 
 	/**
-	 * @return Zax\Components\FileManager\DirectoryListControl
+	 * @return DirectoryListControl
 	 */
 	public function getDirectoryList() {
-		return $this->lookup('Zax\Components\FileManager\DirectoryListControl');
+		return $this->lookup('ZaxCMS\Components\FileManager\DirectoryListControl');
 	}
 
 	/**
