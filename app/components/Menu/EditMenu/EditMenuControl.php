@@ -13,12 +13,9 @@ class EditMenuControl extends Control {
 
 	protected $menu;
 
-	protected $menuService;
-
 	protected $editMenuFormFactory;
 
-	public function __construct(Model\MenuService $menuService, IEditMenuFormFactory $editMenuFormFactory) {
-		$this->menuService = $menuService;
+	public function __construct(IEditMenuFormFactory $editMenuFormFactory) {
 		$this->editMenuFormFactory = $editMenuFormFactory;
 	}
 

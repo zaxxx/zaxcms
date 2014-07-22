@@ -9,28 +9,22 @@ use Nette,
 	Nette\Application\UI as NetteUI,
 	Zax\Application\UI\Control;
 
-// TODO: DRY
 class EditMenuItemControl extends Control {
 
 	protected $menuItem;
 
+	protected $editMenuItemFormFactory;
+
+	protected $deleteMenuItemFormFactory;
+
 	protected $menuService;
 
-	protected $router;
-
-	protected $formFactory;
-
-	protected $binder;
-
-	public function __construct(Model\MenuService $menuService, Nette\Application\IRouter $router, ZaxUI\FormFactory $formFactory, Zax\Forms\IBinder $binder) {
+	public function __construct(IEditMenuItemFormFactory $editMenuItemFormFactory,
+	                            IDeleteMenuItemFormFactory $deleteMenuItemFormFactory,
+								Model\MenuService $menuService) {
+		$this->editMenuItemFormFactory = $editMenuItemFormFactory;
+		$this->deleteMenuItemFormFactory = $deleteMenuItemFormFactory;
 		$this->menuService = $menuService;
-		$this->router = $router;
-		$this->formFactory = $formFactory;
-		$this->binder = $binder;
-	}
-
-	public function createForm() {
-		return $this->formFactory->create();
 	}
 
 	public function setMenuItem(Model\Menu $menuItem) {
@@ -70,74 +64,14 @@ class EditMenuItemControl extends Control {
 		$this->parent->go('this', ['selectItem' => NULL]);
 	}
 
-	protected function createComponentDeleteItemForm() {
-		$f = $this->createForm();
-		$f->addButtonSubmit('deleteItem', 'common.button.delete', 'trash');
-		$f->addLinkSubmit('cancel', '', 'remove', $this->link('this', ['view' => 'Default']));
-		$f->enableBootstrap(['danger' => ['deleteItem'], 'default' => ['cancel']], TRUE, 3, 'sm', 'form-inline');
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
-		$f->onSuccess[] = function(ZaxUI\Form $form, $values) {
-			$this->menuService->getEm()->remove($this->menuItem);
-			$this->menuService->getEm()->flush();
-
-			$this->flashMessage('Deleted');
-			$this->parent->go('this', ['selectItem' => 0]);
-		};
-
-		return $f;
+	protected function createComponentEditMenuItemForm() {
+	    return $this->editMenuItemFormFactory->create()
+		    ->setMenuItem($this->menuItem);
 	}
 
-	protected function createComponentEditItemForm() {
-		$f = (new MenuItemForm)->createMenuItemForm($this, $this->parent->getLocale());
-
-
-		$f->addButtonSubmit('editItem', 'common.button.edit', 'pencil');
-		$f->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
-
-		$f->enableBootstrap(['success' => ['editItem'], 'default' => ['cancel']], TRUE);
-
-		$f->autofocus('name');
-
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
-		$this->menuItem->setTranslatableLocale($this->parent->getLocale());
-		$this->menuService->getEm()->refresh($this->menuItem);
-		$f = $this->binder->entityToForm($this->menuItem, $f);
-
-		$f->onSuccess[] = function(ZaxUI\Form $form, $values) {
-			$this->binder->formToEntity($form, $this->menuItem);
-
-			if(!empty($values->href) && strpos($values->href, $this->template->baseUri) === 0) {
-				$request = $this->router->match(new Nette\Http\Request(new Nette\Http\UrlScript(str_replace($this->template->baseUri, '', $values->href))));
-				if($request) {
-					$params = $request->getParameters();
-					$this->menuItem->nhref = ':' . $request->presenterName . ':' . $params['action'];
-					unset($params['action']);
-					$this->menuItem->nhrefParams = $params;
-					$this->menuItem->href = NULL;
-				}
-			}
-			try {
-				$this->menuService->getEm()->persist($this->menuItem);
-				$this->menuService->getEm()->flush();
-				$this->binder->entityToForm($this->menuItem, $form);
-				$this->flashMessage('menu.alert.changesSaved');
-				$this->parent->go('this', ['selectItem' => $this->menuItem->id]);
-			} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
-				$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));
-			}
-		};
-
-		$f->onError[] = function() {
-			$this->flashMessage('menu.alert.changesError');
-		};
-
-		return $f;
+	protected function createComponentDeleteMenuItemForm() {
+	    return $this->deleteMenuItemFormFactory->create()
+		    ->setMenuItem($this->menuItem);
 	}
 
 }
