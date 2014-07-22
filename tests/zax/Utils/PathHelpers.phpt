@@ -74,8 +74,7 @@ class PathHelpersTest extends Tester\TestCase {
 	}
 
 	public function testGetPath() {
-		$rootDir = $this->container->getByType('Zax\Utils\RootDir');
-		$path = PathHelpers::getPath('http://example.com', $rootDir, new \SplFileInfo(__DIR__ . '/PathHelpers.phpt'));
+		$path = PathHelpers::getPath('http://example.com', $this->rootDir, new \SplFileInfo(__DIR__ . '/PathHelpers.phpt'));
 		Assert::same('http://example.com/tests/zax/Utils/PathHelpers.phpt', $path);
 	}
 
