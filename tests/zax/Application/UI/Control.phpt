@@ -17,14 +17,20 @@ class ControlTest extends Tester\TestCase {
 	/** @var Zax\Application\UI\Control */
 	private $control;
 
+	/** @var Zax\Application\UI\Presenter */
+	private $presenter;
+
 	public function __construct(Nette\DI\Container $container) {
 		$this->container = $container;
 		$pFactory = $container->getByType('Nette\Application\IPresenterFactory');
-		$this->control = $pFactory->createPresenter('Test:Test')->getComponent('testComponent');
+		$this->presenter = $pFactory->createPresenter('Test:Test');
 	}
 
 	public function setUp() {
-		$this->control->setView('Default');
+		if($this->control !== NULL ){
+			$this->presenter->removeComponent($this->control);
+		}
+		$this->control = $this->presenter->getComponent('testComponent');
 	}
 
 	public function testViewNotExist() {
@@ -63,6 +69,32 @@ class ControlTest extends Tester\TestCase {
 		$this->control->setView('foo');
 		Assert::exception(function() {$this->control->render();}, 'RuntimeException', 'Missing template file \'' . $this->tp('Foo') . '\'.');
 		Assert::exception(function() {$this->control->renderBar();}, 'RuntimeException', 'Missing template file \'' . $this->tp('Foo.Bar') . '\'.');
+	}
+
+	public function testAjaxRecursive() {
+		$this->control->enableAjax();
+		$control = $this->control;
+		for($i=0;$i<100;$i++) {
+			Assert::true($control->isAjaxEnabled());
+			$control = $control->getComponent('testComponent');
+		}
+	}
+
+	public function testDisableAjaxFor() {
+		$this->control->enableAjax();
+
+		$this->control[str_repeat('testComponent-', 49) . 'testComponent']
+			->disableAjaxFor(['testComponent']);
+
+		$control = $this->control;
+		for($i=0;$i<100;$i++) {
+			if($i>50) {
+				Assert::false($control->isAjaxEnabled());
+			} else {
+				Assert::true($control->isAjaxEnabled());
+			}
+			$control = $control->getComponent('testComponent');
+		}
 	}
 
 	private function tp($name) {

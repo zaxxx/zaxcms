@@ -78,6 +78,18 @@ abstract class Control extends Nette\Application\UI\Control {
 		return $this;
 	}
 
+	/**
+	 * Disables AJAX for this component.
+	 * Do not call in factory, it won't work, use disableAjaxFor in parent component instead ;-)
+	 *
+	 * @return $this
+	 */
+	public function disableAjax() {
+		$this->ajaxEnabled = FALSE;
+		$this->autoAjax = FALSE;
+		return $this;
+	}
+
 	public function isAjaxEnabled() {
 		return $this->ajaxEnabled;
 	}

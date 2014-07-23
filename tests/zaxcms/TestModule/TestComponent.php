@@ -12,6 +12,12 @@ class TestControl extends Zax\Application\UI\Control {
 	/** @persistent */
 	public $boolParam = FALSE;
 
+	protected $testComponentFactory;
+
+	public function __construct(ITestComponentFactory $testComponentFactory) {
+		$this->testComponentFactory = $testComponentFactory;
+	}
+
 	public function viewDefault() {
 
 	}
@@ -26,6 +32,10 @@ class TestControl extends Zax\Application\UI\Control {
 
 	public function beforeRenderBar() {
 
+	}
+
+	protected function createComponentTestComponent() {
+	    return $this->testComponentFactory->create();
 	}
 
 }
