@@ -62,6 +62,31 @@ class EditControl extends Control {
 		$this->template->availableLocales = $this->getAvailableLocales();
 	}
 
+	/** @return AddMenuItemControl */
+	public function getAddMenuItem() {
+		return $this['addMenuItem'];
+	}
+
+	/** @return EditMenuItemControl */
+	public function getEditMenuItem() {
+		return $this['editMenuItem'];
+	}
+
+	/** @return EditMenuControl */
+	public function getEditMenu() {
+		return $this['editMenu'];
+	}
+
+	/** @return MenuWrapperControl */
+	public function getMenuWrapper() {
+		return $this->lookup('ZaxCMS\Components\Menu\MenuWrapperControl');
+	}
+
+	/** @return MenuControl */
+	public function getMenuControl() {
+		return $this->getMenuWrapper()->getMenu();
+	}
+
 	protected function createComponentAddMenuItem() {
 		$control = $this->addMenuItemFactory->create()
 			->setParentMenu($this->getMenu());

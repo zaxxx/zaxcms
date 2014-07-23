@@ -42,6 +42,11 @@ class MenuControl extends Zax\Application\UI\Control {
 		return $this;
 	}
 
+	/** @return MenuListControl */
+	public function getMenuList() {
+		return $this['menu'];
+	}
+
 	protected function createComponentMenu() {
 		$menuList = new MenuList($this->menu);
 		if($this->menuService !== NULL)

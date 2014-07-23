@@ -30,6 +30,11 @@ class MenuListControl extends Zax\Application\UI\SecuredControl {
 		$this->template->menu = $this->menu;
 	}
 
+	/** @return MenuControl */
+	public function getMenu() {
+		return $this->lookup('ZaxCMS\Components\Menu\MenuControl');
+	}
+
 	protected function createComponentItem() {
 		return new NetteUI\Multiplier(function($id) {
 			return $this->menuItemFactory->create()

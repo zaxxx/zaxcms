@@ -19,13 +19,14 @@ class EditMenuControl extends Control {
 		$this->editMenuFormFactory = $editMenuFormFactory;
 	}
 
-	public function createForm() {
-		return $this->formFactory->create();
-	}
-
 	public function setMenu(Model\Menu $menu) {
 		$this->menu = $menu;
 		return $this;
+	}
+
+	/** @return EditControl */
+	public function getEditControl() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
 	}
 
 	protected function createComponentEditMenuForm() {

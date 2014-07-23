@@ -28,6 +28,11 @@ class DeleteMenuItemFormControl extends FormControl {
 		return $this;
 	}
 
+	/** @return EditControl */
+	public function getEditControl() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
+	}
+
     public function viewDefault() {}
     
     public function beforeRender() {}
@@ -48,7 +53,7 @@ class DeleteMenuItemFormControl extends FormControl {
 	    $this->menuService->invalidateCache();
 
 	    $this->flashMessage('Deleted');
-	    $this->lookup('ZaxCMS\Components\Menu\EditControl')->go('this', ['selectItem' => 0]);
+	    $this->getEditControl()->go('this', ['selectItem' => 0]);
     }
     
     public function formError(Form $form) {

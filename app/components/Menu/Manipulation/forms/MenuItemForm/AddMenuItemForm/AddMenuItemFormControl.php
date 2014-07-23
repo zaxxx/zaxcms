@@ -26,6 +26,11 @@ class AddMenuItemFormControl extends MenuItemFormControl {
 	    $form->enableBootstrap(['success' => ['addMenu'], 'default' => ['cancel']], TRUE);
     }
 
+	/** @return AddMenuItemControl */
+	public function getAddMenuItem() {
+		return $this->lookup('ZaxCMS\Components\Menu\AddMenuItemControl');
+	}
+
 	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
 		try {
 			$this->menuService->getRepository()->persistAsLastChildOf($menuItem, $this->parentMenu);
@@ -33,7 +38,7 @@ class AddMenuItemFormControl extends MenuItemFormControl {
 			$this->menuService->invalidateCache();
 
 			$this->flashMessage('menu.alert.newEntrySaved');
-			$this->lookup('ZaxCMS\Components\Menu\EditControl')->go('this', ['selectItem' => $menuItem->id]);
+			$this->getEditControl()->go('this', ['selectItem' => $menuItem->id]);
 		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));
 		}

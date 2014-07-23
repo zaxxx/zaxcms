@@ -37,6 +37,11 @@ class EditMenuFormControl extends FormControl {
         
     }
 
+	/** @return EditMenuControl */
+	public function getEditMenu() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditMenuControl');
+	}
+
 	public function formSuccess(Nette\Forms\Form $form, $values) {
 		$this->binder->formToEntity($form, $this->menu);
 		$this->menu->setTranslatableLocale($this->parent->getLocale());
@@ -45,7 +50,7 @@ class EditMenuFormControl extends FormControl {
 			$this->menuService->invalidateCache();
 
 			$this->flashMessage('menu.alert.changesSaved');
-			$this->parent->go('this', ['view' => 'Default']);
+			$this->getEditMenu()->go('this', ['view' => 'Default']);
 		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));
 		}

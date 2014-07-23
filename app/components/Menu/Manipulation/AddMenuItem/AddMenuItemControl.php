@@ -26,7 +26,12 @@ class AddMenuItemControl extends Control {
 	}
 
 	public function handleClose() {
-		$this->parent->go('this', ['selectItem' => NULL]);
+		$this->getEdit()->go('this', ['selectItem' => NULL]);
+	}
+
+	/** @return EditControl */
+	public function getEditControl() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
 	}
 
 	protected function createComponentAddMenuItemForm() {

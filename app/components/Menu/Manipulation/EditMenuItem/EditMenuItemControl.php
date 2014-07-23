@@ -44,24 +44,27 @@ class EditMenuItemControl extends Control {
 
 	}
 
-	protected function getMenu() {
-		return $this->lookup('ZaxCMS\Components\MenuWrapperControl')['menu'];
+	/** @return EditControl */
+	public function getEditControl() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
 	}
 
 	public function handleMoveUp() {
 		$this->menuService->moveUp($this->menuItem);
 		$this->menuService->getEm()->refresh($this->menuItem->parent);
+		$this->menuService->invalidateCache();
 		$this->go('this');
 	}
 
 	public function handleMoveDown() {
 		$this->menuService->moveDown($this->menuItem);
 		$this->menuService->getEm()->refresh($this->menuItem->parent);
+		$this->menuService->invalidateCache();
 		$this->go('this');
 	}
 
 	public function handleClose() {
-		$this->parent->go('this', ['selectItem' => NULL]);
+		$this->getEditControl()->go('this', ['selectItem' => NULL]);
 	}
 
 	protected function createComponentEditMenuItemForm() {

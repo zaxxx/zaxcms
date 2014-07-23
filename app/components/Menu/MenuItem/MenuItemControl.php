@@ -24,6 +24,16 @@ class MenuItemControl extends Control {
 
 	}
 
+	/** @return MenuListControl */
+	public function getSubmenu() {
+		return $this['submenu'];
+	}
+
+	/** @return MenuListControl */
+	public function getMenuList() {
+		return $this->lookup('ZaxCMS\Components\Menu\MenuListControl');
+	}
+
 	public function beforeRender() {
 		$this->template->item = $this->item;
 	}

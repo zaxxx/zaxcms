@@ -19,6 +19,11 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 		$form->enableBootstrap(['success' => ['editMenu'], 'default' => ['cancel']], TRUE);
 	}
 
+	/** @return EditMenuItemControl */
+	public function getEditMenuItem() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditMenuItemControl');
+	}
+
 	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
 		try {
 			$this->menuService->getEm()->persist($menuItem);
@@ -26,7 +31,7 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 			$this->menuService->invalidateCache();
 
 			$this->flashMessage('menu.alert.changesSaved');
-			$this->lookup('ZaxCMS\Components\Menu\EditControl')->go('this', ['selectItem' => $menuItem->id]);
+			$this->getEditControl()->go('this', ['selectItem' => $menuItem->id]);
 		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));
 		}

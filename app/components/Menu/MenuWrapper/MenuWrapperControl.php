@@ -42,6 +42,16 @@ class MenuWrapperControl extends Control {
 
 	}
 
+	/** @return MenuControl */
+	public function getMenu() {
+		return $this['menu'];
+	}
+
+	/** @return EditControl */
+	public function getEdit() {
+		return $this['edit'];
+	}
+
 	protected function createComponentMenu() {
 		$control = $this->menuFactory->create($this->name)
 			->setName($this->name);

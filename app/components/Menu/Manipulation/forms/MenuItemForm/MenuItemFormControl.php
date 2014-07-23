@@ -32,6 +32,11 @@ abstract class MenuItemFormControl extends FormControl {
 		return $this;
 	}
 
+	/** @return EditControl */
+	public function getEditControl() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
+	}
+
     public function viewDefault() {}
     
     public function beforeRender() {}
