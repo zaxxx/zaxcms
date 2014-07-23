@@ -57,18 +57,20 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * Enables AJAX for this component AND all sub-components
 	 *
 	 * @param bool $autoAjax Should call redrawControl() in attached()?
+	 * @param array $exclude array of subcomponent names which should be excluded from AJAXification
 	 * @return $this
 	 */
-	public function enableAjax($autoAjax = TRUE) {
+	public function enableAjax($autoAjax = TRUE, $exclude = []) {
         $this->ajaxEnabled = TRUE;
         $this->autoAjax = $autoAjax;
+		$this->disableAjaxFor($exclude);
         return $this;
     }
 
 	/**
 	 * Forces AJAX off on specified subcomponents (has higher priority than enableAjax())
 	 *
-	 * @param array $subcomponents
+	 * @param array $subcomponents array of subcomponent names which should be excluded from AJAXification
 	 * @return $this
 	 */
 	public function disableAjaxFor($subcomponents = []) {
