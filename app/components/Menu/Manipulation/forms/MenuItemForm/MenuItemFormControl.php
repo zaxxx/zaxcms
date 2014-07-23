@@ -24,6 +24,12 @@ abstract class MenuItemFormControl extends FormControl {
 		$this->menuService = $menuService;
 	}
 
+	public function attached($presenter) {
+		parent::attached($presenter);
+		$this->menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
+		$this->menuService->refresh($this->menuItem);
+	}
+
 	public function setMenuItem(Model\Menu $menu) {
 		if(!$menu->isMenuItem) {
 			throw new ObjectNotMenuItemException('This is menu list, not menu item!');
@@ -49,7 +55,7 @@ abstract class MenuItemFormControl extends FormControl {
         $f = parent::createForm();
 
 	    $f->addStatic('localeFlag', 'webContent.form.locale')
-		    ->setDefaultValue($this->parent->getLocale());
+		    ->setDefaultValue($this->getEditControl()->getLocale());
 
 	    $f->addText('name', 'menu.form.uniqueName')
 		    ->setRequired()

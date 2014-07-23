@@ -42,9 +42,20 @@ class EditMenuFormControl extends FormControl {
 		return $this->lookup('ZaxCMS\Components\Menu\EditMenuControl');
 	}
 
+	/** @return EditControl */
+	public function getEditControl() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
+	}
+
+	public function attached($presenter) {
+		parent::attached($presenter);
+		$this->menu->setTranslatableLocale($this->getEditControl()->getLocale());
+		$this->menuService->refresh($this->menu);
+	}
+
 	public function formSuccess(Nette\Forms\Form $form, $values) {
 		$this->binder->formToEntity($form, $this->menu);
-		$this->menu->setTranslatableLocale($this->parent->getLocale());
+		$this->menu->setTranslatableLocale($this->getEditControl()->getLocale());
 		try {
 			$this->menuService->getEm()->flush();
 			$this->menuService->invalidateCache();
@@ -64,7 +75,7 @@ class EditMenuFormControl extends FormControl {
 		$f = parent::createForm();
 
 		$f->addStatic('localeFlag', 'webContent.form.locale')
-			->setDefaultValue($this->parent->getLocale());
+			->setDefaultValue($this->getEditControl()->getLocale());
 		$f->addText('name', 'menu.form.uniqueName')
 			->setRequired()
 			->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');

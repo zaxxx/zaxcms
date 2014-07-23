@@ -47,6 +47,8 @@ class EditControl extends Control {
 		if($this->menu === NULL) {
 			$this->menu = $this->menuService->getRepository()->findOneByName($this->name);
 			$this->menu->setTranslatableLocale($this->getLocale());
+			$this->menuService->setLocale($this->getLocale());
+			$this->menuService->refresh($this->menu);
 		}
 		return $this->menu;
 	}
@@ -57,8 +59,8 @@ class EditControl extends Control {
 
 	public function beforeRender() {
 		$this->template->root = $this->getMenu();
-		$this->template->items = $this->menuService->getRepository()->children($this->getMenu(), TRUE);
 		$this->template->currentLocale = $this->getLocale();
+		$this->template->items = $this->menuService->getChildren($this->getMenu(), TRUE);
 		$this->template->availableLocales = $this->getAvailableLocales();
 	}
 
