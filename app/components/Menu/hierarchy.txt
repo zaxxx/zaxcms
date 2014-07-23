@@ -1,0 +1,15 @@
+- menuWrapper
+	- edit
+		- addMenuItem
+			- addMenuItemForm
+		- editMenuItem
+			- editMenuItemForm
+			- deleteMenuItemForm
+		- editMenu
+			- editMenuForm
+	- menu
+		- menuList
+			- menuItem-(multiplier)
+				- submenu
+					- menuItem-(multiplier)
+						- ...
