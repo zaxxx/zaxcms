@@ -13,6 +13,12 @@ use Nette,
 
 class EditMenuItemFormControl extends MenuItemFormControl {
 
+	public function attached($presenter) {
+		parent::attached($presenter);
+		$this->menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
+		$this->menuService->refresh($this->menuItem);
+	}
+
 	protected function createSubmitButtons(Form $form) {
 		$form->addButtonSubmit('editMenu', 'common.button.edit', 'pencil');
 		$form->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
@@ -26,6 +32,7 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 
 	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
 		try {
+			$menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
 			$this->menuService->getEm()->persist($menuItem);
 			$this->menuService->getEm()->flush();
 			$this->menuService->invalidateCache();

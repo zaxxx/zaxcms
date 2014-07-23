@@ -24,12 +24,6 @@ abstract class MenuItemFormControl extends FormControl {
 		$this->menuService = $menuService;
 	}
 
-	public function attached($presenter) {
-		parent::attached($presenter);
-		$this->menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
-		$this->menuService->refresh($this->menuItem);
-	}
-
 	public function setMenuItem(Model\Menu $menu) {
 		if(!$menu->isMenuItem) {
 			throw new ObjectNotMenuItemException('This is menu list, not menu item!');
