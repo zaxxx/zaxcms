@@ -1,4 +1,7 @@
 ### Zax CMS services, model and components ###
+parameters:
+    loginType: ZaxCMS\Model\LoginFacade::LOGIN_BY_NAME
+
 services:
 
 ## Installer scripts
@@ -12,7 +15,13 @@ services:
     - ZaxCMS\Model\WebContentService
     - ZaxCMS\Model\MenuService
     - ZaxCMS\Model\PageService
+    - ZaxCMS\Model\UserService
+    - ZaxCMS\Model\UserLoginService
+    - ZaxCMS\Model\LoginFacade(%loginType%)
 
 ## Router
     - ZaxCMS\Routers\RouterFactory
     router: @ZaxCMS\Routers\RouterFactory::create
+
+## Security
+    - ZaxCMS\Security\Authenticator

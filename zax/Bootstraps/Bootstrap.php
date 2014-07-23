@@ -212,6 +212,7 @@ class Bootstrap implements Zax\IBootstrap {
 			->addDirectory($this->appDir . '/components')
 			->addDirectory($this->appDir . '/modules')
 			->addDirectory($this->appDir . '/routers')
+			->addDirectory($this->appDir . '/security')
 			->addDirectory(__DIR__ . '/../');
 		// Load additional paths specified in index.php
 		foreach($this->loaderPaths as $path) {
