@@ -32,8 +32,15 @@ class RouterFactory extends Nette\Object {
 
     /** @return Nette\Application\Routers\RouteList */
     public function create() {
+	    $ls = '[<locale=' . $this->defaultLocale . ' ' . implode('|', $this->availableLocales) . '>/]';
+
         $r = new Nette\Application\Routers\RouteList;
-        $r[] = new Route('[<locale=' . $this->defaultLocale . ' ' . implode('|', $this->availableLocales) . '>/][<module=Front>]', [
+	    $r[] = new Route($ls . 'page/<page>', [
+		    'module' => 'Front',
+		    'presenter' => 'Page',
+		    'action' => 'default'
+	    ]);
+        $r[] = new Route($ls . '[<module=Front>][/<presenter>[/<action>]]', [
 	        'presenter' => 'Default',
 	        'action' => 'default'
         ]);

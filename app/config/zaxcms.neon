@@ -11,6 +11,7 @@ services:
     - ZaxCMS\Model\RoleService
     - ZaxCMS\Model\WebContentService
     - ZaxCMS\Model\MenuService
+    - ZaxCMS\Model\PageService
 
 ## Router
     - ZaxCMS\Routers\RouterFactory
