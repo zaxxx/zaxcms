@@ -68,21 +68,13 @@ class EditMenuItemControl extends Control {
 	}
 
 	protected function createComponentEditMenuItemForm() {
-	    $control = $this->editMenuItemFormFactory->create()
+		return $this->editMenuItemFormFactory->create()
 		    ->setMenuItem($this->menuItem);
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
-		return $control;
 	}
 
 	protected function createComponentDeleteMenuItemForm() {
-	    $control = $this->deleteMenuItemFormFactory->create()
+		return $this->deleteMenuItemFormFactory->create()
 		    ->setMenuItem($this->menuItem);
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
-		return $control;
 	}
 
 }

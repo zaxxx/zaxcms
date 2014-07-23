@@ -46,10 +46,6 @@ class DeleteDirControl extends FileManipulationControl {
 				'default'=>['cancel']
 			], TRUE, 3, 'sm', 'form-inline');
 
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
 		$f->onSuccess[] = [$this, 'deleteFormSubmitted'];
 
 		return $f;

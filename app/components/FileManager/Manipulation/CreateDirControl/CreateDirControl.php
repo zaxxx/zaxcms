@@ -52,10 +52,6 @@ class CreateDirControl extends DirectoryManipulationControl {
 				'default'=>['cancel']
 			], TRUE, 3, 'sm', 'form-inline');
 
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
 		$f->onSuccess[] = [$this, 'createFormSubmitted'];
 
 		return $f;

@@ -177,7 +177,8 @@ class FileListControl extends FileManagerAbstract {
 			return $this->uploadFileFactory->create()
 				->setAllowedMimeType($this->mime)
 				->setAllowedExtensions($this->extensions)
-				->setUploadMessages($this->uploadMessages);
+				->setUploadMessages($this->uploadMessages)
+				->disableAjaxFor(['uploadForm']);
 		}
 	}
 

@@ -99,7 +99,6 @@ class EditControl extends Control {
 	 */
 	protected function createComponentEditForm() {
 		return $this->editFormFactory->create()
-			->enableAjax(!$this->autoAjax)
 			->setService($this->webContentService)
 			->setWebContent($this->getWebContent());
 	}
@@ -110,7 +109,6 @@ class EditControl extends Control {
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()
 			->setRoot($this->rootDir . '/upload/webContent/' . $this->webContent->name)
-			->enableAjax($this->autoAjax)
 			->enableFeatures(
 				[
 					'createDir',

@@ -161,10 +161,6 @@ abstract class FileManagerAbstract extends Zax\Application\UI\SecuredControl imp
 			$control->setDirectory($this->getDirectory());
 		}
 
-		if($this->ajaxEnabled && $control instanceof Zax\Application\UI\Control) {
-			$control->enableAjax();
-		}
-
 		return $control;
 	}
 

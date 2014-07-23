@@ -129,11 +129,7 @@ class WebContentControl extends Control {
 	 */
 	protected function createComponentEdit() {
 		if($this->canEditWebContent()) {
-			$c = $this->editFactory->create()->setWebContent($this->getWebContent());
-			if($this->ajaxEnabled) {
-				$c->enableAjax(!$this->autoAjax);
-			}
-			return $c;
+			return $this->editFactory->create()->setWebContent($this->getWebContent());
 		}
 	}
 

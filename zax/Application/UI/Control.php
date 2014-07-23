@@ -36,6 +36,9 @@ abstract class Control extends Nette\Application\UI\Control {
 	/** @var bool */
     protected $autoAjax = FALSE;
 
+	/** @var array */
+	protected $ajaxDisabledFor = [];
+
 	/** @var SnippetGenerators\ISnippetGenerator */
 	protected $snippetGenerator;
 
@@ -51,7 +54,7 @@ abstract class Control extends Nette\Application\UI\Control {
     }
 
 	/**
-	 * Enables AJAX, note that the actual AJAXization (eg. of forms and sub-components) is up to you
+	 * Enables AJAX for this component AND all sub-components
 	 *
 	 * @param bool $autoAjax Should call redrawControl() in attached()?
 	 * @return $this
@@ -61,6 +64,21 @@ abstract class Control extends Nette\Application\UI\Control {
         $this->autoAjax = $autoAjax;
         return $this;
     }
+
+	/**
+	 * Forces AJAX off on specified subcomponents (has higher priority than enableAjax())
+	 *
+	 * @param array $subcomponents
+	 * @return $this
+	 */
+	public function disableAjaxFor($subcomponents = []) {
+		$this->ajaxDisabledFor = $subcomponents;
+		return $this;
+	}
+
+	public function isAjaxEnabled() {
+		return $this->ajaxEnabled;
+	}
 
 	/**
 	 * Does this control have a persistent property $property?
@@ -287,6 +305,14 @@ abstract class Control extends Nette\Application\UI\Control {
         $template->view = $this->view;
         return $template;
     }
+
+	protected function createComponent($name) {
+		$control = parent::createComponent($name);
+		if($this->ajaxEnabled && !in_array($name, $this->ajaxDisabledFor) && ($control instanceof Control || $control instanceof Form)) {
+			$control->enableAjax();
+		}
+		return $control;
+	}
 
 	/**
 	 * replacement for render(), descendants should override this method

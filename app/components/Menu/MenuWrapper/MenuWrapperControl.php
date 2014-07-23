@@ -62,12 +62,8 @@ class MenuWrapperControl extends Control {
 	}
 
 	protected function createComponentEdit() {
-		$control = $this->editFactory->create()
+		return $this->editFactory->create()
 			->setName($this->name);
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
-		return $control;
 	}
 
 }

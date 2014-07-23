@@ -94,30 +94,18 @@ class EditControl extends Control {
 	}
 
 	protected function createComponentAddMenuItem() {
-		$control = $this->addMenuItemFactory->create()
+		return $this->addMenuItemFactory->create()
 			->setParentMenu($this->getMenu());
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
-		return $control;
 	}
 
 	protected function createComponentEditMenuItem() {
-		$control = $this->editMenuItemFactory->create()
+		return $this->editMenuItemFactory->create()
 			->setMenuItem($this->menuService->getDao()->findOneById($this->selectItem));
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
-		return $control;
 	}
 
 	protected function createComponentEditMenu() {
-		$control = $this->editMenuFactory->create()
+		return $this->editMenuFactory->create()
 			->setMenu($this->getMenu());
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
-		return $control;
 	}
 
 }

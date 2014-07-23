@@ -84,15 +84,16 @@ class UploadFileControl extends FileManipulationControl {
 		if($this->extensions !== NULL) {
 			$f['file']->addRule('Zax\\Forms\\Validators\\UploadValidator::validateExtension', NULL, $this->extensions);
 		}
-		$f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'))
-			->getControlPrototype()->addClass('ajax');
+		$f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
+		if($this->parent->isAjaxEnabled()) {
+			$f['cancel']->getControlPrototype()->addClass('ajax');
+		}
 
 		$f->addProtection();
 		$f->enableBootstrap([
 			'success'=>['upload'],
 			'default'=>['cancel']
 		], TRUE, 3, 'sm');
-
 
 		$f->onSuccess[] = [$this, 'uploadFormSubmitted'];
 		$f->onError[] = function() {

@@ -67,10 +67,6 @@ abstract class MenuItemFormControl extends FormControl {
 
 	    $f->autofocus('name');
 
-	    if($this->ajaxEnabled) {
-		    $f->enableAjax();
-	    }
-
 	    $this->binder->entityToForm($this->menuItem, $f);
 
 	    return $f;

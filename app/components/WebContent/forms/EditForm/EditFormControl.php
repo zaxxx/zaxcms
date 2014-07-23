@@ -62,10 +62,6 @@ class EditFormControl extends FormControl {
 			'default' => ['cancel']
 		], TRUE);
 
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
 		return $f;
 	}
 

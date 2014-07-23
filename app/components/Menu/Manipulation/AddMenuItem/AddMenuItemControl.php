@@ -41,9 +41,6 @@ class AddMenuItemControl extends Control {
 	    $control = $this->addMenuItemFormFactory->create()
 		    ->setMenuItem($menuItem)
 		    ->setParentMenu($this->parentMenu);
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
 		return $control;
 	}
 

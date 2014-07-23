@@ -34,12 +34,8 @@ class EditMenuControl extends Control {
 	}
 
 	protected function createComponentEditMenuForm() {
-	    $control = $this->editMenuFormFactory->create()
+	    return $this->editMenuFormFactory->create()
 		    ->setMenu($this->menu);
-		if($this->ajaxEnabled) {
-			$control->enableAjax(!$this->autoAjax);
-		}
-		return $control;
 	}
 
 	public function viewDefault() {

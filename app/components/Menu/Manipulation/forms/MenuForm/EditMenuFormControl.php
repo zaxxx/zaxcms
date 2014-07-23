@@ -91,10 +91,6 @@ class EditMenuFormControl extends FormControl {
 
 		$f->autofocus('name');
 
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
-
 		$this->binder->entityToForm($this->menu, $f);
 
 		return $f;
