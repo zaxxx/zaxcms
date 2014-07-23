@@ -91,6 +91,10 @@ class FileManagerControlTest extends Tester\TestCase {
 		Assert::exception(function() use($fileList) {$fileList->getDeleteFile();}, 'Nette\UnexpectedValueException');
 		$fileManager->enableDeleteFile();
 		Assert::type('ZaxCMS\Components\FileManager\DeleteFileControl', $fileList->getDeleteFile());
+
+		Assert::exception(function() use($fileList) {$fileList->getUploadFile();}, 'Nette\UnexpectedValueException');
+		$fileManager->enableUploadFile();
+		Assert::type('ZaxCMS\Components\FileManager\UploadFileControl', $fileList->getUploadFile());
 	}
 
 }

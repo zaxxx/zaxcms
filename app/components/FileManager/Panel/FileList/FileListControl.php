@@ -116,6 +116,13 @@ class FileListControl extends FileManagerAbstract {
 	}
 
 	/**
+	 * @return UploadFileControl
+	 */
+	public function getUploadFile() {
+		return $this['uploadFile'];
+	}
+
+	/**
 	 * @param $message
 	 * @return $this
 	 */

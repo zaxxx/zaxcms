@@ -20,6 +20,7 @@ use Zax,
  * @method enableRenameFile()
  * @method enableRenameExtension()
  * @method enableDeleteFile()
+ * @method enableUploadFIle()
  *
  * @package Zax\Components\FileManager
  */
