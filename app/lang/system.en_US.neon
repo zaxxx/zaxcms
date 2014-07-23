@@ -2,7 +2,20 @@ button:
     clearCache: "Clear cache"
     regenerateDatabase: "Regenerate database"
     regenerateDatabaseWhole: "whole"
+    generateDatabase: "Generate database"
+    createUser: "Create administrator"
+title:
+    cmsInstaller: "CMS installer"
+    generateDatabase: "Generate database"
+    createUser: "Create administrator"
+form:
+    username: "Name"
+    email: "E-mail"
+    password: "Password"
+    passwordRepeat: "Repeat password"
+    passwordNotMatch: "Passwords don't match"
 alert:
     cacheCleared: "Cache cleared."
     databaseRegenerated: "Database regenerated."
+    databaseGenerated: "Database generated."
     cmsInstalled: "CMS installed."

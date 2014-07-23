@@ -63,7 +63,7 @@ class UserLogin extends BaseEntity {
 	protected $registeredAt;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="User")
+	 * @ORM\OneToOne(targetEntity="User", mappedBy="user")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 	 */
 	protected $user;

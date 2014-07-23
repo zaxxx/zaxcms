@@ -40,7 +40,7 @@ class User extends BaseEntity {
 	protected $role;
 
 	/**
-	 * @ORM\OneToOne(targetEntity="UserLogin")
+	 * @ORM\OneToOne(targetEntity="UserLogin", inversedBy="user_login")
 	 * @ORM\JoinColumn(name="login_id", referencedColumnName="id")
 	 */
 	protected $login;

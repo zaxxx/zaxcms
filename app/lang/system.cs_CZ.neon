@@ -2,7 +2,20 @@ button:
     clearCache: "Promazat cache"
     regenerateDatabase: "Přegenerovat databázi"
     regenerateDatabaseWhole: "celou"
+    generateDatabase: "Vygenerovat databázi"
+    createUser: "Vytvořit administrátora"
+title:
+    cmsInstaller: "CMS instalátor"
+    generateDatabase: "Vygenerovat databázi"
+    createUser: "Vytvoření administrátora"
+form:
+    username: "Jméno"
+    email: "E-mail"
+    password: "Heslo"
+    passwordRepeat: "Heslo znovu"
+    passwordNotMatch: "Hesla se neshodují"
 alert:
     cacheCleared: "Cache promazána."
     databaseRegenerated: "Databáze přegenerována."
+    databaseGenerated: "Databáze vygenerována."
     cmsInstalled: "CMS nainstalováno."

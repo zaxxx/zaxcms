@@ -15,12 +15,16 @@ class CMSInstaller extends Nette\Object {
 
 	protected $menuService;
 
+	protected $appDir;
+
 	public function __construct(DatabaseGenerator $generator,
 								RoleService $roleService,
-								MenuService $menuService) {
+								MenuService $menuService,
+								Zax\Utils\AppDir $appDir) {
 		$this->generator = $generator;
 		$this->roleService = $roleService;
 		$this->menuService = $menuService;
+		$this->appDir = $appDir;
 	}
 
 	protected function generateDatabase() {
@@ -35,7 +39,19 @@ class CMSInstaller extends Nette\Object {
 		$this->menuService->generateDefaultMenu();
 	}
 
+	protected function wipeCache() {
+		$paths = [
+			realpath($this->appDir . '/temp/cache'),
+			realpath($this->appDir . '/temp/proxy')
+		];
+		foreach(Nette\Utils\Finder::find('*')->in($paths) as $k => $file) {
+			Nette\Utils\FileSystem::delete($k);
+		}
+	}
+
 	public function install() {
+		$this->wipeCache();
+
 		$this->generateDatabase();
 		$this->buildRoles();
 		$this->buildMenu();

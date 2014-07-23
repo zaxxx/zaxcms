@@ -28,6 +28,10 @@ class LoginFacade extends Nette\Object {
 		$this->userService = $userService;
 	}
 
+	public function getLoginType() {
+		return $this->loginType;
+	}
+
 	/**
 	 * @param User $user
 	 * @param      $password
@@ -113,16 +117,18 @@ class LoginFacade extends Nette\Object {
 	 * @param Role $role
 	 * @return User
 	 */
-	public function createUser($email, $name, $password, Role $role) {
+	public function createUser($email, $name, $password, Role $role, $verified = FALSE) {
 		$user = new User;
 		$user->email = $email;
 		$user->name = $name;
 		$user->role = $role;
 		$user->login = new UserLogin;
+		$user->login->user = $user;
 		$user->login->password = Nette\Security\Passwords::hash($password);
 		$user->login->registeredAt = new Nette\Utils\DateTime;
+		$user->login->passwordLastChangedAt = new Nette\Utils\DateTime;
 		$user->login->isBanned = FALSE;
-		$user->login->verifyHash = Nette\Utils\Random::generate(15);
+		$user->login->verifyHash = $verified ? NULL : Nette\Utils\Random::generate(15);
 		$this->userService->persist($user);
 		$this->userLoginService->persist($user->login);
 		$this->userService->flush();

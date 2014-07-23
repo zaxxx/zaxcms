@@ -1,0 +1,22 @@
+{layout '../../../@layout.latte'}
+{define title}{_}system.title.cmsInstaller{/_} - {_}system.title.generateDatabase{/_}{/define}
+
+{define main}
+	<div class="container" style="padding-top:30px">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						{_}system.title.cmsInstaller{/_} - {_}system.title.generateDatabase{/_}
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-7"><a n:href="generateDatabase!" class="btn btn-success">{_}system.button.generateDatabase{/_}</a></div>
+							<div class="col-sm-5"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{/define}
