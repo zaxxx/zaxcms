@@ -21,7 +21,7 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 
 	protected function createSubmitButtons(Form $form) {
 		$form->addButtonSubmit('editMenu', 'common.button.edit', 'pencil');
-		$form->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
+		$form->addLinkSubmit('cancel', '', 'remove', $this->getEditMenuItemControl()->link('close!'));
 		$form->enableBootstrap(['success' => ['editMenu'], 'default' => ['cancel']], TRUE);
 	}
 

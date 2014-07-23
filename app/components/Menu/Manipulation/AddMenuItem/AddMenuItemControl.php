@@ -26,7 +26,7 @@ class AddMenuItemControl extends Control {
 	}
 
 	public function handleClose() {
-		$this->getEdit()->go('this', ['selectItem' => NULL]);
+		$this->getEditControl()->go('this', ['selectItem' => NULL]);
 	}
 
 	/** @return EditControl */
@@ -38,9 +38,13 @@ class AddMenuItemControl extends Control {
 		$menuItem = new Model\Menu;
 		$menuItem->isMenuItem = TRUE;
 		$menuItem->secured = FALSE;
-	    return $this->addMenuItemFormFactory->create()
+	    $control = $this->addMenuItemFormFactory->create()
 		    ->setMenuItem($menuItem)
 		    ->setParentMenu($this->parentMenu);
+		if($this->ajaxEnabled) {
+			$control->enableAjax(!$this->autoAjax);
+		}
+		return $control;
 	}
 
 	public function viewDefault() {

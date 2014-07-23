@@ -33,6 +33,11 @@ class DeleteMenuItemFormControl extends FormControl {
 		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
 	}
 
+	/** @return EditMenuItemControl */
+	public function getEditMenuItem() {
+		return $this->lookup('ZaxCMS\Components\Menu\EditMenuItemControl');
+	}
+
     public function viewDefault() {}
     
     public function beforeRender() {}
@@ -40,7 +45,7 @@ class DeleteMenuItemFormControl extends FormControl {
     public function createForm() {
         $f = parent::createForm();
 	    $f->addButtonSubmit('deleteItem', 'common.button.delete', 'trash');
-	    $f->addLinkSubmit('cancel', '', 'remove', $this->link('this', ['view' => 'Default']));
+	    $f->addLinkSubmit('cancel', '', 'remove', $this->getEditMenuItem()->link('this', ['view' => 'Default']));
 	    $f->enableBootstrap(['danger' => ['deleteItem'], 'default' => ['cancel']], TRUE, 3, 'sm', 'form-inline');
 	    if($this->ajaxEnabled) {
 		    $f->enableAjax();

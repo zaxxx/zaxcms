@@ -87,7 +87,7 @@ class EditControl extends Control {
 	}
 
 	public function close() {
-		$this->parent->go('this', ['view' => 'Default', 'edit-locale' => NULL, 'edit-view' => 'Default']);
+		$this->parent->go('this', ['view' => 'Default']);
 	}
 
 	public function handleCancel() {

@@ -85,7 +85,7 @@ class EditMenuFormControl extends FormControl {
 		$f->addProtection();
 
 		$f->addButtonSubmit('editMenu', 'common.button.edit', 'pencil');
-		$f->addLinkSubmit('cancel', '', 'remove', $this->link('close!'));
+		$f->addLinkSubmit('cancel', '', 'remove', $this->getEditMenu()->link('close!'));
 
 		$f->enableBootstrap(['success' => ['editMenu'], 'default' => ['cancel']], TRUE);
 

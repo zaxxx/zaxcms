@@ -38,6 +38,10 @@ class EditControl extends Control {
 		$this->editMenuFactory = $editMenuFactory;
 	}
 
+	public function close() {
+		$this->getMenuWrapper()->go('this', ['view' => 'Default']);
+	}
+
 	public function setName($name) {
 		$this->name = $name;
 		return $this;

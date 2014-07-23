@@ -24,14 +24,22 @@ class EditMenuControl extends Control {
 		return $this;
 	}
 
+	public function handleClose() {
+		$this->getEditControl()->close();
+	}
+
 	/** @return EditControl */
 	public function getEditControl() {
 		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
 	}
 
 	protected function createComponentEditMenuForm() {
-	    return $this->editMenuFormFactory->create()
+	    $control = $this->editMenuFormFactory->create()
 		    ->setMenu($this->menu);
+		if($this->ajaxEnabled) {
+			$control->enableAjax(!$this->autoAjax);
+		}
+		return $control;
 	}
 
 	public function viewDefault() {
