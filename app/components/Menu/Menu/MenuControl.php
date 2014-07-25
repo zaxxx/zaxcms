@@ -8,17 +8,23 @@ use Nette,
 
 class MenuControl extends Zax\Application\UI\Control {
 
+	protected $showTinyLoginBox = FALSE;
+
 	protected $menu;
 
 	protected $menuListFactory;
+
+	protected $tinyLoginBoxFactory;
 
 	protected $class = 'navbar navbar-default navbar-static-top';
 
 	protected $menuService;
 
-	public function __construct(IMenuListFactory $menuListFactory, ZaxCMS\Model\MenuService $menuService = NULL) {
+	public function __construct(IMenuListFactory $menuListFactory,
+	                            ZaxCMS\Model\MenuService $menuService = NULL, ZaxCMS\Components\Auth\ITinyLoginBoxFactory $tinyLoginBoxFactory) {
 		$this->menuListFactory = $menuListFactory;
 		$this->menuService = $menuService;
+		$this->tinyLoginBoxFactory = $tinyLoginBoxFactory;
 	}
 
 	public function setMenu($menu = []) {
@@ -31,9 +37,15 @@ class MenuControl extends Zax\Application\UI\Control {
 		return $this;
 	}
 
+	public function showTinyLoginBox() {
+		$this->showTinyLoginBox = TRUE;
+		return $this;
+	}
+
 	public function viewDefault() {}
 
 	public function beforeRender() {
+		$this->template->showTinyLoginBox = $this->showTinyLoginBox;
 		$this->template->class = $this->class;
 	}
 
@@ -47,6 +59,11 @@ class MenuControl extends Zax\Application\UI\Control {
 		return $this['menu'];
 	}
 
+	/** @return ZaxCMS\Components\Auth\TinyLoginBoxControl */
+	public function getLoginBox() {
+		return $this['tinyLoginBox'];
+	}
+
 	protected function createComponentMenu() {
 		$menuList = new MenuList($this->menu);
 		if($this->menuService !== NULL)
@@ -54,6 +71,10 @@ class MenuControl extends Zax\Application\UI\Control {
 
 		return $this->menuListFactory->create()
 			->setMenu($menuList);
+	}
+
+	protected function createComponentTinyLoginBox() {
+	    return $this->tinyLoginBoxFactory->create();
 	}
 
 }

@@ -1,0 +1,21 @@
+form:
+    username: "Jméno"
+    email: "E-mail"
+    password: "Heslo"
+    remember: "Pamatovat"
+error:
+    loginDisabled: "Přihlašování je momentálně nedostupné (vypnuté administrátorem). Prosím, zkuste to někdy jindy."
+    invalidName: "Uživatel s tímto jménem neexistuje."
+    invalidEmail: "Uživatel s tímto e-mailem neexistuje."
+    invalidPassword: "Špatné heslo."
+    unverifiedUser: "Tento uživatelský účet není ověřen."
+    bannedUser: "Tento uživatel je zabanovaný."
+    invalidCredentials: "Nesprávné přihlašovací údaje."
+general:
+    loggedAs: "Přihlášen jako"
+button:
+    login: "Přihlásit se"
+    logout: "Odhlásit se"
+alert:
+    loggedOut: "Nyní jste odhlášen."
+    loggedIn: "Nyní jste přihlášen."

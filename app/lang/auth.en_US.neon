@@ -1,0 +1,21 @@
+form:
+    username: "Name"
+    email: "E-mail"
+    password: "Password"
+    remember: "Remember me"
+error:
+    loginDisabled: "Logging in is currently disabled. Please, try again some other time."
+    invalidName: "This user doesn't exist."
+    invalidEmail: "User with this e-mail doesn't exist."
+    invalidPassword: "Wrong password."
+    unverifiedUser: "This user is not verified yet."
+    bannedUser: "This user is banned."
+    invalidCredentials: "Nesprávné přihlašovací údaje."
+general:
+    loggedAs: "Logged in as"
+button:
+    login: "Login"
+    logout: "Logout"
+alert:
+    loggedOut: "You have been logged out."
+    loggedIn: "You have been logged in."

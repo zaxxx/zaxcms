@@ -47,7 +47,26 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected function createComponentMenuWrapper() {
 		return new NetteUI\Multiplier(function($name) {
-			return $this->menuWrapperFactory->create()->setName($name)->enableAjax();
+			$menuWrapper = $this->menuWrapperFactory->create()
+				->setName($name)
+				->enableAjax();
+
+			/** @var Components\Menu\MenuWrapperControl $menuWrapper */
+
+			$menu = $menuWrapper->getMenu();
+			$menu->showTinyLoginBox();
+
+			$loginBox = $menu->getLoginBox();
+			$loginBox->getLogoutButton()->onLogout[] = function() {
+				$this->flashMessage('auth.alert.loggedOut');
+				$this->redirect(':Front:Default:default');
+			};
+			$loginBox->getLoginForm()->onLogin[] = function() {
+				$this->flashMessage('auth.alert.loggedIn');
+				$this->redirect(':Front:Default:default');
+			};
+
+			return $menuWrapper;
 		});
 	}
 

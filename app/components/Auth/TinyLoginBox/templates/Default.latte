@@ -1,0 +1,6 @@
+{if $user->isLoggedIn()}
+	{_}auth.general.loggedAs{/_}: {$user->identity->name}<br>
+	{control logoutButton}
+{else}
+	{control loginForm}
+{/if}
