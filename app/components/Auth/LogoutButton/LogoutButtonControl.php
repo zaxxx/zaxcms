@@ -20,7 +20,7 @@ class LogoutButtonControl extends SecuredControl {
 	}
 
 	public function handleLogout() {
-		$this->user->logout(TRUE);
+		$this->user->logout($this->deleteIdentity);
 		$this->onLogout();
 	}
 
