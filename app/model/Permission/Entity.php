@@ -15,6 +15,8 @@ use Zax,
  * @ORM\Entity
  *
  * @property-read int $id
+ * @property Resource $resource
+ * @property Privilege $privilege
  */
 class Permission extends BaseEntity {
 

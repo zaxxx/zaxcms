@@ -15,6 +15,9 @@ use Zax,
  * @ORM\Entity
  *
  * @property-read int $id
+ * @property string $name
+ * @property string|NULL $content
+ * @property Nette\Utils\DateTime $lastUpdated
  */
 class WebContent extends BaseEntity {
 

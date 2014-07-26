@@ -13,6 +13,17 @@ use Zax,
 
 /**
  * @ORM\Entity
+ *
+ * @property-read $id
+ * @property string $password
+ * @property string|NULL $passwordChangeHash
+ * @property Nette\Utils\DateTime|NULL $passwordChangeAskedAt
+ * @property Nette\Utils\DateTime $passwordLastChangedAt
+ * @property bool $isBanned
+ * @property string|NULL $verifyHash
+ * @property-read bool $verified
+ * @property Nette\Utils\DateTime $registeredAt
+ * @property User $user
  */
 class UserLogin extends BaseEntity {
 

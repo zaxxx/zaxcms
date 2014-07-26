@@ -11,13 +11,19 @@ services:
 
 ## Model
 
+    - ZaxCMS\Model\AclService
+    - ZaxCMS\Model\PermissionService
+    - ZaxCMS\Model\PrivilegeService
+    - ZaxCMS\Model\ResourceService
     - ZaxCMS\Model\RoleService
     - ZaxCMS\Model\WebContentService
     - ZaxCMS\Model\MenuService
     - ZaxCMS\Model\PageService
     - ZaxCMS\Model\UserService
     - ZaxCMS\Model\UserLoginService
+    - ZaxCMS\Model\UserLoginHistoryService
     - ZaxCMS\Model\LoginFacade(%loginType%)
+    - ZaxCMS\Model\AclFacade
 
 ## Router
     - ZaxCMS\Routers\RouterFactory

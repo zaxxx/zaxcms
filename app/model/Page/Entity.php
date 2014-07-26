@@ -15,6 +15,8 @@ use Zax,
  * @ORM\Entity
  *
  * @property-read int $id
+ * @property string $name
+ * @property string $title
  */
 class Page extends BaseEntity {
 

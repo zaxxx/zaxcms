@@ -20,6 +20,7 @@ use Zax,
  * @property string $displayName
  * @property string $description
  * @property Role|NULL $parent
+ * @property Role[]|NULL $children
  */
 class Role extends BaseEntity {
 

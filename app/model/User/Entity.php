@@ -13,6 +13,12 @@ use Zax,
 
 /**
  * @ORM\Entity
+ *
+ * @property-read $id
+ * @property string $name
+ * @property string $email
+ * @property Role $role
+ * @property UserLogin $login
  */
 class User extends BaseEntity {
 

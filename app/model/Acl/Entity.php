@@ -15,6 +15,9 @@ use Zax,
  * @ORM\Entity
  *
  * @property-read int $id
+ * @property Role $role
+ * @property Permission $permission
+ * @property bool $allow
  */
 class Acl extends BaseEntity {
 

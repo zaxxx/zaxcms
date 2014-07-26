@@ -30,6 +30,10 @@ abstract class Service extends Nette\Object implements Zax\Model\IService {
 		return $this->em;
 	}
 
+	public function findAll($orderBy = NULL, $limit = NULL, $offset = NULL) {
+		return $this->getDao()->findBy([], $orderBy = NULL, $limit = NULL, $offset = NULL);
+	}
+
 	public function findBy($criteria, $orderBy = NULL, $limit = NULL, $offset = NULL) {
 		return $this->getDao()->findBy($criteria, $orderBy, $limit, $offset);
 	}
