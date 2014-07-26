@@ -55,6 +55,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 			$menu = $menuWrapper->getMenu();
 			$menu->showTinyLoginBox();
+			$menu->disableAjaxFor(['tinyLoginBox']);
 
 			$loginBox = $menu->getLoginBox();
 			$loginBox->getLogoutButton()->onLogout[] = function() {
