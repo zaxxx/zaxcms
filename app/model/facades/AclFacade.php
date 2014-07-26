@@ -61,4 +61,25 @@ class AclFacade extends Nette\Object {
 		$this->aclService->flush();
 	}
 
+	/** @return Nette\Security\Permission */
+	public function createNetteAcl() {
+		$acl = new Nette\Security\Permission;
+
+		foreach($this->roleService->findAll() as $role) {
+			$acl->addRole($role->name);
+		}
+		foreach($this->resourceService->findAll() as $resource) {
+			$acl->addResource($resource->name);
+		}
+		foreach($this->aclService->findAll() as $aclEntry) {
+			if($aclEntry->allow) {
+				$acl->allow($aclEntry->role->name, $aclEntry->permission->resource->name, $aclEntry->permission->privilege->name);
+			} else {
+				$acl->deny($aclEntry->role->name, $aclEntry->permission->resource->name, $aclEntry->permission->privilege->name);
+			}
+		}
+
+		return $acl;
+	}
+
 }

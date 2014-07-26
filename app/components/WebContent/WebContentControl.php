@@ -4,9 +4,9 @@ namespace ZaxCMS\Components\WebContent;
 use Nette,
 	Zax,
 	ZaxCMS\Model,
-	Zax\Application\UI\Control;
+	Zax\Application\UI\SecuredControl;
 
-class WebContentControl extends Control {
+class WebContentControl extends SecuredControl {
 
 	use Zax\Traits\TCacheable;
 
@@ -101,7 +101,7 @@ class WebContentControl extends Control {
 	 * @return bool
 	 */
 	public function canEditWebContent() {
-		return TRUE;
+		return $this->user->isAllowed('WebContent', 'Edit');
 	}
 
 	public function viewDefault() {
