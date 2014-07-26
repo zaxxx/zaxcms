@@ -1,2 +1,0 @@
-services:
-    - ZaxCMS\InstallModule\Components\ICreateUserFactory

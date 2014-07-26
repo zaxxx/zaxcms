@@ -1,0 +1,19 @@
+{layout './@layout.latte'}
+{define main}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="alert alert-danger">
+				<span class="pull-left"><span class="glyphicon glyphicon-warning-sign"></span></span>
+				<p class="text-center">
+					Pozor! Obsahuje-li databáze nějaká data, je dost možné, že o ně v tomto kroku přijdete. Ideálně byste měli instalovat do prázdné databáze.
+				</p>
+			</div>
+			<p class="text-center">
+				<a n:href="install!" class="btn btn-primary">
+					<span class="glyphicon glyphicon-save"></span> {_}system.button.installCms{/_}
+				</a>
+			</p>
+		</div>
+	</div>
+
+{/define}

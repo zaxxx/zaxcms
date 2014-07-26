@@ -1,0 +1,29 @@
+<div class="panel panel-primary" n:snippet>
+	<div class="panel-heading">
+		{_}system.title.cmsInstaller{/_}
+		<div class="pull-right" style="min-width:50%">
+			<div class="progress">
+				<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{$progress}" aria-valuemin="0" aria-valuemax="100" style="width:{$progress}%;"></div>
+				<span>{_}system.general.step{/_} {$step}/4</span>
+			</div>
+		</div>
+
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-8">{include #main}</div>
+			<div class="col-sm-4">
+				<ul class="nav nav-pills nav-stacked">
+					<li n:foreach="$steps as $k => $v"{if $k+1 === $step} class="active"{/if}>
+						<a>
+							{$k+1} &middot; {$v}
+							{if $k+1<$step}
+								<span class="pull-right text-success"><span class="glyphicon glyphicon-ok"></span></span>
+							{/if}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

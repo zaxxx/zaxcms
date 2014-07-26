@@ -4,8 +4,11 @@ button:
     regenerateDatabaseWhole: "celou"
     generateDatabase: "Vygenerovat databázi"
     createUser: "Vytvořit administrátora"
+    testConnection: "Otestovat připojení"
+    nextStep: "Přejít na další krok"
+    installCms: "Nainstalovat ZaxCMS"
 title:
-    cmsInstaller: "CMS instalátor"
+    cmsInstaller: "ZaxCMS instalátor"
     generateDatabase: "Vygenerovat databázi"
     createUser: "Vytvoření administrátora"
 form:
@@ -14,8 +17,14 @@ form:
     password: "Heslo"
     passwordRepeat: "Heslo znovu"
     passwordNotMatch: "Hesla se neshodují"
+    dbHost: "Server"
+    dbUser: "Uživatel"
+    dbPassword: "Heslo"
+    dbDatabase: "Databáze"
 alert:
     cacheCleared: "Cache promazána."
     databaseRegenerated: "Databáze přegenerována."
     databaseGenerated: "Databáze vygenerována."
     cmsInstalled: "CMS nainstalováno."
+general:
+    step: "Krok"

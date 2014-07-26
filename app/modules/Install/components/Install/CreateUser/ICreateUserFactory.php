@@ -1,6 +1,6 @@
 <?php
 
-namespace ZaxCMS\InstallModule\Components;
+namespace ZaxCMS\InstallModule\Components\Install;
 
 interface ICreateUserFactory {
 

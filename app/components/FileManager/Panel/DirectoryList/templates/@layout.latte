@@ -13,12 +13,7 @@
 		   {/if}class="btn{if $isRoot} disabled{/if}{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.renameDir'}">
 			<span class="glyphicon glyphicon-pencil"></span>
 		</a>
-		<a n:if="$control->fileManager->isFeatureEnabled('deleteDir')"
-		   {if !$isRoot}
-				href="{$control->fileManager->link('this', [view => Default, directoryList-view =>DeleteDir])}"
-		   {else}
-				href="#"
-		   {/if}class="btn{if $isRoot} disabled{/if}{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.deleteDir'}">
+		<a n:if="$control->fileManager->isFeatureEnabled('deleteDir') || $control->fileManager->isFeatureEnabled('truncateDir')" href="{$control->fileManager->link('this', [view => Default, directoryList-view =>DeleteDir])}" class="btn{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.deleteDir'}">
 			<span class="glyphicon glyphicon-trash"></span>
 		</a>
 	</span>
@@ -30,6 +25,9 @@
 		{* Root *}
 		{var $active = Zax\Utils\PathHelpers::isEqual($currentDir, $rootDir)}
 		<li{if $active} class="active"{/if}>
+			{if ($control->fileManager->isFeatureEnabled('deleteDir') || $control->fileManager->isFeatureEnabled('truncateDir')) && isset($deleteDir) && $deleteDir && $active}
+			{control deleteDir}
+			{else}
 			<a href="{$control->fileManager->link('this', [view=>Default, directoryList-view =>Default, fileList-view => Default, dir=>''])}"{if $ajaxEnabled} class="ajax"{/if}>
 				<span class="glyphicon glyphicon-folder-open"></span>
 				{Zax\Utils\PathHelpers::getName($rootDir)}
@@ -39,6 +37,7 @@
 					<span>{$rootSize|bytes}</span>
 				</div>
 			</a>
+			{/if}
 		</li>
 		{foreach $fileSystemDirs as $k => $fileSystemDir}
 			{var $currentDepth = Zax\Utils\PathHelpers::getDepth($k)}
@@ -53,7 +52,7 @@
 			<li{if $active} class="active"{/if}>
 			{if $control->fileManager->isFeatureEnabled('renameDir') && isset($renameDir) && $renameDir && $active}
 				{control renameDir}
-			{elseif $control->fileManager->isFeatureEnabled('deleteDir') && isset($deleteDir) && $deleteDir && $active}
+			{elseif ($control->fileManager->isFeatureEnabled('deleteDir') || $control->fileManager->isFeatureEnabled('truncateDir')) && isset($deleteDir) && $deleteDir && $active}
 				{control deleteDir}
 			{else}
 				<a href="{$control->fileManager->link('this', [view=>Default, directoryList-view =>Default, fileList-view => Default, dir=>str_replace($rootDir, '', $k)])}" class="{if $ajaxEnabled}ajax{/if}">

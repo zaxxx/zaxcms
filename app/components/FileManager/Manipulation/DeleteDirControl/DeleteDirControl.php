@@ -34,7 +34,9 @@ class DeleteDirControl extends FileManipulationControl {
 
 		$f = $this->createForm();
 		$f->addHidden('dir', $dirName);
-		$f->addButtonSubmit('delete', 'common.button.delete', 'trash');
+		if($this->fileManager->isFeatureEnabled('deleteDir')) {
+			$f->addButtonSubmit('delete', 'common.button.delete', 'trash');
+		}
 		if($this->fileManager->isFeatureEnabled('truncateDir')) {
 			$f->addButtonSubmit('truncate', 'fileManager.button.truncate');
 		}

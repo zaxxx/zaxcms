@@ -4,8 +4,11 @@ button:
     regenerateDatabaseWhole: "whole"
     generateDatabase: "Generate database"
     createUser: "Create administrator"
+    testConnection: "Test connection"
+    nextStep: "Go to next step"
+    installCms: "Install ZaxCMS"
 title:
-    cmsInstaller: "CMS installer"
+    cmsInstaller: "ZaxCMS installer"
     generateDatabase: "Generate database"
     createUser: "Create administrator"
 form:
@@ -14,8 +17,14 @@ form:
     password: "Password"
     passwordRepeat: "Repeat password"
     passwordNotMatch: "Passwords don't match"
+    dbHost: "Host"
+    dbUser: "User"
+    dbPassword: "Password"
+    dbDatabase: "Database"
 alert:
     cacheCleared: "Cache cleared."
     databaseRegenerated: "Database regenerated."
     databaseGenerated: "Database generated."
     cmsInstalled: "CMS installed."
+general:
+    step: "Step"

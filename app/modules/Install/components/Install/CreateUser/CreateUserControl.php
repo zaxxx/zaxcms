@@ -1,6 +1,6 @@
 <?php
 
-namespace ZaxCMS\InstallModule\Components;
+namespace ZaxCMS\InstallModule\Components\Install;
 use Nette,
     Zax,
 	ZaxCMS,
@@ -30,7 +30,7 @@ class CreateUserControl extends FormControl {
 		$loginType = $this->loginFacade->getLoginType();
 		try {
 			$this->user->login(($loginType === Model\LoginFacade::LOGIN_BY_NAME ? $user->name : $user->email), $values->password);
-			$this->presenter->done();
+			$this->parent->redirect('this', ['view' => 'Step4']);
 		} catch (Nette\Security\AuthenticationException $ex) {
 			$this->flashMessage($ex->getMessage(), 'danger');
 		}

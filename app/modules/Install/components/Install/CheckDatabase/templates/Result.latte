@@ -1,0 +1,25 @@
+<div class="row" n:snippet>
+{if $connected}
+	<div class="col-sm-12">
+		<div class="alert alert-success">
+			<span class="pull-left"><span class="glyphicon glyphicon-ok"></span></span>
+			<p class="text-center">
+				Spojení s databází bylo úspěšně navázáno.
+			</p>
+		</div>
+		<p class="text-center">
+			<a href="{$control->parent->link(this, [view => Step2, checkDatabase-view => Default])}" class="btn btn-primary">
+				<span class="glyphicon glyphicon-arrow-right"></span> {_}system.button.nextStep{/_}
+			</a>
+		</p>
+	</div>
+{else}
+	<div class="col-sm-12">
+		<div class="alert alert-danger">
+			<span class="pull-left"><span class="glyphicon glyphicon-ban-circle"></span></span>
+			<p class="text-center">Spojení s databází nebylo navázáno.</p>
+		</div>
+		{control setDatabase}
+	</div>
+{/if}
+</div>

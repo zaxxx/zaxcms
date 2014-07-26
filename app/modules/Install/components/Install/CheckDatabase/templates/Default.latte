@@ -1,0 +1,12 @@
+<div class="row" n:snippet>
+	<div class="col-sm-12">
+		<h1>Vítejte v instalátoru ZaxCMS</h1>
+		<p>Začněte prosím tím, že otestujete připojení k databázi. Pak uvidíme, co dál.</p>
+		<hr>
+		<p class="text-center">
+			<a n:href="this, view => Result" class="btn btn-primary{if $ajaxEnabled} ajax{/if}">
+				<span class="glyphicon glyphicon-refresh"></span> {_}system.button.testConnection{/_}
+			</a>
+		</p>
+	</div>
+</div>

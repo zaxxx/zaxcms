@@ -1,0 +1,5 @@
+services:
+    - ZaxCMS\InstallModule\Components\Install\ISetDatabaseFactory
+    - ZaxCMS\InstallModule\Components\Install\ICheckDatabaseFactory
+    - ZaxCMS\InstallModule\Components\Install\ICreateUserFactory
+    - ZaxCMS\InstallModule\Components\Install\IInstallFactory

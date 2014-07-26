@@ -9,7 +9,7 @@ class AclFacade extends Nette\Object {
 
 	use Zax\Traits\TCacheable;
 
-	protected $defaultPermissions = [
+	private $defaultPermissions = [
 		'WebContent' => ['Edit'],
 		'FileManager' => ['Edit', 'Delete', 'Upload'],
 		'Menu' => ['Edit'],
@@ -65,6 +65,11 @@ class AclFacade extends Nette\Object {
 
 	/** @return Nette\Security\Permission */
 	public function createNetteAcl() {
+		try {
+			$this->aclService->getEm()->getConnection()->connect();
+		} catch (\Exception $ex) {
+			return new Nette\Security\Permission;
+		}
 		$acl = $this->cache->load('acl');
 		if($acl === NULL) {
 			$acl = new Nette\Security\Permission;

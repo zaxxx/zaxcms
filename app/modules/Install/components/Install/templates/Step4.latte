@@ -1,0 +1,17 @@
+{layout './@layout.latte'}
+{define main}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="alert alert-success">
+				<span class="pull-left"><span class="glyphicon glyphicon-ok"></span></span>
+				<p class="text-center">
+					Účet byl založen a rovnou jsme Vás i přihlásili. Ještě zbývá poslední drobnost - klikněte na ikonu popelnice a vyberte "odstranit", abyste odstranili instalační soubory. Když to neuděláte, kdokoliv pak může systém přeinstalovat.
+				</p>
+			</div>
+			<div class="well">
+			{control fileManager-directoryList}
+			</div>
+		</div>
+	</div>
+
+{/define}

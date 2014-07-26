@@ -1,0 +1,15 @@
+{layout './@layout.latte'}
+{define main}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="alert alert-success">
+				<span class="pull-left"><span class="glyphicon glyphicon-ok"></span></span>
+				<p class="text-center">
+					CMS je nainstalované. Nyní je čas vytvořit administrátorský účet.
+				</p>
+			</div>
+			{control createUser}
+		</div>
+	</div>
+
+{/define}

@@ -2,6 +2,15 @@
 {define title}{_}system.title.cmsInstaller{/_} - {_}system.title.generateDatabase{/_}{/define}
 
 {define main}
+	<div class="container" style="padding-top:50px">
+		<div class="row">
+			<div class="col-sm-12">
+				{control install}
+			</div>
+		</div>
+	</div>
+
+	{*
 	<div class="container" style="padding-top:30px">
 		<div class="row">
 			<div class="col-sm-12">
@@ -11,12 +20,34 @@
 					</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-sm-7"><a n:href="generateDatabase!" class="btn btn-success">{_}system.button.generateDatabase{/_}</a></div>
-							<div class="col-sm-5"></div>
+							<div class="col-sm-7">
+								{if $currentLocale === 'cs_CZ'}
+									<h1>Vítejte v instalátoru ZaxCMS.</h1>
+									<p>Tento průvodce Vám pomůže nainstalovat CMS ve dvou jednoduchých krocích.</p>
+									<div class="well well-sm">
+										<p class="text-danger text-center">
+											<span class="glyphicon glyphicon-warning-sign"></span><br>
+											<strong>Pokud jste již CMS nainstalovali, pak prosím odstraňte adresář 'app/modules/Install', jinak hrozí, že Vám někdo převezme kontrolu nad webem.</strong>
+										</p>
+									</div>
+								{else}
+									<h1>Welcome to ZaxCMS installer</h1>
+									<div class="well well-sm">
+										<p class="text-danger text-center">
+											<span class="glyphicon glyphicon-warning-sign"></span><br>
+											<strong>If you previously installed this CMS, please delete directory 'app/modules/Install', otherwise anyone can take control over your website.</strong>
+										</p>
+									</div>
+								{/if}
+							</div>
+							<div class="col-sm-5">
+								<a n:href="generateDatabase!" class="btn btn-success">{_}system.button.generateDatabase{/_}</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	*}
 {/define}

@@ -155,7 +155,7 @@ class DirectoryListControl extends FileManagerAbstract {
 	 * @return DeleteDirControl|NULL
 	 */
 	protected function createComponentDeleteDir() {
-		if($this->fileManager->isFeatureEnabled('deleteDir')) {
+		if($this->fileManager->isFeatureEnabled('deleteDir') || $this->fileManager->isFeatureEnabled('truncateDir')) {
 			return $this->deleteDirFactory->create();
 		}
 	}

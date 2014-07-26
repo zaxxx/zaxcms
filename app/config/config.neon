@@ -1,13 +1,5 @@
 ### Core configuration file ###
-
-
-## Database connection
 parameters:
-    host: 127.0.0.1
-    user: root
-    password: root
-    database: zax_cms
-
 ## Namespace <--> presenter mapping
     mapping:
         *: ZaxCMS\*Module\*Presenter
