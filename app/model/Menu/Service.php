@@ -39,7 +39,7 @@ class MenuService extends Service {
 		return $this;
 	}
 
-	public function generateDefaultMenu() {
+	public function createDefaultMenu() {
 		$frontMenu = new Menu;
 		$frontMenu->name = 'front';
 		$frontMenu->text = 'front';
@@ -47,6 +47,15 @@ class MenuService extends Service {
 		$frontMenu->isMenuItem = FALSE;
 		$frontMenu->secured = FALSE;
 		$this->getEm()->persist($frontMenu);
+
+		$homeItem = new Menu;
+		$homeItem->name = 'home';
+		$homeItem->text = 'Index';
+		$homeItem->nhref = ':Front:Default:default';
+		$homeItem->isMenuItem = TRUE;
+		$homeItem->secured = FALSE;
+		$this->getRepository()->persistAsLastChildOf($homeItem, $frontMenu);
+
 		$this->getEm()->flush();
 	}
 

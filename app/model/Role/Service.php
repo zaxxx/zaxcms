@@ -14,52 +14,35 @@ class RoleService extends Service {
 		$this->className = Role::getClassName();
 	}
 
-	public function getGuestRole() {
-		$role = $this->getDao()->findOneByName('guest');
-		if($role === NULL) {
-			$role = new ZaxCMS\Model\Role;
-			$role->name = 'guest';
-			$role->displayName = 'Anonymous user';
-			$this->em->persist($role);
-			$this->em->flush();
+	public function createRole($name, $displayName, Role $parent = NULL) {
+		$role = new Role;
+		$role->name = $name;
+		$role->displayName = $displayName;
+		if($parent === NULL) {
+			$this->getEm()->persist($role);
+		} else {
+			$this->getRepository()->persistAsLastChildOf($role, $parent);
 		}
 		return $role;
+	}
+
+	public function createDefaultRoles() {
+		$guest = $this->createRole('guest', 'Anonymous user');
+		$user = $this->createRole('user', 'Registered user', $guest);
+		$admin = $this->createRole('admin', 'Site admin', $user);
+		$this->flush();
+	}
+
+	public function getGuestRole() {
+		return $this->getDao()->findOneByName('guest');
 	}
 
 	public function getUserRole() {
-		$role = $this->getDao()->findOneByName('user');
-		if($role === NULL) {
-			$role = new ZaxCMS\Model\Role;
-			$role->name = 'user';
-			$role->displayName = 'Registered user';
-			$this->getRepository()->persistAsLastChildOf($role, $this->getGuestRole());
-			$this->em->flush();
-		}
-		return $role;
+		return $this->getDao()->findOneByName('user');
 	}
 
 	public function getAdminRole() {
-		$role = $this->getDao()->findOneByName('admin');
-		if($role === NULL) {
-			$role = new ZaxCMS\Model\Role;
-			$role->name = 'admin';
-			$role->displayName = 'Web administrator';
-			$this->getRepository()->persistAsLastChildOf($role, $this->getUserRole());
-			$this->em->flush();
-		}
-		return $role;
-	}
-
-	public function getDeveloperRole() {
-		$role = $this->getDao()->findOneByName('dev');
-		if($role === NULL) {
-			$role = new ZaxCMS\Model\Role;
-			$role->name = 'dev';
-			$role->displayName = 'Web developer';
-			$this->getRepository()->persistAsLastChildOf($role, $this->getAdminRole());
-			$this->em->flush();
-		}
-		return $role;
+		return $this->getDao()->findOneByName('admin');
 	}
 
 }

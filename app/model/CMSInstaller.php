@@ -32,11 +32,11 @@ class CMSInstaller extends Nette\Object {
 	}
 
 	protected function buildRoles() {
-		$this->roleService->getDeveloperRole();
+		$this->roleService->createDefaultRoles();
 	}
 
 	protected function buildMenu() {
-		$this->menuService->generateDefaultMenu();
+		$this->menuService->createDefaultMenu();
 	}
 
 	protected function wipeCache() {

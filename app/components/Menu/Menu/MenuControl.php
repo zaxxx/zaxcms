@@ -64,6 +64,11 @@ class MenuControl extends Zax\Application\UI\Control {
 		return $this['tinyLoginBox'];
 	}
 
+	/** @return MenuWrapperControl */
+	public function getMenuWrapper() {
+		return $this->lookup('ZaxCMS\Components\Menu\MenuWrapperControl');
+	}
+
 	protected function createComponentMenu() {
 		$menuList = new MenuList($this->menu);
 		if($this->menuService !== NULL)
