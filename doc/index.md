@@ -87,7 +87,7 @@ directory. The structure should look like this:
 Views
 -----
 
-Views are defined by view<View> methods, if such method doesn't exist, an exception will be thrown
+Views are defined by view\<View\> methods, if such method doesn't exist, an exception will be thrown
 when trying to access that view. Default view is 'Default'. Every view has a template in 'templates' directory.
 
 Renders
