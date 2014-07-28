@@ -1,6 +1,10 @@
 ### Zax framework services and components ###
 
 services:
+    - Zax\Security\DefaultPermission
+
+    - Zax\Application\UI\IEmptyFactory
+
     - Zax\Utils\AppDir(%appDir%)
     - Zax\Utils\RootDir(%rootDir%)
     - Zax\Application\UI\FormFactory

@@ -1,6 +1,6 @@
 {if $user->isLoggedIn()}
 	{_}auth.general.loggedAs{/_}: {$user->identity->name}<br>
-	{control logoutButton}
+	{control logoutButton}{secured Show, AdminPanel} .. {control adminPanelButton}{/secured}
 {else}
-	{control loginForm}
+	{control loginForm}{control adminPanelButton}
 {/if}

@@ -1,4 +1,5 @@
 services:
+    - ZaxCMS\Components\Auth\IAdminPanelButtonFactory
     - ZaxCMS\Components\Auth\ILoginFormFactory
     - ZaxCMS\Components\Auth\ITinyLoginBoxFactory
     - ZaxCMS\Components\Auth\ILogoutButtonFactory

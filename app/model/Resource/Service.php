@@ -26,10 +26,12 @@ class ResourceService extends Service {
 	}
 
 	public function createDefaultResources() {
+		$this->createResource('AdminPanel', 'Admin panel');
 		$this->createResource('WebContent', 'Web content');
 		$this->createResource('Menu', 'Menu');
 		$this->createResource('FileManager', 'File manager');
 		$this->createResource('Pages', 'Pages');
+
 
 		$this->flush();
 	}

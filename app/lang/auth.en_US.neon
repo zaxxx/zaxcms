@@ -16,6 +16,7 @@ general:
 button:
     login: "Login"
     logout: "Logout"
+    adminPanel: "Admin panel"
 alert:
     loggedOut: "You have been logged out."
     loggedIn: "You have been logged in."

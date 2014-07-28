@@ -6,17 +6,22 @@ use Nette,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+    Zax\Application\UI\NewSecuredControl as SecuredControl;
 
-class TinyLoginBoxControl extends Control {
+class TinyLoginBoxControl extends SecuredControl {
 
 	protected $loginFormFactory;
 
 	protected $logoutButtonFactory;
 
-	public function __construct(ILoginFormFactory $loginFormFactory, ILogoutButtonFactory $logoutButtonFactory) {
+	protected $adminPanelButtonFactory;
+
+	public function __construct(ILoginFormFactory $loginFormFactory,
+	                            ILogoutButtonFactory $logoutButtonFactory,
+	                            IAdminPanelButtonFactory $adminPanelButtonFactory) {
 		$this->loginFormFactory = $loginFormFactory;
 		$this->logoutButtonFactory = $logoutButtonFactory;
+		$this->adminPanelButtonFactory = $adminPanelButtonFactory;
 	}
 
     public function viewDefault() {
@@ -45,6 +50,13 @@ class TinyLoginBoxControl extends Control {
 	    return $this->loginFormFactory->create()
 		    ->setFormStyle('form-inline')
 		    ->showPlaceholdersOnly();
+	}
+
+	/**
+	 * @secured Show, AdminPanel
+	 */
+	protected function createComponentAdminPanelButton() {
+	    return $this->adminPanelButtonFactory->create();
 	}
 
 }

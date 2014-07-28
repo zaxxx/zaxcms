@@ -10,6 +10,7 @@ class AclFacade extends Nette\Object {
 	use Zax\Traits\TCacheable;
 
 	private $defaultPermissions = [
+		'AdminPanel' => ['Show'],
 		'WebContent' => ['Edit'],
 		'FileManager' => ['Edit', 'Delete', 'Upload'],
 		'Menu' => ['Edit'],

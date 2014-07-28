@@ -16,6 +16,7 @@ general:
 button:
     login: "Přihlásit se"
     logout: "Odhlásit se"
+    adminPanel: "Administrace"
 alert:
     loggedOut: "Nyní jste odhlášen."
     loggedIn: "Nyní jste přihlášen."
