@@ -96,7 +96,7 @@ Renders
 Now, you might probably want to use stuff like {control someControl:foo}. Well, it's easy. Just add a 'beforeRenderFoo' method and it should work.
 Again, you also need to add a template, this time called 'Default.Foo.latte'.
 
-*The pattern for naming templates is '<View>.latte' or '<View>.<Render>.latte'.*
+*The pattern for naming templates is '\<View\>.latte' or '\<View\>.\<Render\>.latte'.*
 
 AJAX
 ----
@@ -137,7 +137,7 @@ Security is important, but also quite hard to grasp in Nette. It's not nice to r
 up with much better solution. Also you should secure your component factories to prevent them from being created when user isn't allowed to. That's alot of annoying work,
 that I want to get rid of (as much as possible).
 
-I think annotations are very nice to use, so currently, all signal, view, beforeRender and createComponent<Name> methods in components can have this simple annotation:
+I think annotations are very nice to use, so currently, all signal, view, beforeRender and createComponent\<Name\> methods in components can have this simple annotation:
 
 ```php
 /** @secured Resource, Privilege **/
@@ -145,7 +145,7 @@ I think annotations are very nice to use, so currently, all signal, view, before
 
 And if the user isn't allowed to do it, an exception will be thrown.
 
-For comfort in templates, an exception will not be thrown in createComponent<Name> methods and instead an empty component will be returned.
+For comfort in templates, an exception will not be thrown in createComponent\<Name\> methods and instead an empty component will be returned.
 
 I also added one simple macro for checking security in templates:
 
