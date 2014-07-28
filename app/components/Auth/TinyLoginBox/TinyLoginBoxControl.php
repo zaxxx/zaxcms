@@ -6,7 +6,7 @@ use Nette,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\NewSecuredControl as SecuredControl;
+    Zax\Application\UI\SecuredControl;
 
 class TinyLoginBoxControl extends SecuredControl {
 
@@ -53,7 +53,7 @@ class TinyLoginBoxControl extends SecuredControl {
 	}
 
 	/**
-	 * @secured Show, AdminPanel
+	 * @secured AdminPanel, Show
 	 */
 	protected function createComponentAdminPanelButton() {
 	    return $this->adminPanelButtonFactory->create();

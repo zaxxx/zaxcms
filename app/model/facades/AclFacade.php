@@ -12,7 +12,7 @@ class AclFacade extends Nette\Object {
 	private $defaultPermissions = [
 		'AdminPanel' => ['Show'],
 		'WebContent' => ['Edit'],
-		'FileManager' => ['Edit', 'Delete', 'Upload'],
+		'FileManager' => ['Show', 'Edit', 'Delete', 'Upload'],
 		'Menu' => ['Edit'],
 		'Pages' => ['Add', 'Edit', 'Delete']
 	];

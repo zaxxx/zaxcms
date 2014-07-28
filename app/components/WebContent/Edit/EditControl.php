@@ -7,9 +7,9 @@ use Nette,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-	Zax\Application\UI\Control;
+	Zax\Application\UI\SecuredControl;
 
-class EditControl extends Control {
+class EditControl extends SecuredControl {
 
 	protected $webContent;
 
@@ -68,10 +68,16 @@ class EditControl extends Control {
 		return $this->webContent;
 	}
 
+	/**
+	 * @secured WebContent, Edit
+	 */
 	public function viewDefault() {
 
 	}
-	
+
+	/**
+	 * @secured FileManager, Show
+	 */
 	public function viewFiles() {
 
 	}
@@ -95,7 +101,7 @@ class EditControl extends Control {
 	}
 
 	/**
-	 * @return ZaxUI\Form
+	 * @secured WebContent, Edit
 	 */
 	protected function createComponentEditForm() {
 		return $this->editFormFactory->create()
@@ -103,8 +109,9 @@ class EditControl extends Control {
 			->setWebContent($this->getWebContent());
 	}
 
+
 	/**
-	 * @return ZaxCMS\Components\FileManager\FileManagerControl
+	 * @secured FileManager, Show
 	 */
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()

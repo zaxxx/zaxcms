@@ -14,6 +14,9 @@ class EditFormControl extends FormControl {
 
 	protected $webContent;
 
+	/**
+	 * @secured WebContent, Edit
+	 */
 	public function viewDefault() {}
 
 	public function beforeRender() {}

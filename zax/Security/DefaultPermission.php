@@ -15,7 +15,7 @@ use Zax,
  */
 class DefaultPermission extends Permission {
 
-	public function isUserAllowedTo($privilege, $resource, $id = NULL) {
+	public function isUserAllowedTo($resource, $privilege, $id = NULL) {
 		return $this->user->isAllowed($resource, $privilege);
 	}
 
@@ -26,9 +26,9 @@ class DefaultPermission extends Permission {
 		}
 
 		$security = $element->getAnnotation('secured');
-		list($privilege, $resource) = explode(',', $security);
+		list($resource, $privilege) = explode(',', $security);
 
-		if(!$this->isUserAllowedTo(trim($privilege), trim($resource), $id)) {
+		if(!$this->isUserAllowedTo(trim($resource), trim($privilege), $id)) {
 			throw new ForbiddenRequestException;
 		}
 	}

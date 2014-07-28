@@ -6,7 +6,7 @@ use Nette,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\NewSecuredControl as SecuredControl;
+    Zax\Application\UI\SecuredControl;
 
 class AdminPanelButtonControl extends SecuredControl {
 

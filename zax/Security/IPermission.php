@@ -12,12 +12,12 @@ namespace Zax\Security;
 interface IPermission {
 
 	/**
-	 * @param string $privilege
 	 * @param string $resource
+	 * @param string $privilege
 	 * @param mixed|NULL $id
 	 * @return bool
 	 */
-	public function isUserAllowedTo($privilege, $resource, $id = NULL);
+	public function isUserAllowedTo($resource, $privilege, $id = NULL);
 
 	/**
 	 * @param $element

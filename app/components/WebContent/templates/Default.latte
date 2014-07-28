@@ -1,8 +1,12 @@
 <div n:snippet>
-	{if $control->canEditWebContent()}<div class="webContent-editable">{/if}
-	<span n:if="$control->canEditWebContent()" class="pull-right" title="{_'webContent.panel.editContent'}">
+	{secured WebContent, Edit}
+	<div class="webContent-editable">
+	<span class="pull-right" title="{_'webContent.panel.editContent'}">
 		<a class="btn{if $ajaxEnabled} ajax{/if}" n:href="this, view => Edit"><span class="glyphicon glyphicon-pencil"></span></a>
 	</span>
+	{/secured}
+
 	{$cachedOutput|noescape}
-	{if $control->canEditWebContent()}</div>{/if}
+
+	{secured WebContent, Edit}</div>{/secured}
 </div>

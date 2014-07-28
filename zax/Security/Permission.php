@@ -33,15 +33,15 @@ abstract class Permission extends Nette\Object implements IPermission {
 		return $this->acl;
 	}
 
-	/** "Is user allowed to edit article 5?"
-	 * ->isUserAllowedTo('Edit', 'Article', 5);
+	/**
+	 * ->isUserAllowedTo('Article', 'Edit', 5);
 	 *
-	 * @param string $privilege
 	 * @param string $resource
+	 * @param string $privilege
 	 * @param mixed|NULL $id
 	 * @return bool
 	 */
-	abstract public function isUserAllowedTo($privilege, $resource, $id = NULL);
+	abstract public function isUserAllowedTo($resource, $privilege, $id = NULL);
 
 	/**
 	 * @param $element

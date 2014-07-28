@@ -62,7 +62,7 @@ class WebContentControl extends SecuredControl {
 	protected function loadWebContent() {
 		if($this->webContent === NULL) {
 			$webContent = $this->webContentService->getByName($this->name);
-			if($webContent === NULL && $this->canEditWebContent()) {
+			if($webContent === NULL) {
 				$webContent = $this->webContentService->createWebContent($this->name);
 			}
 			$this->setWebContent($webContent);
@@ -97,13 +97,6 @@ class WebContentControl extends SecuredControl {
 		return $this;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function canEditWebContent() {
-		return $this->user->isAllowed('WebContent', 'Edit');
-	}
-
 	public function viewDefault() {
 		$texyfied = $this->cache->load('texyfied-' . $this->translator->getLocale());
 		if($texyfied === NULL) {
@@ -117,6 +110,9 @@ class WebContentControl extends SecuredControl {
 		$this->template->cachedOutput = $texyfied;
 	}
 
+	/**
+	 * @secured WebContent, Edit
+	 */
 	public function viewEdit() {
 
 	}
@@ -125,12 +121,10 @@ class WebContentControl extends SecuredControl {
 	}
 
 	/**
-	 * @return EditControl|NULL
+	 * @secured WebContent, Edit
 	 */
 	protected function createComponentEdit() {
-		if($this->canEditWebContent()) {
-			return $this->editFactory->create()->setWebContent($this->getWebContent());
-		}
+		return $this->editFactory->create()->setWebContent($this->getWebContent());
 	}
 
 
