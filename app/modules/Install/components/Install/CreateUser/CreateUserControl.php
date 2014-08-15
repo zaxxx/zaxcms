@@ -30,7 +30,7 @@ class CreateUserControl extends FormControl {
 		$loginType = $this->loginFacade->getLoginType();
 		try {
 			$this->user->login(($loginType === Model\LoginFacade::LOGIN_BY_NAME ? $user->name : $user->email), $values->password);
-			$this->parent->redirect('this', ['view' => 'Step4']);
+			$this->parent->installed();
 		} catch (Nette\Security\AuthenticationException $ex) {
 			$this->flashMessage($ex->getMessage(), 'danger');
 		}

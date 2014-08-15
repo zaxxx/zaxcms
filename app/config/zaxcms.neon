@@ -7,7 +7,7 @@ services:
 ## Installer scripts
 
     - ZaxCMS\Model\DatabaseGenerator
-    - ZaxCMS\Model\CMSInstaller
+    - ZaxCMS\Model\CMSInstaller(%CMSInstalled%)
 
 ## Model
 

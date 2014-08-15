@@ -31,39 +31,40 @@ class InstallControl extends Control {
 		$this->CMSInstaller = $CMSInstaller;
 		$this->fileManagerFactory = $fileManagerFactory;
 		$this->appDir = $appDir;
+		$this->CMSInstaller->checkIsInstalled();
 	}
 
     public function viewDefault() {
-        $this->template->step = 1;
+	    $this->template->step = 1;
 	    $this->template->progress = 5;
     }
 
 	public function viewStep2() {
-	    $this->template->step = 2;
-		$this->template->progress = 25;
+		$this->template->step = 2;
+		$this->template->progress = 33;
 	}
 
 	public function viewStep3() {
 		$this->template->step = 3;
-		$this->template->progress = 50;
-	}
-
-	public function viewStep4() {
-		$this->template->step = 4;
-		$this->template->progress = 75;
+		$this->template->progress = 66;
 	}
 
 	public function handleInstall() {
 		$this->CMSInstaller->install();
 		$this->redirect('this', ['view' => 'Step3']);
 	}
+
+	public function installed() {
+		$this->CMSInstaller->saveInstalledFlag();
+		$this->flashMessage('system.alert.cmsInstalled', 'success');
+		$this->presenter->redirect(':Front:Default:default');
+	}
     
     public function beforeRender() {
         $this->template->steps = [
 	        'Připojení k databázi',
 	        'Instalace CMS',
-	        'Založení administrátorského účtu',
-	        'Dokončení instalace'
+	        'Založení administrátorského účtu'
         ];
     }
 
@@ -73,19 +74,6 @@ class InstallControl extends Control {
 
 	protected function createComponentCreateUser() {
 	    return $this->createUserFactory->create();
-	}
-
-	protected function createComponentFileManager() {
-	    $fileManager = $this->fileManagerFactory->create()
-		    ->setRoot($this->appDir . '/modules/Install')
-		    ->enableFeature('deleteDir');
-
-		$fileManager->getDirectoryList()->getDeleteDir()->onDirDelete[] = function($dir) {
-			$this->flashMessage('system.alert.cmsInstalled');
-			$this->presenter->redirect(':Front:Default:default');
-		};
-
-		return $fileManager;
 	}
 
 }

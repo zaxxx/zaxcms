@@ -17,14 +17,31 @@ class CMSInstaller extends Nette\Object {
 
 	protected $appDir;
 
-	public function __construct(DatabaseGenerator $generator,
+	protected $installed;
+
+	public function __construct($installed = FALSE,
+								DatabaseGenerator $generator,
 								AclFacade $aclFacade,
 								MenuService $menuService,
 								Zax\Utils\AppDir $appDir) {
+		$this->installed = $installed;
 		$this->generator = $generator;
 		$this->aclFacade = $aclFacade;
 		$this->menuService = $menuService;
 		$this->appDir = $appDir;
+	}
+
+	/**
+	 * @throws CMSInstalledException
+	 */
+	public function checkIsInstalled() {
+		if($this->isInstalled()) {
+			throw new CMSInstalledException;
+		}
+	}
+
+	public function isInstalled() {
+		return $this->installed;
 	}
 
 	protected function generateDatabase() {
@@ -49,7 +66,17 @@ class CMSInstaller extends Nette\Object {
 		}
 	}
 
+	public function saveInstalledFlag() {
+		$file = $this->appDir . '/config/zaxcmsinstalled.neon';
+		$config = Nette\Neon\Neon::decode(file_get_contents($file));
+		$config['parameters']['CMSInstalled'] = TRUE;
+		file_put_contents($file, Nette\Neon\Neon::encode($config, Nette\Neon\Encoder::BLOCK));
+	}
+
 	public function install() {
+
+		$this->checkIsInstalled();
+
 		$this->wipeCache();
 
 		$this->generateDatabase();
