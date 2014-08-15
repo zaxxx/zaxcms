@@ -73,20 +73,21 @@ abstract class MenuItemFormControl extends FormControl {
     }
     
     public function formSuccess(Form $form, $values) {
-	    $this->binder->formToEntity($form, $this->menuItem);
+	    $menuItem = $this->binder->formToEntity($form, $this->menuItem);
 
 	    if(!empty($values->href) && strpos($values->href, $this->template->baseUri) === 0) {
 		    $request = $this->router->match(new Nette\Http\Request(new Nette\Http\UrlScript(str_replace($this->template->baseUri, '', $values->href))));
 		    if($request) {
 			    $params = $request->getParameters();
-			    $this->menuItem->nhref = ':' . $request->presenterName . ':' . $params['action'];
+			    $menuItem->nhref = ':' . $request->presenterName . ':' . $params['action'];
 			    unset($params['action']);
-			    $this->menuItem->nhrefParams = $params;
-			    $this->menuItem->href = NULL;
+			    $menuItem->nhrefParams = $params;
+			    $menuItem->href = NULL;
+			    $form = $this->binder->entityToForm($menuItem, $form);
 		    }
 	    }
 
-	    $this->saveMenuItem($this->menuItem, $form);
+	    $this->saveMenuItem($menuItem, $form);
     }
     
     public function formError(Form $form) {

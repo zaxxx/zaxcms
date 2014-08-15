@@ -32,7 +32,6 @@ class MenuModelFactory {
 		$menu = $this->cache->load($name . '-' . $this->getLocale());
 		if($menu === NULL) {
 			$menu = $this->menuService->getRepository()->findOneBy(['name' => $name]);
-			//$menu->setTranslatableLocale($this->getLocale());
 			$this->translatableListener->setTranslatableLocale($this->getLocale());
 			$this->menuService->getEm()->refresh($menu);
 			$this->cache->save($name . '-' . $this->getLocale(), $menu, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
