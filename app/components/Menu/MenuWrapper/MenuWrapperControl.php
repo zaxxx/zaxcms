@@ -6,9 +6,9 @@ use Nette,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-	Zax\Application\UI\Control;
+	Zax\Application\UI\SecuredControl;
 
-class MenuWrapperControl extends Control {
+class MenuWrapperControl extends SecuredControl {
 
 	protected $menuFactory;
 
@@ -26,14 +26,11 @@ class MenuWrapperControl extends Control {
 		return $this;
 	}
 
-	public function canEditMenu() {
-		return TRUE;
-	}
-
 	public function viewDefault() {
 
 	}
 
+	/** @secured Menu, Edit */
 	public function viewEdit() {
 
 	}
@@ -57,6 +54,7 @@ class MenuWrapperControl extends Control {
 			->setName($this->name);
 	}
 
+	/** @secured Menu, Edit */
 	protected function createComponentEdit() {
 		return $this->editFactory->create()
 			->setName($this->name);

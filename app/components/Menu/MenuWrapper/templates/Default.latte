@@ -1,6 +1,4 @@
 <div n:snippet>
 	{control menu}
-	{if $control->canEditMenu()}
-		<span class="pull-right"><a class="btn{if $ajaxEnabled} ajax{/if}" n:href="this, view => Edit" title="{_'menu.panel.editMenu'}"><span class="glyphicon glyphicon-pencil"></span></a></span>
-	{/if}
+	<span class="pull-right" n:secured="Menu, Edit"><a class="btn{if $ajaxEnabled} ajax{/if}" n:href="this, view => Edit" title="{_'menu.panel.editMenu'}"><span class="glyphicon glyphicon-pencil"></span></a></span>
 </div>
