@@ -5,8 +5,6 @@ button:
 message:
     doNotMessWarning: "Warning: changing the unique name might break the application. Please, be careful!"
 form:
-    uniqueName: "Unique name"
-    text: "Displayed text"
     htmlClass: "HTML class"
     htmlTarget: "HTML target"
     url: "URL"

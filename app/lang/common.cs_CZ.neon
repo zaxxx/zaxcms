@@ -9,6 +9,11 @@ button:
     editAndClose: "Upravit a zavřít"
     chooseFile: "Vybrat soubor"
     preview: "Náhled"
+form:
+    name: "Název"
+    uniqueName: "Unikátní název"
+    title: "Titulek"
+    displayText: "Zobrazený text"
 alert:
     changesSaved: "Změny uloženy."
     changesError: "Chyba při ukládání změn."

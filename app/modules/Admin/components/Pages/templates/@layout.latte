@@ -1,0 +1,16 @@
+{define body}
+	<div n:foreach="$pages as $page" class="list-group-item">
+		<a href="{$presenter->link(':Front:Page:default', [page => $page->name])}">{$page->title}</a>
+	</div>
+{/define}
+
+{define add}
+	<div n:secured="Pages, Add" class="list-group-item">
+		<a class="btn{if $ajaxEnabled} ajax{/if}" href="{$control->link(this, [view => Add])}"><span class="glyphicon glyphicon-plus"></span> {_'page.button.addPage'}</a>
+	</div>
+{/define}
+
+<div class="list-group" n:snippet>
+	{include #add}
+	{include #body}
+</div>

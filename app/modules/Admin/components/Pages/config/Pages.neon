@@ -1,0 +1,6 @@
+services:
+    - ZaxCMS\AdminModule\Components\Pages\IAddPageFormFactory
+    - ZaxCMS\AdminModule\Components\Pages\IEditPageFormFactory
+    - ZaxCMS\AdminModule\Components\Pages\IDeletePageFormFactory
+
+    - ZaxCMS\AdminModule\Components\Pages\IPagesFactory

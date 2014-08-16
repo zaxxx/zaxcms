@@ -48,7 +48,9 @@ var initNetteAjax = function() {
         success: function(payload) {
             if(payload.anchor) {
                 var destTag = $("a[name='"+ payload.anchor +"']");
-                $('html,body').animate({scrollTop: destTag.offset().top-100},'slow');
+                if(destTag && destTag.offset()) {
+                    $('html,body').animate({scrollTop: destTag.offset().top-100},'slow');
+                }
             }
         }
     });

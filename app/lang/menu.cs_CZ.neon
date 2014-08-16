@@ -5,8 +5,6 @@ button:
 message:
     doNotMessWarning: "Varování: přepsání unikátního názvu může rozbít aplikaci. Prosím, buďte opatrní!"
 form:
-    uniqueName: "Unikátní název"
-    text: "Zobrazený text"
     htmlClass: "HTML třída"
     htmlTarget: "HTML cíl (target)"
     url: "URL adresa"

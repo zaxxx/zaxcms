@@ -4,6 +4,7 @@ namespace ZaxCMS\Components\Menu;
 use Nette,
     Zax,
     ZaxCMS\Model,
+	Nette\Forms\Form,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
 	Kdyby,
@@ -76,11 +77,14 @@ class EditMenuFormControl extends FormControl {
 
 		$f->addStatic('localeFlag', 'webContent.form.locale')
 			->setDefaultValue($this->getEditControl()->getLocale());
-		$f->addText('name', 'menu.form.uniqueName')
+		$f->addText('name', 'common.form.uniqueName')
 			->setRequired()
+			->addRule(Form::MAX_LENGTH, NULL, 63)
 			->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');
-		$f->addText('text', 'menu.form.text');
-		$f->addText('htmlClass', 'menu.form.htmlClass');
+		$f->addText('text', 'common.form.displayText')
+			->addRule(Form::MAX_LENGTH, NULL, 255);
+		$f->addText('htmlClass', 'menu.form.htmlClass')
+			->addRule(Form::MAX_LENGTH, NULL, 255);
 
 		$f->addProtection();
 

@@ -51,16 +51,22 @@ abstract class MenuItemFormControl extends FormControl {
 	    $f->addStatic('localeFlag', 'webContent.form.locale')
 		    ->setDefaultValue($this->getEditControl()->getLocale());
 
-	    $f->addText('name', 'menu.form.uniqueName')
+	    $f->addText('name', 'common.form.uniqueName')
 		    ->setRequired()
+		    ->addRule(Form::MAX_LENGTH, NULL, 63)
 		    ->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');
 
-	    $f->addText('text', 'menu.form.text');
-	    $f->addText('htmlClass', 'menu.form.htmlClass');
-	    $f->addText('htmlTarget', 'menu.form.htmlTarget');
+	    $f->addText('text', 'common.form.displayText')
+		    ->addRule(Form::MAX_LENGTH, NULL, 255);
+	    $f->addText('htmlClass', 'menu.form.htmlClass')
+		    ->addRule(Form::MAX_LENGTH, NULL, 255);
+	    $f->addText('htmlTarget', 'menu.form.htmlTarget')
+		    ->addRule(Form::MAX_LENGTH, NULL, 63);
 
-	    $f->addText('href', 'menu.form.url');
-	    $f->addText('nhref', 'menu.form.nhref');
+	    $f->addText('href', 'menu.form.url')
+		    ->addRule(Form::MAX_LENGTH, NULL, 511);
+	    $f->addText('nhref', 'menu.form.nhref')
+		    ->addRule(Form::MAX_LENGTH, NULL, 255);
 	    $f->addNeonTextArea('nhrefParams', 'menu.form.nhrefParams');
 
 	    $this->createSubmitButtons($f);

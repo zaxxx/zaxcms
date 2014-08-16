@@ -9,6 +9,11 @@ button:
     editAndClose: "Edit and close"
     chooseFile: "Choose file"
     preview: "Preview"
+form:
+    name: "Name"
+    uniqueName: "Unique name"
+    title: "Title"
+    displayText: "Displayed text"
 alert:
     changesSaved: "Changes saved."
     changesError: "Error while saving changes."

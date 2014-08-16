@@ -74,8 +74,11 @@ class MenuService extends Service {
 		$adminMenu = $this->createMenu('admin');
 		$this->getEm()->persist($adminMenu);
 
-		$dashboardIndex = $this->createMenuItem('dashboard', 'Dashboard', ':Admin:Default:default');
-		$this->getRepository()->persistAsLastChildOf($dashboardIndex, $adminMenu);
+		$dashboardItem = $this->createMenuItem('dashboard', 'Dashboard', ':Admin:Default:default');
+		$this->getRepository()->persistAsLastChildOf($dashboardItem, $adminMenu);
+
+		$pagesItem = $this->createMenuItem('pages', 'Pages', ':Admin:Pages:default');
+		$this->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
 
 		$this->getEm()->flush();
 	}
