@@ -14,6 +14,7 @@ form:
     uniqueName: "Unikátní název"
     title: "Titulek"
     displayText: "Zobrazený text"
+    confirmDelete: "Opravdu chcete odstranit tuto položku?"
 alert:
     changesSaved: "Změny uloženy."
     changesError: "Chyba při ukládání změn."

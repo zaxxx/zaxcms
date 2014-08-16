@@ -4,6 +4,9 @@
 		<a class="btn{if $ajaxEnabled} ajax{/if}" href="{$control->link(this, [view => Edit, page => $page->name])}">
 			<span class="glyphicon glyphicon-pencil"></span>
 		</a>
+		<a class="btn{if $ajaxEnabled} ajax{/if}" href="{$control->link(this, [view => Delete, page => $page->name])}">
+			<span class="glyphicon glyphicon-trash"></span>
+		</a>
 	</div>
 {/define}
 

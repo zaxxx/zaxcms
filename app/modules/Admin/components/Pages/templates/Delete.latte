@@ -1,0 +1,14 @@
+{layout './@layout.latte'}
+
+{define page}
+{if $control->page === $page->name}
+	<h3>{_'page.button.deletePage'}</h3>
+	<p>{_'common.form.confirmDelete'}</p>
+	<p>{$page->title}</p>
+	<p>
+	{control deletePageForm}
+	</p>
+{else}
+	{include #pageDefault, page => $page}
+{/if}
+{/define}

@@ -14,6 +14,7 @@ form:
     uniqueName: "Unique name"
     title: "Title"
     displayText: "Displayed text"
+    confirmDelete: "Do you really want to delete this item?"
 alert:
     changesSaved: "Changes saved."
     changesError: "Error while saving changes."
