@@ -2,7 +2,7 @@
 vendor/*
 
 # Dev tools
-app/modules/Dev
+app/modules/Dev/*
 
 # Nette temp
 app/temp/cache/*
