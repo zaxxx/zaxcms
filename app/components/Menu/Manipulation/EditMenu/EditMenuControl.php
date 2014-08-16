@@ -33,15 +33,18 @@ class EditMenuControl extends Control {
 		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
 	}
 
+	/** @secured Menu, Edit */
 	protected function createComponentEditMenuForm() {
 	    return $this->editMenuFormFactory->create()
 		    ->setMenu($this->menu);
 	}
 
+	/** @secured Menu, Edit */
 	public function viewDefault() {
 
 	}
 
+	/** @secured Menu, Edit */
 	public function beforeRender() {
 
 	}

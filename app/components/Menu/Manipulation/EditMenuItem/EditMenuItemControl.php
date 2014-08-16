@@ -32,14 +32,17 @@ class EditMenuItemControl extends Control {
 		return $this;
 	}
 
+	/** @secured Menu, Edit */
 	public function viewDefault() {
 
 	}
-	
+
+	/** @secured Menu, Edit */
 	public function viewDelete() {
 
 	}
 
+	/** @secured Menu, Edit */
 	public function beforeRender() {
 
 	}
@@ -49,6 +52,7 @@ class EditMenuItemControl extends Control {
 		return $this->lookup('ZaxCMS\Components\Menu\EditControl');
 	}
 
+	/** @secured Menu, Edit */
 	public function handleMoveUp() {
 		$this->menuService->moveUp($this->menuItem);
 		$this->menuService->getEm()->refresh($this->menuItem->parent);
@@ -56,6 +60,7 @@ class EditMenuItemControl extends Control {
 		$this->go('this');
 	}
 
+	/** @secured Menu, Edit */
 	public function handleMoveDown() {
 		$this->menuService->moveDown($this->menuItem);
 		$this->menuService->getEm()->refresh($this->menuItem->parent);
@@ -67,11 +72,13 @@ class EditMenuItemControl extends Control {
 		$this->getEditControl()->go('this', ['selectItem' => NULL]);
 	}
 
+	/** @secured Menu, Edit */
 	protected function createComponentEditMenuItemForm() {
 		return $this->editMenuItemFormFactory->create()
 		    ->setMenuItem($this->menuItem);
 	}
 
+	/** @secured Menu, Edit */
 	protected function createComponentDeleteMenuItemForm() {
 		return $this->deleteMenuItemFormFactory->create()
 		    ->setMenuItem($this->menuItem);

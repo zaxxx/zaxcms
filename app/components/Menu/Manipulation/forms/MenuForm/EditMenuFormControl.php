@@ -96,4 +96,9 @@ class EditMenuFormControl extends FormControl {
 		return $f;
 	}
 
+	/** @secured Menu, Edit */
+	protected function createComponentForm() {
+		return parent::createComponentForm();
+	}
+
 }

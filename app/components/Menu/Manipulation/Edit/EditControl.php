@@ -57,6 +57,7 @@ class EditControl extends Control {
 		return $this->menu;
 	}
 
+	/** @secured Menu, Edit */
 	public function viewDefault() {
 
 	}
@@ -93,16 +94,19 @@ class EditControl extends Control {
 		return $this->getMenuWrapper()->getMenu();
 	}
 
+	/** @secured Menu, Edit */
 	protected function createComponentAddMenuItem() {
 		return $this->addMenuItemFactory->create()
 			->setParentMenu($this->getMenu());
 	}
 
+	/** @secured Menu, Edit */
 	protected function createComponentEditMenuItem() {
 		return $this->editMenuItemFactory->create()
 			->setMenuItem($this->menuService->getDao()->findOneById($this->selectItem));
 	}
 
+	/** @secured Menu, Edit */
 	protected function createComponentEditMenu() {
 		return $this->editMenuFactory->create()
 			->setMenu($this->getMenu());

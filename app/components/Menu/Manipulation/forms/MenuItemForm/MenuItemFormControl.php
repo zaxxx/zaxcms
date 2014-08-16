@@ -94,4 +94,9 @@ abstract class MenuItemFormControl extends FormControl {
 	    $this->flashMessage('menu.alert.changesError');
     }
 
+	/** @secured Menu, Edit */
+	protected function createComponentForm() {
+		return parent::createComponentForm();
+	}
+
 }
