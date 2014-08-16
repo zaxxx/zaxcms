@@ -3,6 +3,7 @@
 namespace ZaxCMS\AdminModule\Components\Pages;
 use Nette,
     Zax,
+	ZaxCMS,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
@@ -13,6 +14,8 @@ class PagesControl extends SecuredControl {
 	/** @persistent */
 	public $page;
 
+	protected $pageEntity;
+
 	protected $pageService;
 
 	protected $addPageFormFactory;
@@ -21,14 +24,18 @@ class PagesControl extends SecuredControl {
 
 	protected $deletePageFormFactory;
 
+	protected $webContentFactory;
+
 	public function __construct(Model\PageService $pageService,
 								IAddPageFormFactory $addPageFormFactory,
 								IEditPageFormFactory $editPageFormFactory,
-								IDeletePageFormFactory $deletePageFormFactory) {
+								IDeletePageFormFactory $deletePageFormFactory,
+								ZaxCMS\Components\WebContent\IWebContentFactory $webContentFactory) {
 		$this->pageService = $pageService;
 		$this->addPageFormFactory = $addPageFormFactory;
 		$this->editPageFormFactory = $editPageFormFactory;
 		$this->deletePageFormFactory = $deletePageFormFactory;
+		$this->webContentFactory = $webContentFactory;
 	}
 
     public function viewDefault() {
@@ -49,10 +56,35 @@ class PagesControl extends SecuredControl {
 	public function viewDelete() {
 
 	}
+
+	protected function getPage() {
+		if($this->page === NULL) {
+			return NULL;
+		}
+		if($this->pageEntity === NULL) {
+			$this->pageEntity = $this->pageService->getByName($this->page);
+		}
+		return $this->pageEntity;
+	}
     
     public function beforeRender() {
         $this->template->pages = $this->pageService->findAll();
+	    if($page = $this->getPage()) {
+		    $page->setTranslatableLocale($this->getLocale());
+		    $this->pageService->refresh($page);
+		    $this->template->page = $page;
+	    }
     }
+
+	/** @secured Pages, Edit */
+	protected function createComponentWebContent() {
+		return new Nette\Application\UI\Multiplier(function($name) {
+			return $this->webContentFactory->create()
+				->setCacheNamespace('ZaxCMS.WebContent.' . $name)
+				->enableAjax(TRUE)
+				->setName($name);
+		});
+	}
 
 	/** @secured Pages, Add */
 	protected function createComponentAddPageForm() {
@@ -63,13 +95,13 @@ class PagesControl extends SecuredControl {
 	/** @secured Pages, Edit */
 	protected function createComponentEditPageForm() {
 	    return $this->editPageFormFactory->create()
-		    ->setPage($this->pageService->getByName($this->page));
+		    ->setPage($this->getPage());
 	}
 
 	/** @secured Pages, Delete */
 	protected function createComponentDeletePageForm() {
 	    return $this->deletePageFormFactory->create()
-		    ->setPage($this->pageService->getByName($this->page));
+		    ->setPage($this->getPage());
 	}
 
 }

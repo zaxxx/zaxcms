@@ -1,7 +1,7 @@
 {layout './@layout.latte'}
 
-{define add}
-	<div n:secured="Pages, Add" class="list-group-item">
+{define page}
+	<div n:secured="Pages, Add">
 		<h3>{_'page.button.addPage'}</h3>
 		{control addPageForm}
 	</div>

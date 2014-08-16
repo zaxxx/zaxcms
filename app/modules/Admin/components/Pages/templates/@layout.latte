@@ -1,34 +1,47 @@
-{define pageDefault}
-	<a href="{$presenter->link(':Front:Page:default', [page => $page->name])}">{$page->title}</a>
+
+{define #page}
+	{if isset($page)}
 	<div class="pull-right">
-		<a n:secured="Pages, Edit" n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Edit, page => $page->name])}">
+		<a n:secured="Pages, Edit" title="{_'page.button.editPage'}" n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Edit, page => $page->name])}">
 			<span class="glyphicon glyphicon-pencil"></span>
 		</a>
-		<a n:secured="Pages, Delete" n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Delete, page => $page->name])}">
+		<a n:secured="Pages, Delete" title="{_'page.button.deletePage'}" n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Delete, page => $page->name])}">
 			<span class="glyphicon glyphicon-trash"></span>
 		</a>
 	</div>
+	<a href="{plink :Front:Page:default, page => $page->name}">{plink :Front:Page:default, page => $page->name}</a>
+	<hr>
+
+	{control webContent-ZaxCMSPage$page->name}
+	{/if}
 {/define}
 
-{define page}
-	{include #pageDefault}
-{/define}
-
-{define body}
-	<div n:foreach="$pages as $page" class="list-group-item">
-		{include #page, page => $page}
+{define #pages}
+	<div class="well well-sm">
+		<ul class="nav nav-pills nav-stacked">
+			<li n:secured="Pages, Add" n:class="$control->view == Add ? active">
+				<a n:class="$ajaxEnabled ? ajax" href="{$control->link(this, [view => Add, page => NULL])}">
+					<span class="glyphicon glyphicon-plus"></span> {_'page.button.addPage'}
+				</a>
+			</li>
+			<li n:foreach="$pages as $page" class="{if $control->page === $page->name} active{/if}">
+				<a n:class="$ajaxEnabled ? ajax" href="{$control->link(this, [view => Default, page => $page->name])}">{$page->title}</a>
+			</li>
+		</ul>
 	</div>
 {/define}
 
-{define add}
-	<div n:secured="Pages, Add" class="list-group-item">
-		<a n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Add])}">
-			<span class="glyphicon glyphicon-plus"></span> {_'page.button.addPage'}
-		</a>
+<div n:snippet>
+	<div class="row">
+		<div class="col-sm-4">
+			{include #pages}
+		</div>
+		<div class="col-sm-8">
+		{if isset($page) && $page !== NULL}
+			{include #page, page => $page}
+		{else}
+			{include #page}
+		{/if}
+		</div>
 	</div>
-{/define}
-
-<div class="list-group" n:snippet>
-	{include #add}
-	{include #body}
 </div>

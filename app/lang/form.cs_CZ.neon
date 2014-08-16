@@ -9,6 +9,6 @@ error:
     maxFileSize: "Soubor překračuje maximální povolenou velikost."
     mimeType: "Tento typ souboru není povolen."
     fileExtension: "Tento typ souboru není povolen."
-    duplicateEntry: "Tato položka musí být unikátní"
+    duplicateEntry: "Tato položka musí být unikátní."
     duplicateName: "Položka s tímto názvem již existuje, zadejte jiný název."
     alphanumeric: "Povolená je pouze anglická abeceda a číslice."
