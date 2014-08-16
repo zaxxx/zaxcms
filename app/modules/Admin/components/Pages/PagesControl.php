@@ -35,14 +35,17 @@ class PagesControl extends SecuredControl {
         
     }
 
+	/** @secured Pages, Add */
 	public function viewAdd() {
 
 	}
 
+	/** @secured Pages, Edit */
 	public function viewEdit() {
 
 	}
 
+	/** @secured Pages, Delete */
 	public function viewDelete() {
 
 	}
@@ -51,16 +54,19 @@ class PagesControl extends SecuredControl {
         $this->template->pages = $this->pageService->findAll();
     }
 
+	/** @secured Pages, Add */
 	protected function createComponentAddPageForm() {
 	    return $this->addPageFormFactory->create()
 		    ->setPage(new Model\Page);
 	}
 
+	/** @secured Pages, Edit */
 	protected function createComponentEditPageForm() {
 	    return $this->editPageFormFactory->create()
 		    ->setPage($this->pageService->getByName($this->page));
 	}
 
+	/** @secured Pages, Delete */
 	protected function createComponentDeletePageForm() {
 	    return $this->deletePageFormFactory->create()
 		    ->setPage($this->pageService->getByName($this->page));
