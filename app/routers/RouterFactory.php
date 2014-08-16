@@ -3,6 +3,7 @@
 namespace ZaxCMS\Routers;
 use Zax,
     Zax\Application\Routers\Route,
+	Zax\Application\Routers\RouteList,
 	Kdyby,
     Nette;
 
@@ -34,7 +35,7 @@ class RouterFactory extends Nette\Object {
     public function create() {
 	    $ls = '[<locale=' . $this->defaultLocale . ' ' . implode('|', $this->availableLocales) . '>/]';
 
-        $r = new Nette\Application\Routers\RouteList;
+        $r = new RouteList;
 	    $r[] = new Route($ls . 'page/<page>', [
 		    'module' => 'Front',
 		    'presenter' => 'Page',

@@ -75,16 +75,16 @@ abstract class MenuItemFormControl extends FormControl {
     public function formSuccess(Form $form, $values) {
 	    $menuItem = $this->binder->formToEntity($form, $this->menuItem);
 
+	    // Transform URL to Nette format if possible
 	    if(!empty($values->href) && strpos($values->href, $this->template->baseUri) === 0) {
-		    $request = $this->router->match(new Nette\Http\Request(new Nette\Http\UrlScript(str_replace($this->template->baseUri, '', $values->href))));
-		    if($request) {
-			    $params = $request->getParameters();
-			    $menuItem->nhref = ':' . $request->presenterName . ':' . $params['action'];
-			    unset($params['action']);
-			    $menuItem->nhrefParams = $params;
-			    $menuItem->href = NULL;
-			    $form = $this->binder->entityToForm($menuItem, $form);
-		    }
+		    $url = new Nette\Http\UrlScript(str_replace($this->template->baseUri, '', $values->href));
+
+		    $menuItem->nhref = $this->router->urlToNHref($url);
+		    $menuItem->nhrefParams = $this->router->urlToParams($url, ['locale']);
+		    $menuItem->href = NULL;
+
+		    // Project changes into form
+		    $form = $this->binder->entityToForm($menuItem, $form);
 	    }
 
 	    $this->saveMenuItem($menuItem, $form);
