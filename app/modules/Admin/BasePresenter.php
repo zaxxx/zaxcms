@@ -10,5 +10,12 @@ use Nette,
 
 abstract class BasePresenter extends ZaxCMS\BasePresenter {
 
+	public function startup() {
+		parent::startup();
+
+		if(!$this->user->isAllowed('AdminPanel', 'Show')) {
+			throw new Nette\Application\ForbiddenRequestException;
+		}
+	}
 
 }
