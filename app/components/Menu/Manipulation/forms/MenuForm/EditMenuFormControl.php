@@ -60,7 +60,7 @@ class EditMenuFormControl extends FormControl {
 			$this->menuService->getEm()->flush();
 			$this->menuService->invalidateCache();
 
-			$this->flashMessage('menu.alert.changesSaved');
+			$this->flashMessage('common.alert.changesSaved', 'success');
 			$this->getEditMenu()->go('this', ['view' => 'Default']);
 		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));
@@ -68,7 +68,7 @@ class EditMenuFormControl extends FormControl {
 	}
 
 	public function formError(Nette\Forms\Form $form) {
-		$this->flashMessage('menu.alert.changesError');
+		$this->flashMessage('common.alert.changesError', 'danger');
 	}
 
 	public function createForm() {

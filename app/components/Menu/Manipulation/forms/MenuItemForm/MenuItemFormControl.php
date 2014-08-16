@@ -91,7 +91,7 @@ abstract class MenuItemFormControl extends FormControl {
     }
     
     public function formError(Form $form) {
-	    $this->flashMessage('menu.alert.changesError');
+	    $this->flashMessage('common.alert.changesError', 'danger');
     }
 
 	/** @secured Menu, Edit */

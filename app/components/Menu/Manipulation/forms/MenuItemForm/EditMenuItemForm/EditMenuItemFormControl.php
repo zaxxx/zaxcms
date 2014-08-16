@@ -37,7 +37,7 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 			$this->menuService->getEm()->flush();
 			$this->menuService->invalidateCache();
 
-			$this->flashMessage('menu.alert.changesSaved');
+			$this->flashMessage('common.alert.changesSaved', 'success');
 			$this->getEditControl()->go('this', ['selectItem' => $menuItem->id]);
 		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));

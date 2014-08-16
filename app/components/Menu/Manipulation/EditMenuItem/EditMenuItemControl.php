@@ -4,6 +4,7 @@ namespace ZaxCMS\Components\Menu;
 use Nette,
 	Zax,
 	Kdyby,
+	Gedmo,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
@@ -34,18 +35,23 @@ class EditMenuItemControl extends Control {
 
 	/** @secured Menu, Edit */
 	public function viewDefault() {
-
+		try {
+			$this->template->isFirst = count($this->menuService->getRepository()->getPrevSiblings($this->menuItem)) === 0;
+			$this->template->isLast = count($this->menuService->getRepository()->getNextSiblings($this->menuItem)) === 0;
+		} catch (Gedmo\Exception\InvalidArgumentException $ex) {
+			$this->template->isFirst = FALSE;
+			$this->template->isLast = FALSE;
+		}
 	}
 
 	/** @secured Menu, Edit */
 	public function viewDelete() {
-
+		$this->template->menuItem = $this->menuItem;
 	}
 
 	/** @secured Menu, Edit */
 	public function beforeRender() {
-		$this->template->isFirst = count($this->menuService->getRepository()->getPrevSiblings($this->menuItem)) === 0;
-		$this->template->isLast = count($this->menuService->getRepository()->getNextSiblings($this->menuItem)) === 0;
+
 	}
 
 	/** @return EditControl */

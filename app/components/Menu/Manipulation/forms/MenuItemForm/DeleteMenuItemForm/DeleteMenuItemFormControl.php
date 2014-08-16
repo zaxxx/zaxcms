@@ -50,6 +50,7 @@ class DeleteMenuItemFormControl extends FormControl {
 	    if($this->ajaxEnabled) {
 		    $f->enableAjax();
 	    }
+	    return $f;
     }
     
     public function formSuccess(Form $form, $values) {
@@ -57,8 +58,8 @@ class DeleteMenuItemFormControl extends FormControl {
 	    $this->menuService->getEm()->flush();
 	    $this->menuService->invalidateCache();
 
-	    $this->flashMessage('Deleted');
-	    $this->getEditControl()->go('this', ['selectItem' => 0]);
+	    $this->flashMessage('common.alert.entryDeleted', 'success');
+	    $this->getEditControl()->go('this', ['selectItem' => NULL, 'editMenuItem-view' => 'Default']);
     }
     
     public function formError(Form $form) {

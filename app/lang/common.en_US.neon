@@ -14,6 +14,7 @@ alert:
     changesError: "Error while saving changes."
     newEntrySaved: "Item added."
     newEntryError: "Error while adding item."
+    entryDeleted: "Error while deleting item."
 general:
     note: "Note"
     never: "Never"
