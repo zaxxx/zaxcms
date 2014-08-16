@@ -34,6 +34,8 @@ var refresh = function() {
     $('.if-not-js-hide').show();
 };
 
+
+var payloads = [];
 var initNetteAjax = function() {
 
     /** Tooltips need to be destroyed with every AJAX call to prevent bugs */
@@ -59,7 +61,8 @@ var initNetteAjax = function() {
     $.nette.ext('pushState', {
         success: function(payload) {
             if(payload.setUrl) {
-                window.history.pushState(null, null, payload.setUrl);
+                var currentState = {href: payload.setUrl};
+                window.history.pushState(currentState, null, payload.setUrl);
             }
         }
     });
@@ -104,7 +107,7 @@ var initNetteAjax = function() {
             $el.fadeTo(400, 0.01, function() {
                 $el.html(html).fadeTo(400, 1);
             });
-        } else if($el.is('[data-zax-slide')) {
+        } else if($el.is('[data-zax-slide]')) {
             $el.slideUp(400, function() {
                 $el.html(html).slideDown(400);
             });
@@ -112,6 +115,26 @@ var initNetteAjax = function() {
             originalApplySnippet($el, html);
         }
         refresh();
+    };
+
+    /** Store payloads for popState */
+    $.nette.ext('snippets').updateSnippets = function(snippets, back) {
+        var elements = [];
+        var tmpPayload = {snippets: {}};
+        for (var i in snippets) {
+            var el = this.getElement(i);
+            if(el.get(0)) {
+                tmpPayload.snippets[i] = el.html();
+                elements.push(el.get(0));
+            }
+            $.nette.ext('snippets').updateSnippet(el, snippets[i], back);
+        }
+        if(!back) {
+            payloads.push(tmpPayload);
+        }
+        $(elements).promise().done(function() {
+            $.nette.ext('snippets').completeQueue.fire();
+        });
     };
 
     /** Exactly what it says - it's intended to "refresh stuff" ;-) */
@@ -135,6 +158,16 @@ $(document).ready(function() {
 
     $(document).on('mousemove', function(e) {
         mouseMove(e.pageX, e.pageY);
+    });
+
+    /** Restore snippets on back button */
+    $(window).on('popstate', function(e) {
+        console.log(payloads);
+        var payload = payloads.pop();
+        console.log(payload);
+        if(payload) {
+            $.nette.ext('snippets').updateSnippets(payload.snippets, true);
+        }
     });
 
     refresh();
