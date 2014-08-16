@@ -44,7 +44,8 @@ class EditMenuItemControl extends Control {
 
 	/** @secured Menu, Edit */
 	public function beforeRender() {
-
+		$this->template->isFirst = count($this->menuService->getRepository()->getPrevSiblings($this->menuItem)) === 0;
+		$this->template->isLast = count($this->menuService->getRepository()->getNextSiblings($this->menuItem)) === 0;
 	}
 
 	/** @return EditControl */
