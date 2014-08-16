@@ -9,7 +9,7 @@
 					{/foreach}
 				</ul>
 			</li>
-			<li><a href="{$control->parent->link('this', [view => Default])}" class="btn btn-danger" title="{_'common.button.close'}">&times;</a></li>
+			<li><a href="{$control->parent->link('this', [view => Default])}" n:class="btn, btn-danger, $ajaxEnabled ? ajax" title="{_'common.button.close'}">&times;</a></li>
 		</ul>
 	</div>
 	<div class="panel-body">
