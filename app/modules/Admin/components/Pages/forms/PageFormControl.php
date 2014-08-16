@@ -2,6 +2,7 @@
 
 namespace ZaxCMS\AdminModule\Components\Pages;
 use Nette,
+	Kdyby,
     Zax,
     ZaxCMS\Model,
     Nette\Forms\Form,
@@ -64,12 +65,16 @@ abstract class PageFormControl extends FormControl {
 		if($form->submitted === $form['savePage']) {
 			$page = $this->page;
 			$this->binder->formToEntity($form, $page);
-			$this->pageService->persist($page);
-			$this->pageService->flush();
-
-			$this->successFlashMessage();
+			try{
+				$this->pageService->getEm()->persist($page);
+				$this->pageService->getEm()->flush();
+				$this->successFlashMessage();
+				$this->parent->go('this', ['view' => 'Default']);
+			} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
+				$form['name']->addError($this->translator->translate('form.error.duplicateName'));
+			}
 		}
-		$this->parent->go('this', ['view' => 'Default']);
+
 	}
     
     public function formError(Form $form) {

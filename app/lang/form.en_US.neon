@@ -10,4 +10,5 @@ error:
     mimeType: "This file type is not allowed."
     fileExtension: "This file type is not allowed."
     duplicateEntry: "This field must be unique."
+    duplicateName: "An item with this name already exists, choose a different one."
     alphanumeric: "Only alphanumeric string allowed."

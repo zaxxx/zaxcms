@@ -31,17 +31,13 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 	}
 
 	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
-		try {
-			$menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
-			$this->menuService->getEm()->persist($menuItem);
-			$this->menuService->getEm()->flush();
-			$this->menuService->invalidateCache();
+		$menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
+		$this->menuService->getEm()->persist($menuItem);
+		$this->menuService->getEm()->flush();
+		$this->menuService->invalidateCache();
 
-			$this->flashMessage('common.alert.changesSaved', 'success');
-			$this->getEditControl()->go('this', ['selectItem' => $menuItem->id]);
-		} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
-			$form['name']->addError($this->translator->translate('form.error.duplicateEntry'));
-		}
+		$this->flashMessage('common.alert.changesSaved', 'success');
+		$this->getEditControl()->go('this', ['selectItem' => $menuItem->id]);
 	}
 
 }

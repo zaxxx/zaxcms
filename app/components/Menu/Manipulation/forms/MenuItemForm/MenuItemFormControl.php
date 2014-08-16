@@ -93,7 +93,11 @@ abstract class MenuItemFormControl extends FormControl {
 		    $form = $this->binder->entityToForm($menuItem, $form);
 	    }
 
-	    $this->saveMenuItem($menuItem, $form);
+	    try {
+	        $this->saveMenuItem($menuItem, $form);
+	    } catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
+		    $form['name']->addError($this->translator->translate('form.error.duplicateName'));
+	    }
     }
     
     public function formError(Form $form) {
