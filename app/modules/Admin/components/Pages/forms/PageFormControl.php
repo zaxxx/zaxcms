@@ -51,6 +51,8 @@ abstract class PageFormControl extends FormControl {
 			$f->enableAjax();
 		}
 
+		$f = $this->binder->entityToForm($this->page, $f);
+
 		return $f;
 	}
 

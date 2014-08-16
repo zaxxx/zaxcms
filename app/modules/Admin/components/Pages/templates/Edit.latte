@@ -1,0 +1,10 @@
+{layout './@layout.latte'}
+
+{define page}
+{if $control->page === $page->name}
+	<h3>{_'page.button.editPage'}</h3>
+	{control editPageForm}
+{else}
+	{include #pageDefault, page => $page}
+{/if}
+{/define}

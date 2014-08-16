@@ -10,14 +10,25 @@ use Nette,
 
 class PagesControl extends SecuredControl {
 
+	/** @persistent */
+	public $page;
+
 	protected $pageService;
 
 	protected $addPageFormFactory;
 
+	protected $editPageFormFactory;
+
+	protected $deletePageFormFactory;
+
 	public function __construct(Model\PageService $pageService,
-								IAddPageFormFactory $addPageFormFactory) {
+								IAddPageFormFactory $addPageFormFactory,
+								IEditPageFormFactory $editPageFormFactory,
+								IDeletePageFormFactory $deletePageFormFactory) {
 		$this->pageService = $pageService;
 		$this->addPageFormFactory = $addPageFormFactory;
+		$this->editPageFormFactory = $editPageFormFactory;
+		$this->deletePageFormFactory = $deletePageFormFactory;
 	}
 
     public function viewDefault() {
@@ -25,6 +36,14 @@ class PagesControl extends SecuredControl {
     }
 
 	public function viewAdd() {
+
+	}
+
+	public function viewEdit() {
+
+	}
+
+	public function viewDelete() {
 
 	}
     
@@ -35,6 +54,16 @@ class PagesControl extends SecuredControl {
 	protected function createComponentAddPageForm() {
 	    return $this->addPageFormFactory->create()
 		    ->setPage(new Model\Page);
+	}
+
+	protected function createComponentEditPageForm() {
+	    return $this->editPageFormFactory->create()
+		    ->setPage($this->pageService->getByName($this->page));
+	}
+
+	protected function createComponentDeletePageForm() {
+	    return $this->deletePageFormFactory->create()
+		    ->setPage($this->pageService->getByName($this->page));
 	}
 
 }

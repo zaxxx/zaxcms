@@ -1,6 +1,20 @@
+{define pageDefault}
+	<a href="{$presenter->link(':Front:Page:default', [page => $page->name])}">{$page->title}</a>
+	<div class="pull-right">
+		<a class="btn{if $ajaxEnabled} ajax{/if}" href="{$control->link(this, [view => Edit, page => $page->name])}">
+			<span class="glyphicon glyphicon-pencil"></span>
+		</a>
+	</div>
+{/define}
+
+
+{define page}
+	{include #pageDefault}
+{/define}
+
 {define body}
 	<div n:foreach="$pages as $page" class="list-group-item">
-		<a href="{$presenter->link(':Front:Page:default', [page => $page->name])}">{$page->title}</a>
+		{include #page, page => $page}
 	</div>
 {/define}
 
