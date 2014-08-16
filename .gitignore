@@ -1,6 +1,9 @@
 # Vendor
 vendor/*
 
+# Dev tools
+app/modules/Dev
+
 # Nette temp
 app/temp/cache/*
 app/temp/log/*
