@@ -39,22 +39,43 @@ class MenuService extends Service {
 		return $this;
 	}
 
+
+	protected function createMenu($name) {
+		$menu = new Menu;
+		$menu->name = $name;
+		$menu->text = $name;
+		$menu->htmlClass = 'nav navbar-nav';
+		$menu->isMenuItem = FALSE;
+		$menu->secured = FALSE;
+		return $menu;
+	}
+
+	protected function createMenuItem($name, $text, $nhref) {
+		$item = new Menu;
+		$item->name = $name;
+		$item->text = $text;
+		$item->nhref = $nhref;
+		$item->isMenuItem = TRUE;
+		$item->secured = FALSE;
+		return $item;
+	}
+
 	public function createDefaultMenu() {
-		$frontMenu = new Menu;
-		$frontMenu->name = 'front';
-		$frontMenu->text = 'front';
-		$frontMenu->htmlClass = 'nav navbar-nav';
-		$frontMenu->isMenuItem = FALSE;
-		$frontMenu->secured = FALSE;
+		$frontMenu = $this->createMenu('front');
 		$this->getEm()->persist($frontMenu);
 
-		$homeItem = new Menu;
-		$homeItem->name = 'home';
-		$homeItem->text = 'Index';
-		$homeItem->nhref = ':Front:Default:default';
-		$homeItem->isMenuItem = TRUE;
-		$homeItem->secured = FALSE;
+		$homeItem = $this->createMenuItem('home', 'Index', ':Front:Default:default');
 		$this->getRepository()->persistAsLastChildOf($homeItem, $frontMenu);
+
+		$this->getEm()->flush();
+	}
+
+	public function createAdminMenu() {
+		$adminMenu = $this->createMenu('admin');
+		$this->getEm()->persist($adminMenu);
+
+		$dashboardIndex = $this->createMenuItem('dashboard', 'Dashboard', ':Admin:Default:default');
+		$this->getRepository()->persistAsLastChildOf($dashboardIndex, $adminMenu);
 
 		$this->getEm()->flush();
 	}

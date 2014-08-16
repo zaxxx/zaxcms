@@ -11,7 +11,7 @@ use Nette,
 class AdminPanelButtonControl extends SecuredControl {
 
 	public function handleEnterAdminPanel() {
-
+		$this->presenter->redirect(':Admin:Default:default');
 	}
 
     public function viewDefault() {

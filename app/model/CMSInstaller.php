@@ -54,6 +54,7 @@ class CMSInstaller extends Nette\Object {
 
 	protected function buildMenu() {
 		$this->menuService->createDefaultMenu();
+		$this->menuService->createAdminMenu();
 	}
 
 	protected function wipeCache() {
