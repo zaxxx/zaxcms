@@ -360,26 +360,19 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * @param SnippetGenerators\ISnippetGenerator $snippetGenerator
 	 * @return $this
 	 */
-	public function setSnippetGenerator(SnippetGenerators\ISnippetGenerator $snippetGenerator) {
+	public function injectSnippetGenerator(SnippetGenerators\ISnippetGenerator $snippetGenerator) {
 		$this->snippetGenerator = $snippetGenerator;
 		return $this;
-	}
-
-	/**
-	 * @return SnippetGenerators\ISnippetGenerator
-	 */
-	protected function getSnippetGenerator() {
-		if($this->snippetGenerator === NULL) {
-			$this->snippetGenerator = new SnippetGenerators\ShortSnippetGenerator;
-		}
-		return $this->snippetGenerator;
 	}
 
 	/**
 	 * Custom snippet format
 	 */
 	public function getSnippetId($name = NULL) {
-		return $this->getSnippetGenerator()->getSnippetId($this, $name);
+		if($this->snippetGenerator === NULL) {
+			return parent::getSnippetId($name);
+		}
+		return $this->snippetGenerator->getSnippetId($this, $name);
 	}
 
 	/**

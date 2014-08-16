@@ -1,6 +1,8 @@
 ### Zax framework services and components ###
 
 services:
+    - Zax\Application\UI\SnippetGenerators\ShortSnippetGenerator
+
     - Zax\Security\DefaultPermission
 
     - Zax\Application\UI\IEmptyFactory
