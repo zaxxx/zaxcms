@@ -1,8 +1,8 @@
 <div class="well">
 	<span class="pull-right">
-		<a title="{_'menu.button.moveUp'}" class="btn{if $ajaxEnabled} ajax{/if}{if $isFirst} disabled{else}" href="{link moveUp!}{/if}"><span class="glyphicon glyphicon-chevron-up"></span></a>
-		<a title="{_'menu.button.moveDown'}" class="btn{if $ajaxEnabled} ajax{/if}{if $isLast} disabled{else}" href="{link moveDown!}{/if}"><span class="glyphicon glyphicon-chevron-down"></span></a>
-		<a title="{_'common.button.delete'}" class="btn{if $ajaxEnabled} ajax{/if}" n:href="this, view => Delete"><span class="glyphicon glyphicon-trash"></span></a>
+		<a title="{_'menu.button.moveUp'}" n:class="btn, $ajaxEnabled ? ajax, $isFirst ? disabled" href="{link moveUp!}{/if}"><span class="glyphicon glyphicon-chevron-up"></span></a>
+		<a title="{_'menu.button.moveDown'}" n:class="btn, $ajaxEnabled ? ajax, $isLast ? disabled" href="{link moveDown!}{/if}"><span class="glyphicon glyphicon-chevron-down"></span></a>
+		<a title="{_'common.button.delete'}" n:class="btn, $ajaxEnabled ? ajax" n:href="this, view => Delete"><span class="glyphicon glyphicon-trash"></span></a>
 	</span>
 	<h4>{_}menu.panel.editMenuItem{/_}</h4>
 	{control editMenuItemForm}

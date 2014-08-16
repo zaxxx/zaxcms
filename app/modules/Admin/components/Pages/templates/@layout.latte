@@ -1,15 +1,14 @@
 {define pageDefault}
 	<a href="{$presenter->link(':Front:Page:default', [page => $page->name])}">{$page->title}</a>
 	<div class="pull-right">
-		<a n:secured="Pages, Edit" class="btn{if $ajaxEnabled} ajax{/if}" href="{$control->link(this, [view => Edit, page => $page->name])}">
+		<a n:secured="Pages, Edit" n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Edit, page => $page->name])}">
 			<span class="glyphicon glyphicon-pencil"></span>
 		</a>
-		<a n:secured="Pages, Delete" class="btn{if $ajaxEnabled} ajax{/if}" href="{$control->link(this, [view => Delete, page => $page->name])}">
+		<a n:secured="Pages, Delete" n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Delete, page => $page->name])}">
 			<span class="glyphicon glyphicon-trash"></span>
 		</a>
 	</div>
 {/define}
-
 
 {define page}
 	{include #pageDefault}
@@ -23,7 +22,9 @@
 
 {define add}
 	<div n:secured="Pages, Add" class="list-group-item">
-		<a class="btn{if $ajaxEnabled} ajax{/if}" href="{$control->link(this, [view => Add])}"><span class="glyphicon glyphicon-plus"></span> {_'page.button.addPage'}</a>
+		<a n:class="btn, $ajaxEnabled ? ajax" href="{$control->link(this, [view => Add])}">
+			<span class="glyphicon glyphicon-plus"></span> {_'page.button.addPage'}
+		</a>
 	</div>
 {/define}
 

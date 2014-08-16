@@ -2,7 +2,7 @@
 	{var $perc = 0}
 	<span class="pull-right">
 		{var $isRoot = $control->getRoot() === $control->getAbsoluteDirectory()}
-		<a n:href="this, usageInfo => !$usageInfo" class="btn{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.usageInfo'}">
+		<a n:href="this, usageInfo => !$usageInfo" n:class="btn, $ajaxEnabled ? ajax" title="{_'fileManager.button.usageInfo'}">
 			<span class="glyphicon glyphicon-stats"></span>
 		</a>
 		<a n:if="$control->fileManager->isFeatureEnabled('renameDir')"

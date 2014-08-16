@@ -1,7 +1,7 @@
 {define files}
 
     <div class="pull-right">
-        <a n:if="$control->fileManager->isFeatureEnabled('uploadFile')" title="{_'fileManager.button.uploadFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => UploadFile])}" class="btn{if $ajaxEnabled} ajax{/if}">
+        <a n:if="$control->fileManager->isFeatureEnabled('uploadFile')" title="{_'fileManager.button.uploadFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => UploadFile])}" n:class="btn, $ajaxEnabled ? ajax">
             <span class="glyphicon glyphicon-upload"></span>
         </a>
     </div>
@@ -18,10 +18,10 @@
         {var $fileName = Zax\Utils\PathHelpers::getName($k)}
         {* toolbar *}
         <span class="pull-right">
-            <a n:if="$control->fileManager->isFeatureEnabled('renameFile')" title="{_'fileManager.button.renameFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => RenameFile, fileList-file => $fileName])}" class="btn{if $ajaxEnabled} ajax{/if}">
+            <a n:if="$control->fileManager->isFeatureEnabled('renameFile')" title="{_'fileManager.button.renameFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => RenameFile, fileList-file => $fileName])}" n:class="btn, $ajaxEnabled ? ajax">
                 <span class="glyphicon glyphicon-pencil"></span>
             </a>
-            <a n:if="$control->fileManager->isFeatureEnabled('deleteFile')" title="{_'fileManager.button.deleteFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => DeleteFile, fileList-file => $fileName])}" class="btn{if $ajaxEnabled} ajax{/if}">
+            <a n:if="$control->fileManager->isFeatureEnabled('deleteFile')" title="{_'fileManager.button.deleteFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => DeleteFile, fileList-file => $fileName])}" n:class="btn, $ajaxEnabled ? ajax">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
         </span>
