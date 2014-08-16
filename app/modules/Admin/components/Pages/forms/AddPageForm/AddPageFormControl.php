@@ -22,7 +22,7 @@ class AddPageFormControl extends PageFormControl {
     
     public function createSubmitButtons(Form $form) {
 	    $form->addButtonSubmit('savePage', 'page.button.addPage', 'file');
-	    $form->addButtonSubmit('cancel', '', 'remove');
+	    $form->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
 	    $form->enableBootstrap(['primary' => ['savePage'], 'default' => ['cancel']], TRUE);
     }
     

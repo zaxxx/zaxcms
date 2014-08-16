@@ -33,6 +33,10 @@ abstract class PageFormControl extends FormControl {
 
 	abstract protected function successFlashMessage();
 
+	public function handleCancel() {
+		$this->parent->go('this', ['view' => 'Default', 'page' => NULL]);
+	}
+
 	public function createForm() {
 		$f = parent::createForm();
 

@@ -29,10 +29,14 @@ class DeletePageFormControl extends FormControl {
 
 	public function beforeRender() {}
 
+	public function handleCancel() {
+		$this->parent->go('this', ['view' => 'Default', 'page' => NULL]);
+	}
+
 	public function createForm() {
 		$f = parent::createForm();
 		$f->addButtonSubmit('deleteItem', 'common.button.delete', 'trash');
-		$f->addLinkSubmit('cancel', '', 'remove', $this->parent->link('this', ['view' => 'Default']));
+		$f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
 		$f->enableBootstrap(['danger' => ['deleteItem'], 'default' => ['cancel']], TRUE, 3, 'sm', 'form-inline');
 		if($this->ajaxEnabled) {
 			$f->enableAjax();
