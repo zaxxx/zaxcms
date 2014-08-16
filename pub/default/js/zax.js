@@ -55,6 +55,16 @@ var initNetteAjax = function() {
         }
     });
 
+    /** pushState */
+    $.nette.ext('pushState', {
+        success: function(payload) {
+            if(payload.setUrl) {
+                window.history.pushState(null, null, payload.setUrl);
+            }
+        }
+    });
+
+
     /** Autofocus support */
     $.nette.ext('formsAutofocus', {
         success: function(payload) {

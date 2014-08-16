@@ -146,6 +146,7 @@ abstract class Control extends Nette\Application\UI\Control {
 				$this->presenter->payload->anchor = $anchor;
 			}
 		}
+		$this->presenter->payload->setUrl = $this->link($destination, $args);
 
 		// Process arguments
 		$params = [];
@@ -246,6 +247,7 @@ abstract class Control extends Nette\Application\UI\Control {
 		}
 		if($this->autoAjax && $this->ajaxEnabled && $presenter->isAjax()) {
 			$this->redrawControl();
+			$this->presenter->payload->setUrl = $this->link('this');
 		}
 	}
 
