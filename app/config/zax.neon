@@ -9,4 +9,5 @@ services:
 
     - Zax\Utils\AppDir(%appDir%)
     - Zax\Utils\RootDir(%rootDir%)
+    - Zax\Utils\TempDir(%tempDir%)
     - Zax\Application\UI\FormFactory

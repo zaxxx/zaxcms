@@ -3,6 +3,7 @@
 namespace ZaxCMS\Model;
 use Zax,
 	ZaxCMS,
+	Kdyby,
 	Nette;
 
 class AclFacade extends Nette\Object {
@@ -66,17 +67,15 @@ class AclFacade extends Nette\Object {
 
 	/** @return Nette\Security\Permission */
 	public function createNetteAcl() {
-		try {
-			$this->aclService->getEm()->getConnection()->connect();
-		} catch (\Exception $ex) {
-			return new Nette\Security\Permission;
-		}
 		$acl = $this->cache->load('acl');
 		if($acl === NULL) {
 			$acl = new Nette\Security\Permission;
-
-			foreach($this->roleService->findAll() as $role) {
-				$acl->addRole($role->name);
+			try {
+				foreach($this->roleService->findAll() as $role) {
+					$acl->addRole($role->name);
+				}
+			} catch (Kdyby\Doctrine\DBALException $ex) {
+				return new Nette\Security\Permission;
 			}
 			foreach($this->resourceService->findAll() as $resource) {
 				$acl->addResource($resource->name);

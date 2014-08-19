@@ -175,10 +175,10 @@ class FileListControl extends FileManagerAbstract {
 	protected function createComponentUploadFile() {
 		if($this->fileManager->isFeatureEnabled('uploadFile')) {
 			return $this->uploadFileFactory->create()
+				->disableAjaxFor(['uploadForm'])
 				->setAllowedMimeType($this->mime)
 				->setAllowedExtensions($this->extensions)
-				->setUploadMessages($this->uploadMessages)
-				->disableAjaxFor(['uploadForm']);
+				->setUploadMessages($this->uploadMessages);
 		}
 	}
 

@@ -60,10 +60,12 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * @param array $exclude array of subcomponent names which should be excluded from AJAXification
 	 * @return $this
 	 */
-	public function enableAjax($autoAjax = TRUE, $exclude = []) {
+	public function enableAjax($autoAjax = TRUE, $exclude = NULL) {
 		$this->ajaxEnabled = TRUE;
 		$this->autoAjax = $autoAjax;
-		$this->disableAjaxFor($exclude);
+		if(is_array($exclude)) {
+			$this->disableAjaxFor($exclude);
+		}
 		return $this;
 	}
 

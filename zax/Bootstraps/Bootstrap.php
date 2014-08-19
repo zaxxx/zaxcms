@@ -198,6 +198,9 @@ class Bootstrap implements Zax\IBootstrap {
 		// Add root dir
 		$configurator->addParameters(['rootDir' => $this->rootDir]);
 
+		// Add temp dir
+		$configurator->addParameters(['tempDir' => $this->tempDir]);
+
 		$configurator->setTempDirectory($this->tempDir);
 
 		if($this->debug && $this->isDebugger()) {

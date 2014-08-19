@@ -17,18 +17,22 @@ class CMSInstaller extends Nette\Object {
 
 	protected $appDir;
 
+	protected $tempDir;
+
 	protected $installed;
 
 	public function __construct($installed = FALSE,
 								DatabaseGenerator $generator,
 								AclFacade $aclFacade,
 								MenuService $menuService,
-								Zax\Utils\AppDir $appDir) {
+								Zax\Utils\AppDir $appDir,
+								Zax\Utils\TempDir $tempDir) {
 		$this->installed = $installed;
 		$this->generator = $generator;
 		$this->aclFacade = $aclFacade;
 		$this->menuService = $menuService;
 		$this->appDir = $appDir;
+		$this->tempDir = $tempDir;
 	}
 
 	/**
@@ -57,10 +61,10 @@ class CMSInstaller extends Nette\Object {
 		$this->menuService->createAdminMenu();
 	}
 
-	protected function wipeCache() {
+	public function wipeCache() {
 		$paths = [
-			realpath($this->appDir . '/temp/cache'),
-			realpath($this->appDir . '/temp/proxy')
+			realpath($this->tempDir . '/cache'),
+			realpath($this->tempDir . '/proxy')
 		];
 		foreach(Nette\Utils\Finder::find('*')->in($paths) as $k => $file) {
 			Nette\Utils\FileSystem::delete($k);
