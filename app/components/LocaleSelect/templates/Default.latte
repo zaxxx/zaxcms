@@ -1,0 +1,10 @@
+<li class="dropdown">
+	<a href="#" data-toggle="dropdown">
+		<img class="flag-small" src="{$baseUri}/img/flag/{$locale}.png"> {_'common.lang.'.$locale} <span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li n:foreach="$availableLocales as $availableLocale" n:class="$availableLocale == $locale ? active">
+			<a n:class="$ajaxEnabled ? ajax" n:href="this, locale => $availableLocale"><img class="flag-small" src="{$baseUri}/img/flag/{$availableLocale}.png"> {_'common.lang.'.$availableLocale}</a>
+		</li>
+	</ul>
+</li>

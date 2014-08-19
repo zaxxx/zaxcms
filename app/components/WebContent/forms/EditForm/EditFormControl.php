@@ -37,7 +37,10 @@ class EditFormControl extends FormControl {
 		$this->service->refresh($this->webContent);
 
 		$f->addStatic('localeFlag', 'webContent.form.locale')
-			->setDefaultValue($this->parent->getLocale());
+			->setDefaultValue($this->parent->getLocale())
+			->addFilter(function($locale) {
+				return $this->translator->translate('common.lang.' . $locale);
+			});
 		$f->addStatic('lastUpdatedstat', 'webContent.form.lastUpdated')
 			->addFilter(function($value) {
 				return $this->getWebContent()->lastUpdated === NULL

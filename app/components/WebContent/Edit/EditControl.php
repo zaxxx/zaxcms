@@ -29,12 +29,14 @@ class EditControl extends SecuredControl {
 	protected $fileManagerFactory;
 
 	/**
+	 * @var ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory
+	 */
+	protected $localeSelectFactory;
+
+	/**
 	 * @var Zax\Utils\RootDir
 	 */
 	protected $rootDir;
-
-	/** @persistent */
-	public $locale;
 
 	/**
 	 * @param IEditFormFactory                               $editFormFactory
@@ -45,18 +47,17 @@ class EditControl extends SecuredControl {
 	public function __construct(IEditFormFactory $editFormFactory,
 								Model\WebContentService $webContentService,
 								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
+								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory,
 								Zax\Utils\RootDir $rootDir) {
 		$this->editFormFactory = $editFormFactory;
 		$this->webContentService = $webContentService;
 		$this->fileManagerFactory = $fileManagerFactory;
+		$this->localeSelectFactory = $localeSelectFactory;
 		$this->rootDir = $rootDir;
 	}
 
 	public function getLocale() {
-		if($this->locale === NULL || !in_array($this->locale, $this->getAvailableLocales())) {
-			return parent::getLocale();
-		}
-		return $this->locale;
+		return $this['localeSelect']->getLocale();
 	}
 
 	public function setWebContent(Model\WebContent $webContent) {
@@ -98,6 +99,13 @@ class EditControl extends SecuredControl {
 
 	public function handleCancel() {
 		$this->close();
+	}
+
+	/**
+	 * @secured WebContent, Edit
+	 */
+	protected function createComponentLocaleSelect() {
+	    return $this->localeSelectFactory->create();
 	}
 
 	/**

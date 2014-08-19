@@ -1,3 +1,6 @@
+lang:
+    cs_CZ: "Czech"
+    en_US: "English"
 button:
     close: "Close"
     cancel: "Cancel"

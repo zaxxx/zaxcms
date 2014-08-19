@@ -1,3 +1,6 @@
+lang:
+    cs_CZ: "Čeština"
+    en_US: "Angličtina"
 button:
     close: "Zavřít"
     cancel: "Zrušit"
