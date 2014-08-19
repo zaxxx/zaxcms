@@ -23,6 +23,7 @@ Security layer:
  - [x] Latte macro `{secured Resource, Privilege}`
  - [x] Annotation `@secured Resource, Privilege`
 - [ ] Identity-based permissions
+
 Custom abstract component:
 - [x] Views support
 - [x] Better AJAX support
@@ -30,20 +31,26 @@ Custom abstract component:
 - [x] Factory for translated forms
 - [x] Delegating flash messages to presenter
 - [x] Cleaner snippet IDs
+
 Translations
 - [x] TranslatedNestedTree
 - [ ] (might need refactor)
+
 Services for injecting appDir and rootDir
 - [x] `__toString()`
+
 PathHelpers
 - [ ] (need rewrite)
+
 Custom bootstrap
 - [x] Simple API to easily setup common stuff
+
 JS and CSS combining (and optionally minifying)
 - [x] Cache
 - [x] Base features
 - [ ] LESS support...
 - [ ] (might need refactor)
+
 Enhanced forms
 - [x] Bootstrap rendering
 - [x] Better AJAX support
@@ -57,6 +64,7 @@ Enhanced forms
  - [x] NEON textarea
  - [x] Datetime input
  - [ ] ...
+
 FileManager component
 - [x] Allow browsing only within specified folder
 - [x] Possible to specify enabled features (createDir, renameDir, deleteDir, truncateDir, uploadFile, renameFile, renameExtension, deleteFile)
@@ -65,6 +73,7 @@ FileManager component
 - [x] Possible to generate URL for a file
 - [x] Possible to show space usage
 - [x] Ajax
+
 WebContent component
 - [x] Texy support
 - [x] Localization
@@ -72,6 +81,7 @@ WebContent component
 - [x] Preview
 - [x] Cache
 - [x] Ajax (when editing)
+
 Menu component
 - [x] Renderable menu
 - [x] GUI for customizing menu
@@ -80,6 +90,7 @@ Menu component
 - [x] Cache
 - [ ] Secured menu items
 - [ ] Submenus
+
 Installer module
 - [x] Asking for database login and saving to neon
 - [x] Installing database
