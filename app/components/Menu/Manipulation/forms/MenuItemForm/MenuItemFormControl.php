@@ -49,7 +49,10 @@ abstract class MenuItemFormControl extends FormControl {
         $f = parent::createForm();
 
 	    $f->addStatic('localeFlag', 'webContent.form.locale')
-		    ->setDefaultValue($this->getEditControl()->getLocale());
+		    ->setDefaultValue($this->getEditControl()->getLocale())
+		    ->addFilter(function($locale) {
+			    return $this->translator->translate('common.lang.' . $locale);
+		    });
 
 	    $f->addText('name', 'common.form.uniqueName')
 		    ->setRequired()

@@ -20,6 +20,8 @@ class Bootstrap implements Zax\IBootstrap {
 
 	protected $rootDir;
 
+	protected $tempDir;
+
 	protected $debuggers = [];
 
 	protected $debugEmails = [];
@@ -47,10 +49,12 @@ class Bootstrap implements Zax\IBootstrap {
 	/**
 	 * @param $appDir
 	 * @param $rootDir
+	 * @param $tempDir
 	 */
-	public function __construct($appDir, $rootDir) {
+	public function __construct($appDir, $rootDir, $tempDir) {
 		$this->appDir = $appDir;
 		$this->rootDir = $rootDir;
+		$this->tempDir = $tempDir;
 	}
 
 	/** Debugger by IP
@@ -194,7 +198,7 @@ class Bootstrap implements Zax\IBootstrap {
 		// Add root dir
 		$configurator->addParameters(['rootDir' => $this->rootDir]);
 
-		$configurator->setTempDirectory($this->appDir . '/temp');
+		$configurator->setTempDirectory($this->tempDir);
 
 		if($this->debug && $this->isDebugger()) {
 			$configurator->setDebugMode($this->debuggers);
@@ -203,7 +207,7 @@ class Bootstrap implements Zax\IBootstrap {
 		}
 
 		if($this->enableLog) {
-			$configurator->enableDebugger($this->appDir . '/temp/log', $this->debugEmails);
+			$configurator->enableDebugger($this->tempDir . '/log', $this->debugEmails);
 		}
 
 		// Load app

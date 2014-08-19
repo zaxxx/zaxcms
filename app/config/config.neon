@@ -50,6 +50,8 @@ doctrine:
     user: %user%
     password: %password%
     charset: UTF8
+    driver: pdo_mysql
+    logging: %debugMode%
     metadataCache: default
     queryCache: default
     resultCache: default
@@ -61,6 +63,7 @@ doctrine:
     quoteStrategy: Doctrine\ORM\Mapping\DefaultQuoteStrategy
     entityListenerResolver: Kdyby\Doctrine\Mapping\EntityListenerResolver
     proxyDir: %tempDir%/proxy
+    proxyNamespace: ZaxCMS\DoctrineProxy
     metadata:
         ZaxCMS\Model: %appDir%/model
     types:
@@ -72,7 +75,7 @@ doctrine:
 translation:
     default: cs_CZ
     whitelist: [cs, en]
-    fallback: [cs_CZ, cs]
+    fallback: [cs_CZ]
     debugger: TRUE
 
 ## Mandatory services

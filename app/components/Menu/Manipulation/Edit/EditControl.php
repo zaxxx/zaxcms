@@ -3,6 +3,7 @@
 namespace ZaxCMS\Components\Menu;
 use Nette,
 	Zax,
+	ZaxCMS,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
@@ -18,6 +19,8 @@ class EditControl extends Control {
 
 	protected $editMenuFactory;
 
+	protected $localeSelectFactory;
+
 	protected $name;
 
 	protected $menu;
@@ -25,17 +28,20 @@ class EditControl extends Control {
 	/** @persistent */
 	public $selectItem; // -1 = add
 
-	/** @persistent */
-	public $locale;
-
 	public function __construct(Model\MenuService $menuService,
 								IAddMenuItemFactory $addMenuItemFactory,
 								IEditMenuItemFactory $editMenuItemFactory,
-								IEditMenuFactory $editMenuFactory) {
+								IEditMenuFactory $editMenuFactory,
+								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
 		$this->menuService = $menuService;
 		$this->addMenuItemFactory = $addMenuItemFactory;
 		$this->editMenuItemFactory = $editMenuItemFactory;
 		$this->editMenuFactory = $editMenuFactory;
+		$this->localeSelectFactory = $localeSelectFactory;
+	}
+
+	public function getLocale() {
+		return $this['localeSelect']->getLocale();
 	}
 
 	public function close() {
@@ -110,6 +116,11 @@ class EditControl extends Control {
 	protected function createComponentEditMenu() {
 		return $this->editMenuFactory->create()
 			->setMenu($this->getMenu());
+	}
+
+	/** @secured Menu, Edit */
+	protected function createComponentLocaleSelect() {
+	    return $this->localeSelectFactory->create();
 	}
 
 }
