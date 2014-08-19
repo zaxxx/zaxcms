@@ -10,7 +10,7 @@ $tempDir = '/webcache/zaxcms';
 
 (new Zax\Bootstraps\Bootstrap($appDir, $rootDir, $tempDir))
 	->enableConfigAutoload()
-	->setDebuggers(['10.0.2.2', '10.0.0.1'], [''])
+	->setDebuggers(['10.0.2.2', '10.0.0.1', '::1'], [''])
 	->enableDebugger()
 	//->enableDebugger(TRUE)
 	->boot();
