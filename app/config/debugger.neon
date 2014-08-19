@@ -2,5 +2,5 @@ nette:
     debugger:
         browser: google-chrome
         bar:
-            - Nette\Bridges\DITracy\ContainerPanel
+            #- Nette\Bridges\DITracy\ContainerPanel
             - Nette\Bridges\HttpTracy\SessionPanel

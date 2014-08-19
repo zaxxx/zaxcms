@@ -17,56 +17,83 @@ I want a CMS which is easy for me to understand, fun to build apps on top of and
 
 ## Task list:
 (this list will grow)
-- [x] Custom abstract component
- - [x] Views support
- - [x] Better AJAX support
- - [x] Sending 'anchor' and 'focus' in payload
- - [x] Factory for translated forms
- - [x] Delegating flash messages to presenter
- - [x] Cleaner snippet IDs
-- [x] Application-wide translator
-- [x] Services for injecting appDir and rootDir
-- [ ] Custom bootstrap
- - [x] Nice API
- - [ ] Stable
-- [ ] JS and CSS combining (and optionally minifying)
- - [x] Cache
- - [x] Base features
- - [ ] LESS support...
-- [ ] Enhanced forms
- - [x] Bootstrap rendering
- - [x] Better AJAX support
- - [x] Very ~~simple~~ lame form <--> entity binding
- - [ ] Custom form inputs
-  - [x] Abstract input empowered by UI\Control
-  - [x] Static input
-  - [x] Button submit
-  - [x] Link submit
-  - [x] NEON textarea
-  - [x] Datetime input
-  - [ ] ...
-- [x] File manager component
- - [x] Allow browsing only within specified folder
- - [x] Possible to easily specify enabled features (createDir, renameDir, deleteDir, truncateDir, uploadFile, renameFile, renameExtension, deleteFile)
- - [x] Possible to add custom messages to upload form
- - [x] Possible to specify allowed mime type(s) and/or extension(s) for uploading
- - [x] Possible to generate URL for a file
- - [x] Possible to show space usage
-- [x] "Static" web content component
- - [x] Texy support
- - [x] Localization
- - [x] Embedded file manager
- - [x] Preview
- - [x] Cache
-- [ ] Menu component
- - [x] Renderable menu
- - [x] GUI for customizing menu
- - [x] Detect URL within the app and convert to Nette format
- - [ ] Fully implemented submenus
- - [x] Cache
-- [ ] ... (tons of stuff)
-- [ ] Backend and administration
- - [ ] ACL
- - [ ] Authentication
- - [ ] User settings
+
+Security layer:
+- [x] Nette-based ACL
+ - [x] Latte macro `{secured Resource, Privilege}`
+ - [x] Annotation `@secured Resource, Privilege`
+- [ ] Identity-based permissions
+Custom abstract component:
+- [x] Views support
+- [x] Better AJAX support
+- [x] Sending 'anchor' and 'focus' in payload
+- [x] Factory for translated forms
+- [x] Delegating flash messages to presenter
+- [x] Cleaner snippet IDs
+Translations
+- [x] TranslatedNestedTree
+- [ ] (might need refactor)
+Services for injecting appDir and rootDir
+- [x] `__toString()`
+PathHelpers
+- [ ] (need rewrite)
+Custom bootstrap
+- [x] Simple API to easily setup common stuff
+JS and CSS combining (and optionally minifying)
+- [x] Cache
+- [x] Base features
+- [ ] LESS support...
+- [ ] (might need refactor)
+Enhanced forms
+- [x] Bootstrap rendering
+- [x] Better AJAX support
+- [x] Very ~~simple~~ lame form <--> entity binding
+- [ ] (need refactor custom inputs into extension)
+- [ ] Custom form inputs
+ - [x] Abstract input empowered by `UI\Control`
+ - [x] Static input
+ - [x] Button submit
+ - [x] Link submit
+ - [x] NEON textarea
+ - [x] Datetime input
  - [ ] ...
+FileManager component
+- [x] Allow browsing only within specified folder
+- [x] Possible to specify enabled features (createDir, renameDir, deleteDir, truncateDir, uploadFile, renameFile, renameExtension, deleteFile)
+- [x] Possible to add custom messages to upload form
+- [x] Possible to specify allowed mime type(s) and/or extension(s) for uploading
+- [x] Possible to generate URL for a file
+- [x] Possible to show space usage
+- [x] Ajax
+WebContent component
+- [x] Texy support
+- [x] Localization
+- [x] Embedded file manager
+- [x] Preview
+- [x] Cache
+- [x] Ajax (when editing)
+Menu component
+- [x] Renderable menu
+- [x] GUI for customizing menu
+- [x] Detect URL within the app and convert to Nette format
+- [x] Ajax (when editing)
+- [x] Cache
+- [ ] Secured menu items
+- [ ] Submenus
+Installer module
+- [x] Asking for database login and saving to neon
+- [x] Installing database
+- [x] Registering admin user
+
+... (tons of stuff)
+
+Backend and administration
+- [ ] Custom pages
+ - [x] Embedded WebContent component
+ - [x] Ajax
+ - [ ] Title
+ - [ ] Localization
+ - [ ] Secured pages
+- [ ] User settings
+- [ ] Security settings
+- [ ] ...

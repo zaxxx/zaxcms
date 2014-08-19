@@ -12,4 +12,5 @@ $tempDir = '/webcache/zaxcms';
 	->enableConfigAutoload()
 	->setDebuggers(['10.0.2.2', '10.0.0.1'], [''])
 	->enableDebugger()
+	//->enableDebugger(TRUE)
 	->boot();
