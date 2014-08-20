@@ -32,3 +32,4 @@ services:
 ## Security
     - ZaxCMS\Security\Authenticator
     acl: @ZaxCMS\Model\AclFacade::createNetteAcl
+

@@ -14,15 +14,24 @@ interface IPermission {
 	/**
 	 * @param string $resource
 	 * @param string $privilege
-	 * @param mixed|NULL $id
+	 * @param array $params
 	 * @return bool
 	 */
-	public function isUserAllowedTo($resource, $privilege, $id = NULL);
+	public function isUserAllowedTo($resource, $privilege, $params = []);
 
 	/**
-	 * @param $element
-	 * @return mixed
+	 * @param string $resource
+	 * @param string $privilege
+	 * @param array $params
+	 * @throws ForbiddenRequestException
 	 */
-	public function checkRequirements($element, $id = NULL);
+	public function checkRequirements($resource, $privilege, $params = []);
+
+	/**
+	 * @param string $element
+	 * @param array $params
+	 * @throws ForbiddenRequestException
+	 */
+	public function checkAnnotationRequirements($element, $params = []);
 
 }

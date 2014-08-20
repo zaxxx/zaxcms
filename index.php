@@ -5,8 +5,8 @@ require_once __DIR__ . '/zax/Bootstraps/Bootstrap.php';
 
 $rootDir = __DIR__;
 $appDir = $rootDir . '/app';
-$tempDir = '/webcache/zaxcms';
-//$tempDir = $appDir . '/temp';
+//$tempDir = '/webcache/zaxcms';
+$tempDir = $appDir . '/temp';
 
 (new Zax\Bootstraps\Bootstrap($appDir, $rootDir, $tempDir))
 	->enableConfigAutoload()

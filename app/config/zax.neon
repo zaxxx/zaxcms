@@ -3,7 +3,15 @@
 services:
     - Zax\Application\UI\SnippetGenerators\ShortSnippetGenerator
 
-    - Zax\Security\DefaultPermission
+    -
+        class: Zax\Security\DefaultPermission
+        setup:
+            ### Custom permissions
+            ### Example:
+            ### - addHandler(Menu, Edit, [@My\Cool\PermissionService, method]) # custom permissions example
+            ### will call (simplified):
+            ### $context->getService(My\Cool\PermissionService)->method(Menu, Edit, $params)
+            ### whenever you check permissions for Menu, Edit and default Nette ACL check fails
 
     - Zax\Application\UI\IEmptyFactory
 

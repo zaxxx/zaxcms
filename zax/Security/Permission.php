@@ -34,20 +34,26 @@ abstract class Permission extends Nette\Object implements IPermission {
 	}
 
 	/**
-	 * ->isUserAllowedTo('Article', 'Edit', 5);
-	 *
 	 * @param string $resource
 	 * @param string $privilege
-	 * @param mixed|NULL $id
+	 * @param array $params
 	 * @return bool
 	 */
-	abstract public function isUserAllowedTo($resource, $privilege, $id = NULL);
+	abstract public function isUserAllowedTo($resource, $privilege, $params = []);
 
 	/**
-	 * @param $element
+	 * @param string $resource
+	 * @param string $privilege
+	 * @param array $params
 	 * @throws ForbiddenRequestException
-	 * @return void
 	 */
-	abstract public function checkRequirements($element, $id = NULL);
+	abstract public function checkRequirements($resource, $privilege, $params = []);
+
+	/**
+	 * @param string $element
+	 * @param array $params
+	 * @throws ForbiddenRequestException
+	 */
+	abstract public function checkAnnotationRequirements($element, $params = []);
 
 }

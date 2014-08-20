@@ -45,10 +45,27 @@ abstract class SecuredControl extends UI\Control {
 		return $template;
 	}
 
-	public function checkRequirements($element) {
-		$this->permission->checkRequirements($element);
+	public function checkRequirements($element, $params = []) {
+		$this->permission->checkAnnotationRequirements($element, $params);
 	}
 
+	/**
+	 * @hack
+	 */
+	protected function tryCall($method, array $params) {
+		$rc = $this->getReflection();
+		if($rc->hasCallableMethod($method)) {
+			$rm = $rc->getMethod($method);
+			$this->checkRequirements($rm, $params);
+			$rm->invokeArgs($this, $rc->combineArgs($rm, $params));
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * @hack
+	 */
 	protected function createComponent($name) {
 		$ucName = ucfirst($name);
 		$method = 'createComponent' . $ucName;
