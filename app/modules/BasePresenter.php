@@ -22,6 +22,8 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected $tinyLoginBoxFactory;
 
+	protected $localeSelectFactory;
+
 	public function injectFlashMessageFactory(Components\FlashMessage\IFlashMessageFactory $flashMessageFactory) {
 		$this->flashMessageFactory = $flashMessageFactory;
 	}
@@ -40,6 +42,14 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	public function injectTinyLoginBoxFactory(Components\Auth\ITinyLoginBoxFactory $tinyLoginBoxFactory) {
 		$this->tinyLoginBoxFactory = $tinyLoginBoxFactory;
+	}
+
+	public function injectLocaleSelectFactory(Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
+		$this->localeSelectFactory = $localeSelectFactory;
+	}
+
+	protected function createComponentLocaleSelect() {
+	    return $this->localeSelectFactory->create();
 	}
 
 	protected function createComponentTinyLoginBox() {

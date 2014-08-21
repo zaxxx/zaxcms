@@ -15,11 +15,14 @@ class LocaleSelectControl extends Control {
 
     public function viewDefault() {
 	    $this->template->availableLocales = $this->getAvailableLocales();
-	    $this->template->locale = $this->getLocale();
     }
     
     public function beforeRender() {
-
+	    $this->template->locale = $this->getLocale();
     }
+
+	public function beforeRenderPresenterLocale() {
+		$this->template->locale = $this->presenter->getLocale();
+	}
 
 }
