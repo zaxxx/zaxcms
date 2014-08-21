@@ -4,7 +4,7 @@
 	</a>
 	<ul class="dropdown-menu">
 		<li n:foreach="$availableLocales as $availableLocale" n:class="$availableLocale == $locale ? active">
-			<a href="{$presenter->link(this, [locale => $availableLocale])}"><img class="flag-small" src="{$baseUri}/img/flag/{$availableLocale}.png"> {_'common.lang.'.$availableLocale}</a>
+			<a href="{$presenter->link(this, [locale => $availableLocale])}"><img class="flag-small" src="{$baseUri}/img/flag/{$availableLocale}.png"> {_'common.lang.'.$availableLocale, NULL, [], NULL, $availableLocale}</a>
 		</li>
 	</ul>
 </div>
