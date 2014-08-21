@@ -6,12 +6,37 @@
 	{/if}
 
 	<ul n:class="(expand) $classes[ul]">
+		{var $rootDepth = 0}
+		{var $previous = NULL}
 		{foreach $menu as $item}
-			<li n:class="(expand) $classes[li]">
-				<a href="{$item->nhref ? ($item->nhrefParams !== NULL ? $presenter->link($item->nhref, $item->nhrefParams) : $presenter->link($item->nhref)) : $item->href}"
-						{if $item->htmlTarget !== NULL} target="{$item->htmlTarget}"{/if}{if $item->submenu} class="dropdown-toggle" data-toggle="dropdown"{/if}>{$item->text}</a>
-			</li>
+			{if $iterator->first}
+				{?$rootDepth = $item->depth}
+				{?$previous = $item}
+			{/if}
+
+			{if $item->depth > $previous->depth && !$item->isMenuItem && !$iterator->first}
+				{if $previous->isMenuItem}
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						{$previous->text}
+						<span class="caret"></span>
+					</a>
+				{/if}
+				<ul n:class="(expand) $classes[sub-ul]">
+			{elseif !$iterator->first}
+				{if $previous->isMenuItem}
+					<a href="{$previous->nhref ? ($previous->nhrefParams !== NULL ? $presenter->link($previous->nhref, $previous->nhrefParams) : $presenter->link($previous->nhref)) : $previous->href}">
+						{$item->text}
+					</a>
+				{/if}
+				{str_repeat('</li></ul>', $previous->depth - $item->depth)|noescape}
+			{/if}
+			{if $item->isMenuItem}
+					<li n:class="(expand) $classes[li]">
+
+			{/if}
+			{?$previous = $item}
 		{/foreach}
+		{str_repeat('</li></ul>', $previous->depth - $rootDepth)|noescape}
 		<li n:secured="Menu, Edit"><a n:href="this, view => Edit"><span class="glyphicon glyphicon-pencil"></span></a></li>
 	</ul>
 </div>
