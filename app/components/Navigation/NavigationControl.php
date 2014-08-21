@@ -90,7 +90,7 @@ class NavigationControl extends SecuredControl {
     
     public function beforeRender() {
 	    $this->template->classes = $this->classes;
-	    $this->template->menu = $this->menuService->getChildren($this->menu, FALSE);
+	    $this->template->menu = $this->menuService->getChildren($this->menu, FALSE, 'lft');
     }
 
 	/** @secured Menu, Edit */
