@@ -1,6 +1,9 @@
 {if $user->isLoggedIn()}
-	{_}auth.general.loggedAs{/_}: {$user->identity->name}<br>
-	{control logoutButton}{secured AdminPanel, Show} .. {control adminPanelButton}{/secured}
+	<div class="btn-group">
+		<a class="btn btn-success disabled"><strong>{$user->identity->name}</strong></a>
+		{secured AdminPanel, Show}{control adminPanelButton}{/secured}
+		{control logoutButton}
+	</div>
 {else}
 	{control loginForm}
 {/if}

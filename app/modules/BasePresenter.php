@@ -14,13 +14,13 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected $webContentFactory;
 
-	protected $menuWrapperFactory;
-
 	protected $staticLinkerFactory;
 
 	protected $flashMessageFactory;
 
 	protected $navigationFactory;
+
+	protected $tinyLoginBoxFactory;
 
 	public function injectFlashMessageFactory(Components\FlashMessage\IFlashMessageFactory $flashMessageFactory) {
 		$this->flashMessageFactory = $flashMessageFactory;
@@ -34,12 +34,16 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		$this->webContentFactory = $webContentFactory;
 	}
 
-	public function injectMenuWrapperFactory(Components\Menu\IMenuWrapperFactory $menuWrapperFactory) {
-		$this->menuWrapperFactory = $menuWrapperFactory;
-	}
-
 	public function injectNavigationFactory(Components\Navigation\INavigationFactory $navigationFactory) {
 		$this->navigationFactory = $navigationFactory;
+	}
+
+	public function injectTinyLoginBoxFactory(Components\Auth\ITinyLoginBoxFactory $tinyLoginBoxFactory) {
+		$this->tinyLoginBoxFactory = $tinyLoginBoxFactory;
+	}
+
+	protected function createComponentTinyLoginBox() {
+	    return $this->tinyLoginBoxFactory->create();
 	}
 
 	protected function createComponentNavigation() {
@@ -57,32 +61,6 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 				->setCacheNamespace('ZaxCMS.WebContent.' . $name)
 				->enableAjax(TRUE)
 				->setName($name);
-		});
-	}
-
-	protected function createComponentMenuWrapper() {
-		return new NetteUI\Multiplier(function($name) {
-			$menuWrapper = $this->menuWrapperFactory->create()
-				->setName($name)
-				->enableAjax();
-
-			/** @var Components\Menu\MenuWrapperControl $menuWrapper */
-
-			$menu = $menuWrapper->getMenu();
-			$menu->showTinyLoginBox();
-			$menu->disableAjaxFor(['tinyLoginBox']);
-
-			$loginBox = $menu->getLoginBox();
-			$loginBox->getLogoutButton()->onLogout[] = function() {
-				$this->flashMessage('auth.alert.loggedOut');
-				$this->redirect(':Front:Default:default');
-			};
-			$loginBox->getLoginForm()->onLogin[] = function() {
-				$this->flashMessage('auth.alert.loggedIn');
-				$this->redirect(':Front:Default:default');
-			};
-
-			return $menuWrapper;
 		});
 	}
 

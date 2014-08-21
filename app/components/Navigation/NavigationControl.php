@@ -82,7 +82,8 @@ class NavigationControl extends SecuredControl {
 	public function viewDefault() {
 
     }
-	
+
+	/** @secured Menu, Edit */
 	public function viewEdit() {
 	    
 	}
@@ -92,6 +93,7 @@ class NavigationControl extends SecuredControl {
 	    $this->template->menu = $this->menuService->getChildren($this->menu, FALSE);
     }
 
+	/** @secured Menu, Edit */
 	protected function createComponentEdit() {
 	    return $this->editFactory->create()
 		    ->setName($this->menu->name);
