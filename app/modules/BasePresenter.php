@@ -20,6 +20,8 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected $flashMessageFactory;
 
+	protected $navigationFactory;
+
 	public function injectFlashMessageFactory(Components\FlashMessage\IFlashMessageFactory $flashMessageFactory) {
 		$this->flashMessageFactory = $flashMessageFactory;
 	}
@@ -34,6 +36,19 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	public function injectMenuWrapperFactory(Components\Menu\IMenuWrapperFactory $menuWrapperFactory) {
 		$this->menuWrapperFactory = $menuWrapperFactory;
+	}
+
+	public function injectNavigationFactory(Components\Navigation\INavigationFactory $navigationFactory) {
+		$this->navigationFactory = $navigationFactory;
+	}
+
+	protected function createComponentNavigation() {
+		return new NetteUI\Multiplier(function($id) {
+	        return $this->navigationFactory->create()
+		        ->enableAjax()
+		        ->setMenuName($id)
+		        ->setBSNavbarClasses();
+		});
 	}
 
 	protected function createComponentWebContent() {

@@ -1,7 +1,0 @@
-<ul n:class="$menu->getHtmlClass()">
-	{foreach $menu->getMenuItems() as $name => $item}
-		{control item-$name}
-	{/foreach}
-	<li n:secured="Menu, Edit"><a href="{$control->getMenu()->getMenuWrapper()->link(this, [view => Edit, edit-selectItem => -1])}"{if $control->getMenu()->getMenuWrapper()->isAjaxEnabled()} class="ajax"{/if}><span class="glyphicon glyphicon-plus"></span></a></li>
-	<li n:secured="Menu, Edit"><a href="{$control->getMenu()->getMenuWrapper()->link(this, [view => Edit])}" {if $control->getMenu()->getMenuWrapper()->isAjaxEnabled()} class="ajax"{/if} ><span class="glyphicon glyphicon-pencil"></span></a></li>
-</ul>

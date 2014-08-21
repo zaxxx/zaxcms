@@ -39,7 +39,7 @@ class Menu extends BaseEntity implements Translatable {
 	protected $id;
 
 	/**
-	 * @ORM\Column(type="string", length=63, unique=TRUE)
+	 * @ORM\Column(type="string", length=63)
 	 */
 	protected $name;
 
@@ -147,6 +147,15 @@ class Menu extends BaseEntity implements Translatable {
 
 	public function getLocale() {
 		return $this->locale;
+	}
+
+	public function getSubmenu() {
+		if($this->isMenuItem) {
+			$children = $this->children;
+			/** @var Doctrine\Orm\PersistentCollection $children */
+			return $children->first();
+		}
+		return NULL;
 	}
 
 }

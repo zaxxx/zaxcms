@@ -80,6 +80,9 @@ class MenuService extends Service {
 		$pagesItem = $this->createMenuItem('pages', 'Pages', ':Admin:Pages:default');
 		$this->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
 
+		$pagesItem = $this->createMenuItem('users', 'Users', ':Admin:Users:default');
+		$this->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
+
 		$this->getEm()->flush();
 	}
 
@@ -89,6 +92,12 @@ class MenuService extends Service {
 
 	public function moveDown(Menu $entity, $number = 1) {
 		return $this->getRepository()->moveDown($entity, $number);
+	}
+
+	public function createSubmenu(Menu $menuItem, $name = 'submenu') {
+		$menu = $this->createMenu($name);
+		$this->getRepository()->persistAsLastChildOf($menu, $menuItem);
+		return $menu;
 	}
 
 }

@@ -1,0 +1,126 @@
+<?php
+
+namespace ZaxCMS\Components\Navigation;
+use Nette,
+	Zax,
+	ZaxCMS,
+	ZaxCMS\Model,
+	Zax\Application\UI as ZaxUI,
+	Nette\Application\UI as NetteUI,
+	Zax\Application\UI\Control;
+
+class EditControl extends Control {
+
+	protected $menuService;
+
+	protected $addMenuItemFactory;
+
+	protected $editMenuItemFactory;
+
+	protected $editMenuFactory;
+
+	protected $localeSelectFactory;
+
+	protected $name;
+
+	protected $menu;
+
+	/** @persistent */
+	public $selectItem; // -1 = add
+
+	/** @persistent */
+	public $selectMenu;
+
+	public function __construct(Model\MenuService $menuService,
+								IAddMenuItemFactory $addMenuItemFactory,
+								IEditMenuItemFactory $editMenuItemFactory,
+								IEditMenuFactory $editMenuFactory,
+								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
+		$this->menuService = $menuService;
+		$this->addMenuItemFactory = $addMenuItemFactory;
+		$this->editMenuItemFactory = $editMenuItemFactory;
+		$this->editMenuFactory = $editMenuFactory;
+		$this->localeSelectFactory = $localeSelectFactory;
+	}
+
+	public function getLocale() {
+		return $this['localeSelect']->getLocale();
+	}
+
+	public function close() {
+
+	}
+
+	public function setName($name) {
+		$this->name = $name;
+		return $this;
+	}
+
+	public function getMenu() {
+		if($this->menu === NULL) {
+			$this->menu = $this->menuService->getRepository()->findOneByName($this->name);
+			$this->menu->setTranslatableLocale($this->getLocale());
+			$this->menuService->setLocale($this->getLocale());
+			$this->menuService->refresh($this->menu);
+		}
+		return $this->menu;
+	}
+
+	public function getSelectedMenu() {
+		if($this->selectMenu !== NULL) {
+			return $this->menuService->getRepository()->findOneById($this->selectMenu);
+		}
+		return $this->getMenu();
+	}
+
+	/** @secured Menu, Edit */
+	public function viewDefault() {
+
+	}
+
+	public function beforeRender() {
+		$this->template->root = $this->getMenu();
+		$this->template->currentLocale = $this->getLocale();
+		$this->template->items = $this->menuService->getChildren($this->getMenu());
+		$this->template->availableLocales = $this->getAvailableLocales();
+	}
+
+	/** @return AddMenuItemControl */
+	public function getAddMenuItem() {
+		return $this['addMenuItem'];
+	}
+
+	/** @return EditMenuItemControl */
+	public function getEditMenuItem() {
+		return $this['editMenuItem'];
+	}
+
+	/** @return EditMenuControl */
+	public function getEditMenu() {
+		return $this['editMenu'];
+	}
+
+	/** @secured Menu, Edit */
+	protected function createComponentAddMenuItem() {
+		return $this->addMenuItemFactory->create()
+			->setParentMenu($this->getMenu());
+	}
+
+	/** @secured Menu, Edit */
+	protected function createComponentEditMenuItem() {
+		return $this->editMenuItemFactory->create()
+			->setMenuItem($this->menuService->getDao()->findOneById($this->selectItem));
+	}
+
+	/** @secured Menu, Edit */
+	protected function createComponentEditMenu() {
+		return $this->editMenuFactory->create()
+			->setMenu($this->getSelectedMenu());
+	}
+
+	/** @secured Menu, Edit */
+	protected function createComponentLocaleSelect() {
+	    return $this->localeSelectFactory->create();
+	}
+
+}

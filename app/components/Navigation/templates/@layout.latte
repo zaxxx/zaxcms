@@ -1,0 +1,17 @@
+<div n:snippet>
+	{if $view === 'Edit'}
+		<div n:secured="Menu, Edit">
+			{control edit}
+		</div>
+	{/if}
+
+	<ul n:class="(expand) $classes[ul]">
+		{foreach $menu as $item}
+			<li n:class="(expand) $classes[li]">
+				<a href="{$item->nhref ? ($item->nhrefParams !== NULL ? $presenter->link($item->nhref, $item->nhrefParams) : $presenter->link($item->nhref)) : $item->href}"
+						{if $item->htmlTarget !== NULL} target="{$item->htmlTarget}"{/if}{if $item->submenu} class="dropdown-toggle" data-toggle="dropdown"{/if}>{$item->text}</a>
+			</li>
+		{/foreach}
+		<li n:secured="Menu, Edit"><a n:href="this, view => Edit"><span class="glyphicon glyphicon-pencil"></span></a></li>
+	</ul>
+</div>

@@ -1,0 +1,40 @@
+{layout './@layout.latte'}
+
+{define panelTitle}
+	{_}menu.panel.editMenu{/_}
+{/define}
+
+{define panelContent}
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="well">
+				<ul class="nav nav-pills nav-stacked">
+					<li{if $control->selectItem === NULL && $control->selectMenu === NULL} class="active"{/if}><a{if $ajaxEnabled} class="ajax"{/if} n:href="this, selectMenu => NULL, selectItem => NULL"><span class="glyphicon glyphicon-pencil"></span> {$root->text}</a>
+						<ul class="nav nav-pills nav-stacked">
+							{foreach $items as $item}
+							<ul class="nav nav-pills nav-stacked" n:tag-if="!$item->isMenuItem">
+								{if $item->isMenuItem}
+									<li n:class="(int)$control->selectItem === $item->id ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, selectItem => $item->id, selectMenu => NULL"><span class="glyphicon glyphicon-pencil"></span> {$item->text}</a></li>
+								{else}
+									<li n:class="(int)$control->selectMenu === $item->id ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, selectMenu => $item->id, selectItem => NULL"><span class="glyphicon glyphicon-pencil"></span> {$item->text}</a></li>
+								{/if}
+							</ul>
+							{/foreach}
+							<li n:class="(int)$control->selectItem === -1 ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, selectMenu => NULL, selectItem => -1"><span class="glyphicon glyphicon-plus"></span> {_}menu.button.addItem{/_}</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			{if $control->selectItem > 0}
+				{control editMenuItem}
+			{elseif (int)$control->selectItem === -1}
+				{control addMenuItem}
+			{else}
+				{control editMenu}
+			{/if}
+		</div>
+	</div>
+
+{/define}

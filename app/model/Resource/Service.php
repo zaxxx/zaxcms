@@ -31,6 +31,7 @@ class ResourceService extends Service {
 		$this->createResource('Menu', 'Menu');
 		$this->createResource('FileManager', 'File manager');
 		$this->createResource('Pages', 'Pages');
+		$this->createResource('Users', 'Users');
 
 
 		$this->flush();

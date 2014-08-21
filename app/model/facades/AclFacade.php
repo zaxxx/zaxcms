@@ -15,7 +15,8 @@ class AclFacade extends Nette\Object {
 		'WebContent' => ['Edit'],
 		'FileManager' => ['Show', 'Edit', 'Delete', 'Upload'],
 		'Menu' => ['Edit'],
-		'Pages' => ['Add', 'Edit', 'Delete']
+		'Pages' => ['Add', 'Edit', 'Delete'],
+		'Users' => ['Add', 'Edit', 'Delete']
 	];
 
 	protected $roleService;
