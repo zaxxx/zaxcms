@@ -5,5 +5,17 @@
 		{control logoutButton}
 	</div>
 {else}
-	{control loginForm}
+	<div class="dropdown">
+		<a class="btn btn-default dropdown-toggle" data-toggle="dropdown">{_}auth.button.login{/_}
+			<span class="caret"></span>
+		</a>
+		<div class="dropdown-menu well-lg">
+			<div class="row">
+				<div class="col-sm-12">
+					<p><strong>{_}auth.button.login{/_}:</strong></p>
+					{control loginForm}
+				</div>
+			</div>
+		</div>
+	</div>
 {/if}
