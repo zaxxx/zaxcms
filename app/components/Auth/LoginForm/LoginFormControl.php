@@ -19,7 +19,7 @@ class LoginFormControl extends FormControl {
 
 	protected $groupLoginPasswordErrors = FALSE;
 
-	protected $formStyle = 'form-horizontal';
+	protected $formStyle = 'form-inline';
 
 	protected $placeholdersOnly = FALSE;
 
@@ -71,7 +71,7 @@ class LoginFormControl extends FormControl {
 	    $this->formSolvePlaceholderAdd('text', $f, 'login', $loginLabel);
 	    $this->formSolvePlaceholderAdd('password', $f, 'password', 'auth.form.password');
 	    $f->addCheckbox('remember', 'auth.form.remember');
-	    $f->addButtonSubmit('helloUser', 'auth.button.login', 'user');
+	    $f->addButtonSubmit('helloUser', 'auth.button.login', 'log-in');
 
 	    $f->addProtection();
 

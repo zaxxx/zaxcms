@@ -6,7 +6,8 @@
 	</div>
 {else}
 	<div class="dropdown">
-		<a class="btn btn-default dropdown-toggle" data-toggle="dropdown">{_}auth.button.login{/_}
+		{?$loginId = '#frm-' . $control->getUniqueId() . '-loginForm-form-login'}
+		<a class="btn btn-default dropdown-toggle" onclick="setTimeout(function(){l}$({$loginId}).focus();{r},0);" data-toggle="dropdown">{_}auth.button.login{/_}
 			<span class="caret"></span>
 		</a>
 		<div class="dropdown-menu well-lg">
