@@ -30,7 +30,6 @@
 				{str_repeat('</li></ul>', $previous->depth - $item->depth)|noescape}
 			{/if}
 			{if $item->isMenuItem}
-					{$item->name}
 					<li n:class="(expand) $classes[li]">
 
 			{/if}
