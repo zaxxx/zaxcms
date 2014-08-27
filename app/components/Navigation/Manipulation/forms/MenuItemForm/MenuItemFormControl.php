@@ -61,16 +61,30 @@ abstract class MenuItemFormControl extends FormControl {
 
 	    $f->addText('text', 'common.form.displayText')
 		    ->addRule(Form::MAX_LENGTH, NULL, 255);
-	    $f->addText('htmlClass', 'menu.form.htmlClass')
-		    ->addRule(Form::MAX_LENGTH, NULL, 255);
-	    $f->addText('htmlTarget', 'menu.form.htmlTarget')
-		    ->addRule(Form::MAX_LENGTH, NULL, 63);
-
 	    $f->addText('href', 'menu.form.url')
 		    ->addRule(Form::MAX_LENGTH, NULL, 511);
+
+	    $f->addCheckbox('advancedStuff', 'Zobrazit pokročilé volby')
+		    ->addCondition($f::EQUAL, TRUE)
+		        ->toggle($this->getUniqueId() . '-htmlClass')
+		        ->toggle($this->getUniqueId() . '-htmlTarget')
+		        ->toggle($this->getUniqueId() . '-nhref')
+		        ->toggle($this->getUniqueId() . '-nhrefParams');
+
+	    $f->addText('htmlClass', 'menu.form.htmlClass')
+		    ->addRule(Form::MAX_LENGTH, NULL, 255)
+		    ->setOption('id', $this->getUniqueId() . '-htmlClass');
+	    $f->addText('htmlTarget', 'menu.form.htmlTarget')
+		    ->addRule(Form::MAX_LENGTH, NULL, 63)
+		    ->setOption('id', $this->getUniqueId() . '-htmlTarget');
 	    $f->addText('nhref', 'menu.form.nhref')
-		    ->addRule(Form::MAX_LENGTH, NULL, 255);
-	    $f->addNeonTextArea('nhrefParams', 'menu.form.nhrefParams');
+		    ->addRule(Form::MAX_LENGTH, NULL, 255)
+		    ->setOption('id', $this->getUniqueId() . '-nhref');
+	    $f->addNeonTextArea('nhrefParams', 'menu.form.nhrefParams')
+		    ->setOption('id', $this->getUniqueId() . '-nhrefParams');
+
+
+
 
 	    $this->createSubmitButtons($f);
 

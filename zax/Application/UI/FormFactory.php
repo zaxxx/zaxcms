@@ -18,8 +18,12 @@ class FormFactory extends Nette\Object {
 	/** @var Kdyby\Translation\Translator */
 	protected $translator;
 
-	public function __construct(Kdyby\Translation\Translator $translator) {
+	protected $icons;
+
+	public function __construct(Kdyby\Translation\Translator $translator,
+								Zax\Html\Icons\IIcons $icons) {
 		$this->translator = $translator;
+		$this->icons = $icons;
 	}
 
 	/**
@@ -30,6 +34,7 @@ class FormFactory extends Nette\Object {
 	public function create() {
 		$f = new Form;
 		$f->setTranslator($this->translator);
+		$f->setIcons($this->icons);
 		return $f;
 	}
 

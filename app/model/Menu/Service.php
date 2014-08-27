@@ -25,6 +25,15 @@ class MenuService extends Service {
 		return parent::getRepository()->setLocale($this->getLocale());
 	}
 
+	public function getByName($name) {
+		$menu = $this->cache->load('menu-' . $name . '-' . $this->getLocale());
+		if($menu === NULL) {
+			$menu = $this->getBy(['name' => $name]);
+			$this->cache->save('menu-' . $name . '-' . $this->getLocale(), $menu, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+		}
+		return $menu;
+	}
+
 	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
 		$children = $this->cache->load('children-' . $node->id . '-' . $this->getLocale());
 		if($children === NULL) {

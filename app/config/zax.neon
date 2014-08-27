@@ -19,3 +19,5 @@ services:
     - Zax\Utils\RootDir(%rootDir%)
     - Zax\Utils\TempDir(%tempDir%)
     - Zax\Application\UI\FormFactory
+
+    - Zax\Html\Icons\Glyphicons

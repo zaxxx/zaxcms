@@ -42,6 +42,12 @@ abstract class Control extends Nette\Application\UI\Control {
 	/** @var SnippetGenerators\ISnippetGenerator */
 	protected $snippetGenerator;
 
+	protected $icons;
+
+	public function injectIcons(Zax\Html\Icons\IIcons $icons) {
+		$this->icons = $icons;
+	}
+
 	/**
 	 * Sends flash messages to presenter.
 	 *
@@ -304,6 +310,14 @@ abstract class Control extends Nette\Application\UI\Control {
 		return $this->translator === NULL ? $this->presenter->translator : $this->translator;
 	}
 
+	public function templatePrepareFilters($template) {
+		parent::templatePrepareFilters($template);
+
+		$latte = $template->getLatte();
+		$latteIcons = new Zax\Html\Icons\LatteIcons($this->icons);
+		$latteIcons->install($latte);
+	}
+
 	/**
 	 * Template factory
 	 *
@@ -321,6 +335,7 @@ abstract class Control extends Nette\Application\UI\Control {
 		$template->getLatte()->addFilter('texy', [$texy, 'process']);
 		$template->ajaxEnabled = $this->ajaxEnabled;
 		$template->view = $this->view;
+		$template->icons = $this->icons;
 		return $template;
 	}
 

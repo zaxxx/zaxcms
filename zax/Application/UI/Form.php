@@ -26,6 +26,13 @@ class Form extends Nette\Application\UI\Form {
 	/** @var string|NULL */
 	private $autofocus;
 
+	protected $icons;
+
+	public function setIcons(Zax\Html\Icons\IIcons $icons) {
+		$this->icons = $icons;
+		return $this;
+	}
+
 	/**
 	 * Custom renderer factory
 	 *
@@ -148,18 +155,6 @@ class Form extends Nette\Application\UI\Form {
 	}
 
 	/**
-	 * Bootstrap 3 glyphicon factory
-	 *
-	 * TODO: make class for glyphicons
-	 *
-	 * @param $icon
-	 * @return mixed
-	 */
-	public static function makeGlyphicon($icon) {
-		return Nette\Utils\Html::el('span')->class('glyphicon glyphicon-' . $icon);
-	}
-
-	/**
 	 * Submit button using <button> tag for icons
 	 *
 	 * @param       $name
@@ -218,11 +213,11 @@ class Form extends Nette\Application\UI\Form {
 		if($icon instanceof Nette\Utils\Html) {
 			$label = $icon . ' ' . $label;
 		} else if(is_string($icon)) {
-			$label = self::makeGlyphicon($icon) . ' ' . $label;
+			$label = $this->icons->getIcon($icon) . ' ' . $label;
 		} else if(is_array($icon)) {
 			$tmpLabel = '';
 			foreach($icon as $icn) {
-				$tmpLabel = $tmpLabel . ' ' . self::makeGlyphicon($icn);
+				$tmpLabel = $tmpLabel . ' ' . $this->icons->getIcon($icn);
 			}
 			$label = $tmpLabel . ' ' . $label;
 		}

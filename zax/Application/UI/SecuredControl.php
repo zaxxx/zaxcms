@@ -34,6 +34,8 @@ abstract class SecuredControl extends UI\Control {
 	}
 
 	public function templatePrepareFilters($template) {
+		parent::templatePrepareFilters($template);
+
 		$latte = $template->getLatte();
 		$lattePermission = new Zax\Security\LattePermission($this->permission);
 		$lattePermission->install($latte);

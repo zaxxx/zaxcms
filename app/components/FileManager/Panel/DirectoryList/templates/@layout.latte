@@ -3,7 +3,7 @@
 	<span class="pull-right">
 		{var $isRoot = $control->getRoot() === $control->getAbsoluteDirectory()}
 		<a n:href="this, usageInfo => !$usageInfo" n:class="btn, $ajaxEnabled ? ajax" title="{_'fileManager.button.usageInfo'}">
-			<span class="glyphicon glyphicon-stats"></span>
+			{icon stats}
 		</a>
 		<a n:if="$control->fileManager->isFeatureEnabled('renameDir')"
 		   {if !$isRoot}
@@ -11,10 +11,10 @@
 		   {else}
 				href="#"
 		   {/if}class="btn{if $isRoot} disabled{/if}{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.renameDir'}">
-			<span class="glyphicon glyphicon-pencil"></span>
+			{icon pencil}
 		</a>
 		<a n:if="$control->fileManager->isFeatureEnabled('deleteDir') || $control->fileManager->isFeatureEnabled('truncateDir')" href="{$control->fileManager->link('this', [view => Default, directoryList-view =>DeleteDir])}" class="btn{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.deleteDir'}">
-			<span class="glyphicon glyphicon-trash"></span>
+			{icon trash}
 		</a>
 	</span>
 	<div class="clearfix"></div>
@@ -29,7 +29,7 @@
 			{control deleteDir}
 			{else}
 			<a href="{$control->fileManager->link('this', [view=>Default, directoryList-view =>Default, fileList-view => Default, dir=>''])}"{if $ajaxEnabled} class="ajax"{/if}>
-				<span class="glyphicon glyphicon-folder-open"></span>
+				{icon folder-open}
 				{Zax\Utils\PathHelpers::getName($rootDir)}
 				<div n:if="$usageInfo" class="progress pull-right" style="width:80px" title="{$rootCountFiles === 0 ? '0' : '100'}% - {_'fileManager.message.xFiles', $rootCountFiles, ['files'=>$rootCountFiles]}">
 					<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {$rootCountFiles === 0 ? '0' : '100'}%">
@@ -56,7 +56,7 @@
 				{control deleteDir}
 			{else}
 				<a href="{$control->fileManager->link('this', [view=>Default, directoryList-view =>Default, fileList-view => Default, dir=>str_replace($rootDir, '', $k)])}" class="{if $ajaxEnabled}ajax{/if}">
-					<span class="glyphicon glyphicon-folder-{if $open}open{else}close{/if}"></span> {Zax\Utils\PathHelpers::getName($k)}
+					{icon $open ? open : close} {Zax\Utils\PathHelpers::getName($k)}
 					{if $usageInfo}{? $perc = $rootSize === 0 ? 0 : $subSizes[$k]*100/$rootSize}{/if}
 					<div n:if="$usageInfo" class="progress pull-right" style="width:80px" title="{$perc|number}% - {_'fileManager.message.xFiles', $subCountFiles[$k], ['files'=>$subCountFiles[$k]]}">
 						<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:{$perc|number}%">
@@ -81,7 +81,7 @@
 		{if $control->fileManager->isFeatureEnabled('createDir') && isset($createDir) && $createDir}
 			<li>{control createDir}</li>
 		{elseif $control->fileManager->isFeatureEnabled('createDir')}
-			<li><a n:href="this, view => createDir"{if $ajaxEnabled} class="ajax"{/if}><span class="glyphicon glyphicon-plus"></span> {_'fileManager.button.createDir'}</a></li>
+			<li><a n:href="this, view => createDir"{if $ajaxEnabled} class="ajax"{/if}>{icon plus} {_'fileManager.button.createDir'}</a></li>
 		{/if}
 		{if $depth == $currentDirDepth}
 		</ul>

@@ -38,6 +38,6 @@
 			{$item->text}
 		</a>
 		{str_repeat('</li></ul>', $previous->depth - $rootDepth)|noescape}
-		<li n:secured="Menu, Edit"><a n:href="this, view => Edit"><span class="glyphicon glyphicon-pencil"></span></a></li>
+		<li n:secured="Menu, Edit"><a n:href="this, view => Edit">{icon pencil}</a></li>
 	</ul>
 </div>
