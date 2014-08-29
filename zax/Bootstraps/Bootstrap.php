@@ -229,8 +229,19 @@ class Bootstrap implements Zax\IBootstrap {
 
 		// load neon files from all config folders within the app
 		if($this->autoloadConfig) {
-			foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir) as $config) {
-				$configurator->addConfig($config->getRealPath());
+			$cacheJournal = new Nette\Caching\Storages\FileJournal($this->tempDir);
+			$cacheStorage = new Nette\Caching\Storages\FileStorage($this->tempDir . '/cache', $cacheJournal);
+			$cache = new Nette\Caching\Cache($cacheStorage, 'configFiles');
+			$files = $cache->load('configFiles');
+			if($files === NULL) {
+				$files = [];
+				foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir) as $path => $file) {
+					$files[] = $path;
+				}
+				$cache->save('configFiles', $files);
+			}
+			foreach($files as $config) {
+				$configurator->addConfig($config);
 			}
 		}
 		foreach($this->configs as $config) {
