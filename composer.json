@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "nette/nette": "v2.2.2",
+        "nette/nette": "v2.2.3",
         "kdyby/doctrine": "v1.2.0",
         "rixxi/gedmo": "1.0.1",
         "dg/texy": "v2.6",

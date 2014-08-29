@@ -18,6 +18,7 @@ form:
     title: "Titulek"
     displayText: "Zobrazený text"
     confirmDelete: "Opravdu chcete odstranit tuto položku?"
+    advancedOptions: "Zobrazit pokročilé volby"
 alert:
     changesSaved: "Změny uloženy."
     changesError: "Chyba při ukládání změn."

@@ -25,9 +25,6 @@ abstract class MenuItemFormControl extends FormControl {
 	}
 
 	public function setMenuItem(Model\Menu $menu) {
-		if(!$menu->isMenuItem) {
-			throw new ObjectNotMenuItemException('This is menu list, not menu item!');
-		}
 		$this->menuItem = $menu;
 		return $this;
 	}
@@ -63,8 +60,12 @@ abstract class MenuItemFormControl extends FormControl {
 		    ->addRule(Form::MAX_LENGTH, NULL, 255);
 	    $f->addText('href', 'menu.form.url')
 		    ->addRule(Form::MAX_LENGTH, NULL, 511);
+	    $f->addText('icon', 'menu.form.icon')
+		    ->addRule(Form::MAX_LENGTH, NULL, 63);
+	    $f->addText('title', 'menu.form.title')
+		    ->addRule(Form::MAX_LENGTH, NULL, 511);
 
-	    $f->addCheckbox('advancedStuff', 'Zobrazit pokročilé volby')
+	    $f->addCheckbox('advancedStuff', 'common.form.advancedOptions')
 		    ->addCondition($f::EQUAL, TRUE)
 		        ->toggle($this->getUniqueId() . '-htmlClass')
 		        ->toggle($this->getUniqueId() . '-htmlTarget')

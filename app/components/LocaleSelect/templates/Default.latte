@@ -1,4 +1,4 @@
-<li class="dropdown">
+<li class="dropdown" n:if="count($availableLocales)>1">
 	<a href="#" data-toggle="dropdown">
 		<img class="flag-small" src="{$baseUri}/img/flag/{$locale}.png"> {_'common.lang.'.$locale} <span class="caret"></span>
 	</a>

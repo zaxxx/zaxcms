@@ -56,6 +56,8 @@ abstract class PageFormControl extends FormControl {
 			$f->enableAjax();
 		}
 
+		$f->autofocus('name');
+
 		$f = $this->binder->entityToForm($this->page, $f);
 
 		return $f;

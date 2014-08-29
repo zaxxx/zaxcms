@@ -77,10 +77,19 @@ translation:
     whitelist: [cs, en]
     fallback: [cs_CZ]
     debugger: TRUE
+    resolvers:
+        session: off
+        request: on
+        header: off
+
 
 ## Mandatory services
 services:
     - Gedmo\Translatable\TranslatableListener
+    #- My\Locale\Resolver
+    translation.userLocaleResolver:
+        setup:
+            #- addResolver(@My\Locale\Resolver);
 
 
 

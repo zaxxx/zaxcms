@@ -39,25 +39,15 @@ class Menu extends BaseEntity implements Translatable {
 	protected $id;
 
 	/**
-	 * @ORM\Column(type="string", length=63)
+	 * @ORM\Column(type="string", length=63, unique=TRUE, nullable=TRUE)
 	 */
 	protected $name;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=TRUE)
-	 */
-	protected $description;
 
 	/**
 	 * @Gedmo\Translatable
 	 * @ORM\Column(type="string", length=255)
 	 */
 	protected $text;
-
-	/**
-	 * @ORM\Column(type="text", nullable=TRUE)
-	 */
-	protected $html;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=TRUE)
@@ -85,9 +75,14 @@ class Menu extends BaseEntity implements Translatable {
 	protected $htmlTarget;
 
 	/**
-	 * @ORM\Column(type="boolean")
+	 * @ORM\Column(type="string", length=63, nullable=TRUE)
 	 */
-	protected $isMenuItem;
+	protected $icon;
+
+	/**
+	 * @ORM\Column(type="string", length=511, nullable=TRUE)
+	 */
+	protected $title;
 
 	/**
 	 * @ORM\Column(type="boolean")
@@ -147,15 +142,6 @@ class Menu extends BaseEntity implements Translatable {
 
 	public function getLocale() {
 		return $this->locale;
-	}
-
-	public function getSubmenu() {
-		if($this->isMenuItem) {
-			$children = $this->children;
-			/** @var Doctrine\Orm\PersistentCollection $children */
-			return $children->first();
-		}
-		return NULL;
 	}
 
 }

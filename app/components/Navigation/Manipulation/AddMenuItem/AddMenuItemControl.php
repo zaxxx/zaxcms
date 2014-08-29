@@ -36,7 +36,6 @@ class AddMenuItemControl extends Control {
 
 	protected function createComponentAddMenuItemForm() {
 		$menuItem = new Model\Menu;
-		$menuItem->isMenuItem = TRUE;
 		$menuItem->secured = FALSE;
 	    $control = $this->addMenuItemFormFactory->create()
 		    ->setMenuItem($menuItem)

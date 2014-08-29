@@ -18,6 +18,7 @@ form:
     title: "Title"
     displayText: "Displayed text"
     confirmDelete: "Do you really want to delete this item?"
+    advancedOptions: "Show advanced options"
 alert:
     changesSaved: "Changes saved."
     changesError: "Error while saving changes."

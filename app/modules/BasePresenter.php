@@ -60,6 +60,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		return new NetteUI\Multiplier(function($id) {
 	        return $this->navigationFactory->create()
 		        ->enableAjax()
+	            ->enableDropdownCaret()
 		        ->setMenuName($id)
 		        ->setBSNavbarClasses();
 		});

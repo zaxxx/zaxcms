@@ -35,10 +35,11 @@ class MenuService extends Service {
 	}
 
 	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
-		$children = $this->cache->load('children-' . $node->id . '-' . $this->getLocale());
+		$key = md5(serialize([$node->id, $this->getLocale(), $direct, $includeNode, $sortByField, $direction]));
+		$children = $this->cache->load('children-' . $key);
 		if($children === NULL) {
 			$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
-			$this->cache->save('children-' . $node->id . '-' . $this->getLocale(), $children, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+			$this->cache->save('children-' . $key, $children, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
 		}
 		return $children;
 	}
@@ -54,17 +55,14 @@ class MenuService extends Service {
 		$menu->name = $name;
 		$menu->text = $name;
 		$menu->htmlClass = 'nav navbar-nav';
-		$menu->isMenuItem = FALSE;
 		$menu->secured = FALSE;
 		return $menu;
 	}
 
-	protected function createMenuItem($name, $text, $nhref) {
+	protected function createMenuItem($text, $nhref) {
 		$item = new Menu;
-		$item->name = $name;
 		$item->text = $text;
 		$item->nhref = $nhref;
-		$item->isMenuItem = TRUE;
 		$item->secured = FALSE;
 		return $item;
 	}
@@ -73,7 +71,7 @@ class MenuService extends Service {
 		$frontMenu = $this->createMenu('front');
 		$this->getEm()->persist($frontMenu);
 
-		$homeItem = $this->createMenuItem('home', 'Index', ':Front:Default:default');
+		$homeItem = $this->createMenuItem('Index', ':Front:Default:default');
 		$this->getRepository()->persistAsLastChildOf($homeItem, $frontMenu);
 
 		$this->getEm()->flush();
@@ -83,30 +81,33 @@ class MenuService extends Service {
 		$adminMenu = $this->createMenu('admin');
 		$this->getEm()->persist($adminMenu);
 
-		$dashboardItem = $this->createMenuItem('dashboard', 'Dashboard', ':Admin:Default:default');
+		$dashboardItem = $this->createMenuItem('Dashboard', ':Admin:Default:default');
 		$this->getRepository()->persistAsLastChildOf($dashboardItem, $adminMenu);
 
-		$pagesItem = $this->createMenuItem('pages', 'Pages', ':Admin:Pages:default');
+		$pagesItem = $this->createMenuItem('Pages', ':Admin:Pages:default');
 		$this->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
 
-		$pagesItem = $this->createMenuItem('users', 'Users', ':Admin:Users:default');
+		$pagesItem = $this->createMenuItem('Users', ':Admin:Users:default');
 		$this->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
 
 		$this->getEm()->flush();
 	}
 
 	public function moveUp(Menu $entity, $number = 1) {
-		return $this->getRepository()->moveUp($entity, $number);
+		$result = $this->getRepository()->moveUp($entity, $number);
+		$this->invalidateCache();
+		return $result;
 	}
 
 	public function moveDown(Menu $entity, $number = 1) {
-		return $this->getRepository()->moveDown($entity, $number);
+		$result = $this->getRepository()->moveDown($entity, $number);
+		$this->invalidateCache();
+		return $result;
 	}
 
-	public function createSubmenu(Menu $menuItem, $name = 'submenu') {
-		$menu = $this->createMenu($name);
-		$this->getRepository()->persistAsLastChildOf($menu, $menuItem);
-		return $menu;
+	public function flush() {
+		parent::flush();
+		$this->invalidateCache();
 	}
 
 }

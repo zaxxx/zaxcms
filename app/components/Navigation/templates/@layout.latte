@@ -1,43 +1,26 @@
-<div n:snippet>
-	{if $view === 'Edit'}
-		<div n:secured="Menu, Edit">
-			{control edit}
-		</div>
-	{/if}
 
-	<ul n:class="(expand) $classes[ul]">
-		{var $rootDepth = 0}
-		{var $previous = NULL}
-		{foreach $menu as $item}
-			{if $iterator->first}
-				{?$rootDepth = $item->depth}
-			{/if}
+{if $view === 'Edit'}
+	<div n:snippet n:secured="Menu, Edit">
+		{control edit}
+	</div>
+{/if}
 
-			{if !$iterator->first && $item->depth > $previous->depth && !$item->isMenuItem }
-				{if $previous->isMenuItem}
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						{$previous->text}
-						<span class="caret"></span>
-					</a>
-				{/if}
-				<ul n:class="(expand) $classes[sub-ul]">
-			{elseif !$iterator->first && $item->isMenuItem}
-				{if $previous->isMenuItem}
-					<a href="{$previous->nhref ? ($previous->nhrefParams !== NULL ? $presenter->link($previous->nhref, $previous->nhrefParams) : $presenter->link($previous->nhref)) : $previous->href}">
-						{$previous->text}
-					</a>
-				{/if}
-				{str_repeat('</li></ul>', $previous->depth - $item->depth)|noescape}
-			{/if}
-			{if $item->isMenuItem}
-					<li n:class="(expand) $classes[li]">
-			{/if}
-			{?$previous = $item}
-		{/foreach}
-		<a href="{$previous->nhref ? ($previous->nhrefParams !== NULL ? $presenter->link($previous->nhref, $previous->nhrefParams) : $presenter->link($previous->nhref)) : $previous->href}">
-			{$item->text}
-		</a>
-		{str_repeat('</li></ul>', $previous->depth - $rootDepth)|noescape}
-		<li n:secured="Menu, Edit"><a n:href="this, view => Edit">{icon pencil}</a></li>
-	</ul>
-</div>
+<ul n:class="(expand) $classes[ul]">
+	{var $depth = $root->depth}
+	{var $prev = $root}
+	{foreach $menu as $item}
+		{if $depth < $item->depth && !$iterator->first}
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
+			<ul n:class="(expand) $classes[($iterator->first ? ul : sub-ul)]">
+		{elseif !$iterator->first}
+			<a>{$prev->text}</a>
+			{str_repeat('</li></ul>', $depth - $item->depth)|noescape}{='</li>'|noescape}
+		{/if}
+		<li n:class="(expand) $classes[li]"{if $item->title !== NULL} title="{$item->title}"{/if}>
+		{?$depth = $item->depth}
+		{?$prev = $item}
+	{/foreach}
+	<a n:if="$prev !== $root">{$prev->text}</a>
+	{str_repeat('</li></ul>', $depth - $root->depth - 1)|noescape}
+	<li n:secured="Menu, Edit"><a n:href="this, view => Edit">{icon pencil}</a></li>
+</ul>

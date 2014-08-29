@@ -81,7 +81,7 @@ class EditControl extends Control {
 	public function beforeRender() {
 		$this->template->root = $this->getMenu();
 		$this->template->currentLocale = $this->getLocale();
-		$this->template->items = $this->menuService->getChildren($this->getMenu());
+		$this->template->items = $this->menuService->getChildren($this->getMenu(), FALSE, 'lft', 'ASC', FALSE);
 		$this->template->availableLocales = $this->getAvailableLocales();
 	}
 
@@ -103,7 +103,7 @@ class EditControl extends Control {
 	/** @secured Menu, Edit */
 	protected function createComponentAddMenuItem() {
 		return $this->addMenuItemFactory->create()
-			->setParentMenu($this->getMenu());
+			->setParentMenu($this->getSelectedMenu());
 	}
 
 	/** @secured Menu, Edit */

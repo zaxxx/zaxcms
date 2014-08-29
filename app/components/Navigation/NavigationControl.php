@@ -13,6 +13,8 @@ class NavigationControl extends SecuredControl {
 	const STYLE_STACKED = 'stacked',
 		STYLE_JUSTIFIED = 'justified';
 
+	protected $dropdownCaret = FALSE;
+
 	protected $menuService;
 
 	protected $editFactory;
@@ -29,6 +31,11 @@ class NavigationControl extends SecuredControl {
 								IEditFactory $editFactory) {
 		$this->menuService = $menuService;
 		$this->editFactory = $editFactory;
+	}
+
+	public function enableDropdownCaret() {
+		$this->dropdownCaret = TRUE;
+		return $this;
 	}
 
 	public function setClasses($ul = [], $li = [], $subUl = []) {
@@ -90,7 +97,9 @@ class NavigationControl extends SecuredControl {
     
     public function beforeRender() {
 	    $this->template->classes = $this->classes;
+	    $this->template->root = $this->menu;
 	    $this->template->menu = $this->menuService->getChildren($this->menu, FALSE, 'lft');
+	    $this->template->dropdownCaret = $this->dropdownCaret;
     }
 
 	/** @secured Menu, Edit */
