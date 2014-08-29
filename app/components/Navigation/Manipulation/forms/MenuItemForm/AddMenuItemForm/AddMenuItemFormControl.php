@@ -34,8 +34,7 @@ class AddMenuItemFormControl extends MenuItemFormControl {
 	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
 		$menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
 		$this->menuService->getRepository()->persistAsLastChildOf($menuItem, $this->parentMenu);
-		$this->menuService->getEm()->flush();
-		$this->menuService->invalidateCache();
+		$this->menuService->flush();
 
 		$this->flashMessage('common.alert.newEntrySaved', 'success');
 		$this->getEditControl()->go('this', ['selectItem' => $menuItem->id]);

@@ -58,10 +58,9 @@ class EditControl extends Control {
 
 	public function getMenu() {
 		if($this->menu === NULL) {
-			$this->menu = $this->menuService->getRepository()->findOneByName($this->name);
-			$this->menu->setTranslatableLocale($this->getLocale());
 			$this->menuService->setLocale($this->getLocale());
-			$this->menuService->refresh($this->menu);
+			$this->menu = $this->menuService->getByName($this->name);
+			$this->menu->setTranslatableLocale($this->getLocale());
 		}
 		return $this->menu;
 	}

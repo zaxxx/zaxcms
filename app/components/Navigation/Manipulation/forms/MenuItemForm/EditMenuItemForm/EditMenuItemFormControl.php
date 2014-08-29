@@ -33,8 +33,7 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
 		$menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
 		$this->menuService->getEm()->persist($menuItem);
-		$this->menuService->getEm()->flush();
-		$this->menuService->invalidateCache();
+		$this->menuService->flush();
 
 		$this->flashMessage('common.alert.changesSaved', 'success');
 		$this->getEditControl()->go('this', ['selectItem' => $menuItem->id]);

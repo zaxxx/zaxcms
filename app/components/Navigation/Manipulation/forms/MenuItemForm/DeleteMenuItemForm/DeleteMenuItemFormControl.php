@@ -21,9 +21,6 @@ class DeleteMenuItemFormControl extends FormControl {
 	}
 
 	public function setMenuItem(Model\Menu $menu) {
-		if(!$menu->isMenuItem) {
-			throw new ObjectNotMenuItemException('This is menu list, not menu item!');
-		}
 		$this->menuItem = $menu;
 		return $this;
 	}
@@ -55,8 +52,7 @@ class DeleteMenuItemFormControl extends FormControl {
     
     public function formSuccess(Form $form, $values) {
 	    $this->menuService->getEm()->remove($this->menuItem);
-	    $this->menuService->getEm()->flush();
-	    $this->menuService->invalidateCache();
+	    $this->menuService->flush();
 
 	    $this->flashMessage('common.alert.entryDeleted', 'success');
 	    $this->getEditControl()->go('this', ['selectItem' => NULL, 'editMenuItem-view' => 'Default']);

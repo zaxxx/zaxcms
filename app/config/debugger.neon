@@ -1,5 +1,7 @@
 nette:
     debugger:
+        maxDepth: 1
+        maxLen: 25
         browser: google-chrome
         bar:
             #- Nette\Bridges\DITracy\ContainerPanel

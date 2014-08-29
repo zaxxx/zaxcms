@@ -179,17 +179,11 @@ class Bootstrap implements Zax\IBootstrap {
 		}
 	}
 
-	/** Set up the environment and return DI container
+	/** Create and setup Nette\Configurator
 	 *
-	 * @return Nette\DI\Container
+	 * @return Nette\Configurator
 	 */
-	public function setUp() {
-		date_default_timezone_set($this->defaultTimezone);
-
-		if($this->debug && !$this->isDebugger()) {
-			die($this->maintenance);
-		}
-
+	protected function setUpConfigurator() {
 		$configurator = new Nette\Configurator;
 
 		// Fix incorrectly initialized appDir
@@ -247,6 +241,22 @@ class Bootstrap implements Zax\IBootstrap {
 		foreach($this->configs as $config) {
 			$configurator->addConfig($config);
 		}
+
+		return $configurator;
+	}
+
+	/** Set up the environment and return DI container
+	 *
+	 * @return Nette\DI\Container
+	 */
+	public function setUp() {
+		date_default_timezone_set($this->defaultTimezone);
+
+		if($this->debug && !$this->isDebugger()) {
+			die($this->maintenance);
+		}
+
+		$configurator = $this->setUpConfigurator();
 
 		/** @var Nette\DI\Container $container */
 		$container = $configurator->createContainer();

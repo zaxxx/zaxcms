@@ -68,7 +68,6 @@ class EditMenuItemControl extends Control {
 	public function handleMoveUp() {
 		$this->menuService->moveUp($this->menuItem);
 		$this->menuService->getEm()->refresh($this->menuItem->parent);
-		$this->menuService->invalidateCache();
 		$this->go('this');
 	}
 
@@ -76,7 +75,6 @@ class EditMenuItemControl extends Control {
 	public function handleMoveDown() {
 		$this->menuService->moveDown($this->menuItem);
 		$this->menuService->getEm()->refresh($this->menuItem->parent);
-		$this->menuService->invalidateCache();
 		$this->go('this');
 	}
 

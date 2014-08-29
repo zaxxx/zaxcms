@@ -9,11 +9,12 @@ use Zax,
 	Doctrine,
 	Gedmo\Translatable\Translatable,
 	Gedmo\Mapping\Annotation as Gedmo,
-	Doctrine\ORM\Mapping as ORM;
+	Doctrine\ORM\Mapping as ORM,
+	Doctrine\Common\Cache\Cache as Cache;
 
 /**
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Zax\Model\TranslatedNestedTreeRepository")
+ * @ORM\Entity(repositoryClass="ZaxCMS\Model\MenuTreeRepository")
  *
  * @property-read int $id
  * @property string $name

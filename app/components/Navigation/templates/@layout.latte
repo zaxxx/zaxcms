@@ -5,6 +5,7 @@
 	</div>
 {/if}
 
+{cache tags => ['ZaxCMS-Model-Menu']}
 <ul n:class="(expand) $classes[ul]">
 	{var $depth = $root->depth}
 	{var $prev = $root}
@@ -24,3 +25,4 @@
 	{str_repeat('</li></ul>', $depth - $root->depth - 1)|noescape}
 	<li n:secured="Menu, Edit"><a n:href="this, view => Edit">{icon pencil}</a></li>
 </ul>
+{/cache}

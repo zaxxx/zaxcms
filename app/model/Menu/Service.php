@@ -20,12 +20,15 @@ class MenuService extends Service {
 		$this->className = Menu::getClassName();
 	}
 
-	/** @return Gedmo\Tree\Entity\Repository\NestedTreeRepository */
+	/** @return MenuTreeRepository */
 	public function getRepository() {
 		return parent::getRepository()->setLocale($this->getLocale());
 	}
 
-	public function getByName($name) {
+	public function getByName($name, $useCache = FALSE) {
+		if(!$useCache) {
+			return $this->getBy(['name' => $name]);
+		}
 		$menu = $this->cache->load('menu-' . $name . '-' . $this->getLocale());
 		if($menu === NULL) {
 			$menu = $this->getBy(['name' => $name]);
@@ -35,12 +38,12 @@ class MenuService extends Service {
 	}
 
 	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
-		$key = md5(serialize([$node->id, $this->getLocale(), $direct, $includeNode, $sortByField, $direction]));
-		$children = $this->cache->load('children-' . $key);
-		if($children === NULL) {
+//		$key = md5(serialize([$node->id, $this->getLocale(), $direct, $includeNode, $sortByField, $direction]));
+//		$children = $this->cache->load('children-' . $key);
+//		if($children === NULL) {
 			$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
-			$this->cache->save('children-' . $key, $children, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
-		}
+//			$this->cache->save('children-' . $key, $children, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+//		}
 		return $children;
 	}
 
@@ -106,7 +109,7 @@ class MenuService extends Service {
 	}
 
 	public function flush() {
-		parent::flush();
+		$this->getEm()->flush();
 		$this->invalidateCache();
 	}
 

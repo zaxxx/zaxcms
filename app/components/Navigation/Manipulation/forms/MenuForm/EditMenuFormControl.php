@@ -51,15 +51,14 @@ class EditMenuFormControl extends FormControl {
 	public function attached($presenter) {
 		parent::attached($presenter);
 		$this->menu->setTranslatableLocale($this->getEditControl()->getLocale());
-		$this->menuService->refresh($this->menu);
+		//$this->menuService->refresh($this->menu);
 	}
 
 	public function formSuccess(Nette\Forms\Form $form, $values) {
 		$this->binder->formToEntity($form, $this->menu);
 		$this->menu->setTranslatableLocale($this->getEditControl()->getLocale());
 		try {
-			$this->menuService->getEm()->flush();
-			$this->menuService->invalidateCache();
+			$this->menuService->flush();
 
 			$this->flashMessage('common.alert.changesSaved', 'success');
 			$this->getEditMenu()->go('this', ['view' => 'Default']);

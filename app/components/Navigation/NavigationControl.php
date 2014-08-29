@@ -82,7 +82,7 @@ class NavigationControl extends SecuredControl {
 	}
 
 	public function setMenuName($name) {
-		$this->menu = $this->menuService->getByName($name);
+		$this->menu = $this->menuService->getByName($name, TRUE);
 		return $this;
 	}
 
