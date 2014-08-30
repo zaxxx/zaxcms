@@ -17,8 +17,6 @@ class EditControl extends Control {
 
 	protected $editMenuItemFactory;
 
-	protected $editMenuFactory;
-
 	protected $localeSelectFactory;
 
 	protected $name;
@@ -34,12 +32,10 @@ class EditControl extends Control {
 	public function __construct(Model\MenuService $menuService,
 								IAddMenuItemFactory $addMenuItemFactory,
 								IEditMenuItemFactory $editMenuItemFactory,
-								IEditMenuFactory $editMenuFactory,
 								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
 		$this->menuService = $menuService;
 		$this->addMenuItemFactory = $addMenuItemFactory;
 		$this->editMenuItemFactory = $editMenuItemFactory;
-		$this->editMenuFactory = $editMenuFactory;
 		$this->localeSelectFactory = $localeSelectFactory;
 	}
 
@@ -94,11 +90,6 @@ class EditControl extends Control {
 		return $this['editMenuItem'];
 	}
 
-	/** @return EditMenuControl */
-	public function getEditMenu() {
-		return $this['editMenu'];
-	}
-
 	/** @secured Menu, Edit */
 	protected function createComponentAddMenuItem() {
 		return $this->addMenuItemFactory->create()
@@ -109,12 +100,6 @@ class EditControl extends Control {
 	protected function createComponentEditMenuItem() {
 		return $this->editMenuItemFactory->create()
 			->setMenuItem($this->menuService->getDao()->findOneById($this->selectItem));
-	}
-
-	/** @secured Menu, Edit */
-	protected function createComponentEditMenu() {
-		return $this->editMenuFactory->create()
-			->setMenu($this->getSelectedMenu());
 	}
 
 	/** @secured Menu, Edit */

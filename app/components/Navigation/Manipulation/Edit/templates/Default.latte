@@ -5,8 +5,8 @@
 {/define}
 
 {define addItemButton}
-	<li n:class="$control->selectItem == -1 && $control->selectMenu == $item->id ? active">
-		<a n:class="$ajaxEnabled ? ajax" n:href="this, selectMenu => $item->id, selectItem => -1">{icon plus} {_'common.button.add'}</a>
+	<li n:class="$control->selectItem == -1 && $control->selectMenu == ($item === NULL ? NULL : $item->id) ? active">
+		<a n:class="$ajaxEnabled ? ajax" n:href="this, selectMenu => ($item === NULL ? NULL : $item->id), selectItem => -1">{icon plus} {_'menu.button.addItem'}</a>
 	</li>
 {/define}
 
@@ -49,9 +49,7 @@
 						{/if}
 					</ul>
 				</li>
-				<li n:class="$control->selectItem == -1 && $control->selectMenu == NULL ? active">
-					<a n:class="$ajaxEnabled ? ajax" n:href="this, selectMenu => NULL, selectItem => -1">{icon plus} {_'common.button.add'}</a>
-				</li>
+				{include addItemButton, item => NULL}
 			</ul>
 		</div>
 

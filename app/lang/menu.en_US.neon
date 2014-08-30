@@ -2,7 +2,6 @@ button:
     addItem: "Add item"
     moveUp: "Move up"
     moveDown: "Move down"
-    submenu: "Create submenu"
 message:
     doNotMessWarning: "Warning: changing the unique name might break the application. Please, be careful!"
 form:

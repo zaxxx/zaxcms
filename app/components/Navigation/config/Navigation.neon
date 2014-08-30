@@ -2,12 +2,10 @@ services:
     - ZaxCMS\Components\Navigation\INavigationFactory
 
     - ZaxCMS\Components\Navigation\IEditFactory
-
-    - ZaxCMS\Components\Navigation\IEditMenuFormFactory
+    
     - ZaxCMS\Components\Navigation\IAddMenuItemFormFactory
     - ZaxCMS\Components\Navigation\IEditMenuItemFormFactory
     - ZaxCMS\Components\Navigation\IDeleteMenuItemFormFactory
 
-    - ZaxCMS\Components\Navigation\IEditMenuFactory
     - ZaxCMS\Components\Navigation\IAddMenuItemFactory
     - ZaxCMS\Components\Navigation\IEditMenuItemFactory

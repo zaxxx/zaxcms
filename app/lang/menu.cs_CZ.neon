@@ -2,7 +2,6 @@ button:
     addItem: "Přidat položku"
     moveUp: "Posunout výš"
     moveDown: "Posunout níž"
-    submenu: "Vytvořit podnabídku"
 message:
     doNotMessWarning: "Varování: přepsání unikátního názvu může rozbít aplikaci. Prosím, buďte opatrní!"
 form:
