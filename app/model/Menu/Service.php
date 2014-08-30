@@ -49,6 +49,9 @@ class MenuService extends Service {
 
 	public function invalidateCache() {
 		$this->cache->clean([Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+		$doctrineCache = $this->em->getConfiguration()->getResultCacheImpl();
+		$doctrineCache->delete('ZaxCMS-Model-Menu');
+		$doctrineCache->flushAll();
 		return $this;
 	}
 
