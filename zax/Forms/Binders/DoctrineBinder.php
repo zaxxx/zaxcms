@@ -9,7 +9,11 @@ class DoctrineBinder extends Nette\Object implements IBinder {
 	public function formToEntity(Nette\Forms\Form $form, $entity) {
 		foreach($form->getComponents() as $name => $control) {
 			if(isset($entity->$name)) {
-				$entity->$name = $form[$name]->getValue();
+				$value = $form[$name]->getValue();
+				if(strlen($value) === 0) {
+					$value = NULL;
+				}
+				$entity->$name = $value;
 			}
 		}
 		return $entity;
