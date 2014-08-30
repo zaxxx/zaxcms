@@ -4,50 +4,35 @@
 	{_}menu.panel.editMenu{/_}
 {/define}
 
+{define addItemButton}
+	<li n:class="$control->selectItem == -1 && $control->selectMenu == $item->id ? active">
+		<a n:class="$ajaxEnabled ? ajax" n:href="this, selectMenu => $item->id, selectItem => -1">{icon plus} {_'common.button.add'}</a>
+	</li>
+{/define}
+
 {define panelContent}
 	<div class="row">
 		<div class="col-sm-4">
-			<div class="well">
-
-				<ul>
-					{var $depth = $root->depth}
-					{var $prev = $root}
-					{foreach $items as $item}
-					{if $depth < $item->depth && !$iterator->first}
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$prev->text}</a>
-					<ul>
-						{elseif !$iterator->first}
-						<a>{$prev->text}</a>
-						{str_repeat('</li></ul>', $depth - $item->depth)|noescape}{='</li>'|noescape}
-						{/if}
-						<li{if $item->title !== NULL} title="{$item->title}"{/if}>
-							{?$depth = $item->depth}
-							{?$prev = $item}
-							{/foreach}
-							<a n:if="$prev !== $root">{$prev->text}</a>
-							{str_repeat('</li></ul>', $depth - $root->depth - 1)|noescape}
-					</ul>
-
-			</div>
-		</div>
-		<div class="col-sm-2">
 				{var $depth = $root->depth - 1}
 				{var $prev = $root}
 				{foreach $items as $item}
 					{if $depth < $item->depth}
 						<ul class="nav nav-pills nav-stacked">
 					{elseif $depth === $item->depth && $depth === $root->depth + 1}
-						<ul class="nav nav-pills nav-stacked"><li n:class="$control->selectItem == -1 && $control->selectMenu == $item->id ? active"><a n:href="this, selectMenu => $item->id, selectItem => -1">{icon plus} Přidat položku</a></li></ul>
+							<ul class="nav nav-pills nav-stacked">
+								{include addItemButton, item => $prev}
+							</ul>
 						</li>
 					{else}
 						{for $i=$item->depth; $i<$depth; $i++}
-							</li><li n:class="$control->selectItem == -1 && $control->selectMenu == $prev->parent->id ? active"><a n:href="this, selectMenu => $prev->parent->id, selectItem => -1">{icon plus} Přidat položku</a></li>
+							</li>
+								{include addItemButton, item => $prev->parent}
 							</ul>
 						{/for}
 						</li>
 					{/if}
 					<li n:class="$control->selectItem == $item->id ? active">
-						<a n:href="this, selectItem => $item->id">{$item->text}</a>
+						<a n:class="$ajaxEnabled ? ajax" n:href="this, selectItem => $item->id">{$item->text}</a>
 
 					{?$depth = $item->depth}
 					{?$prev = $item}
@@ -57,14 +42,20 @@
 					</ul>
 				{/for}
 					<ul class="nav nav-pills nav-stacked">
-						<li n:class="$control->selectItem == -1 && $control->selectMenu == $prev->id ? active"><a n:href="this, selectMenu => $prev->id, selectItem => -1">{icon plus} Přidat položku</a></li>
+						{if $prev->depth === $root->depth + 1}
+							{include addItemButton, item => $prev}
+						{else}
+							{include addItemButton, item => $prev->parent}
+						{/if}
 					</ul>
 				</li>
-				<li n:class="$control->selectItem == -1 && $control->selectMenu == NULL ? active"><a n:href="this, selectMenu => NULL, selectItem => -1">{icon plus} Přidat položku</a></li>
-				</ul>
+				<li n:class="$control->selectItem == -1 && $control->selectMenu == NULL ? active">
+					<a n:class="$ajaxEnabled ? ajax" n:href="this, selectMenu => NULL, selectItem => -1">{icon plus} {_'common.button.add'}</a>
+				</li>
+			</ul>
 		</div>
 
-		<div class="col-sm-6">
+		<div class="col-sm-8">
 			{if $control->selectItem > 0}
 				{control editMenuItem}
 			{elseif (int)$control->selectItem === -1}
