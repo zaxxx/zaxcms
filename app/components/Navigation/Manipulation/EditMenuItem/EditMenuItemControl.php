@@ -49,11 +49,6 @@ class EditMenuItemControl extends Control {
 		$this->template->menuItem = $this->menuItem;
 	}
 
-	public function handleCreateSubmenu() {
-		$submenu = $this->menuService->createSubmenu($this->menuItem);
-		$this->menuService->flush();
-	}
-
 	/** @secured Menu, Edit */
 	public function beforeRender() {
 

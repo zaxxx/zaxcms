@@ -51,38 +51,42 @@ abstract class MenuItemFormControl extends FormControl {
 			    return $this->translator->translate('common.lang.' . $locale);
 		    });
 
-	    $f->addText('name', 'common.form.uniqueName')
-		    ->setRequired()
-		    ->addRule(Form::MAX_LENGTH, NULL, 63)
-		    ->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');
+
 
 	    $f->addText('text', 'common.form.displayText')
 		    ->addRule(Form::MAX_LENGTH, NULL, 255);
-	    $f->addText('href', 'menu.form.url')
-		    ->addRule(Form::MAX_LENGTH, NULL, 511);
+
 	    $f->addText('icon', 'menu.form.icon')
 		    ->addRule(Form::MAX_LENGTH, NULL, 63);
 	    $f->addText('title', 'menu.form.title')
 		    ->addRule(Form::MAX_LENGTH, NULL, 511);
 
+	    $f->addText('href', 'menu.form.url')
+		    ->addRule(Form::MAX_LENGTH, NULL, 511);
+	    $f->addText('nhref', 'menu.form.nhref')
+		    ->addRule(Form::MAX_LENGTH, NULL, 255);
+
+	    $f->addNeonTextArea('nhrefParams', 'menu.form.nhrefParams');
+
 	    $f->addCheckbox('advancedStuff', 'common.form.advancedOptions')
 		    ->addCondition($f::EQUAL, TRUE)
-		        ->toggle($this->getUniqueId() . '-htmlClass')
+		        ->toggle($this->getUniqueId() . '-uniqueName')
 		        ->toggle($this->getUniqueId() . '-htmlTarget')
-		        ->toggle($this->getUniqueId() . '-nhref')
-		        ->toggle($this->getUniqueId() . '-nhrefParams');
+		        ->toggle($this->getUniqueId() . '-htmlClass');
 
+	    $f->addText('name', 'common.form.uniqueName')
+		    ->setOption('id', $this->getUniqueId() . '-uniqueName')
+		    ->addCondition(Form::FILLED)
+			    ->addRule(Form::MAX_LENGTH, NULL, 63)
+			    ->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');
 	    $f->addText('htmlClass', 'menu.form.htmlClass')
 		    ->addRule(Form::MAX_LENGTH, NULL, 255)
 		    ->setOption('id', $this->getUniqueId() . '-htmlClass');
 	    $f->addText('htmlTarget', 'menu.form.htmlTarget')
 		    ->addRule(Form::MAX_LENGTH, NULL, 63)
 		    ->setOption('id', $this->getUniqueId() . '-htmlTarget');
-	    $f->addText('nhref', 'menu.form.nhref')
-		    ->addRule(Form::MAX_LENGTH, NULL, 255)
-		    ->setOption('id', $this->getUniqueId() . '-nhref');
-	    $f->addNeonTextArea('nhrefParams', 'menu.form.nhrefParams')
-		    ->setOption('id', $this->getUniqueId() . '-nhrefParams');
+
+
 
 
 

@@ -9,6 +9,8 @@ form:
     htmlClass: "HTML class"
     htmlTarget: "HTML target"
     url: "URL"
+    icon: "Icon"
+    title: "Display text"
     nhref: "Nette link"
     nhrefParams: "Params for Nette link"
 alert:

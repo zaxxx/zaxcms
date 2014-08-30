@@ -9,6 +9,8 @@ form:
     htmlClass: "HTML třída"
     htmlTarget: "HTML cíl (target)"
     url: "URL adresa"
+    icon: "Ikona"
+    title: "Zobrazený text"
     nhref: "Nette adresa"
     nhrefParams: "Parametry pro Nette adresu"
 alert:
