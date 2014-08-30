@@ -1,4 +1,9 @@
 
+{define itemLink}
+{var $link = isset($item->nhref) && isset($item->nhrefParams) ? $presenter->link($item->nhref, $item->nhrefParams) : (isset($item->nhref) ? $presenter->link($item->nhref) : $item->href)}
+<a href="{$link}"{if isset($item->htmlTarget)} target="$item->htmlTarget"{/if}>{if $item->icon}{icon $item->icon} {/if}{$item->text}</a>
+{/define}
+
 {if $view === 'Edit'}
 	<div n:snippet n:secured="Menu, Edit">
 		{control edit}
@@ -9,19 +14,22 @@
 {cache tags => ['ZaxCMS-Model-Menu']}
 	{var $depth = $root->depth}
 	{var $prev = $root}
+	{var $link}
 	{foreach $menu as $item}
 		{if $depth < $item->depth && !$iterator->first}
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
 			<ul n:class="(expand) $classes[($iterator->first ? ul : sub-ul)]">
 		{elseif !$iterator->first}
-			<a>{$prev->text}</a>
+			{include itemLink, item => $prev}
 			{str_repeat('</li></ul>', $depth - $item->depth)|noescape}{='</li>'|noescape}
 		{/if}
 		<li n:class="(expand) $classes[li]"{if $item->title !== NULL} title="{$item->title}"{/if}>
 		{?$depth = $item->depth}
 		{?$prev = $item}
 	{/foreach}
-	<a n:if="$prev !== $root">{$prev->text}</a>
+	{if $prev !== $root}
+		{include itemLink, item => $prev}
+	{/if}
 	{str_repeat('</li></ul>', $depth - $root->depth - 1)|noescape}
 {/cache}
 	<li n:secured="Menu, Edit"><a n:href="this, view => Edit">{icon pencil}</a></li>

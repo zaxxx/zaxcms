@@ -38,12 +38,7 @@ class MenuService extends Service {
 	}
 
 	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
-//		$key = md5(serialize([$node->id, $this->getLocale(), $direct, $includeNode, $sortByField, $direction]));
-//		$children = $this->cache->load('children-' . $key);
-//		if($children === NULL) {
-			$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
-//			$this->cache->save('children-' . $key, $children, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
-//		}
+		$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
 		return $children;
 	}
 
