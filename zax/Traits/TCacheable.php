@@ -28,7 +28,7 @@ trait TCacheable {
 	 */
 	public function injectCacheStorage(Nette\Caching\IStorage $storage) {
 		$this->cacheStorage = $storage;
-		$this->cache = new Nette\Caching\Cache($this->cacheStorage, get_class($this));
+		$this->cache = new Nette\Caching\Cache($this->cacheStorage, str_replace('\\', '.', get_class($this)));
 	}
 
 	/**

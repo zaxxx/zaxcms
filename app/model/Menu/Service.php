@@ -10,6 +10,8 @@ use Zax,
 
 class MenuService extends Service {
 
+	const CACHE_TAG = 'ZaxCMS.Model.Menu';
+
 	use Zax\Traits\TTranslatable,
 		Zax\Traits\TCacheable;
 
@@ -32,7 +34,7 @@ class MenuService extends Service {
 		$menu = $this->cache->load('menu-' . $name . '-' . $this->getLocale());
 		if($menu === NULL) {
 			$menu = $this->getBy(['name' => $name]);
-			$this->cache->save('menu-' . $name . '-' . $this->getLocale(), $menu, [Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+			$this->cache->save('menu-' . $name . '-' . $this->getLocale(), $menu, [Nette\Caching\Cache::TAGS => self::CACHE_TAG]);
 		}
 		return $menu;
 	}
@@ -43,9 +45,9 @@ class MenuService extends Service {
 	}
 
 	public function invalidateCache() {
-		$this->cache->clean([Nette\Caching\Cache::TAGS => 'ZaxCMS-Model-Menu']);
+		$this->cache->clean([Nette\Caching\Cache::TAGS => self::CACHE_TAG]);
 		$doctrineCache = $this->em->getConfiguration()->getResultCacheImpl();
-		$doctrineCache->delete('ZaxCMS-Model-Menu');
+		$doctrineCache->delete(self::CACHE_TAG);
 		$doctrineCache->flushAll();
 		return $this;
 	}
