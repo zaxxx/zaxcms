@@ -7,9 +7,9 @@ use Nette,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-	Zax\Application\UI\Control;
+	Zax\Application\UI\SecuredControl;
 
-class EditControl extends Control {
+class EditControl extends SecuredControl {
 
 	protected $defaultLinkParams = [
 		'editMenuItem-editMenuItemForm-form-icon-selectedValue' => NULL

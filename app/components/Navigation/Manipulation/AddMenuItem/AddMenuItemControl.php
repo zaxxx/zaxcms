@@ -7,10 +7,10 @@ use Nette,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-	Zax\Application\UI\Control;
+	Zax\Application\UI\SecuredControl;
 
 // TODO: DRY
-class AddMenuItemControl extends Control {
+class AddMenuItemControl extends SecuredControl {
 
 	protected $addMenuItemFormFactory;
 

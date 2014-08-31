@@ -2,11 +2,14 @@
 
 namespace Zax\Application\UI;
 use Nette,
+	Nextras,
 	Zax,
 	Latte,
 	Zax\Application\UI;
 
 abstract class SecuredControl extends UI\Control {
+
+	use Nextras\Application\UI\SecuredLinksControlTrait;
 
 	const CCMODE_EXCEPTION = 0, // Throw exception if user isn't allowed to create component
 		  CCMODE_SILENT = 1;    // Return empty component if user isn't allowed to create component

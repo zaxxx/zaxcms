@@ -8,9 +8,9 @@ use Nette,
 	ZaxCMS\Model,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-	Zax\Application\UI\Control;
+	Zax\Application\UI\SecuredControl;
 
-class EditMenuItemControl extends Control {
+class EditMenuItemControl extends SecuredControl {
 
 	protected $menuItem;
 
