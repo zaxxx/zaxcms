@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f5d0bc6a476991af38f6ad5d2606114",
+    "hash": "b8425d66120446a51cc9fa89d0ae0fbd",
     "packages": [
         {
             "name": "dg/texy",

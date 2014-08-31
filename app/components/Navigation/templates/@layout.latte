@@ -1,7 +1,7 @@
 
 {define itemLink}
 	{var $link = $item->nhref !== NULL && $item->nhrefParams !== NULL ? $presenter->link($item->nhref, $item->nhrefParams) : ($item->nhref !== NULL ? $presenter->link($item->nhref) : $item->href)}
-	<a href="{$link}"{if isset($item->htmlTarget)} target="$item->htmlTarget"{/if}>{if $item->icon}{icon $item->icon} {/if}{$item->text}</a>
+	<a href="{$link}"{if strlen($item->htmlTarget) > 0} target="{$item->htmlTarget}"{/if}>{if $item->icon}{icon $item->icon} {/if}{$item->text}</a>
 {/define}
 
 
