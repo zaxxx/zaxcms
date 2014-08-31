@@ -309,6 +309,7 @@ abstract class Control extends Nette\Application\UI\Control {
 		$texy->encoding = 'utf-8';
 		$texy->setOutputMode(\Texy::HTML5);
 		$texy->headingModule->top = 3;
+		$texy->addHandler('image', ['Zax\Texy\Youtube', 'imageHandler']);
 		return $texy;
 	}
 
