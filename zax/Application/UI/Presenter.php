@@ -2,6 +2,7 @@
 
 namespace Zax\Application\UI;
 use Nette,
+	Nextras,
 	Zax,
 	Kdyby;
 
@@ -16,7 +17,8 @@ use Nette,
  */
 abstract class Presenter extends Nette\Application\UI\Presenter {
 
-	use Zax\Traits\TTranslatable;
+	use Zax\Traits\TTranslatable,
+		Nextras\Application\UI\SecuredLinksPresenterTrait;
 
 	/** @persistent */
 	public $locale = 'cs_CZ';

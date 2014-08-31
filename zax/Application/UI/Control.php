@@ -2,6 +2,7 @@
 
 namespace Zax\Application\UI;
 use Nette,
+	Nextras,
 	Nette\Utils\Strings,
 	Zax,
 	Kdyby;
@@ -22,7 +23,8 @@ use Nette,
  */
 abstract class Control extends Nette\Application\UI\Control {
 
-	use Zax\Traits\TTranslatable;
+	use Zax\Traits\TTranslatable,
+		Nextras\Application\UI\SecuredLinksControlTrait;
 
 	/** @persistent */
 	public $view = 'Default';
