@@ -11,6 +11,10 @@ use Nette,
 
 class EditControl extends Control {
 
+	protected $defaultLinkParams = [
+		'editMenuItem-editMenuItemForm-form-icon-selectedValue' => NULL
+	];
+
 	protected $menuService;
 
 	protected $addMenuItemFactory;

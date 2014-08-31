@@ -134,6 +134,13 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 		return $label;
 	}
 
+	protected function redrawMeOnly() {
+		foreach($this->getPresenter()->getComponents(TRUE, 'Nette\Application\UI\IRenderable') as $component) {
+			$component->redrawControl(NULL, FALSE);
+		}
+		$this->redrawControl();
+	}
+
 	/**
 	 * Supress redrawing other components to prevent data loss in form
 	 *
@@ -141,14 +148,12 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 	 */
 	public function attached($presenter) {
 		parent::attached($presenter);
+		if($this->getForm()->isAnchored() && $this->getForm()->isSubmitted())
+			return;
+
 		foreach($this->suppressRedraw as $control) {
 			$control->redrawControl(NULL, FALSE);
 		}
-		foreach($presenter->getComponents(TRUE, 'Nette\Application\UI\IRenderable') as $component) {
-			if(!$component instanceof BaseControl && !$component instanceof Nette\Forms\Form)
-				$component->redrawControl(NULL, FALSE);
-		}
-		$this->redrawControl();
 	}
 
 	public function getControl() {

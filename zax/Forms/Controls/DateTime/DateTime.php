@@ -134,6 +134,7 @@ class DateTimeInput extends BaseControl {
 
 	public function handleSelectDate($date) {
 		$this->setValue($date);
+		$this->redrawMeOnly();
 	}
 
 	public static function validateFilled(Nette\Forms\IControl $control) {

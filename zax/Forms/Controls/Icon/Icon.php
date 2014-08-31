@@ -30,6 +30,7 @@ class IconInput extends BaseControl {
 
 	public function handleSelectIcon($icon) {
 		$this->setValue($icon);
+		$this->redrawMeOnly();
 	}
 
 	public function loadState(array $params) {

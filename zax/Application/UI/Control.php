@@ -29,6 +29,8 @@ abstract class Control extends Nette\Application\UI\Control {
 	/** @persistent */
 	public $view = 'Default';
 
+	protected $defaultLinkParams = [];
+
 	/** @var string */
 	protected $locale;
 
@@ -259,6 +261,10 @@ abstract class Control extends Nette\Application\UI\Control {
 			$this->redrawControl();
 			$this->presenter->payload->setUrl = $this->link('this');
 		}
+	}
+
+	public function link($destination, $args = []) {
+		return parent::link($destination, array_merge($this->defaultLinkParams, $args));
 	}
 
 	/**
