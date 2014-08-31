@@ -1,7 +1,7 @@
 
 {define itemLink}
 	{var $link = $item->nhref !== NULL && $item->nhrefParams !== NULL ? $presenter->link($item->nhref, $item->nhrefParams) : ($item->nhref !== NULL ? $presenter->link($item->nhref) : $item->href)}
-	<a href="{$link}"{if strlen($item->htmlTarget) > 0} target="{$item->htmlTarget}"{/if}>{if $item->icon}{icon $item->icon} {/if}{$item->text}</a>
+	<a {if $item->title !== NULL}data-placement="{if $item->depth > $root->depth + 1 || !$dropdown}right{else}bottom{/if}" title="{$item->title}"{/if} href="{$link}"{if strlen($item->htmlTarget) > 0} target="{$item->htmlTarget}"{/if}>{if $item->icon}{icon $item->icon} {/if}{$item->text}</a>
 {/define}
 
 
@@ -17,13 +17,17 @@
 		{var $link}
 		{foreach $menu as $item}
 			{if $depth < $item->depth && !$iterator->first}
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
+				{if $dropdown}
+					<a {if $prev->title !== NULL}data-placement="{if $prev->depth > $root->depth + 1}right{else}bottom{/if}" title="{$prev->title}"{/if} href="#" class="dropdown-toggle" data-toggle="dropdown">{if $prev->icon}{icon $prev->icon} {/if}{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
+				{else}
+					{include itemLink, item => $prev}
+				{/if}
 				<ul n:class="(expand) $classes[($iterator->first ? ul : sub-ul)]">
 			{elseif !$iterator->first}
 				{include itemLink, item => $prev}
 				{str_repeat('</li></ul>', $depth - $item->depth)|noescape}{='</li>'|noescape}
 			{/if}
-			<li n:class="(expand) $classes[li]"{if $item->title !== NULL} title="{$item->title}"{/if}>
+			<li n:class="(expand) $classes[li]">
 			{?$depth = $item->depth}
 			{?$prev = $item}
 		{/foreach}

@@ -24,6 +24,8 @@ class NavigationControl extends SecuredControl {
 
 	protected $dropdownCaret = FALSE;
 
+	protected $dropdown = FALSE;
+
 	protected $menuService;
 
 	protected $editFactory;
@@ -44,6 +46,11 @@ class NavigationControl extends SecuredControl {
 
 	public function enableDropdownCaret() {
 		$this->dropdownCaret = TRUE;
+		return $this;
+	}
+
+	public function enableDropdown() {
+		$this->dropdown = TRUE;
 		return $this;
 	}
 
@@ -74,8 +81,11 @@ class NavigationControl extends SecuredControl {
 		$this->classes = [
 			'ul' => ['nav', 'nav-tabs'],
 			'li' => [],
-			'sub-ul' => ['dropdown-menu']
+			'sub-ul' => ['nav', 'nav-pills']
 		];
+		if($this->dropdown) {
+			$this->classes['sub-ul'] = ['dropdown-menu'];
+		}
 		return $this;
 	}
 
@@ -83,10 +93,15 @@ class NavigationControl extends SecuredControl {
 		$this->classes = [
 			'ul' => ['nav', 'nav-pills'],
 			'li' => [],
-			'sub-ul' => ['dropdown-menu']
+			'sub-ul' => ['nav', 'nav-pills']
 		];
-		if($style)
+		if($style) {
 			$this->classes['ul'][] = 'nav-' . $style;
+			$this->classes['sub-ul'][] = 'nav-' . $style;
+		}
+		if($this->dropdown) {
+			$this->classes['sub-ul'] = ['dropdown-menu'];
+		}
 		return $this;
 	}
 
@@ -109,6 +124,7 @@ class NavigationControl extends SecuredControl {
 	    $this->template->root = $this->menu;
 	    $this->template->menu = $this->menuService->getChildren($this->menu, FALSE, 'lft');
 	    $this->template->dropdownCaret = $this->dropdownCaret;
+	    $this->template->dropdown = $this->dropdown;
     }
 
 	/** @secured Menu, Edit */

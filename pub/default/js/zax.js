@@ -9,7 +9,7 @@ var mouseMove = function(x, y) {
 };
 
 var initTooltips = function() {
-    $('[title]').data('placement', 'auto top');
+    //$('[title]').data('placement', 'auto top');
     $('[title]').data('trigger', 'hover');
     $('[title]').data('container', 'body');
     $('[title]').tooltip();
