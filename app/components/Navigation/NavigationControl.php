@@ -10,6 +10,15 @@ use Nette,
 
 class NavigationControl extends SecuredControl {
 
+	protected $defaultLinkParams = [
+		'edit-selectItem' => NULL,
+		'edit-selectMenu' => NULL,
+		'edit-addMenuItem-addMenuItemForm-form-icon-selectedValue' => NULL,
+		'edit-editMenuItem-editMenuItemForm-form-icon-selectedValue' => NULL,
+		'edit-localeSelect-locale' => NULL,
+		'edit-view' => NULL
+	];
+
 	const STYLE_STACKED = 'stacked',
 		STYLE_JUSTIFIED = 'justified';
 
