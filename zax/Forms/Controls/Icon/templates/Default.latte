@@ -1,0 +1,24 @@
+<div n:snippet>
+	<div{if $rich} class="if-js-hide"{/if}>
+		<select name="{$htmlName}">
+			<option value=""{if $value === NULL} selected{/if}></option>
+			{foreach $icons->availableIcons as $availableIcon}
+				<option value="{$availableIcon}"{if $value === $availableIcon} selected{/if}>{$availableIcon}</option>
+			{/foreach}
+		</select>
+	</div>
+	<div n:if="$rich" class="if-not-js-hide">
+		<div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" id="{$htmlName}-dropdown" data-toggle="dropdown">
+				{if strlen($value) > 0}{icon $value}{/if}
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="{$htmlName}-dropdown">
+				<li n:class="$value === NULL ? active"><a n:href="selectIcon! NULL" class="ajax">&nbsp;</a></li>
+				{foreach $icons->availableIcons as $availableIcon}
+					<li n:class="$value === $availableIcon ? active"><a n:href="selectIcon! $availableIcon" class="ajax">{icon $availableIcon}</a></li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+</div>
