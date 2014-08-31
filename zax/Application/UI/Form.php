@@ -274,6 +274,12 @@ class Form extends Nette\Application\UI\Form {
 		return $this[$name] = $control;
 	}
 
+	public function addIconSelect($name, $label = NULL) {
+		$control = new Zax\Forms\Controls\IconInput($label);
+		$control->injectIcons($this->icons);
+		return $this[$name] = $control;
+	}
+
 	/**
 	 * Enables AJAX on this form.
 	 *

@@ -12,4 +12,9 @@ interface IIcons {
 	 */
 	public function getIcon($icon);
 
+	/**
+	 * @return array
+	 */
+	public function getAvailableIcons();
+
 }

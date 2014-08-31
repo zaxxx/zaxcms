@@ -23,6 +23,8 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 
 	protected $label;
 
+	protected $rich = TRUE;
+
 	protected $suppressRedraw = [];
 
 	public function __construct($caption = NULL) {
@@ -35,6 +37,11 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 
 	public function doNotRedraw(Nette\Application\UI\Control $control) {
 		$this->suppressRedraw[] = $control;
+		return $this;
+	}
+
+	public function setRich($rich = TRUE) {
+		$this->rich = (bool)$rich;
 		return $this;
 	}
 
