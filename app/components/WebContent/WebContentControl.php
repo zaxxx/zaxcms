@@ -8,6 +8,13 @@ use Nette,
 
 class WebContentControl extends SecuredControl {
 
+	protected $defaultLinkParams = [
+		'edit-localeSelect-locale' => NULL,
+		'edit-view' => NULL,
+		'edit-fileManager-directoryList-view' => NULL,
+		'edit-fileManager-fileList-view' => NULL
+	];
+
 	use Zax\Traits\TCacheable;
 
 	/**
