@@ -8,8 +8,7 @@
         }
     ],
     "require": {
-        "nette/nette": "~2.2@dev",
-        "tracy/tracy": "~2.3@dev",
+        "nette/nette": "v2.2.3",
         "nextras/secured-links": "1.2.0",
         "kdyby/doctrine": "v2.1.0",
         "rixxi/gedmo": "1.0.1",
