@@ -32,7 +32,7 @@
 						</li>
 					{/if}
 					<li n:class="$control->selectItem == $item->id ? active">
-						<a n:class="$ajaxEnabled ? ajax" n:href="this, selectItem => $item->id">{$item->text}</a>
+						<a n:class="$ajaxEnabled ? ajax" n:href="this, selectItem => $item->id">{if $item->text === NULL}&nbsp;{else}{$item->text}{/if}</a>
 
 					{?$depth = $item->depth}
 					{?$prev = $item}

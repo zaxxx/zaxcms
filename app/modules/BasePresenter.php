@@ -91,8 +91,4 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		});
 	}
 
-
-
-
-
 }
