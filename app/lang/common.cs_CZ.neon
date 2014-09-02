@@ -12,6 +12,7 @@ button:
     editAndClose: "Upravit a zavřít"
     chooseFile: "Vybrat soubor"
     preview: "Náhled"
+    pickLocale: "Change language"
 form:
     name: "Název"
     uniqueName: "Unikátní název"
