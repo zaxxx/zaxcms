@@ -84,7 +84,7 @@ class LoginFormControl extends FormControl {
 	    $t = $this->getTranslator();
         try {
 	        $this->user->login($values->login, $values->password);
-	        $this->presenter->go('this');
+	        $this->presenter->redirect('this');
         } catch (ZaxCMS\Security\UserLoginDisabledException $ex) {
 	        $form->addError($t->translate('auth.error.loginDisabled'));
         } catch (ZaxCMS\Security\InvalidCredentialsException $ex) {
