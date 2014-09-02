@@ -52,50 +52,6 @@ class MenuService extends Service {
 		return $this;
 	}
 
-
-	protected function createMenu($name) {
-		$menu = new Menu;
-		$menu->name = $name;
-		$menu->text = $name;
-		$menu->htmlClass = 'nav navbar-nav';
-		$menu->secured = FALSE;
-		return $menu;
-	}
-
-	protected function createMenuItem($text, $nhref) {
-		$item = new Menu;
-		$item->text = $text;
-		$item->nhref = $nhref;
-		$item->secured = FALSE;
-		return $item;
-	}
-
-	public function createDefaultMenu() {
-		$frontMenu = $this->createMenu('front');
-		$this->getEm()->persist($frontMenu);
-
-		$homeItem = $this->createMenuItem('Index', ':Front:Default:default');
-		$this->getRepository()->persistAsLastChildOf($homeItem, $frontMenu);
-
-		$this->getEm()->flush();
-	}
-
-	public function createAdminMenu() {
-		$adminMenu = $this->createMenu('admin');
-		$this->getEm()->persist($adminMenu);
-
-		$dashboardItem = $this->createMenuItem('Dashboard', ':Admin:Default:default');
-		$this->getRepository()->persistAsLastChildOf($dashboardItem, $adminMenu);
-
-		$pagesItem = $this->createMenuItem('Pages', ':Admin:Pages:default');
-		$this->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
-
-		$pagesItem = $this->createMenuItem('Users', ':Admin:Users:default');
-		$this->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
-
-		$this->getEm()->flush();
-	}
-
 	public function moveUp(Menu $entity, $number = 1) {
 		$result = $this->getRepository()->moveUp($entity, $number);
 		$this->invalidateCache();

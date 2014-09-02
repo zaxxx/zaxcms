@@ -7,7 +7,7 @@
 	        {/if}
             <li{if $view === 'Default'} class="active"{/if}><a n:href="this, view => Default"{if $ajaxEnabled} class="ajax"{/if}>{icon pencil} {_}webContent.button.content{/_}</a></li>
             <li n:secured="FileManager, Show" {if $view === 'Files'} class="active"{/if}><a n:href="this, view => Files"{if $ajaxEnabled} class="ajax"{/if}>{icon file} {_}webContent.button.files{/_}</a></li>
-            <li><a href="{$control->parent->link('this', [view => Default])}" n:class="btn, btn-danger" title="{_'common.button.close'}">&times;</a></li>
+            <li><a href="{$control->parent->link('this', [view => Default])}" n:class="btn, btn-danger" title="{_'common.button.close'}" data-placement="auto">&times;</a></li>
         </ul>
 	</div>
 	<div class="panel-body">

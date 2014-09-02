@@ -13,7 +13,7 @@ class CMSInstaller extends Nette\Object {
 
 	protected $aclFacade;
 
-	protected $menuService;
+	protected $menuInstall;
 
 	protected $appDir;
 
@@ -24,13 +24,13 @@ class CMSInstaller extends Nette\Object {
 	public function __construct($installed = FALSE,
 								DatabaseGenerator $generator,
 								AclFacade $aclFacade,
-								MenuService $menuService,
+								MenuInstall $menuInstall,
 								Zax\Utils\AppDir $appDir,
 								Zax\Utils\TempDir $tempDir) {
 		$this->installed = $installed;
 		$this->generator = $generator;
 		$this->aclFacade = $aclFacade;
-		$this->menuService = $menuService;
+		$this->menuInstall = $menuInstall;
 		$this->appDir = $appDir;
 		$this->tempDir = $tempDir;
 	}
@@ -57,8 +57,8 @@ class CMSInstaller extends Nette\Object {
 	}
 
 	protected function buildMenu() {
-		$this->menuService->createDefaultMenu();
-		$this->menuService->createAdminMenu();
+		$this->menuInstall->createDefaultMenu();
+		$this->menuInstall->createAdminMenu();
 	}
 
 	public function wipeCache() {

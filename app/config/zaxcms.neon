@@ -18,6 +18,7 @@ services:
     - ZaxCMS\Model\RoleService
     - ZaxCMS\Model\WebContentService
     - ZaxCMS\Model\MenuService
+    - ZaxCMS\Model\MenuInstall
     - ZaxCMS\Model\PageService
     - ZaxCMS\Model\UserService
     - ZaxCMS\Model\UserLoginService
