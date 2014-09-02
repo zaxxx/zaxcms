@@ -1,8 +1,17 @@
 {if $user->isLoggedIn()}
-	<div class="btn-group">
-		<a class="btn btn-success disabled"><strong>{$user->identity->name}</strong></a>
-		{secured AdminPanel, Show}{control adminPanelButton}{/secured}
-		{control logoutButton}
+	<a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+		{icon user} <strong>{$user->identity->name}</strong>
+		<span class="caret"></span>
+	</a>
+	<div class="dropdown-menu well-lg">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="btn-group-vertical">
+				{secured AdminPanel, Show}{control adminPanelButton}{/secured}
+				{control logoutButton}
+				</div>
+			</div>
+		</div>
 	</div>
 {else}
 	<div class="dropdown">
@@ -13,7 +22,6 @@
 		<div class="dropdown-menu well-lg">
 			<div class="row">
 				<div class="col-sm-12">
-					<p><strong>{_}auth.button.login{/_}:</strong></p>
 					{control loginForm}
 				</div>
 			</div>

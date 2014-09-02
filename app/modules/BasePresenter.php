@@ -53,7 +53,10 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 	}
 
 	protected function createComponentTinyLoginBox() {
-	    return $this->tinyLoginBoxFactory->create();
+	    $loginBox = $this->tinyLoginBoxFactory->create()
+		    ->enableAjax();
+		$loginBox->getComponent('loginForm')->groupLoginPasswordErrors();
+		return $loginBox;
 	}
 
 	protected function createComponentNavigation() {

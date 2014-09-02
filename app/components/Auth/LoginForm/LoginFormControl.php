@@ -84,23 +84,21 @@ class LoginFormControl extends FormControl {
 	    $t = $this->getTranslator();
         try {
 	        $this->user->login($values->login, $values->password);
+	        $this->presenter->go('this');
         } catch (ZaxCMS\Security\UserLoginDisabledException $ex) {
 	        $form->addError($t->translate('auth.error.loginDisabled'));
-        } catch (ZaxCMS\Security\InvalidNameException $ex) {
-	        if(!$this->groupLoginPasswordErrors) {
-				$form['login']->addError($t->translate('auth.error.invalidName'));
-	        }
-        } catch (ZaxCMS\Security\InvalidEmailException $ex) {
-	        if(!$this->groupLoginPasswordErrors) {
-				$form['login']->addError($t->translate('auth.error.invalidEmail'));
-	        }
-        } catch (ZaxCMS\Security\InvalidPasswordException $ex) {
-	        if(!$this->groupLoginPasswordErrors) {
-				$form['password']->addError($t->translate('auth.error.invalidPassword'));
-	        }
         } catch (ZaxCMS\Security\InvalidCredentialsException $ex) {
-	        if(!$this->groupLoginPasswordErrors) {
-		        $form->addError($t->translate('auth.error.invalidCredentials'));
+	        if($this->groupLoginPasswordErrors) {
+		        $form['login']->addError('');
+		        $form['password']->addError($t->translate('auth.error.invalidCredentials'));
+	        } else {
+		        if($ex instanceof ZaxCMS\Security\InvalidEmailException) {
+			        $form['login']->addError($t->translate('auth.error.invalidEmail'));
+		        } else if($ex instanceof ZaxCMS\Security\InvalidNameException) {
+			        $form['login']->addError($t->translate('auth.error.invalidName'));
+		        } else if($ex instanceof ZaxCMS\Security\InvalidPasswordException) {
+			        $form['password']->addError($t->translate('auth.error.invalidPassword'));
+		        }
 	        }
         } catch (ZaxCMS\Security\UnverifiedUserException $ex) {
 			$form->addError($t->translate('auth.error.unverifiedUser'));
