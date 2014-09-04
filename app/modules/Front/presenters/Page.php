@@ -14,7 +14,7 @@ class PagePresenter extends BasePresenter {
 
 	protected $page;
 
-	public function __construct(Model\PageService $pageService) {
+	public function __construct(Model\CMS\Service\PageService $pageService) {
 		$this->pageService = $pageService;
 	}
 

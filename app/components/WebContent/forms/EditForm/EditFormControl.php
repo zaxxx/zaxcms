@@ -21,7 +21,7 @@ class EditFormControl extends FormControl {
 
 	public function beforeRender() {}
 
-	public function setWebContent(Model\WebContent $webContent) {
+	public function setWebContent(Model\CMS\Entity\WebContent $webContent) {
 		$this->webContent = $webContent;
 		return $this;
 	}

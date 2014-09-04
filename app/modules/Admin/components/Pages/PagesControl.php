@@ -26,7 +26,7 @@ class PagesControl extends SecuredControl {
 
 	protected $webContentFactory;
 
-	public function __construct(Model\PageService $pageService,
+	public function __construct(Model\CMS\Service\PageService $pageService,
 								IAddPageFormFactory $addPageFormFactory,
 								IEditPageFormFactory $editPageFormFactory,
 								IDeletePageFormFactory $deletePageFormFactory,
@@ -89,7 +89,7 @@ class PagesControl extends SecuredControl {
 	/** @secured Pages, Add */
 	protected function createComponentAddPageForm() {
 	    return $this->addPageFormFactory->create()
-		    ->setPage(new Model\Page);
+		    ->setPage($this->pageService->create());
 	}
 
 	/** @secured Pages, Edit */

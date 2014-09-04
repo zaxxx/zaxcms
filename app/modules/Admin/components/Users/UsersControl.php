@@ -12,7 +12,7 @@ class UsersControl extends SecuredControl {
 
 	protected $userService;
 
-	public function __construct(Model\UserService $userService) {
+	public function __construct(Model\CMS\Service\UserService $userService) {
 		$this->userService = $userService;
 	}
 

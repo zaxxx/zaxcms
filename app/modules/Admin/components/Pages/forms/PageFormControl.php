@@ -17,11 +17,11 @@ abstract class PageFormControl extends FormControl {
 
 	protected $pageService;
 
-	public function __construct(Model\PageService $pageService) {
+	public function __construct(Model\CMS\Service\PageService $pageService) {
 		$this->pageService = $pageService;
 	}
 
-	public function setPage(Model\Page $page) {
+	public function setPage(Model\CMS\Entity\Page $page) {
 		$this->page = $page;
 		return $this;
 	}
@@ -68,8 +68,8 @@ abstract class PageFormControl extends FormControl {
 			$page = $this->page;
 			$this->binder->formToEntity($form, $page);
 			try{
-				$this->pageService->getEm()->persist($page);
-				$this->pageService->getEm()->flush();
+				$this->pageService->persist($page);
+				$this->pageService->flush();
 				$this->successFlashMessage();
 				$this->parent->go('this', ['view' => 'Default']);
 			} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {

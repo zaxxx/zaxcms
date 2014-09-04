@@ -19,12 +19,12 @@ abstract class MenuItemFormControl extends FormControl {
 
 	protected $menuService;
 
-	public function __construct(Nette\Application\IRouter $router, Model\MenuService $menuService) {
+	public function __construct(Nette\Application\IRouter $router, Model\CMS\Service\MenuService $menuService) {
 		$this->router = $router;
 		$this->menuService = $menuService;
 	}
 
-	public function setMenuItem(Model\Menu $menu) {
+	public function setMenuItem(Model\CMS\Entity\Menu $menu) {
 		$this->menuItem = $menu;
 		return $this;
 	}
@@ -40,7 +40,7 @@ abstract class MenuItemFormControl extends FormControl {
 
 	abstract protected function createSubmitButtons(Form $form);
 
-	abstract protected function saveMenuItem(Model\Menu $menu, Form $form);
+	abstract protected function saveMenuItem(Model\CMS\Entity\Menu $menu, Form $form);
     
     public function createForm() {
         $f = parent::createForm();

@@ -15,7 +15,7 @@ class CreateUserControl extends FormControl {
 
 	protected $roleService;
 
-	public function __construct(Model\LoginFacade $loginFacade, Model\RoleService $roleService) {
+	public function __construct(Model\CMS\Auth $loginFacade, Model\CMS\Service\RoleService $roleService) {
 		$this->loginFacade = $loginFacade;
 		$this->roleService = $roleService;
 	}

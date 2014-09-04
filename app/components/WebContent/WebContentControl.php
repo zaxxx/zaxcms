@@ -41,7 +41,7 @@ class WebContentControl extends SecuredControl {
 	 * @param Model\WebContentService $webContentService
 	 * @param IEditFactory            $editFactory
 	 */
-	public function __construct(Model\WebContentService $webContentService,
+	public function __construct(Model\CMS\Service\WebContentService $webContentService,
 								IEditFactory $editFactory) {
 		$this->webContentService = $webContentService;
 		$this->editFactory = $editFactory;
@@ -91,7 +91,7 @@ class WebContentControl extends SecuredControl {
 	 * @param Model\WebContent $webContent
 	 * @return $this
 	 */
-	public function setWebContent(Model\WebContent $webContent) {
+	public function setWebContent(Model\CMS\Entity\WebContent $webContent) {
 		$this->webContent = $webContent;
 		return $this;
 	}

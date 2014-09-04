@@ -15,7 +15,7 @@ class AddMenuItemFormControl extends MenuItemFormControl {
 
 	protected $parentMenu;
 
-	public function setParentMenu(Model\Menu $parentMenu) {
+	public function setParentMenu(Model\CMS\Entity\Menu $parentMenu) {
 		$this->parentMenu = $parentMenu;
 		return $this;
 	}
@@ -31,7 +31,7 @@ class AddMenuItemFormControl extends MenuItemFormControl {
 		return $this->lookup('ZaxCMS\Components\Navigation\AddMenuItemControl');
 	}
 
-	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
+	protected function saveMenuItem(Model\CMS\Entity\Menu $menuItem, Form $form) {
 		$menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
 		$this->menuService->getRepository()->persistAsLastChildOf($menuItem, $this->parentMenu);
 		$this->menuService->flush();

@@ -16,11 +16,11 @@ class DeletePageFormControl extends FormControl {
 
 	protected $page;
 
-	public function __construct(Model\PageService $pageService) {
+	public function __construct(Model\CMS\Service\PageService $pageService) {
 		$this->pageService = $pageService;
 	}
 
-	public function setPage(Model\Page $page) {
+	public function setPage(Model\CMS\Entity\Page $page) {
 		$this->page = $page;
 		return $this;
 	}
@@ -45,8 +45,8 @@ class DeletePageFormControl extends FormControl {
 	}
 
 	public function formSuccess(Form $form, $values) {
-		$this->pageService->getEm()->remove($this->page);
-		$this->pageService->getEm()->flush();
+		$this->pageService->remove($this->page);
+		$this->pageService->flush();
 
 		$this->flashMessage('common.alert.entryDeleted', 'success');
 		$this->parent->go('this', ['view' => 'Default']);

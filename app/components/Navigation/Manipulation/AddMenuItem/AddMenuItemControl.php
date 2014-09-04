@@ -16,11 +16,15 @@ class AddMenuItemControl extends SecuredControl {
 
 	protected $parentMenu;
 
-	public function __construct(IAddMenuItemFormFactory $addMenuItemFormFactory) {
+	protected $menuService;
+
+	public function __construct(IAddMenuItemFormFactory $addMenuItemFormFactory,
+								Model\CMS\Service\MenuService $menuService) {
 		$this->addMenuItemFormFactory = $addMenuItemFormFactory;
+		$this->menuService = $menuService;
 	}
 
-	public function setParentMenu(Model\Menu $menu) {
+	public function setParentMenu(Model\CMS\Entity\Menu $menu) {
 		$this->parentMenu = $menu;
 		return $this;
 	}
@@ -35,7 +39,7 @@ class AddMenuItemControl extends SecuredControl {
 	}
 
 	protected function createComponentAddMenuItemForm() {
-		$menuItem = new Model\Menu;
+		$menuItem = $this->menuService->create();
 		$menuItem->secured = FALSE;
 	    $control = $this->addMenuItemFormFactory->create()
 		    ->setMenuItem($menuItem)

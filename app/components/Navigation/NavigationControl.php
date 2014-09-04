@@ -38,7 +38,7 @@ class NavigationControl extends SecuredControl {
 		'sub-ul' => []
 	];
 
-	public function __construct(Model\MenuService $menuService,
+	public function __construct(Model\CMS\Service\MenuService $menuService,
 								IEditFactory $editFactory) {
 		$this->menuService = $menuService;
 		$this->editFactory = $editFactory;

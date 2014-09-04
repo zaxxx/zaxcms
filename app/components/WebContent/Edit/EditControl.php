@@ -45,7 +45,7 @@ class EditControl extends SecuredControl {
 	 * @param Zax\Utils\RootDir                              $rootDir
 	 */
 	public function __construct(IEditFormFactory $editFormFactory,
-								Model\WebContentService $webContentService,
+								Model\CMS\Service\WebContentService $webContentService,
 								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
 								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory,
 								Zax\Utils\RootDir $rootDir) {
@@ -60,7 +60,7 @@ class EditControl extends SecuredControl {
 		return $this['localeSelect']->getLocale();
 	}
 
-	public function setWebContent(Model\WebContent $webContent) {
+	public function setWebContent(Model\CMS\Entity\WebContent $webContent) {
 		$this->webContent = $webContent;
 		return $this;
 	}

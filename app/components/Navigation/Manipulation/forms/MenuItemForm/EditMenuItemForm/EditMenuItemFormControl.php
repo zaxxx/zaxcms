@@ -30,9 +30,9 @@ class EditMenuItemFormControl extends MenuItemFormControl {
 		return $this->lookup('ZaxCMS\Components\Navigation\EditMenuItemControl');
 	}
 
-	protected function saveMenuItem(Model\Menu $menuItem, Form $form) {
+	protected function saveMenuItem(Model\CMS\Entity\Menu $menuItem, Form $form) {
 		$menuItem->setTranslatableLocale($this->getEditControl()->getLocale());
-		$this->menuService->getEm()->persist($menuItem);
+		$this->menuService->persist($menuItem);
 		$this->menuService->flush();
 
 		$this->flashMessage('common.alert.changesSaved', 'success');

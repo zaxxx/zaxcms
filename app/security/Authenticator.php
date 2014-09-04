@@ -10,7 +10,7 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
 
 	protected $loginFacade;
 
-	public function __construct(Model\LoginFacade $loginFacade) {
+	public function __construct(Model\CMS\Auth $loginFacade) {
 		$this->loginFacade = $loginFacade;
 	}
 

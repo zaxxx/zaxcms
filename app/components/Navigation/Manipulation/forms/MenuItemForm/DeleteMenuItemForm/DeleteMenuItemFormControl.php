@@ -16,11 +16,11 @@ class DeleteMenuItemFormControl extends FormControl {
 
 	protected $menuItem;
 
-	public function __construct(Model\MenuService $menuService) {
+	public function __construct(Model\CMS\Service\MenuService $menuService) {
 		$this->menuService = $menuService;
 	}
 
-	public function setMenuItem(Model\Menu $menu) {
+	public function setMenuItem(Model\CMS\Entity\Menu $menu) {
 		$this->menuItem = $menu;
 		return $this;
 	}
@@ -51,7 +51,7 @@ class DeleteMenuItemFormControl extends FormControl {
     }
     
     public function formSuccess(Form $form, $values) {
-	    $this->menuService->getEm()->remove($this->menuItem);
+	    $this->menuService->remove($this->menuItem);
 	    $this->menuService->flush();
 
 	    $this->flashMessage('common.alert.entryDeleted', 'success');

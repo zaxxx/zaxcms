@@ -22,13 +22,13 @@ class EditMenuItemControl extends SecuredControl {
 
 	public function __construct(IEditMenuItemFormFactory $editMenuItemFormFactory,
 	                            IDeleteMenuItemFormFactory $deleteMenuItemFormFactory,
-								Model\MenuService $menuService) {
+								Model\CMS\Service\MenuService $menuService) {
 		$this->editMenuItemFormFactory = $editMenuItemFormFactory;
 		$this->deleteMenuItemFormFactory = $deleteMenuItemFormFactory;
 		$this->menuService = $menuService;
 	}
 
-	public function setMenuItem(Model\Menu $menuItem) {
+	public function setMenuItem(Model\CMS\Entity\Menu $menuItem) {
 		$this->menuItem = $menuItem;
 		return $this;
 	}
@@ -62,14 +62,14 @@ class EditMenuItemControl extends SecuredControl {
 	/** @secured Menu, Edit */
 	public function handleMoveUp() {
 		$this->menuService->moveUp($this->menuItem);
-		$this->menuService->getEm()->refresh($this->menuItem->parent);
+		$this->menuService->refresh($this->menuItem->parent);
 		$this->go('this');
 	}
 
 	/** @secured Menu, Edit */
 	public function handleMoveDown() {
 		$this->menuService->moveDown($this->menuItem);
-		$this->menuService->getEm()->refresh($this->menuItem->parent);
+		$this->menuService->refresh($this->menuItem->parent);
 		$this->go('this');
 	}
 

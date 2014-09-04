@@ -23,7 +23,7 @@ class InstallControl extends Control {
 
 	public function __construct(ICheckDatabaseFactory $checkDatabaseFactory,
 	                            ICreateUserFactory $createUserFactory,
-	                            Model\CMSInstaller $CMSInstaller,
+	                            Model\CMSInstall\CMSInstaller $CMSInstaller,
 								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
 								Zax\Utils\AppDir $appDir) {
 		$this->checkDatabaseFactory = $checkDatabaseFactory;

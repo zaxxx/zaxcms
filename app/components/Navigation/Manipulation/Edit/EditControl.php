@@ -33,7 +33,7 @@ class EditControl extends SecuredControl {
 	/** @persistent */
 	public $selectMenu;
 
-	public function __construct(Model\MenuService $menuService,
+	public function __construct(Model\CMS\Service\MenuService $menuService,
 								IAddMenuItemFactory $addMenuItemFactory,
 								IEditMenuItemFactory $editMenuItemFactory,
 								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
@@ -67,7 +67,7 @@ class EditControl extends SecuredControl {
 
 	public function getSelectedMenu() {
 		if($this->selectMenu !== NULL) {
-			return $this->menuService->getRepository()->findOneById($this->selectMenu);
+			return $this->menuService->get($this->selectMenu);
 		}
 		return $this->getMenu();
 	}
@@ -103,7 +103,7 @@ class EditControl extends SecuredControl {
 	/** @secured Menu, Edit */
 	protected function createComponentEditMenuItem() {
 		return $this->editMenuItemFactory->create()
-			->setMenuItem($this->menuService->getDao()->findOneById($this->selectItem));
+			->setMenuItem($this->menuService->get($this->selectItem));
 	}
 
 	/** @secured Menu, Edit */
