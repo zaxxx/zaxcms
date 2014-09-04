@@ -30,7 +30,10 @@ class MenuService extends Zax\Model\Service {
 
 	public function getByName($name, $useCache = FALSE) {
 		if(!$useCache) {
-			return $this->getBy(['name' => $name]);
+			$menu = $this->getBy(['name' => $name]);
+			$menu->setTranslatableLocale($this->getLocale());
+			$this->refresh($menu);
+			return $menu;
 		}
 		$menu = $this->cache->load('menu-' . $name . '-' . $this->getLocale());
 		if($menu === NULL) {
@@ -42,6 +45,13 @@ class MenuService extends Zax\Model\Service {
 
 	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
 		$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
+		return $children;
+	}
+
+	public function getCachedChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
+		$this->getRepository()->useCache = TRUE;
+		$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
+		$this->getRepository()->useCache = FALSE;
 		return $children;
 	}
 

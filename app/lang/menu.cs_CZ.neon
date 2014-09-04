@@ -14,6 +14,7 @@ form:
     nhrefParams: "Parametry pro Nette adresu"
 alert:
 panel:
+    refreshMenu: "Obnovit menu"
     editMenu: "Upravit menu"
     editMenuContainer: "Upravit menu"
     addMenuItem: "Přidat položku menu"

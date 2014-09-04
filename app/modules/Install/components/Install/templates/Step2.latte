@@ -3,10 +3,11 @@
 	<div class="row">
 		<div class="col-sm-12">
 			{if isset($installSteps)}
-				<p>Probíhá instalace, čekejte prosím</p>
-				<p>Dokončeno: {$installStep+1} z {$installSteps+1}</p>
+				<p>Generuji databázi{str_repeat('.',$installStep % 3 + 1)}</p>
+
 				<div class="progress">
 					<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{$installStep}" aria-valuemin="0" aria-valuemax="{$installSteps}" style="width:{intval($installStep/$installSteps*100)}%;"></div>
+					<span>{$installStep+1}/{$installSteps+1}</span>
 				</div>
 				<script type="text/javascript">
 					$.nette.ajax({

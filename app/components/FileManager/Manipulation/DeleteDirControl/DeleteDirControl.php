@@ -34,7 +34,7 @@ class DeleteDirControl extends FileManipulationControl {
 
 		$f = $this->createForm();
 		$f->addHidden('dir', $dirName);
-		if($this->fileManager->isFeatureEnabled('deleteDir')) {
+		if($this->fileManager->isFeatureEnabled('deleteDir') && !$this->fileManager->isRootSelected()) {
 			$f->addButtonSubmit('delete', 'common.button.delete', 'trash');
 		}
 		if($this->fileManager->isFeatureEnabled('truncateDir')) {
@@ -60,7 +60,7 @@ class DeleteDirControl extends FileManipulationControl {
 	public function deleteFormSubmitted(Nette\Application\UI\Form $form, $values) {
 		$goToDir = $this->getDirectory();
 		$name = $this->getAbsoluteDirectory();
-		if($this->fileManager->isFeatureEnabled('deleteDir') && $form->submitted === $form['delete']) {
+		if($this->fileManager->isFeatureEnabled('deleteDir') && !$this->fileManager->isRootSelected() && $form->submitted === $form['delete']) {
 			Nette\Utils\FileSystem::delete($this->getAbsoluteDirectory());
 			$goToDir = Zax\Utils\PathHelpers::getParentDir($this->getDirectory());
 			$this->onDirDelete($name);

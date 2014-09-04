@@ -66,7 +66,7 @@ class LoginFormControl extends FormControl {
 	    $po = $this->placeholdersOnly;
 
 	    $loginLabel = 'auth.form.' .
-		    ($this->loginFacade->getLoginType() === Model\LoginFacade::LOGIN_BY_EMAIL ? 'email' : 'username');
+		    ($this->loginFacade->getLoginType() === Model\CMS\Auth::LOGIN_BY_EMAIL ? 'email' : 'username');
 
 	    $this->formSolvePlaceholderAdd('text', $f, 'login', $loginLabel);
 	    $this->formSolvePlaceholderAdd('password', $f, 'password', 'auth.form.password');

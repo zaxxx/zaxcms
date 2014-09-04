@@ -14,6 +14,7 @@ form:
     nhrefParams: "Params for Nette link"
 alert:
 panel:
+    refreshMenu: "Refresh menu"
     editMenu: "Edit menu"
     editMenuContainer: "Edit menu container"
     addMenuItem: "Add menu item"

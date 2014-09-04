@@ -4,39 +4,45 @@
 	<a {if $item->title !== NULL}data-placement="{if $item->depth > $root->depth + 1 || !$dropdown}right{else}bottom{/if}" title="{$item->title}"{/if} href="{$link}"{if strlen($item->htmlTarget) > 0} target="{$item->htmlTarget}"{/if}>{if $item->icon}{icon $item->icon} {/if}{$item->text}</a>
 {/define}
 
-
 	{if $view === 'Edit'}
 		<div n:snippet n:secured="Menu, Edit">
 			{control edit}
 		</div>
 	{/if}
 
-	<ul n:class="(expand) $classes[ul]">
-		{var $depth = $root->depth}
-		{var $prev = $root}
-		{var $link}
-		{var $first = TRUE}
-		{foreach $menu as $item}
-			{continueIf $item->text === NULL || ($item->depth > $root->depth + 1 && $item->parent->text === NULL)}
-			{if $depth < $item->depth && !$first}
-				{if $dropdown}
-					<a {if $prev->title !== NULL}data-placement="{if $prev->depth > $root->depth + 1}right{else}bottom{/if}" title="{$prev->title}"{/if} href="#" class="dropdown-toggle" data-toggle="dropdown">{if $prev->icon}{icon $prev->icon} {/if}{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
-				{else}
+	<div n:snippet="navigation">
+		<ul n:class="(expand) $classes[ul]">
+			{var $depth = $root->depth}
+			{var $prev = $root}
+			{var $link}
+			{var $first = TRUE}
+			{foreach $menu as $item}
+				{continueIf $item->text === NULL || ($item->depth > $root->depth + 1 && $item->parent->text === NULL)}
+				{if $depth < $item->depth && !$first}
+					{if $dropdown}
+						<a {if $prev->title !== NULL}data-placement="{if $prev->depth > $root->depth + 1}right{else}bottom{/if}" title="{$prev->title}"{/if} href="#" class="dropdown-toggle" data-toggle="dropdown">{if $prev->icon}{icon $prev->icon} {/if}{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
+					{else}
+						{include itemLink, item => $prev}
+					{/if}
+					<ul n:class="(expand) $classes[($iterator->first ? ul : sub-ul)]">
+				{elseif !$first}
 					{include itemLink, item => $prev}
+					{str_repeat('</li></ul>', $depth - $item->depth)|noescape}{='</li>'|noescape}
 				{/if}
-				<ul n:class="(expand) $classes[($iterator->first ? ul : sub-ul)]">
-			{elseif !$first}
+				<li n:class="(expand) $classes[li]">
+				{?$depth = $item->depth}
+				{?$prev = $item}
+				{?$first = FALSE}
+			{/foreach}
+			{if $prev !== $root}
 				{include itemLink, item => $prev}
-				{str_repeat('</li></ul>', $depth - $item->depth)|noescape}{='</li>'|noescape}
 			{/if}
-			<li n:class="(expand) $classes[li]">
-			{?$depth = $item->depth}
-			{?$prev = $item}
-			{?$first = FALSE}
-		{/foreach}
-		{if $prev !== $root}
-			{include itemLink, item => $prev}
-		{/if}
-		{str_repeat('</li></ul>', max(0, $depth - $root->depth - 1))|noescape}
-		<li n:secured="Menu, Edit"><a n:href="this, view => Edit">{icon pencil}</a></li>
-	</ul>
+			{str_repeat('</li></ul>', max(0, $depth - $root->depth - 1))|noescape}
+			<li n:secured="Menu, Edit" n:if="$view !== Edit">
+				<a n:href="this, view => Edit" title="{_'menu.panel.editMenu'}" data-placement="bottom">{icon pencil}</a>
+			</li>
+			<li n:secured="Menu, Edit" n:if="$view === Edit">
+				<a n:class="$ajaxEnabled ? ajax" n:href="refresh!" title="{_'menu.panel.refreshMenu'}" data-placement="top">{icon refresh}</a>
+			</li>
+		</ul>
+	</div>

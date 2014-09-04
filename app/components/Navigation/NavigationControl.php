@@ -30,6 +30,8 @@ class NavigationControl extends SecuredControl {
 
 	protected $editFactory;
 
+	protected $menuName;
+
 	protected $menu;
 
 	public $classes = [
@@ -42,6 +44,11 @@ class NavigationControl extends SecuredControl {
 								IEditFactory $editFactory) {
 		$this->menuService = $menuService;
 		$this->editFactory = $editFactory;
+	}
+
+	public function attached($presenter) {
+		parent::attached($presenter);
+		$this->redrawControl(NULL, FALSE);
 	}
 
 	public function enableDropdownCaret() {
@@ -106,8 +113,16 @@ class NavigationControl extends SecuredControl {
 	}
 
 	public function setMenuName($name) {
-		$this->menu = $this->menuService->getByName($name, TRUE);
+		$this->menuName = $name;
 		return $this;
+	}
+
+	protected function getMenu() {
+		if($this->menu === NULL) {
+			$this->menuService->setLocale($this->presenter->getLocale());
+			$this->menu = $this->menuService->getByName($this->menuName, TRUE);
+		}
+		return $this->menu;
 	}
 
 	public function viewDefault() {
@@ -118,11 +133,17 @@ class NavigationControl extends SecuredControl {
 	public function viewEdit() {
 	    
 	}
+
+	/** @secured Menu, Edit */
+	public function handleRefresh() {
+		$this->redrawControl('navigation');
+		$this->go('this');
+	}
     
     public function beforeRender() {
 	    $this->template->classes = $this->classes;
-	    $this->template->root = $this->menu;
-	    $this->template->menu = $this->menuService->getChildren($this->menu, FALSE, 'lft');
+	    $this->template->root = $this->getMenu();
+	    $this->template->menu = $this->menuService->getCachedChildren($this->menu, FALSE, 'lft');
 	    $this->template->dropdownCaret = $this->dropdownCaret;
 	    $this->template->dropdown = $this->dropdown;
     }
@@ -130,7 +151,7 @@ class NavigationControl extends SecuredControl {
 	/** @secured Menu, Edit */
 	protected function createComponentEdit() {
 	    return $this->editFactory->create()
-		    ->setName($this->menu->name);
+		    ->setName($this->getMenu()->name);
 	}
 
 }

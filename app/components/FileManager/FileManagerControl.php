@@ -125,6 +125,11 @@ class FileManagerControl extends FileManagerAbstract {
 		return $this;
 	}
 
+	public function isRootSelected() {
+		$dir = realpath($this->getRoot() . $this->getDirectory());
+		return Zax\Utils\PathHelpers::isEqual($this->getRoot(), $dir);
+	}
+
 	public function __call($method, $args = []) {
 		if(strpos($method, 'enable') === 0) {
 

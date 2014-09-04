@@ -47,10 +47,6 @@ class EditControl extends SecuredControl {
 		return $this['localeSelect']->getLocale();
 	}
 
-	public function close() {
-
-	}
-
 	public function setName($name) {
 		$this->name = $name;
 		return $this;
@@ -61,12 +57,14 @@ class EditControl extends SecuredControl {
 			$this->menuService->setLocale($this->getLocale());
 			$this->menu = $this->menuService->getByName($this->name);
 			$this->menu->setTranslatableLocale($this->getLocale());
+			$this->menuService->refresh($this->menu);
 		}
 		return $this->menu;
 	}
 
 	public function getSelectedMenu() {
 		if($this->selectMenu !== NULL) {
+			$this->menuService->setLocale($this->getLocale());
 			return $this->menuService->get($this->selectMenu);
 		}
 		return $this->getMenu();

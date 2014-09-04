@@ -68,6 +68,8 @@ class EditFormControl extends FormControl {
 			'default' => ['cancel']
 		], TRUE);
 
+		$f->autofocus('content');
+
 		return $f;
 	}
 

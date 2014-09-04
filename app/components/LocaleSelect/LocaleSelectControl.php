@@ -25,4 +25,12 @@ class LocaleSelectControl extends Control {
 		$this->template->locale = $this->presenter->getLocale();
 	}
 
+	public function loadState(array $params) {
+		parent::loadState($params);
+
+		if(isset($params['locale'])) {
+			$this->locale = $params['locale'];
+		}
+	}
+
 }
