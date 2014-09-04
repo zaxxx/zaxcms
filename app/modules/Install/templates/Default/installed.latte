@@ -1,0 +1,30 @@
+{layout '../../../@layout.latte'}
+{define title}{_}system.title.cmsInstaller{/_}{/define}
+
+{define main}
+	<div class="container" style="padding-top:50px">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-primary" n:snippet>
+					<div class="panel-heading">
+						{_}system.title.cmsInstaller{/_}
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="alert alert-success">
+									<span class="pull-left"><span class="glyphicon glyphicon-ok"></span></span>
+									<p class="text-center">
+										Gratuluji, proces instalace je u konce.
+									</p>
+								</div>
+
+								<p class="text-center"><a n:href=":Front:Default:default" class="btn btn-success">Přejít na úvodní stránku <span class="glyphicon glyphicon-arrow-right"></span></a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{/define}

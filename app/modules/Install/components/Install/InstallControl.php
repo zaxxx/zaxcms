@@ -73,8 +73,8 @@ class InstallControl extends Control {
 
 	public function installed() {
 		$this->CMSInstaller->saveInstalledFlag();
-		$this->flashMessage('system.alert.cmsInstalled', 'success');
-		$this->presenter->redirect(':Front:Default:default');
+		$this->CMSInstaller->wipeCache();
+		$this->presenter->redirect('installed');
 	}
     
     public function beforeRender() {

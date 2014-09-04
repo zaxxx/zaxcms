@@ -40,7 +40,7 @@ class Auth extends Nette\Object {
 	 * @throws \ZaxCMS\Security\InvalidPasswordException
 	 * @throws \ZaxCMS\Security\BannedUserException
 	 */
-	public function checkCredentialsByUser(User $user, $password) {
+	public function checkCredentialsByUser(Entity\User $user, $password) {
 		$login = $user->login;
 		/** @var UserLogin $login */
 		if(!Nette\Security\Passwords::verify($password, $login->password)) {
@@ -117,7 +117,7 @@ class Auth extends Nette\Object {
 	 * @param Role $role
 	 * @return User
 	 */
-	public function createUser($email, $name, $password, Role $role, $verified = FALSE) {
+	public function createUser($email, $name, $password, Entity\Role $role, $verified = FALSE) {
 		$user = $this->userService->create();
 		$user->email = $email;
 		$user->name = $name;

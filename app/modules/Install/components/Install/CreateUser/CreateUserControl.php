@@ -29,7 +29,7 @@ class CreateUserControl extends FormControl {
 		$user = $this->loginFacade->createUser($values->email, $values->name, $values->password, $adminRole, TRUE);
 		$loginType = $this->loginFacade->getLoginType();
 		try {
-			$this->user->login(($loginType === Model\LoginFacade::LOGIN_BY_NAME ? $user->name : $user->email), $values->password);
+			$this->user->login(($loginType === Model\CMS\Auth::LOGIN_BY_NAME ? $user->name : $user->email), $values->password);
 			$this->parent->installed();
 		} catch (Nette\Security\AuthenticationException $ex) {
 			$this->flashMessage($ex->getMessage(), 'danger');

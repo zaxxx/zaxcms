@@ -69,15 +69,4 @@ class DatabaseGenerator extends Nette\Object {
 		return $this->schemaTool->getCreateSchemaSql($this->getEntityClasses());
 	}
 
-	public function dropAndGenerate($skip = []) {
-		$classes = $this->getEntityClasses();
-		foreach($classes as $id => $metadata) {
-			if(in_array($metadata->name, $skip)) {
-				unset($classes[$id]);
-			}
-		}
-
-		$this->schemaTool->createSchema($classes);
-	}
-
 }
