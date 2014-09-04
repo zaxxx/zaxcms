@@ -46,7 +46,7 @@ class Menu extends BaseEntity implements Translatable {
 
 	/**
 	 * @Gedmo\Translatable
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=TRUE)
 	 */
 	protected $text;
 

@@ -1,1 +1,1 @@
-<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.05748500 1409795520";}?>CREATE TABLE article (id INT NOT NULL, published_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB
+<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.23156400 1409803179";}?>CREATE TABLE article (id INT NOT NULL, published_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB
