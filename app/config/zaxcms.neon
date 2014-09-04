@@ -24,7 +24,7 @@ services:
     - ZaxCMS\Model\CMS\Service\UserLoginService
     - ZaxCMS\Model\CMS\Service\UserLoginHistoryService
 
-    - ZaxCMS\Model\CMS\AclFactory
+    - ZaxCMS\Model\CMS\AclFactory(%CMSInstalled%)
     - ZaxCMS\Model\CMS\Auth(%loginType%)
 
 ## Router

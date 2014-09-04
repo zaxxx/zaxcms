@@ -19,6 +19,8 @@ class AclFactory extends Nette\Object {
 		'Users' => ['Add', 'Edit', 'Delete']
 	];
 
+	protected $cmsInstalled;
+
 	protected $roleService;
 
 	protected $resourceService;
@@ -29,11 +31,13 @@ class AclFactory extends Nette\Object {
 
 	protected $aclService;
 
-	public function __construct(Service\RoleService $roleService,
+	public function __construct($cmsInstalled,
+	                            Service\RoleService $roleService,
 	                            Service\ResourceService $resourceService,
 	                            Service\PrivilegeService $privilegeService,
 	                            Service\PermissionService $permissionService,
 	                            Service\AclService $aclService) {
+		$this->cmsInstalled = (bool)$cmsInstalled;
 		$this->roleService = $roleService;
 		$this->resourceService = $resourceService;
 		$this->privilegeService = $privilegeService;
@@ -68,6 +72,9 @@ class AclFactory extends Nette\Object {
 
 	/** @return Nette\Security\Permission */
 	public function createNetteAcl() {
+		if(!$this->cmsInstalled) {
+			return new Nette\Security\Permission;
+		}
 		$acl = $this->cache->load('acl');
 		if($acl === NULL) {
 			$acl = new Nette\Security\Permission;

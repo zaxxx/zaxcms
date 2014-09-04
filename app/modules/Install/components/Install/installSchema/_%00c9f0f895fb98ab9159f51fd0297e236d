@@ -1,0 +1,1 @@
+<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.05648500 1409795520";}?>CREATE TABLE menu_permission (menu_id INT NOT NULL, permission_id INT NOT NULL, INDEX IDX_C1E42678CCD7E912 (menu_id), INDEX IDX_C1E42678FED90CCA (permission_id), PRIMARY KEY(menu_id, permission_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB

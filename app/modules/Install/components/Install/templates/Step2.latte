@@ -2,17 +2,31 @@
 {define main}
 	<div class="row">
 		<div class="col-sm-12">
-			<div class="alert alert-danger">
-				<span class="pull-left"><span class="glyphicon glyphicon-warning-sign"></span></span>
+			{if isset($installSteps)}
+				<p>Probíhá instalace, čekejte prosím</p>
+				<p>Dokončeno: {$installStep+1} z {$installSteps+1}</p>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{$installStep}" aria-valuemin="0" aria-valuemax="{$installSteps}" style="width:{intval($installStep/$installSteps*100)}%;"></div>
+				</div>
+				<script type="text/javascript">
+					$.nette.ajax({
+						type: 'POST',
+						url: {if (int)$installStep === (int)$installSteps}{link postInstall!}{else}{link install!, step => $installStep+1}{/if}
+					});
+				</script>
+			{else}
+				<div class="alert alert-danger">
+					<span class="pull-left"><span class="glyphicon glyphicon-warning-sign"></span></span>
+					<p class="text-center">
+						Pozor! Obsahuje-li databáze nějaká data, je dost možné, že o ně v tomto kroku přijdete. Ideálně byste měli instalovat do prázdné databáze.
+					</p>
+				</div>
 				<p class="text-center">
-					Pozor! Obsahuje-li databáze nějaká data, je dost možné, že o ně v tomto kroku přijdete. Ideálně byste měli instalovat do prázdné databáze.
+					<a n:href="prepareInstall!" class="btn btn-primary ajax">
+						<span class="glyphicon glyphicon-save"></span> {_}system.button.installCms{/_}
+					</a>
 				</p>
-			</div>
-			<p class="text-center">
-				<a n:href="install!" class="btn btn-primary">
-					<span class="glyphicon glyphicon-save"></span> {_}system.button.installCms{/_}
-				</a>
-			</p>
+			{/if}
 		</div>
 	</div>
 

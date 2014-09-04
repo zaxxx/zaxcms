@@ -21,14 +21,18 @@ class InstallControl extends Control {
 
 	protected $appDir;
 
+	protected $databaseGenerator;
+
 	public function __construct(ICheckDatabaseFactory $checkDatabaseFactory,
 	                            ICreateUserFactory $createUserFactory,
 	                            Model\CMSInstall\CMSInstaller $CMSInstaller,
+								Model\CMSInstall\DatabaseGenerator $databaseGenerator,
 								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
 								Zax\Utils\AppDir $appDir) {
 		$this->checkDatabaseFactory = $checkDatabaseFactory;
 		$this->createUserFactory = $createUserFactory;
 		$this->CMSInstaller = $CMSInstaller;
+		$this->databaseGenerator = $databaseGenerator;
 		$this->fileManagerFactory = $fileManagerFactory;
 		$this->appDir = $appDir;
 		$this->CMSInstaller->checkIsInstalled();
@@ -49,9 +53,22 @@ class InstallControl extends Control {
 		$this->template->progress = 66;
 	}
 
-	public function handleInstall() {
-		$this->CMSInstaller->install();
-		$this->redirect('this', ['view' => 'Step3']);
+	public function handlePrepareInstall() {
+		$this->CMSInstaller->prepareInstall();
+		$this->go('install!', ['step' => 0]);
+	}
+
+	public function handleInstall($step) {
+		$this->CMSInstaller->install($step);
+		$steps = $this->databaseGenerator->getCachedSqlCount();
+		$this->template->installSteps = $steps;
+		$this->template->installStep = $step;
+		$this->redrawControl();
+	}
+
+	public function handlePostInstall() {
+		$this->CMSInstaller->postInstall();
+		$this->go('this', ['view' => 'Step3']);
 	}
 
 	public function installed() {

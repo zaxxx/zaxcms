@@ -1,0 +1,1 @@
+<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.06048500 1409795520";}?>ALTER TABLE user ADD CONSTRAINT FK_8D93D6495CB2E05D FOREIGN KEY (login_id) REFERENCES user_login (id)

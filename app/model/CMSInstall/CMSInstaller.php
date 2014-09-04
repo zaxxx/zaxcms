@@ -79,13 +79,17 @@ class CMSInstaller extends Nette\Object {
 		file_put_contents($file, Nette\Neon\Neon::encode($config, Nette\Neon\Encoder::BLOCK));
 	}
 
-	public function install() {
-
+	public function prepareInstall() {
 		$this->checkIsInstalled();
-
 		$this->wipeCache();
+		$this->generator->dropSchema();
+	}
 
-		$this->generateDatabase();
+	public function install($step) {
+		$this->generator->runSqlFromCache($step);
+	}
+
+	public function postInstall() {
 		$this->buildAcl();
 		$this->buildMenu();
 	}
