@@ -17,12 +17,7 @@ class ArticlesControl extends Zax\Components\Collection\PaginatedCollectionContr
 	}
 
 	public function getResultSet() {
-		$query = $this->pageService->createQueryBuilder()
-			->select('a')
-			->from(Model\CMS\Entity\Page::getClassName(), 'a')
-			->getQuery();
-		$rs = new Kdyby\Doctrine\ResultSet($query);
-		return $rs;
+		return $this->pageService->fetchQueryObject(new Model\CMS\Query\PageQuery);
 	}
 
     public function viewDefault() {

@@ -82,6 +82,10 @@ abstract class Service extends Nette\Object implements IService {
 		$this->entityManager->refresh($entity);
 	}
 
+	public function fetchQueryObject($queryObject) {
+		return $this->getRepository()->fetch($queryObject);
+	}
+
 	public function __call($method, $args = []) {
 		return call_user_func_array([$this->entityManager, $method], $args);
 	}
