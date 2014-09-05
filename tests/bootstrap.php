@@ -5,7 +5,11 @@ require_once __DIR__ . '/../zax/Bootstraps/Bootstrap.php';
 
 Tester\Environment::setup();
 
-$container = (new Zax\Bootstraps\Bootstrap(__DIR__ . '/../app', __DIR__ . '/../'))
+function isWindows() {
+	return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+}
+
+$container = (new Zax\Bootstraps\Bootstrap(__DIR__ . '/../app', __DIR__ . '/../', __DIR__ . '/temp'))
 	->enableConfigAutoload()
 	->addConfig(__DIR__ . '/config/config.neon')
 	->addLoaderPath(__DIR__ . '/zaxcms')

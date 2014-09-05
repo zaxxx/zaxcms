@@ -23,6 +23,10 @@ pub/combined/default/*
 # Upload folder
 upload/*
 
+# Tests
+tests/php.win.ini
+tests/temp/*
+
 # IDE
 .idea/*
 

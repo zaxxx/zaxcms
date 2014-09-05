@@ -51,8 +51,7 @@ class PathHelpersTest extends Tester\TestCase {
 	public function testGetParentDir() {
 		Assert::same('/foo', PathHelpers::getParentDir('/foo\bar'));
 		Assert::same('/foo', PathHelpers::getParentDir('/foo/bar'));
-		Assert::same('/foo\bar', PathHelpers::getParentDir('/foo\bar/lorem'));
-		Assert::same('\foo/bar', PathHelpers::getParentDir('\foo/bar\lorem'));
+		Assert::same(isWindows() ? '/foo\bar' : '/foo/bar', PathHelpers::getParentDir('/foo\bar/lorem'));
 	}
 
 	public function testIsEqual() {
@@ -69,8 +68,8 @@ class PathHelpersTest extends Tester\TestCase {
 	}
 
 	public function testRename() {
-		Assert::same('/foo/bar/xxx.txt', PathHelpers::rename('/foo/bar/file.txt', 'xxx.txt'));
-		Assert::same('/foo/bar\xxx.txt', PathHelpers::rename('/foo/bar\file.txt', 'xxx.txt'));
+		Assert::same(isWindows() ? '/foo/bar\xxx.txt' : '/foo/bar/xxx.txt', PathHelpers::rename('/foo/bar/file.txt', 'xxx.txt'));
+		Assert::same(isWindows() ? '/foo/bar\xxx.txt' : '/foo/bar/xxx.txt', PathHelpers::rename('/foo/bar\file.txt', 'xxx.txt'));
 	}
 
 	public function testGetPath() {

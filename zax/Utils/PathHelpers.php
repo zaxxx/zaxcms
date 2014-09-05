@@ -41,12 +41,12 @@ class PathHelpers extends Nette\Object {
 	 * @return mixed
 	 */
 	static public function getName($dir) {
-		$ex = explode(strrpos($dir, '/') > strrpos($dir, '\\') ? '/' : '\\', $dir);
-		return count($ex) === 0 ? $dir : $ex[count($ex)-1];
+		return pathinfo($dir, PATHINFO_BASENAME);
 	}
 
 	/**
 	 * @param $dir
+	 * @param $syntaxOnly
 	 * @return int
 	 */
 	static public function getDepth($dir, $syntaxOnly = FALSE) {
@@ -63,7 +63,7 @@ class PathHelpers extends Nette\Object {
 	 * @return string
 	 */
 	static public function getPath($basePath, $rootDir, $file) {
-		return $basePath . str_replace(realpath($rootDir), '', $file->getRealPath());
+		return $basePath . str_replace('\\', '/', str_replace(realpath($rootDir), '', $file->getRealPath()));
 	}
 
 	/**
@@ -71,7 +71,7 @@ class PathHelpers extends Nette\Object {
 	 * @return string
 	 */
 	static public function getParentDir($dir) {
-		return rtrim(self::rename($dir, ''), '\\\/');
+		return pathinfo($dir, PATHINFO_DIRNAME);
 	}
 
 	/**
@@ -80,13 +80,7 @@ class PathHelpers extends Nette\Object {
 	 * @return mixed
 	 */
 	static public function rename($path, $newName) {
-		$name = self::getName($path);
-		if(($pos = strrpos($path, $name)) !== FALSE) {
-			$sl = strlen($name);
-			$rep = substr_replace($path, $newName, $pos, $sl);
-			return $rep;
-		}
-		return $path;
+		return pathinfo($path, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR . $newName;
 	}
 
 }

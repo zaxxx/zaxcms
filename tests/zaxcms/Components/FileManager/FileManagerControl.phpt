@@ -37,7 +37,7 @@ class FileManagerControlTest extends Tester\TestCase {
 		Assert::same($this->testsDir, $fileManager->getAbsoluteDirectory());
 
 		$fileManager->setDirectory('/config');
-		Assert::same($this->testsDir . '/config', $fileManager->getAbsoluteDirectory());
+		Assert::same($this->testsDir . (isWindows() ? '\config' : '/config'), $fileManager->getAbsoluteDirectory());
 		Assert::same('/config', $fileManager->getDirectory());
 
 		Assert::same($fileManager, $fileManager->getFileManager());
@@ -55,7 +55,7 @@ class FileManagerControlTest extends Tester\TestCase {
 		Assert::same($this->testsDir, $directoryList->getAbsoluteDirectory());
 
 		$fileManager->setDirectory('/config');
-		Assert::same($this->testsDir . '/config', $directoryList->getAbsoluteDirectory());
+		Assert::same($this->testsDir . (isWindows() ? '\config' : '/config'), $directoryList->getAbsoluteDirectory());
 
 		Assert::same($fileManager, $directoryList->getFileManager());
 
@@ -80,7 +80,7 @@ class FileManagerControlTest extends Tester\TestCase {
 		Assert::same($this->testsDir, $fileList->getAbsoluteDirectory());
 
 		$fileManager->setDirectory('/config');
-		Assert::same($this->testsDir . '/config', $fileList->getAbsoluteDirectory());
+		Assert::same($this->testsDir . (isWindows() ? '\config' : '/config'), $fileList->getAbsoluteDirectory());
 
 		Assert::same($fileManager, $fileList->getFileManager());
 
