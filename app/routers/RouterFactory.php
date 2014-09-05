@@ -41,6 +41,11 @@ class RouterFactory extends Nette\Object {
 		    'presenter' => 'Page',
 		    'action' => 'default'
 	    ]);
+
+	    $r[] = new Route($ls . 'articles[/page-<p>]', Route::meta('Front:Articles', 'default', [
+		    'p' => 'articles-paginator-page'
+	    ]));
+
         $r[] = new Route($ls . '[<module=Front>][/<presenter>[/<action>]]', [
 	        'presenter' => 'Default',
 	        'action' => 'default'

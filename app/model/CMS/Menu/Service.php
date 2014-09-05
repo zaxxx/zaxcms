@@ -23,7 +23,6 @@ class MenuService extends Zax\Model\Service {
 		$this->entityClassName = Entity\Menu::getClassName();
 	}
 
-	/** @return MenuTreeRepository */
 	public function getRepository() {
 		return parent::getRepository()->setLocale($this->getLocale());
 	}
@@ -45,13 +44,6 @@ class MenuService extends Zax\Model\Service {
 
 	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
 		$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
-		return $children;
-	}
-
-	public function getCachedChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
-		$this->getRepository()->useCache = TRUE;
-		$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
-		$this->getRepository()->useCache = FALSE;
 		return $children;
 	}
 

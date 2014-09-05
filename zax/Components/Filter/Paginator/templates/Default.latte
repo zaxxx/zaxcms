@@ -1,0 +1,5 @@
+<ul class="pagination" n:inner-for="$i = max(1, $paginator->page - 2); $i <= $paginator->page + 2 && $i <= $paginator->pageCount; $i++">
+	<li n:class="$paginator->page === $i ? active">
+		<a n:class="$ajaxEnabled ? ajax" n:href="this, page => $i">{$i}</a>
+	</li>
+</ul>

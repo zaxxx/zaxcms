@@ -50,6 +50,8 @@ class SetDatabaseControl extends FormControl {
 
 	    $f->enableBootstrap(['primary' => ['test']]);
 
+	    $f->autofocus('host');
+
 	    return $f;
     }
     

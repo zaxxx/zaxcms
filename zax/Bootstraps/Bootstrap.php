@@ -229,7 +229,7 @@ class Bootstrap implements Zax\IBootstrap {
 			$files = $cache->load('configFiles');
 			if($files === NULL) {
 				$files = [];
-				foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir) as $path => $file) {
+				foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir, $this->rootDir . '/zax') as $path => $file) {
 					$files[] = $path;
 				}
 				$cache->save('configFiles', $files);

@@ -8,4 +8,4 @@ class LocaleNotSetException extends Nette\InvalidStateException {}
 
 class CMSInstalledException extends Nette\Application\ForbiddenRequestException {}
 
-class MissingEntityNameException extends Nette\InvalidStateException {}
+class MissingEntityClassNameException extends Nette\InvalidStateException {}

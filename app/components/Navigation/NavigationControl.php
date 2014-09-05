@@ -143,7 +143,7 @@ class NavigationControl extends SecuredControl {
     public function beforeRender() {
 	    $this->template->classes = $this->classes;
 	    $this->template->root = $this->getMenu();
-	    $this->template->menu = $this->menuService->getCachedChildren($this->menu, FALSE, 'lft');
+	    $this->template->menu = $this->menuService->getChildren($this->menu, FALSE, 'lft');
 	    $this->template->dropdownCaret = $this->dropdownCaret;
 	    $this->template->dropdown = $this->dropdown;
     }

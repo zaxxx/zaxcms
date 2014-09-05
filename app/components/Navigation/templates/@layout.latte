@@ -1,6 +1,6 @@
 
 {define itemLink}
-	{var $link = $item->nhref !== NULL && $item->nhrefParams !== NULL ? $presenter->link($item->nhref, $item->nhrefParams) : ($item->nhref !== NULL ? $presenter->link($item->nhref) : $item->href)}
+	{var $link = $item->nhref !== NULL && $item->nhrefParams !== NULL && count($item->nhrefParams) > 0 ? $presenter->link($item->nhref, $item->nhrefParams) : ($item->nhref !== NULL ? $presenter->link($item->nhref) : $item->href)}
 	<a {if $item->title !== NULL}data-placement="{if $item->depth > $root->depth + 1 || !$dropdown}right{else}bottom{/if}" title="{$item->title}"{/if} href="{$link}"{if strlen($item->htmlTarget) > 0} target="{$item->htmlTarget}"{/if}>{if $item->icon}{icon $item->icon} {/if}{$item->text}</a>
 {/define}
 

@@ -2,9 +2,14 @@
 
 namespace Zax\Model;
 use ZaxCMS,
+	Doctrine,
 	Kdyby,
 	Nette;
 
+/**
+ * @method Kdyby\Doctrine\QueryBuilder createQueryBuilder()
+ * @method Doctrine\ORM\Query createQuery()
+ */
 abstract class Service extends Nette\Object implements IService {
 
 	protected $entityClassName;
@@ -75,6 +80,10 @@ abstract class Service extends Nette\Object implements IService {
 
 	public function refresh($entity) {
 		$this->entityManager->refresh($entity);
+	}
+
+	public function __call($method, $args = []) {
+		return call_user_func_array([$this->entityManager, $method], $args);
 	}
 
 } 

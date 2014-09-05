@@ -58,6 +58,8 @@ class CreateUserControl extends FormControl {
 
 		$f->enableBootstrap(['success' => ['createUser']]);
 
+		$f->autofocus('name');
+
 		return $f;
 	}
 
