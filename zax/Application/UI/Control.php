@@ -276,17 +276,6 @@ abstract class Control extends Nette\Application\UI\Control {
 		return dirname($this->reflection->fileName) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $view . (strlen($render) > 0 ? '.' . $render : '') . '.latte';
 	}
 
-	/**
-	 * Template helpers factory
-	 *
-	 * @return Zax\Latte\Helpers
-	 */
-	protected function createTemplateHelpers() {
-		$helpers = new Zax\Latte\Helpers;
-		$helpers->setTranslator($this->getTranslator());
-		return $helpers;
-	}
-
 	/* TODO: some stuff for Texy ;-)
 	 public function netteLinksHandler($invocation, $phrase, $content, $modifier, $link) {
 		if (!$link) return $invocation->proceed();
@@ -317,14 +306,6 @@ abstract class Control extends Nette\Application\UI\Control {
 		return $this->translator === NULL ? $this->presenter->translator : $this->translator;
 	}
 
-	public function templatePrepareFilters($template) {
-		parent::templatePrepareFilters($template);
-
-		$latte = $template->getLatte();
-		$latteIcons = new Zax\Html\Icons\LatteIcons($this->icons);
-		$latteIcons->install($latte);
-	}
-
 	/**
 	 * Template factory
 	 *
@@ -333,16 +314,8 @@ abstract class Control extends Nette\Application\UI\Control {
 	public function createTemplate() {
 		$this->checkView($this->view);
 		$template = parent::createTemplate();
-		$template->setTranslator($this->getTranslator());
-		$template->currentLocale = $this->getLocale();
-		$template->availableLocales = $this->getAvailableLocales();
-		$helpers = $this->createTemplateHelpers();
-		$template->getLatte()->addFilter(NULL, [$helpers, 'loader']);
 		$texy = $this->createTexy();
 		$template->getLatte()->addFilter('texy', [$texy, 'process']);
-		$template->ajaxEnabled = $this->ajaxEnabled;
-		$template->view = $this->view;
-		$template->icons = $this->icons;
 		return $template;
 	}
 

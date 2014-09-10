@@ -1,6 +1,8 @@
 ### Zax framework services and components ###
 
 services:
+    nette.templateFactory: Zax\Latte\TemplateFactory
+    
     - Zax\Application\UI\SnippetGenerators\ShortSnippetGenerator
 
     -

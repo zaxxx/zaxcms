@@ -36,30 +36,6 @@ abstract class Presenter extends Nette\Application\UI\Presenter {
 	}
 
 	/**
-	 * Template helpers factory
-	 *
-	 * @return Zax\Latte\Helpers
-	 */
-	protected function createTemplateHelpers() {
-		return new Zax\Latte\Helpers;
-	}
-
-	/**
-	 * Template factory
-	 *
-	 * @return Nette\Application\UI\ITemplate
-	 */
-	public function createTemplate() {
-		$template = parent::createTemplate();
-		$template->setTranslator($this->translator);
-		$template->currentLocale = $this->getLocale();
-		$template->availableLocales = $this->getAvailableLocales();
-		$helpers = $this->createTemplateHelpers();
-		$template->getLatte()->addFilter(NULL, [$helpers, 'loader']);
-		return $template;
-	}
-
-	/**
 	 * Additionally redraws snippet with flash messages.
 	 *
 	 * @param        $message
