@@ -40,7 +40,7 @@ class User extends BaseEntity {
 	protected $email;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Role")
+	 * @ORM\ManyToOne(targetEntity="Role", inversedBy="users")
 	 * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
 	 */
 	protected $role;

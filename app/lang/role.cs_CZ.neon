@@ -1,0 +1,7 @@
+form:
+    inheritsFrom: "Dědí z"
+button:
+    addRole: "Přidat roli"
+    editRole: "Upravit roli"
+    deleteRole: "Odstranit roli"
+    permissions: "Oprávnění"

@@ -1,0 +1,24 @@
+<div class="row" n:snippet>
+	<div class="col-sm-4">
+		{var $depth = $guestRole->depth-1}
+		{foreach $roles as $role}
+		{if $depth < $role->depth}<ul class="list-group">{else}{str_repeat('</li></ul>', $depth - $role->depth)|noescape}{='</li>'|noescape}{/if}
+			<li class="list-group-item">
+				<span class="pull-right">
+					<a n:if="$role->canBeInheritedFrom()" n:class="btn, $ajaxEnabled ? ajax, $view === Add && $control->selectRole == $role->id ? btn-primary" href="{$control->link(this, [selectRole => $role->id, view => Add])}" title="{_'role.button.addRole'}">{icon plus}</a>
+					<a n:if="!$role->hasReadOnlyPermissions()" n:class="btn, $ajaxEnabled ? ajax, $view === Permissions && $control->selectRole == $role->id ? btn-primary" href="{$control->link(this, [selectRole => $role->id, view => Permissions])}" title="{_'role.button.permissions'}">{icon lock}</a>
+					<a n:if="$role->canBeDeleted()" n:class="btn, $ajaxEnabled ? ajax, $view === Delete && $control->selectRole == $role->id ? btn-primary" href="{$control->link(this, [selectRole => $role->id, view => Delete])}" title="{_'role.button.deleteRole'}">{icon trash}</a>
+					<a n:class="btn, $ajaxEnabled ? ajax, $view === Edit && $control->selectRole == $role->id ? btn-primary" href="{$control->link(this, [selectRole => $role->id, view => Edit])}" title="{_'role.button.editRole'}">{icon pencil}</a>
+				</span>
+				<strong>{$role->displayName}</strong>
+				<p class="text-muted">{$role->description}</p>
+
+				<div class="clearfix"></div>
+				{?$depth = $role->depth}
+				{/foreach}
+				{str_repeat('</li></ul>', $depth-($guestRole->depth-1))|noescape}
+	</div>
+	<div class="col-sm-8">
+		{include #content}
+	</div>
+</div>

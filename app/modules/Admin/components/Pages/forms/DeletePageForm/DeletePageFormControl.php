@@ -38,18 +38,17 @@ class DeletePageFormControl extends FormControl {
 		$f->addButtonSubmit('deleteItem', 'common.button.delete', 'trash');
 		$f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
 		$f->enableBootstrap(['danger' => ['deleteItem'], 'default' => ['cancel']], TRUE, 3, 'sm', 'form-inline');
-		if($this->ajaxEnabled) {
-			$f->enableAjax();
-		}
 		return $f;
 	}
 
 	public function formSuccess(Form $form, $values) {
-		$this->pageService->remove($this->page);
-		$this->pageService->flush();
+		if($form->submitted === $form['deleteItem']) {
+			$this->pageService->remove($this->page);
+			$this->pageService->flush();
 
-		$this->flashMessage('common.alert.entryDeleted', 'success');
-		$this->parent->go('this', ['view' => 'Default']);
+			$this->flashMessage('common.alert.entryDeleted', 'success');
+			$this->parent->go('this', ['view' => 'Default']);
+		}
 	}
 
 	public function formError(Form $form) {

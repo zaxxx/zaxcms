@@ -24,6 +24,10 @@ use Zax,
  */
 class Role extends BaseEntity {
 
+	const GUEST_ROLE = 0,
+			USER_ROLE = 1,
+			ADMIN_ROLE = 2;
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -45,6 +49,11 @@ class Role extends BaseEntity {
 	 * @ORM\Column(type="string", length=255, nullable=TRUE)
 	 */
 	protected $description;
+
+	/**
+	 * @ORM\Column(type="integer", length=1, nullable=TRUE)
+	 */
+	protected $special;
 
 	/**
 	 * @Gedmo\TreeLeft
@@ -81,5 +90,26 @@ class Role extends BaseEntity {
 	 * @ORM\OneToMany(targetEntity="Role", mappedBy="parent")
 	 */
 	protected $children;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="User", mappedBy="role")
+	 */
+	protected $users;
+
+	public function canBeDeleted() {
+		return $this->special === NULL;
+	}
+
+	public function hasReadOnlyPermissions() {
+		return $this->special === self::ADMIN_ROLE;
+	}
+
+	public function canInherit() {
+		return $this->special !== self::GUEST_ROLE;
+	}
+
+	public function canBeInheritedFrom() {
+		return $this->special !== self::ADMIN_ROLE;
+	}
 
 }

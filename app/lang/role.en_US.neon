@@ -1,0 +1,7 @@
+form:
+    inheritsFrom: "Inherits from"
+button:
+    addRole: "Add role"
+    editRole: "Edit role"
+    deleteRole: "Delete role"
+    permissions: "Permissions"

@@ -1,0 +1,5 @@
+services:
+    - ZaxCMS\AdminModule\Components\Roles\IRolesFactory
+    - ZaxCMS\AdminModule\Components\Roles\IAddRoleFormFactory
+    - ZaxCMS\AdminModule\Components\Roles\IEditRoleFormFactory
+    - ZaxCMS\AdminModule\Components\Roles\IDeleteRoleFormFactory

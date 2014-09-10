@@ -15,10 +15,11 @@ class RoleService extends Zax\Model\Service {
 		$this->entityClassName = Entity\Role::getClassName();
 	}
 
-	public function createRole($name, $displayName, Entity\Role $parent = NULL) {
+	public function createRole($name, $displayName, Entity\Role $parent = NULL, $special = NULL) {
 		$role = $this->create();
 		$role->name = $name;
 		$role->displayName = $displayName;
+		$role->special = $special;
 		if($parent === NULL) {
 			$this->persist($role);
 		} else {
@@ -28,9 +29,9 @@ class RoleService extends Zax\Model\Service {
 	}
 
 	public function createDefaultRoles() {
-		$guest = $this->createRole('guest', 'Anonymous user');
-		$user = $this->createRole('user', 'Registered user', $guest);
-		$admin = $this->createRole('admin', 'Site admin', $user);
+		$guest = $this->createRole('guest', 'Anonymous user', NULL, Entity\Role::GUEST_ROLE);
+		$user = $this->createRole('user', 'Registered user', $guest, Entity\Role::USER_ROLE);
+		$admin = $this->createRole('admin', 'Site admin', $user, Entity\Role::ADMIN_ROLE);
 		$this->flush();
 	}
 
@@ -48,6 +49,11 @@ class RoleService extends Zax\Model\Service {
 
 	public function getAdminRole() {
 		return $this->getByName('admin');
+	}
+
+	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
+		$children = $this->getRepository()->getChildren($node, $direct, $sortByField, $direction, $includeNode);
+		return $children;
 	}
 
 }

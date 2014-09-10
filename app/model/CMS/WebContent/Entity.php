@@ -13,9 +13,6 @@ use Zax,
 
 /**
  * @ORM\Entity
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"wc" = "WebContent", "ar" = "Article"})
  *
  * @property-read int $id
  * @property string $name

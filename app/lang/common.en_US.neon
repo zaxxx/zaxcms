@@ -17,6 +17,9 @@ form:
     uniqueName: "Unique name"
     title: "Title"
     displayText: "Displayed text"
+    internalName: "Internal name"
+    displayName: "Displayed name"
+    description: "Description"
     confirmDelete: "Do you really want to delete this item?"
     advancedOptions: "Show advanced options"
 alert:

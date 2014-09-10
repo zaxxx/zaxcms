@@ -18,6 +18,9 @@ form:
     uniqueName: "Unikátní název"
     title: "Titulek"
     displayText: "Zobrazený text"
+    internalName: "Vnitřní název"
+    displayName: "Zobrazený název"
+    description: "Popis"
     confirmDelete: "Opravdu chcete odstranit tuto položku?"
     advancedOptions: "Zobrazit pokročilé volby"
 alert:
