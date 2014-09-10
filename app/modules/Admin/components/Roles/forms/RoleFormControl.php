@@ -61,6 +61,7 @@ abstract class RoleFormControl extends FormControl {
     public function formSuccess(Form $form, $values) {
 	    if($form->submitted === $form['saveRole']) {
 		    $this->binder->formToEntity($form, $this->role);
+		    $this->role->setTranslatableLocale($this->parent['localeSelect']->getLocale());
 		    try {
 		        $this->roleService->persist($this->role);
 			    $this->roleService->flush();

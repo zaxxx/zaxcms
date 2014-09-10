@@ -5,3 +5,5 @@ button:
     editRole: "Upravit roli"
     deleteRole: "Odstranit roli"
     permissions: "Oprávnění"
+panel:
+    roles: "Role"

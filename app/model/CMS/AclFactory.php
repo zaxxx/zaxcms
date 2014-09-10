@@ -57,7 +57,6 @@ class AclFactory extends Nette\Object {
 	}
 
 	public function createDefaultAcl() {
-		$this->roleService->createDefaultRoles();
 		$this->resourceService->createDefaultResources();
 		$this->privilegeService->createDefaultPrivileges();
 		$this->createDefaultPermissions();

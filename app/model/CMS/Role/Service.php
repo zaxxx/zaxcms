@@ -10,45 +10,29 @@ use Zax,
 
 class RoleService extends Zax\Model\Service {
 
+	use Zax\Traits\TTranslatable;
+
+	protected $locale;
+
 	public function __construct(Kdyby\Doctrine\EntityManager $entityManager) {
 		parent::__construct($entityManager);
 		$this->entityClassName = Entity\Role::getClassName();
 	}
 
-	public function createRole($name, $displayName, Entity\Role $parent = NULL, $special = NULL) {
-		$role = $this->create();
-		$role->name = $name;
-		$role->displayName = $displayName;
-		$role->special = $special;
-		if($parent === NULL) {
-			$this->persist($role);
-		} else {
-			$this->getRepository()->persistAsLastChildOf($role, $parent);
-		}
-		return $role;
-	}
-
-	public function createDefaultRoles() {
-		$guest = $this->createRole('guest', 'Anonymous user', NULL, Entity\Role::GUEST_ROLE);
-		$user = $this->createRole('user', 'Registered user', $guest, Entity\Role::USER_ROLE);
-		$admin = $this->createRole('admin', 'Site admin', $user, Entity\Role::ADMIN_ROLE);
-		$this->flush();
-	}
-
-	public function getByName($name) {
-		return $this->getBy(['name' => $name]);
+	public function getRepository() {
+		return parent::getRepository()->setLocale($this->getLocale());
 	}
 
 	public function getGuestRole() {
-		return $this->getByName('guest');
+		return $this->getBy(['special' => Entity\Role::GUEST_ROLE]);
 	}
 
 	public function getUserRole() {
-		return $this->getByName('user');
+		return $this->getBy(['special' => Entity\Role::USER_ROLE]);
 	}
 
 	public function getAdminRole() {
-		return $this->getByName('admin');
+		return $this->getBy(['special' => Entity\Role::ADMIN_ROLE]);
 	}
 
 	public function getChildren($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {

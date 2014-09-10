@@ -3,6 +3,7 @@
 namespace ZaxCMS\AdminModule\Components\Roles;
 use Nette,
     Zax,
+	ZaxCMS,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
@@ -21,14 +22,18 @@ class RolesControl extends Control {
 
 	protected $deleteRoleFormFactory;
 
+	protected $localeSelectFactory;
+
 	public function __construct(Model\CMS\Service\RoleService $roleService,
 	                            IAddRoleFormFactory $addRoleFormFactory,
 								IEditRoleFormFactory $editRoleFormFactory,
-								IDeleteRoleFormFactory $deleteRoleFormFactory) {
+								IDeleteRoleFormFactory $deleteRoleFormFactory,
+								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
 		$this->roleService = $roleService;
 		$this->addRoleFormFactory = $addRoleFormFactory;
 		$this->editRoleFormFactory = $editRoleFormFactory;
 		$this->deleteRoleFormFactory = $deleteRoleFormFactory;
+		$this->localeSelectFactory = $localeSelectFactory;
 	}
 
     public function viewDefault() {
@@ -36,11 +41,16 @@ class RolesControl extends Control {
     }
 
 	protected function getSelectedRole() {
+		$this->roleService->setLocale($this['localeSelect']->getLocale());
 		return $this->roleService->get($this->selectRole);
 	}
     
     public function beforeRender() {
-	    $this->template->guestRole = $guest = $this->roleService->getGuestRole();
+	    $this->roleService->setLocale($this['localeSelect']->getLocale());
+	    $guest = $this->roleService->getGuestRole();
+	    $guest->setTranslatableLocale($this['localeSelect']->getLocale());
+	    $this->roleService->refresh($guest);
+	    $this->template->guestRole = $guest;
 	    $this->template->roles = $this->roleService->getChildren($guest, FALSE, NULL, 'ASC', TRUE);
     }
 
@@ -58,6 +68,10 @@ class RolesControl extends Control {
 
 	public function viewAdd() {
 
+	}
+
+	protected function createComponentLocaleSelect() {
+	    return $this->localeSelectFactory->create();
 	}
 
 	protected function createComponentEditRoleForm() {

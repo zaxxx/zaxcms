@@ -16,6 +16,8 @@ class CMSInstaller extends Nette\Object {
 
 	protected $menuInstall;
 
+	protected $roleInstaller;
+
 	protected $appDir;
 
 	protected $tempDir;
@@ -26,12 +28,14 @@ class CMSInstaller extends Nette\Object {
 								DatabaseGenerator $generator,
 								Model\CMS\AclFactory $aclFacade,
 								MenuInstaller $menuInstall,
+								RoleInstaller $roleInstaller,
 								Zax\Utils\AppDir $appDir,
 								Zax\Utils\TempDir $tempDir) {
 		$this->installed = $installed;
 		$this->generator = $generator;
 		$this->aclFacade = $aclFacade;
 		$this->menuInstall = $menuInstall;
+		$this->roleInstaller = $roleInstaller;
 		$this->appDir = $appDir;
 		$this->tempDir = $tempDir;
 	}
@@ -51,6 +55,10 @@ class CMSInstaller extends Nette\Object {
 
 	protected function generateDatabase() {
 		$this->generator->dropAndGenerate();
+	}
+
+	protected function buildRoles() {
+		$this->roleInstaller->createDefaultRoles();
 	}
 
 	protected function buildAcl() {
@@ -90,6 +98,7 @@ class CMSInstaller extends Nette\Object {
 	}
 
 	public function postInstall() {
+		$this->buildRoles();
 		$this->buildAcl();
 		$this->buildMenu();
 	}

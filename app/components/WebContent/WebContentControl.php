@@ -17,19 +17,10 @@ class WebContentControl extends SecuredControl {
 
 	use Zax\Traits\TCacheable;
 
-	/**
-	 * @var Model\WebContentService
-	 */
 	protected $webContentService;
 
-	/**
-	 * @var Model\WebContent
-	 */
 	protected $webContent;
 
-	/**
-	 * @var IEditFactory
-	 */
 	protected $editFactory;
 
 	/**
@@ -37,10 +28,6 @@ class WebContentControl extends SecuredControl {
 	 */
 	protected $name;
 
-	/**
-	 * @param Model\WebContentService $webContentService
-	 * @param IEditFactory            $editFactory
-	 */
 	public function __construct(Model\CMS\Service\WebContentService $webContentService,
 								IEditFactory $editFactory) {
 		$this->webContentService = $webContentService;
@@ -76,9 +63,6 @@ class WebContentControl extends SecuredControl {
 		}
 	}
 
-	/**
-	 * @return null|Model\WebContent
-	 */
 	public function getWebContent() {
 		if($this->webContent === NULL) {
 			$this->loadWebContent();
@@ -87,10 +71,6 @@ class WebContentControl extends SecuredControl {
 		return $this->webContent;
 	}
 
-	/**
-	 * @param Model\WebContent $webContent
-	 * @return $this
-	 */
 	public function setWebContent(Model\CMS\Entity\WebContent $webContent) {
 		$this->webContent = $webContent;
 		return $this;

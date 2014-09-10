@@ -1,3 +1,26 @@
 {layout './@layout.latte'}
 
-{define content}{/define}
+{define content}
+	{if $control->locale === 'en_US'}
+		<h4>Roles and permissions:</h4>
+
+		<ul>
+			<li>Permissions are assigned to roles, not users.</li>
+			<li>Every user has a role, "visitor" role is automatically applied to anonymous visitors.</li>
+			<li>All roles must be children of "visitor", role "administrator" must not have any children.</li>
+			<li>What is not explicitly allowed is forbidden.</li>
+			<li>Rules are inherited from parent roles, it's possible to override them though.</li>
+		</ul>
+	{else}
+		<h4>Role a oprávnění v kostce:</h4>
+
+		<ul>
+			<li>Pravidla se nastavují na role, nikoliv na uživatele.</li>
+			<li>Každý uživatel má nastavenou jednu roli, role "návštěvník" se automaticky přiřazuje nepřihlášeným uživatelům.</li>
+			<li>Všechny role musí být potomky role "návštěvník", role "administrátor" nesmí mít žádné potomky.</li>
+			<li>Co není explicitně povoleno, je zakázáno.</li>
+			<li>Pravidla se dědi z nadřazené role, je však možné je přepsat.</li>
+		</ul>
+	{/if}
+
+{/define}

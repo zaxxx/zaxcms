@@ -1,1 +1,1 @@
-<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.23156400 1409803179";}?>CREATE TABLE article (id INT NOT NULL, published_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB
+<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.34035600 1410362906";}?>CREATE TABLE user_login_history (id INT AUTO_INCREMENT NOT NULL, user_login_id INT DEFAULT NULL, time_at DATETIME NOT NULL, INDEX IDX_D919C366BC3F045D (user_login_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB
