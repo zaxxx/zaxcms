@@ -44,6 +44,10 @@ abstract class StaticLinkerAbstract extends Control implements ILinker {
 	 */
 	abstract protected function getExtension();
 
+	protected function getOutputExtension() {
+		return $this->getExtension();
+	}
+
 	/**
 	 * @param Nette\Http\Request $request
 	 */
@@ -107,7 +111,7 @@ abstract class StaticLinkerAbstract extends Control implements ILinker {
 	 * @return string
 	 */
 	protected function makeFileName() {
-		return 'c-' . substr(md5(implode('-', $this->files) . time()), 5, 5) . '.' . $this->getExtension();
+		return 'c-' . substr(md5(implode('-', $this->files) . time()), 5, 5) . '.' . $this->getOutputExtension();
 	}
 
 	/**

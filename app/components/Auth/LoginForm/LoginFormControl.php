@@ -63,8 +63,6 @@ class LoginFormControl extends FormControl {
     public function createForm() {
         $f = parent::createForm();
 
-	    $po = $this->placeholdersOnly;
-
 	    $loginLabel = 'auth.form.' .
 		    ($this->loginFacade->getLoginType() === Model\CMS\Auth::LOGIN_BY_EMAIL ? 'email' : 'username');
 

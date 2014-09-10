@@ -98,11 +98,7 @@ class ControlTest extends Tester\TestCase {
 	}
 
 	private function tp($name) {
-		if(isWindows()) {
-			return dirname($this->control->reflection->fileName) . '\templates\\' . $name . '.latte';
-		} else {
-			return dirname($this->control->reflection->fileName) . '/templates/' . $name . '.latte';
-		}
+		return dirname($this->control->reflection->fileName) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $name . '.latte';
 	}
 
 }

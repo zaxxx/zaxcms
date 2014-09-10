@@ -83,4 +83,8 @@ class PathHelpers extends Nette\Object {
 		return pathinfo($path, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR . $newName;
 	}
 
+	static public function getExtension($path) {
+		return pathinfo($path, PATHINFO_EXTENSION);
+	}
+
 }

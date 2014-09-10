@@ -45,10 +45,11 @@ class EditFormControl extends FormControl {
 			->addFilter(function($value) {
 				return $this->getWebContent()->lastUpdated === NULL
 					? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never'))
-					: $this->createTemplateHelpers()->beautifulDateTime($this->getWebContent()->lastUpdated);
+					: $this->presenter->getTemplateFactory()->createTemplateHelpers($this->translator)->beautifulDateTime($this->getWebContent()->lastUpdated); // dirty huehue
 			});
 		$f->addTextArea('content', 'webContent.form.content')
 			->getControlPrototype()->rows(10);
+
 		$f->addHidden('locale', $this->getLocale());
 
 		$this->binder->entityToForm($this->webContent, $f);
@@ -68,19 +69,22 @@ class EditFormControl extends FormControl {
 			'default' => ['cancel']
 		], TRUE);
 
-		$f->autofocus('content');
+		//$f->autofocus('content');
 
 		return $f;
 	}
 
 	public function formSuccess(Nette\Forms\Form $form, $values) {
 		if($form->submitted === $form['editWebContent']) {
+			//dump($this->webContent);
 			$this->binder->formToEntity($form, $this->webContent);
+			//$this->webContent->content = $values->content;
+			//dump($this->webContent);
 			$this->service->persist($this->webContent);
 			$this->service->flush();
 			$this->lookup('ZaxCMS\Components\WebContent\WebContentControl')->invalidateCache();
 			$this->flashMessage('common.alert.changesSaved', 'success');
-			$this->parent->go('this');
+			//$this->parent->go('this');
 		} else if($form->submitted === $form['previewWebContent']) {
 			$this->binder->formToEntity($form, $this->webContent);
 			$this->parent->redrawControl('preview');

@@ -2,7 +2,7 @@
 
 services:
     nette.templateFactory: Zax\Latte\TemplateFactory
-    
+
     - Zax\Application\UI\SnippetGenerators\ShortSnippetGenerator
 
     -
