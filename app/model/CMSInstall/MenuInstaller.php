@@ -65,6 +65,10 @@ class MenuInstaller extends Nette\Object {
 		$usersItem->setTranslatableLocale('cs_CZ');
 		$this->service->getRepository()->persistAsLastChildOf($usersItem, $adminMenu);
 
+		$rolesItem = $this->createMenuItem('Role', ':Admin:Roles:default');
+		$rolesItem->setTranslatableLocale('cs_CZ');
+		$this->service->getRepository()->persistAsLastChildOf($rolesItem, $adminMenu);
+
 		$this->service->flush();
 
 		if(in_array('en_US', $this->service->getAvailableLocales())) {
@@ -74,9 +78,12 @@ class MenuInstaller extends Nette\Object {
 			$pagesItem->setTranslatableLocale('en_US');
 			$usersItem->text = 'Users';
 			$usersItem->setTranslatableLocale('en_US');
+			$rolesItem->text = 'Roles';
+			$rolesItem->setTranslatableLocale('en_US');
 			$this->service->persist($dashboardItem);
 			$this->service->persist($pagesItem);
 			$this->service->persist($usersItem);
+			$this->service->persist($rolesItem);
 
 			$this->service->flush();
 		}

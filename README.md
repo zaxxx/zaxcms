@@ -3,9 +3,29 @@ zaxcms
 
 **Unstable and under heavy development** - do not use for important stuff!
 
-This is my first attempt at building a CMS on top of Nette framework. This is definitely nowhere near finished, alot of stuff is done in very dirty ways and I'm fully aware of that, and many other stuff is simply being hardcoded for my needs.
+## What is this?
+
+This is my first attempt at building a CMS on top of Nette framework. This is still nowhere near finished, but it already has some pretty nice features.
 
 I want a CMS which is easy for me to understand, fun to build apps on top of and simply has most of the common stuff figured out. I also want something where admin can just log in, browse his website and change stuff "inline", without having to open any admin panel. Mostly such actions will be represented with a small pencil icon, floating in top-right corner of the component it belongs to. This should lead to cleaner admin panel and better workflow for the user.
+
+## Goals:
+
+- CMS should be secured
+- CMS should provide a solid base for creating dynamic websites (all dynamic websites have admin panel, login, ACL, some navigations...)
+- CMS should serve well for managing multilanguage websites
+- CMS should be as easy to use (and understand) as possible, including the installer
+- CMS should be easily extensible and customizable
+- CMS should work well without JavaScript (excluding the installer)
+
+## Current weaknesses:
+
+- Code is abit dirty
+- Almost no documentation
+- No licence (not yet sure that I can handle the responsibility of people actually using this :-))
+- Tests are covering only core functionality
+- Translations are abit buggy
+- I suck at JavaScript :-(
 
 ## It uses:
 - [Nette framework](https://github.com/nette/nette)
@@ -33,14 +53,18 @@ Custom abstract component:
 - [x] Cleaner snippet IDs
 
 Translations
-- [x] TranslatedNestedTree
-- [ ] (might need refactor)
+- [x] TranslatedNestedTree (Gedmo kinda sucks though, might give KNP a try)
+- [x] General component for choosing locale
 
 Services for injecting appDir and rootDir
 - [x] `__toString()`
 
 PathHelpers
-- [ ] (need rewrite)
+
+Latte
+- [x] Custom template factory
+- [x] `{icon}` macro and IIcon service to reduce the dependency on Glyphicons
+- [x] Few helpers for outputting time in human-readable format
 
 Custom bootstrap
 - [x] Simple API to easily setup common stuff
@@ -48,8 +72,6 @@ Custom bootstrap
 JS and CSS combining (and optionally minifying)
 - [x] Cache
 - [x] Base features
-- [ ] LESS support...
-- [ ] (might need refactor)
 
 Enhanced forms
 - [x] Bootstrap rendering
@@ -63,6 +85,7 @@ Enhanced forms
  - [x] Link submit
  - [x] NEON textarea
  - [x] Datetime input
+ - [ ] TexyArea input (buttons around textarea)
  - [ ] ...
 
 FileManager component
@@ -88,8 +111,8 @@ Menu component
 - [x] Detect URL within the app and convert to Nette format
 - [x] Ajax (when editing)
 - [x] Cache
+- [x] Submenus
 - [ ] Secured menu items
-- [ ] Submenus
 
 Installer module
 - [x] Asking for database login and saving to neon
@@ -107,4 +130,6 @@ Backend and administration
  - [ ] Secured pages
 - [ ] User settings
 - [ ] Security settings
+ - [x] Roles
+ - [ ] ACL
 - [ ] ...
