@@ -57,8 +57,12 @@ you have to specify manually ;-)
 Components
 ==========
 
-Components are abit "hacked". They use views (done simply by persistent parameter $view) and
-working with AJAX is quite different.
+Working with components is pretty different from Nette. I missed views support, AJAX/non-AJAX behavior didn't feel
+consistent and writing if($this->presenter->isAjax()) blahblah all the time felt clunky so I tried to get rid of that
+and instead decided to rely on a single method 'enableAjax()' which will take care of (almost) everything.
+
+There's already around 20 components in this CMS using views and AJAX and it does a great job at saving me from typing
+repetitive code. And it's easy to understand, too.
 
 Simple component
 ----------------
@@ -105,16 +109,32 @@ Again, you also need to add a template, this time called 'Default.Foo.latte'.
 AJAX
 ----
 
-AJAX works magically here. I admit I'm not quite entirely sure *how* it works, but it just does.
+AJAX works magically. Thanks to hacks in attached() method, snippets will be sent *automatically*
 
 Components have enableAjax() method. Just call it. It will instantly enable AJAX on the component
 and all subcomponents, *including forms*. Note that you need to enable AJAX on links in templates
-by yourself, just check $ajaxEnabled variable in your template.
+by yourself, just check $ajaxEnabled variable in your template:
+
+```
+<a href="destination" n:class="$ajaxEnabled ? ajax">link</a>
+```
 
 If you want to enable AJAX on a component, but want to exclude some sub-components, use
 disableAjaxFor() method, which takes array of sub-component names.
 
-I almost forgot - you need to wrap all content in your component templates by a snippet, preferably without a name.
+I almost forgot - you need to wrap all content in your component templates by a snippet (no need to name it).
+
+**Note:** AJAX might not work with links with default parameters in components. This is because Nette doesn't create components unless they're needed
+and when a component doesn't receive any parameters, it will get created too late during rendering a template, resulting in whole page being sent
+instead of payload. There's a simple workaround for this - just create the component manually before rendering:
+
+```php
+public function actionDefault() {
+	$this->createComponent('someComponent');
+	// or shorter
+	$this['someComponent'];
+}
+```
 
 $this->go()
 -----------
@@ -191,6 +211,16 @@ public function createForm() {
 ```
 
 *Tip: FormControl extends SecuredControl, so feel free to use security features.*
+
+Rich form controls
+==================
+
+**Experimental!**
+
+One day I got a creepy idea - make form controls that extend UI\Control. You know - for all the cool features like
+templates and AJAX. So I made a BaseControl just for that. There's a method redrawMeOnly(), which is meant to be used
+in signals and it will do exactly what it says. Useful to prevent your form inside AJAX component to refresh and lose data
+when using AJAX form input ;-)
 
 Latte
 =====
