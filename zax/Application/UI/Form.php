@@ -90,7 +90,8 @@ class Form extends Nette\Application\UI\Form {
 					}
 				} else if ($control instanceof Nette\Forms\Controls\TextBase
 					|| $control instanceof Nette\Forms\Controls\SelectBox
-					|| $control instanceof Nette\Forms\Controls\MultiSelectBox) {
+					|| $control instanceof Nette\Forms\Controls\MultiSelectBox
+					|| $control instanceof Zax\Forms\Controls\TexyAreaInput) {
 						$control->getControlPrototype()->addClass('form-control');
 
 				} else if ($control instanceof Nette\Forms\Controls\Checkbox
@@ -175,6 +176,12 @@ class Form extends Nette\Application\UI\Form {
 		$label = $this->makeLabel($this->translator->translate($label), $icon);
 
 		$proto->setHtml($label);
+		return $this[$name] = $control;
+	}
+
+	public function addTexyArea($name, $label) {
+		$control = new Zax\Forms\Controls\TexyAreaInput($label);
+		$control->injectIcons($this->icons);
 		return $this[$name] = $control;
 	}
 

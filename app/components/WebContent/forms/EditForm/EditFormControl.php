@@ -47,7 +47,7 @@ class EditFormControl extends FormControl {
 					? Nette\Utils\Html::el('em')->setText($this->translator->translate('common.general.never'))
 					: $this->presenter->getTemplateFactory()->createTemplateHelpers($this->translator)->beautifulDateTime($this->getWebContent()->lastUpdated); // dirty huehue
 			});
-		$f->addTextArea('content', 'webContent.form.content')
+		$f->addTexyArea('content', 'webContent.form.content')
 			->getControlPrototype()->rows(10);
 
 		$f->addHidden('locale', $this->getLocale());
