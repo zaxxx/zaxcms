@@ -11,6 +11,10 @@ Getting started
 
 **Keep in mind that this thing is unstable and under heavy development.**
 
+Install using composer:
+
+		composer create-project zaxxx/zaxcms my-new-zaxcms-based-app
+
 Installing jQuery, Bootstrap...
 -------------------------------
 
