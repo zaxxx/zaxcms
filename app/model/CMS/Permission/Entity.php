@@ -39,4 +39,23 @@ class Permission extends BaseEntity {
 	 */
 	protected $privilege;
 
+	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="string", length=255, nullable=TRUE)
+	 */
+	protected $note;
+
+	/**
+	 * @Gedmo\Locale
+	 */
+	private $locale;
+
+	public function setTranslatableLocale($locale) {
+		$this->locale = $locale;
+	}
+
+	public function getLocale() {
+		return $this->locale;
+	}
+
 }

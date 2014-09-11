@@ -10,13 +10,39 @@ class AclFactory extends Nette\Object {
 
 	use Zax\Traits\TCacheable;
 
+	const CACHE_TAG = 'ZaxCMS.Model.Acl';
+
 	private $defaultPermissions = [
-		'AdminPanel' => ['Show'],
-		'WebContent' => ['Edit'],
-		'FileManager' => ['Show', 'Edit', 'Delete', 'Upload'],
-		'Menu' => ['Edit'],
-		'Pages' => ['Add', 'Edit', 'Delete'],
-		'Users' => ['Add', 'Edit', 'Delete']
+		'AdminPanel' => [
+			'Use' => ['cs_CZ' => 'používat administraci', 'en_US' => 'use the admin panel']
+		],
+		'WebContent' => [
+			'Edit' => ['cs_CZ' => 'upravovat statický obsah na webu', 'en_US' => 'edit the static content on web']
+		],
+		'FileManager' => [
+			'Use' => ['cs_CZ' => 'používat správce souborů', 'en_US' => 'use the file manager'],
+			'Edit' => ['cs_CZ' => 'přejmenovávat soubory a složky, vytvářet nové složky', 'en_US' => 'rename files and folders, create new folders'],
+			'Delete' => ['cs_CZ' => 'odstraňovat soubory a složky', 'en_US' => 'delete files and folders'],
+			'Upload' => ['cs_CZ' => 'nahrávat nové soubory', 'en_US' => 'upload new files']
+		],
+		'Menu' => [
+			'Edit' => ['cs_CZ' => 'upravovat nabídky a navigace', 'en_US' => 'modify menus and navigations']
+		],
+		'Pages' => [
+			'Add' => ['cs_CZ' => 'přidávat nové stránky', 'en_US' => 'create new pages'],
+			'Edit' => ['cs_CZ' => 'upravovat existující stránky', 'en_US' => 'modify existing pages'],
+			'Delete' => ['cs_CZ' => 'mazat stránky', 'en_US' => 'delete pages']
+		],
+		'Users' => [
+			'Add' => ['cs_CZ' => 'vytvářet nové uživatele', 'en_US' => 'create new users'],
+			'Edit' => ['cs_CZ' => 'upravovat existující uživatele', 'en_US' => 'edit existing users'],
+			'Delete' => ['cs_CZ' => 'mazat uživatele', 'en_US' => 'delete users']
+		],
+		'Roles' => [
+			'Add' => ['cs_CZ' => 'vytvářet nové role', 'en_US' => 'create new roles'],
+			'Edit' => ['cs_CZ' => 'upravovat existující role', 'en_US' => 'edit existing roles'],
+			'Delete' => ['cs_CZ' => 'mazat role', 'en_US' => 'delete roles']
+		]
 	];
 
 	protected $cmsInstalled;
@@ -47,12 +73,24 @@ class AclFactory extends Nette\Object {
 
 	protected function createDefaultPermissions() {
 		foreach($this->defaultPermissions as $resource => $privileges) {
-			foreach($privileges as $privilege) {
+			foreach($privileges as $privilege => $translations) {
 				$resourceEntity = $this->resourceService->getBy(['name' => $resource]);
 				$privilegeEntity = $this->privilegeService->getBy(['name' => $privilege]);
-				$this->permissionService->createPermission($resourceEntity, $privilegeEntity);
+				$permission = $this->permissionService->createPermission($resourceEntity, $privilegeEntity);
+				$permission->setTranslatableLocale('cs_CZ');
+				$permission->note = $translations['cs_CZ'];
+				$this->permissionService->persist($permission);
 			}
 		}
+		$this->permissionService->flush();
+
+		$permissions = $this->permissionService->fetchQueryObject(new ZaxCMS\Model\CMS\Query\PermissionQuery('en_US'));
+		foreach($permissions as $permission) {
+			$permission->note = $this->defaultPermissions[$permission->resource->name][$permission->privilege->name]['en_US'];
+			$permission->setTranslatableLocale('en_US');
+			$this->permissionService->persist($permission);
+		}
+
 		$this->permissionService->flush();
 	}
 
@@ -94,10 +132,18 @@ class AclFactory extends Nette\Object {
 					$acl->deny($aclEntry->role->name, $aclEntry->permission->resource->name, $aclEntry->permission->privilege->name);
 				}
 			}
-			$this->cache->save('acl', $acl);
+			$this->cache->save('acl', $acl, [Nette\Caching\Cache::TAGS => self::CACHE_TAG]);
 		}
 
 		return $acl;
+	}
+
+	public function invalidateCache() {
+		$this->cache->clean([Nette\Caching\Cache::TAGS => self::CACHE_TAG]);
+		$doctrineCache = $this->aclService->getEntityManager()->getConfiguration()->getResultCacheImpl();
+		$doctrineCache->delete(self::CACHE_TAG);
+		$doctrineCache->flushAll();
+		return $this;
 	}
 
 }

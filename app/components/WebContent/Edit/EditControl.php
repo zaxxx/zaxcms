@@ -119,7 +119,7 @@ class EditControl extends SecuredControl {
 
 
 	/**
-	 * @secured FileManager, Show
+	 * @secured FileManager, Use
 	 */
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()

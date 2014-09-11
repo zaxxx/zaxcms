@@ -2,6 +2,7 @@
 
 services:
     nette.templateFactory: Zax\Latte\TemplateFactory
+    nette.presenterFactory: Zax\Application\PresenterFactory(%rootDir%)
 
     - Zax\Application\UI\SnippetGenerators\ShortSnippetGenerator
 

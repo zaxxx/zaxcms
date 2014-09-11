@@ -7,3 +7,6 @@ button:
     permissions: "Oprávnění"
 panel:
     roles: "Role"
+text:
+    allowed: "Smí"
+    disallowed: "Nesmí"

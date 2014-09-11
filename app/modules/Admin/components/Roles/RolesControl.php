@@ -14,6 +14,8 @@ class RolesControl extends Control {
 	/** @persistent */
 	public $selectRole;
 
+	public $onUpdate = [];
+
 	protected $roleService;
 
 	protected $addRoleFormFactory;
@@ -22,18 +24,25 @@ class RolesControl extends Control {
 
 	protected $deleteRoleFormFactory;
 
+	protected $permissionsFactory;
+
 	protected $localeSelectFactory;
 
 	public function __construct(Model\CMS\Service\RoleService $roleService,
 	                            IAddRoleFormFactory $addRoleFormFactory,
 								IEditRoleFormFactory $editRoleFormFactory,
 								IDeleteRoleFormFactory $deleteRoleFormFactory,
-								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
+								IPermissionsFactory $permissionsFactory,
+								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory,
+								Model\CMS\AclFactory $aclFactory) {
 		$this->roleService = $roleService;
 		$this->addRoleFormFactory = $addRoleFormFactory;
 		$this->editRoleFormFactory = $editRoleFormFactory;
 		$this->deleteRoleFormFactory = $deleteRoleFormFactory;
+		$this->permissionsFactory = $permissionsFactory;
 		$this->localeSelectFactory = $localeSelectFactory;
+
+		$this->onUpdate[] = [$aclFactory, 'invalidateCache'];
 	}
 
     public function viewDefault() {
@@ -88,6 +97,11 @@ class RolesControl extends Control {
 
 	protected function createComponentDeleteRoleForm() {
 	    return $this->deleteRoleFormFactory->create()
+		    ->setRole($this->getSelectedRole());
+	}
+
+	protected function createComponentPermissions() {
+	    return $this->permissionsFactory->create()
 		    ->setRole($this->getSelectedRole());
 	}
 

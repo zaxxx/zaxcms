@@ -33,14 +33,18 @@ class Privilege extends BaseEntity {
 	 */
 	protected $name;
 
-	/**
-	 * @ORM\Column(type="string", length=63)
-	 */
-	protected $displayName;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=TRUE)
-	 */
-	protected $description;
+	public function getIcon() {
+		$icons = [
+			'Add' => 'plus',
+			'Edit' => 'pencil',
+			'Delete' => 'trash',
+			'Use' => 'user',
+			'Upload' => 'upload'
+		];
+		if(!in_array($this->name, array_keys($icons))) {
+			return 'question-sign';
+		}
+		return $icons[$this->name];
+	}
 
 }

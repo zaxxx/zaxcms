@@ -16,23 +16,21 @@ class PrivilegeService extends Zax\Model\Service {
 		$this->entityClassName = Entity\Privilege::getClassName();
 	}
 
-	public function createPrivilege($name, $displayName, $description = NULL) {
+	public function createPrivilege($name) {
 		$priv = $this->create();
 		$priv->name = $name;
-		$priv->displayName = $displayName;
-		$priv->description = $description;
 
 		$this->persist($priv);
 		return $priv;
 	}
 
 	public function createDefaultPrivileges() {
-		$this->createPrivilege('Show', 'show');
-		$this->createPrivilege('Add', 'add');
-		$this->createPrivilege('Edit', 'edit');
-		$this->createPrivilege('Delete', 'delete');
-		$this->createPrivilege('Upload', 'upload');
-		$this->createPrivilege('Publish', 'publish');
+		$this->createPrivilege('Use');
+		$this->createPrivilege('Add');
+		$this->createPrivilege('Edit');
+		$this->createPrivilege('Delete');
+		$this->createPrivilege('Upload');
+		$this->createPrivilege('Publish');
 
 		$this->flush();
 	}

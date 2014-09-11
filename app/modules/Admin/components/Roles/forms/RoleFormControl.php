@@ -41,7 +41,10 @@ abstract class RoleFormControl extends FormControl {
     public function createForm() {
         $f = parent::createForm();
 
-	    $f->addText('name', 'common.form.uniqueName');
+	    $f->addText('name', 'common.form.uniqueName')
+		    ->setRequired()
+		    ->addRule(Form::MAX_LENGTH, NULL, 63)
+		    ->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');
 	    $f->addText('displayName', 'common.form.displayName');
 	    $f->addTextArea('description', 'common.form.description');
 	    $f->addStatic('parent', 'role.form.inheritsFrom')
@@ -66,6 +69,7 @@ abstract class RoleFormControl extends FormControl {
 		        $this->roleService->persist($this->role);
 			    $this->roleService->flush();
 			    $this->successFlashMessage();
+			    $this->parent->onUpdate();
 			    $this->parent->go('this', ['view' => 'Edit', 'selectRole' => $this->role->id]);
 		    } catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			    $form['name']->addError($this->translator->translate('form.error.duplicateName'));

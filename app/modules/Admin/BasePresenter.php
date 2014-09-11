@@ -13,7 +13,7 @@ abstract class BasePresenter extends ZaxCMS\BasePresenter {
 	public function startup() {
 		parent::startup();
 
-		if(!$this->user->isAllowed('AdminPanel', 'Show')) {
+		if(!$this->user->isAllowed('AdminPanel', 'Use')) {
 			throw new Nette\Application\ForbiddenRequestException;
 		}
 	}

@@ -48,7 +48,7 @@ class DeleteRoleFormControl extends FormControl {
 	    if($form->submitted === $form['deleteItem']) {
 		    $this->roleService->remove($this->role);
 		    $this->roleService->flush();
-
+		    $this->parent->onUpdate();
 		    $this->flashMessage('common.alert.entryDeleted', 'success');
 		    $this->parent->go('this', ['view' => 'Default']);
 	    }

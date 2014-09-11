@@ -53,7 +53,7 @@ class TinyLoginBoxControl extends SecuredControl {
 	}
 
 	/**
-	 * @secured AdminPanel, Show
+	 * @secured AdminPanel, Use
 	 */
 	protected function createComponentAdminPanelButton() {
 	    return $this->adminPanelButtonFactory->create();

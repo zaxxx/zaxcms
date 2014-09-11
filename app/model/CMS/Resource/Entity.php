@@ -34,13 +34,22 @@ class Resource extends BaseEntity {
 	protected $name;
 
 	/**
-	 * @ORM\Column(type="string", length=63)
-	 */
-	protected $displayName;
-
-	/**
+	 * @Gedmo\Translatable
 	 * @ORM\Column(type="string", length=255, nullable=TRUE)
 	 */
-	protected $description;
+	protected $note;
+
+	/**
+	 * @Gedmo\Locale
+	 */
+	private $locale;
+
+	public function setTranslatableLocale($locale) {
+		$this->locale = $locale;
+	}
+
+	public function getLocale() {
+		return $this->locale;
+	}
 
 }

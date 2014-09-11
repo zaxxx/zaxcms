@@ -21,7 +21,6 @@ class PermissionService extends Zax\Model\Service {
 		$perm->resource = $resource;
 		$perm->privilege = $privilege;
 
-		$this->persist($perm);
 		return $perm;
 	}
 
