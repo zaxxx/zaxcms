@@ -13,44 +13,50 @@
 {define panelContent}
 	<div class="row">
 		<div class="col-sm-4">
-				{var $depth = $root->depth - 1}
-				{var $prev = $root}
-				{foreach $items as $item}
-					{if $depth < $item->depth}
-						<ul class="nav nav-pills nav-stacked">
-					{elseif $depth === $item->depth && $depth === $root->depth + 1}
-							<ul class="nav nav-pills nav-stacked">
-								{include addItemButton, item => $prev}
-							</ul>
-						</li>
-					{else}
-						{for $i=$item->depth; $i<$depth; $i++}
-							</li>
-								{include addItemButton, item => $prev->parent}
-							</ul>
-						{/for}
-						</li>
-					{/if}
-					<li n:class="$control->selectItem == $item->id ? active">
-						<a n:class="$ajaxEnabled ? ajax" n:href="this, selectItem => $item->id">{if $item->text === NULL}&nbsp;{else}{$item->text}{/if}</a>
 
-					{?$depth = $item->depth}
-					{?$prev = $item}
-				{/foreach}
-				{for $i=$root->depth; $i<$depth-1; $i++}
-					</li>
-					</ul>
-				{/for}
+			{* TREE *}
+
+			{var $depth = $root->depth - 1}
+			{var $prev = $root}
+			{foreach $items as $item}
+				{if $depth < $item->depth}
 					<ul class="nav nav-pills nav-stacked">
-						{if $prev->depth === $root->depth + 1}
+				{elseif $depth === $item->depth && $depth === $root->depth + 1}
+						<ul class="nav nav-pills nav-stacked">
 							{include addItemButton, item => $prev}
-						{else}
+						</ul>
+					</li>
+				{else}
+					{for $i=$item->depth; $i<$depth; $i++}
+						</li>
 							{include addItemButton, item => $prev->parent}
-						{/if}
-					</ul>
+						</ul>
+					{/for}
+					</li>
+				{/if}
+				<li n:class="$control->selectItem == $item->id ? active">
+					<a n:class="$ajaxEnabled ? ajax" n:href="this, selectItem => $item->id">{if $item->text === NULL}&nbsp;{else}{$item->text}{/if}</a>
+
+				{?$depth = $item->depth}
+				{?$prev = $item}
+			{/foreach}
+			{for $i=$root->depth; $i<$depth-1; $i++}
 				</li>
-				{include addItemButton, item => NULL}
+				</ul>
+			{/for}
+			<ul class="nav nav-pills nav-stacked">
+				{if $prev->depth === $root->depth + 1}
+					{include addItemButton, item => $prev}
+				{else}
+					{include addItemButton, item => $prev->parent}
+				{/if}
 			</ul>
+			</li>
+			{include addItemButton, item => NULL}
+			</ul>
+
+			{* /TREE *}
+
 		</div>
 
 		<div class="col-sm-8">

@@ -20,11 +20,11 @@ abstract class Service extends Nette\Object implements IService {
 		$this->entityManager = $entityManager;
 	}
 
-	protected function getEntityManager() {
+	public function getEntityManager() {
 		return $this->entityManager;
 	}
 
-	protected function getRepository() {
+	public function getRepository() {
 		if($this->entityClassName === NULL) {
 			throw new MissingEntityClassNameException;
 		}

@@ -39,7 +39,7 @@ services:
 
 ## Presenters
 
-    - ZaxCMS\FrontModule\DefaultPresenter
+    - ZaxCMS\FrontModule\DefaultPresenter(%CMSInstalled%)
     - ZaxCMS\FrontModule\ArticlesPresenter
     - ZaxCMS\FrontModule\PagePresenter
     - ZaxCMS\FrontModule\UserPresenter

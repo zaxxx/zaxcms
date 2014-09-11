@@ -77,7 +77,7 @@ class EditControl extends SecuredControl {
 	}
 
 	/**
-	 * @secured FileManager, Show
+	 * @secured FileManager, Use
 	 */
 	public function viewFiles() {
 

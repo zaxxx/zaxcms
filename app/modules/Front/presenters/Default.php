@@ -8,7 +8,17 @@ use Nette,
 
 class DefaultPresenter extends BasePresenter {
 
-	public function __construct() {
+	protected $installed;
+
+	public function __construct($installed = TRUE) {
+		$this->installed = $installed;
+	}
+
+	public function startup() {
+		parent::startup();
+		if(!$this->installed) {
+			$this->redirect(':Install:Default:default');
+		}
 	}
 
 	public function actionDefault() {
