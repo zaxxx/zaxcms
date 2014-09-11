@@ -66,7 +66,7 @@ abstract class RoleFormControl extends FormControl {
 		        $this->roleService->persist($this->role);
 			    $this->roleService->flush();
 			    $this->successFlashMessage();
-			    $this->parent->go('this', ['view' => 'Edit', 'selectedRole' => $this->role->id]);
+			    $this->parent->go('this', ['view' => 'Edit', 'selectRole' => $this->role->id]);
 		    } catch (Kdyby\Doctrine\DuplicateEntryException $ex) {
 			    $form['name']->addError($this->translator->translate('form.error.duplicateName'));
 		    }
