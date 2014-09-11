@@ -46,6 +46,8 @@ abstract class Control extends Nette\Application\UI\Control {
 
 	protected $icons;
 
+	public function __construct() {}
+
 	public function injectIcons(Zax\Html\Icons\IIcons $icons) {
 		$this->icons = $icons;
 	}

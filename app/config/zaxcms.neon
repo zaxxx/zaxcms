@@ -36,3 +36,16 @@ services:
     - ZaxCMS\Security\Authenticator
     acl: @ZaxCMS\Model\CMS\AclFactory::createNetteAcl
 
+
+## Presenters
+
+    - ZaxCMS\FrontModule\DefaultPresenter
+    - ZaxCMS\FrontModule\ArticlesPresenter
+    - ZaxCMS\FrontModule\PagePresenter
+    - ZaxCMS\FrontModule\UserPresenter
+
+    - ZaxCMS\AdminModule\DefaultPresenter
+    - ZaxCMS\AdminModule\FilesPresenter
+    - ZaxCMS\AdminModule\PagesPresenter
+    - ZaxCMS\AdminModule\RolesPresenter
+    - ZaxCMS\AdminModule\UsersPresenter
