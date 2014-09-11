@@ -33,7 +33,7 @@ class DeleteRoleFormControl extends FormControl {
     public function beforeRender() {}
 
 	public function handleCancel() {
-		$this->parent->go('this', ['view' => 'Default', 'page' => NULL]);
+		$this->parent->go('this', ['view' => 'Default', 'selectRole' => NULL]);
 	}
 
 	public function createForm() {

@@ -4,7 +4,7 @@
 {foreach $permissions as $permission}
 	{if $iterator->first || $prev->resource !== $permission->resource}
 		{if !$iterator->first}</div></div></div>{/if}
-		<div class="row"><div class="col-xs-2 text-right"><p class="form-control-static">{$permission->resource->note}</p></div><div class="col-xs-10"><div class="btn-group">
+		<div class="row"><div class="col-xs-3 text-right"><p class="form-control-static">{$permission->resource->note}</p></div><div class="col-xs-9"><div class="btn-group">
 	{/if}
 	{?$allowed = $authorizator->isAllowed($role->name, $permission->resource->name, $permission->privilege->name)}
 	{?$text = 'role.text.' . ($allowed ? '' : 'dis') . 'allowed'}

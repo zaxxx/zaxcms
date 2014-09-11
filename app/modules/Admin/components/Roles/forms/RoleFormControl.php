@@ -35,7 +35,7 @@ abstract class RoleFormControl extends FormControl {
 	abstract protected function successFlashMessage();
 
 	public function handleCancel() {
-		$this->parent->go('this', ['view' => 'Default']);
+		$this->parent->go('this', ['view' => 'Default', 'selectRole' => NULL]);
 	}
 
     public function createForm() {
@@ -47,10 +47,12 @@ abstract class RoleFormControl extends FormControl {
 		    ->addRule($f::PATTERN, 'form.error.alphanumeric', '([a-zA-Z0-9]+)');
 	    $f->addText('displayName', 'common.form.displayName');
 	    $f->addTextArea('description', 'common.form.description');
-	    $f->addStatic('parent', 'role.form.inheritsFrom')
-		    ->addFilter(function($parent) {
-			    return $parent !== NULL ? $parent->displayName : '';
-		    });
+	    if($this->role->parent !== NULL) {
+		    $f->addStatic('parent', 'role.form.inheritsFrom')
+			    ->addFilter(function($parent) {
+				    return $parent->displayName;
+			    });
+	    }
 
 	    $this->createSubmitButtons($f);
 
