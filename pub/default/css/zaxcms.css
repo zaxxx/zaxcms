@@ -10,7 +10,7 @@
 }
 
 .if-not-js-hide {
-    display:none;
+    display:none !important;
 }
 
 .nav.size-small li>a{
@@ -37,6 +37,12 @@
 
 .text-no-bold {
     font-weight: normal;
+}
+
+.well>.form-group {
+    max-width:95%;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 input.about-4-chars-long {
