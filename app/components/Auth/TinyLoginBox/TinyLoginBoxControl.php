@@ -16,6 +16,8 @@ class TinyLoginBoxControl extends SecuredControl {
 
 	protected $adminPanelButtonFactory;
 
+	protected $dropup = FALSE;
+
 	public function __construct(ILoginFormFactory $loginFormFactory,
 	                            ILogoutButtonFactory $logoutButtonFactory,
 	                            IAdminPanelButtonFactory $adminPanelButtonFactory) {
@@ -27,9 +29,14 @@ class TinyLoginBoxControl extends SecuredControl {
     public function viewDefault() {
         
     }
+
+	public function setDropup() {
+		$this->dropup = TRUE;
+		return $this;
+	}
     
     public function beforeRender() {
-        
+        $this->template->dropup = $this->dropup;
     }
 
 	/** @return LoginFormControl */

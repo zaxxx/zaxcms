@@ -14,7 +14,7 @@
 		</div>
 	</div>
 {else}
-	<div class="dropdown">
+	<div n:class="dropdown, $dropup ? dropup">
 		{?$loginId = '#frm-' . $control->getUniqueId() . '-loginForm-form-login'}
 		<a class="btn btn-default dropdown-toggle" onclick="setTimeout(function(){l}$({$loginId}).focus();{r},0);" data-toggle="dropdown">{_}auth.button.login{/_}
 			<span class="caret"></span>
