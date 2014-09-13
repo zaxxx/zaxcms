@@ -20,7 +20,7 @@
 				{continueIf $item->text === NULL || ($item->depth > $root->depth + 1 && $item->parent->text === NULL)}
 				{if $depth < $item->depth && !$first}
 					{if $dropdown}
-						{* js dropdown *}<a {if $prev->title !== NULL}data-placement="{if $prev->depth > $root->depth + 1}right{else}bottom{/if}" title="{$prev->title}"{/if} href="#" class="dropdown-toggle if-not-js-hide" data-toggle="dropdown">{if $prev->icon}{icon $prev->icon} {/if}{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
+						{* js dropdown *}<a style="display:none" {if $prev->title !== NULL}data-placement="{if $prev->depth > $root->depth + 1}right{else}bottom{/if}" title="{$prev->title}"{/if} href="#" class="dropdown-toggle if-not-js-hide" data-toggle="dropdown">{if $prev->icon}{icon $prev->icon} {/if}{$prev->text} {if $dropdownCaret}<span class="caret"></span>{/if}</a>
 						{* nonjs link *}{include itemLink, item => $prev, nonJsDropdown => TRUE}
 					{else}
 						{include itemLink, item => $prev}

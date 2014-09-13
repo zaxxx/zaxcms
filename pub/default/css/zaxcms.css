@@ -10,7 +10,7 @@
 }
 
 .if-not-js-hide {
-    display:none !important;
+    display:none;
 }
 
 .nav.size-small li>a{
