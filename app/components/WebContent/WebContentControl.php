@@ -43,7 +43,7 @@ class WebContentControl extends SecuredControl {
 
 	protected function createTexy() {
 		$texy = parent::createTexy();
-		$texy->headingModule->top = 3;
+		$texy->headingModule->top = $this->texyHeadingTop;
 		return $texy;
 	}
 
