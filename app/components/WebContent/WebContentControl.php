@@ -23,6 +23,8 @@ class WebContentControl extends SecuredControl {
 
 	protected $editFactory;
 
+	protected $texyHeadingTop = 3;
+
 	/**
 	 * @var string
 	 */
@@ -32,6 +34,17 @@ class WebContentControl extends SecuredControl {
 								IEditFactory $editFactory) {
 		$this->webContentService = $webContentService;
 		$this->editFactory = $editFactory;
+	}
+
+	public function setTexyHeadingTop($top = 3) {
+		$this->texyHeadingTop = $top;
+		return $this;
+	}
+
+	protected function createTexy() {
+		$texy = parent::createTexy();
+		$texy->headingModule->top = 3;
+		return $texy;
 	}
 
 	/**
