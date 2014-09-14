@@ -73,3 +73,7 @@ input.about-2-chars-long {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.popover{
+    max-width: none;
+}

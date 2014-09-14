@@ -1,61 +1,66 @@
 <div n:snippet>
 	<div class="row">
-		<div class="col-sm-11 if-not-js-hide">
+		<div class="col-sm-11 if-not-js-hide texyarea-toolbar">
 			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Tučné">
+				<a class="btn btn-default" title="Tučné" data-texyarea="{$prototype->id}" data-function="bold">
 					<b>B</b>
 				</a>
-				<a class="btn btn-default" title="Kurzíva">
+				<a class="btn btn-default" title="Kurzíva" data-texyarea="{$prototype->id}" data-function="italic">
 					<em>i</em>
 				</a>
-				<a class="btn btn-default" title="Podtržené">
+				<a class="btn btn-default" title="Podtržené" data-texyarea="{$prototype->id}" data-function="underline">
 					<span style="text-decoration:underline">u</span>
 				</a>
 			</div>
 			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Zarovnat vlevo">
+				<a class="btn btn-default" title="Zarovnat vlevo" data-texyarea="{$prototype->id}" data-function="alignLeft">
 					{icon align-left}
 				</a>
-				<a class="btn btn-default" title="Zarovnat na střed">
+				<a class="btn btn-default" title="Zarovnat na střed" data-texyarea="{$prototype->id}" data-function="alignCenter">
 					{icon align-center}
 				</a>
-				<a class="btn btn-default" title="Zarovnat vpravo">
+				<a class="btn btn-default" title="Zarovnat vpravo" data-texyarea="{$prototype->id}" data-function="alignRight">
 					{icon align-right}
 				</a>
-				<a class="btn btn-default" title="Zarovnat do bloku">
+				<a class="btn btn-default" title="Zarovnat do bloku" data-texyarea="{$prototype->id}" data-function="alignBlock">
 					{icon align-justify}
 				</a>
 			</div>
 			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Velký nadpis">
+				<a class="btn btn-default" title="Velký nadpis" data-texyarea="{$prototype->id}" data-function="h1">
 					H
 				</a>
-				<a class="btn btn-default" title="Střední nadpis">
+				<a class="btn btn-default" title="Střední nadpis" data-texyarea="{$prototype->id}" data-function="h2">
 					<small>H</small>
 				</a>
-				<a class="btn btn-default" title="Malý nadpis">
+				<a class="btn btn-default" title="Malý nadpis" data-texyarea="{$prototype->id}" data-function="h3">
 					<small><small><small>H</small></small></small>
 				</a>
 			</div>
 			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Seznam">
+				<a class="btn btn-default" title="Seznam" data-texyarea="{$prototype->id}" data-function="ul">
 					{icon list}
 				</a>
-				<a class="btn btn-default" title="Číslovaný seznam">
+				<a class="btn btn-default" title="Číslovaný seznam" data-texyarea="{$prototype->id}" data-function="ol">
 					<small>123</small>
 				</a>
 			</div>
 			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Odkaz">
+				<a class="btn btn-default" title="Sloupcové rozložení" data-toggle="popover" data-url="{link widget!, widget => Columns}" data-widget="{$control->getUniqueId()}-columns">
+					{icon th-list}
+				</a>
+			</div>
+			<div class="btn-group btn-group-sm">
+				<a class="btn btn-default" title="Odkaz" data-toggle="popover" data-url="{link widget!, widget => Link}" data-widget="{$control->getUniqueId()}-link">
 					{icon link}
 				</a>
-				<a class="btn btn-default" title="Obrázek">
+				<a class="btn btn-default" title="Obrázek" data-toggle="popover" data-url="{link widget!, widget => Img}" data-widget="{$control->getUniqueId()}-img">
 					{icon picture}
 				</a>
-				<a class="btn btn-default" title="Obrázkový odkaz">
+				<a class="btn btn-default" title="Obrázkový odkaz" data-toggle="popover"  data-url="{link widget!, widget => ImgLink}" data-widget="{$control->getUniqueId()}-imglink">
 					{icon link}{icon picture}
 				</a>
-				<a class="btn btn-default" title="Youtube video">
+				<a class="btn btn-default" title="Youtube" data-toggle="popover" data-url="{link widget!, widget => Youtube}" data-widget="{$control->getUniqueId()}-youtube">
 					{icon facetime-video}
 				</a>
 			</div>

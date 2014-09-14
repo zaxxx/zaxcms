@@ -134,11 +134,11 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 		return $label;
 	}
 
-	protected function redrawMeOnly() {
+	protected function redrawMeOnly($snippet = NULL) {
 		foreach($this->getPresenter()->getComponents(TRUE, 'Nette\Application\UI\IRenderable') as $component) {
 			$component->redrawControl(NULL, FALSE);
 		}
-		$this->redrawControl();
+		$this->redrawControl($snippet);
 	}
 
 	/**

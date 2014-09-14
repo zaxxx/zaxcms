@@ -12,7 +12,7 @@ class TexyAreaInput extends BaseControl {
 
 	public function __construct($label) {
 		parent::__construct($label);
-		$this->prototype = Html::el('textarea');
+		$this->prototype = Html::el('textarea')->addClass('texyarea');
 	}
 
 	public function getControlPrototype() {
@@ -21,10 +21,18 @@ class TexyAreaInput extends BaseControl {
 
 	public function handleWidget($widget) {
 		$this->setView($widget);
-		$this->redrawMeOnly();
+		$this->redrawMeOnly(strtolower($widget));
 	}
 
 	public function viewLink() {}
+
+	public function viewYoutube() {}
+
+	public function viewImg() {}
+
+	public function viewImgLink() {}
+
+	public function viewColumns() {}
 
 	public function beforeRender() {
 		$t = $this->getTemplate();

@@ -27,19 +27,65 @@ var initFilestyle = function() {
 	});
 };
 
+
+var initTexyArea = function() {
+    $('.texyarea').on('keydown', function(e) { // enable tab
+        if(e.keyCode === 9) {
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+            $(this).val($(this).val().substring(0, start) + "\t" + $(this).val().substring(end));
+            this.selectionStart = this.selectionEnd = start + 1;
+            e.preventDefault();
+        }
+    });
+    var popovers = $('.texyarea-toolbar a[data-toggle="popover"]');
+    popovers.unbind('click');
+    popovers.on('click', function() {
+        var btn = $(this);
+        var snippet = 'snippet-' + btn.data('widget');
+        if($('#' + snippet).length == 0) {
+            $.get(btn.data('url'), function(resp) {
+                btn.popover({
+                    content: '<div id="' + snippet + '">' + resp.snippets[snippet] + '</div>',
+                    container: 'body',
+                    html: true,
+                    placement: 'bottom',
+                    trigger: 'manual'
+                });
+                btn.popover('show');
+            });
+        } else {
+            btn.popover('toggle');
+        }
+
+        popovers.not(this).popover('destroy');
+    });
+    $('.texyarea-toolbar a[data-texyarea]').each(function() {
+        var texyarea = $('#' + $(this).data('texyarea'));
+        $(this).on('click', function() {
+            texyarea.val($(this).data('function'));
+        });
+    });
+};
+
 var refresh = function() {
     initTooltips();
     initFilestyle();
+
     $('.if-js-hide').hide();
     $('.if-not-js-hide').show();
-};
 
+    initTexyArea();
+};
 
 var payloads = [];
 var initNetteAjax = function() {
 
     /** Tooltips need to be destroyed with every AJAX call to prevent bugs */
     $.nette.ext('tooltipDestroyer',{
+        start: function() {
+            $('.popover').remove();
+        },
         success: function(payload) {
             destroyTooltips();
         }
