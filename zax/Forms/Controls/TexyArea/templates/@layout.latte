@@ -8,42 +8,71 @@
 				<a class="btn btn-default" title="Kurzíva" data-texyarea="{$prototype->id}" data-function="italic">
 					<em>i</em>
 				</a>
-				<a class="btn btn-default" title="Podtržené" data-texyarea="{$prototype->id}" data-function="underline">
-					<span style="text-decoration:underline">u</span>
-				</a>
 			</div>
-			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Zarovnat vlevo" data-texyarea="{$prototype->id}" data-function="alignLeft">
-					{icon align-left}
-				</a>
-				<a class="btn btn-default" title="Zarovnat na střed" data-texyarea="{$prototype->id}" data-function="alignCenter">
-					{icon align-center}
-				</a>
-				<a class="btn btn-default" title="Zarovnat vpravo" data-texyarea="{$prototype->id}" data-function="alignRight">
-					{icon align-right}
-				</a>
-				<a class="btn btn-default" title="Zarovnat do bloku" data-texyarea="{$prototype->id}" data-function="alignBlock">
-					{icon align-justify}
-				</a>
+			<div class="btn-group btn-group-sm dropdown">
+				<a class="btn btn-default dropdown-toggle" title="Zarovnat" data-toggle="dropdown">{icon align-left} <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li>
+						<a data-texyarea="{$prototype->id}" data-function="alignLeft">
+							{icon align-left} Doleva
+						</a>
+					</li>
+					<li>
+						<a data-texyarea="{$prototype->id}" data-function="alignCenter">
+							{icon align-center} Na střed
+						</a>
+					</li>
+					<li>
+						<a data-texyarea="{$prototype->id}" data-function="alignRight">
+							{icon align-right} Doprava
+						</a>
+					</li>
+					<li>
+						<a data-texyarea="{$prototype->id}" data-function="alignBlock">
+							{icon align-justify} Do bloku
+						</a>
+					</li>
+				</ul>
 			</div>
-			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Velký nadpis" data-texyarea="{$prototype->id}" data-function="h1">
-					H
-				</a>
-				<a class="btn btn-default" title="Střední nadpis" data-texyarea="{$prototype->id}" data-function="h2">
-					<small>H</small>
-				</a>
-				<a class="btn btn-default" title="Malý nadpis" data-texyarea="{$prototype->id}" data-function="h3">
-					<small><small><small>H</small></small></small>
-				</a>
+			<div class="btn-group btn-group-sm dropdown">
+				<a class="btn btn-default dropdown-toggle" title="Nadpis" data-toggle="dropdown">H <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li>
+						<a title="Velký nadpis" data-texyarea="{$prototype->id}" data-function="h1">
+							<strong>H</strong> Velký
+						</a>
+					</li>
+					<li>
+						<a title="Střední nadpis" data-texyarea="{$prototype->id}" data-function="h2">
+							<small>H</small> Střední
+						</a>
+					</li>
+					<li>
+						<a title="Malý nadpis" data-texyarea="{$prototype->id}" data-function="h3">
+							<small><small><small>H</small></small></small> Malý
+						</a>
+					</li
+				</ul>
 			</div>
-			<div class="btn-group btn-group-sm">
-				<a class="btn btn-default" title="Seznam" data-texyarea="{$prototype->id}" data-function="ul">
-					{icon list}
-				</a>
-				<a class="btn btn-default" title="Číslovaný seznam" data-texyarea="{$prototype->id}" data-function="ol">
-					<small>123</small>
-				</a>
+			<div class="btn-group btn-group-sm dropdown">
+				<a class="btn btn-default dropdown-toggle" title="Seznamy a citace" data-toggle="dropdown">{icon list} <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li>
+						<a data-texyarea="{$prototype->id}" data-function="ul">
+							{icon list} Odrážkový seznam
+						</a>
+					</li>
+					<li>
+						<a data-texyarea="{$prototype->id}" data-function="ol">
+							<small>123</small> Číslovaný seznam
+						</a>
+					</li>
+					<li>
+						<a data-texyarea="{$prototype->id}" data-function="quote">
+							{icon comment} Citace
+						</a>
+					</li>
+				</ul>
 			</div>
 			<div class="btn-group btn-group-sm">
 				<a class="btn btn-default" title="Sloupcové rozložení" data-toggle="popover" data-url="{link widget!, widget => Columns}" data-widget="{$control->getUniqueId()}-columns">

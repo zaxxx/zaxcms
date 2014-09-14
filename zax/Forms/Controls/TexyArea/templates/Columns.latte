@@ -1,7 +1,7 @@
 <div n:snippet="columns">
 	<div class="btn-group">
-		<a class="btn btn-default">Dva sloupce</a>
-		<a class="btn btn-default">Tři sloupce</a>
-		<a class="btn btn-default">Čtyři sloupce</a>
+		<a class="btn btn-default" onclick="(new Texy($({='#'.$prototype->id}).get(0))).columns(2)">Dva sloupce</a>
+		<a class="btn btn-default" onclick="(new Texy($({='#'.$prototype->id}).get(0))).columns(3)">Tři sloupce</a>
+		<a class="btn btn-default" onclick="(new Texy($({='#'.$prototype->id}).get(0))).columns(4)">Čtyři sloupce</a>
 	</div>
 </div>

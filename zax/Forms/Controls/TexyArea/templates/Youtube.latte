@@ -1,9 +1,9 @@
 <div n:snippet="youtube">
-	<input class="form-control" type="text" placeholder="URL nebo ID videa">
-	<select class="form-control">
-		<option>Malé okno</option>
-		<option>Roztáhnout (4:3)</option>
-		<option>Roztáhnout (16:9)</option>
+	<input class="form-control" type="text" id="{$prototype->id}-youtube-url" placeholder="URL nebo ID videa">
+	<select class="form-control" id="{$prototype->id}-youtube-size">
+		<option value="0">Malé okno</option>
+		<option value="1">Roztáhnout (4:3)</option>
+		<option value="2">Roztáhnout (16:9)</option>
 	</select>
-	<a class="btn btn-default">Vložit</a>
+	<a class="btn btn-default" onclick="(new Texy($({='#'.$prototype->id}).get(0))).youtube($({='#'.$prototype->id.'-youtube-url'}).val(), $({='#'.$prototype->id.'-youtube-size'}).val())">Vložit</a>
 </div>

@@ -74,6 +74,10 @@ input.about-2-chars-long {
     overflow-x: hidden;
 }
 
+.dropdown-menu a{
+    cursor: pointer;
+}
+
 .popover{
     max-width: none;
 }

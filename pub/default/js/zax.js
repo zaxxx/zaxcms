@@ -29,6 +29,7 @@ var initFilestyle = function() {
 
 
 var initTexyArea = function() {
+    $('.texyarea').unbind('keydown');
     $('.texyarea').on('keydown', function(e) { // enable tab
         if(e.keyCode === 9) {
             var start = this.selectionStart;
@@ -43,7 +44,7 @@ var initTexyArea = function() {
     popovers.on('click', function() {
         var btn = $(this);
         var snippet = 'snippet-' + btn.data('widget');
-        if($('#' + snippet).length == 0) {
+        if($('#' + snippet).length === 0) {
             $.get(btn.data('url'), function(resp) {
                 btn.popover({
                     content: '<div id="' + snippet + '">' + resp.snippets[snippet] + '</div>',
@@ -62,8 +63,19 @@ var initTexyArea = function() {
     });
     $('.texyarea-toolbar a[data-texyarea]').each(function() {
         var texyarea = $('#' + $(this).data('texyarea'));
+        $(this).unbind('click');
         $(this).on('click', function() {
-            texyarea.val($(this).data('function'));
+            var texy = new Texy(texyarea.get(0));
+            var func = $(this).data('function');
+            texy[func]();
+            /*var start = texyarea.selectionStart;
+            var end = texyarea.selectionEnd;
+            if(start === end) {
+                texyarea.val(texyarea.val() + $(this).data('function'));
+            }
+            texyarea.focus();*/
+
+            //texyarea.val($(this).data('function'));
         });
     });
 };
