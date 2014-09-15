@@ -54,12 +54,19 @@ var initTexyArea = function() {
                     trigger: 'manual'
                 });
                 btn.popover('show');
+                btn.addClass('active');
             });
         } else {
             btn.popover('toggle');
+            if(btn.hasClass('active')) {
+                btn.removeClass('active');
+            } else {
+                btn.addClass('active')
+            }
         }
 
         popovers.not(this).popover('destroy');
+        popovers.not(this).removeClass('active');
     });
     $('.texyarea-toolbar a[data-texyarea]').each(function() {
         var texyarea = $('#' + $(this).data('texyarea'));
