@@ -85,7 +85,7 @@ Enhanced forms
  - [x] Link submit
  - [x] NEON textarea
  - [x] Datetime input
- - [ ] TexyArea input (buttons around textarea)
+ - [x] TexyArea input (buttons around textarea)
  - [ ] ...
 
 FileManager component
