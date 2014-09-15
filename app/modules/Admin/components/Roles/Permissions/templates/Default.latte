@@ -8,19 +8,10 @@
 	{/if}
 	{?$allowed = $authorizator->isAllowed($role->name, $permission->resource->name, $permission->privilege->name)}
 	{?$text = 'role.text.' . ($allowed ? '' : 'dis') . 'allowed'}
-	<a title="{_$text} {$permission->note}" n:class="btn, $allowed ? btn-success : btn-danger"{if !$role->hasReadOnlyPermissions()}{/if}>
+	<a title="{_$text} {$permission->note}" n:class="btn, $ajaxEnabled ? ajax, $allowed ? btn-success : btn-danger"{if !$role->hasReadOnlyPermissions()} href="{$control->link($allowed ? 'deny!' : 'allow!', [role=>$role->id, permission=>$permission->id])}"{/if}>
 		{icon $permission->privilege->getIcon()}
 	</a>
 	{?$prev = $permission}
 	{if $iterator->last}</div></div></div>{/if}
 {/foreach}
 </div>
-{*
-<ul>
-{foreach $acl as $aclEntry}
-	<li>{$aclEntry->allow}</li>
-{/foreach}
-</ul>
-{control paginator}
-
-*}

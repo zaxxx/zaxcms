@@ -7,9 +7,9 @@ use Nette,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+    Zax\Application\UI\SecuredControl;
 
-class RolesControl extends Control {
+class RolesControl extends SecuredControl {
 
 	/** @persistent */
 	public $selectRole;
@@ -63,18 +63,22 @@ class RolesControl extends Control {
 	    $this->template->roles = $this->roleService->getChildren($guest, FALSE, NULL, 'ASC', TRUE);
     }
 
+	/** @secured Roles, Delete */
 	public function viewDelete() {
 
 	}
 
+	/** @secured Roles, Edit */
 	public function viewEdit() {
 
 	}
 
+	/** @secured Roles, Edit */
 	public function viewPermissions() {
 
 	}
 
+	/** @secured Roles, Add */
 	public function viewAdd() {
 
 	}
@@ -83,11 +87,13 @@ class RolesControl extends Control {
 	    return $this->localeSelectFactory->create();
 	}
 
+	/** @secured Roles, Edit */
 	protected function createComponentEditRoleForm() {
 	    return $this->editRoleFormFactory->create()
 		    ->setRole($this->getSelectedRole());
 	}
 
+	/** @secured Roles, Add */
 	protected function createComponentAddRoleForm() {
 		$role = $this->roleService->create();
 		$role->parent = $this->getSelectedRole();
@@ -95,11 +101,13 @@ class RolesControl extends Control {
 			->setRole($role);
 	}
 
+	/** @secured Roles, Delete */
 	protected function createComponentDeleteRoleForm() {
 	    return $this->deleteRoleFormFactory->create()
 		    ->setRole($this->getSelectedRole());
 	}
 
+	/** @secured Roles, Edit */
 	protected function createComponentPermissions() {
 	    return $this->permissionsFactory->create()
 		    ->setRole($this->getSelectedRole());

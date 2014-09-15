@@ -47,6 +47,8 @@ class AclFactory extends Nette\Object {
 
 	protected $cmsInstalled;
 
+	protected $container;
+
 	protected $roleService;
 
 	protected $resourceService;
@@ -58,12 +60,14 @@ class AclFactory extends Nette\Object {
 	protected $aclService;
 
 	public function __construct($cmsInstalled,
+								Nette\DI\Container $container,
 	                            Service\RoleService $roleService,
 	                            Service\ResourceService $resourceService,
 	                            Service\PrivilegeService $privilegeService,
 	                            Service\PermissionService $permissionService,
 	                            Service\AclService $aclService) {
 		$this->cmsInstalled = (bool)$cmsInstalled;
+		$this->container = $container;
 		$this->roleService = $roleService;
 		$this->resourceService = $resourceService;
 		$this->privilegeService = $privilegeService;
@@ -117,7 +121,7 @@ class AclFactory extends Nette\Object {
 			$acl = new Nette\Security\Permission;
 			try {
 				foreach($this->roleService->findAll() as $role) {
-					$acl->addRole($role->name);
+					$acl->addRole($role->name, $role->parent === NULL ? NULL : $role->parent->name);
 				}
 			} catch (Kdyby\Doctrine\DBALException $ex) {
 				return new Nette\Security\Permission;
@@ -143,7 +147,10 @@ class AclFactory extends Nette\Object {
 		$doctrineCache = $this->aclService->getEntityManager()->getConfiguration()->getResultCacheImpl();
 		$doctrineCache->delete(self::CACHE_TAG);
 		$doctrineCache->flushAll();
-		return $this;
+		$newAuthorizator = $this->createNetteAcl();
+		$this->container->removeService('acl');
+		$this->container->addService('acl', $newAuthorizator)->createService('acl');
+		return $newAuthorizator;
 	}
 
 }

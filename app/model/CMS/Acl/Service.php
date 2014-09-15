@@ -26,4 +26,28 @@ class AclService extends Zax\Model\Service {
 		return $acl;
 	}
 
+	public function allow(Entity\Role $role, Entity\Permission $permission) {
+		$acl = $this->getBy(['role.id' => $role->id, 'permission.id' => $permission->id]);
+		if($acl === NULL) {
+			$acl = $this->create();
+			$acl->role = $role;
+			$acl->permission = $permission;
+		}
+		$acl->allow = TRUE;
+		$this->persist($acl);
+		return $acl;
+	}
+
+	public function deny(Entity\Role $role, Entity\Permission $permission) {
+		$acl = $this->getBy(['role.id' => $role->id, 'permission.id' => $permission->id]);
+		if($acl === NULL) {
+			$acl = $this->create();
+			$acl->role = $role;
+			$acl->permission = $permission;
+		}
+		$acl->allow = FALSE;
+		$this->persist($acl);
+		return $acl;
+	}
+
 }
