@@ -1,5 +1,5 @@
 /**
- * Portions of this code are derived from Texyla (credits to Jan Marek - github.com///janmarek)
+ * Portions of this code are derived from Texyla (credits to Jan Marek - github.com/janmarek, MIT licence)
  */
 
 function Texy(textarea) {
@@ -122,7 +122,11 @@ Texy.prototype = jQuery.extend({}, Selection.prototype, {
 
     link: function(text, destination, newTab) {
         this.trimSelect();
-        this.replace('"' + text + (newTab ? ' .{target:blank}' : '') + '":' + destination)
+        this.tag('"', text + (newTab ? ' .{target:blank}' : '') + '":' + destination);
+    },
+
+    img: function(url, align, htmlClass) {
+        this.replace('[* ' + url + ' ' + (htmlClass.length > 0 ? '.[' + htmlClass + '] ' : '') + align + ']');
     },
 
     youtube: function(url, size) {

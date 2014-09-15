@@ -30,8 +30,6 @@ class TexyAreaInput extends BaseControl {
 
 	public function viewImg() {}
 
-	public function viewImgLink() {}
-
 	public function viewColumns() {}
 
 	public function beforeRender() {

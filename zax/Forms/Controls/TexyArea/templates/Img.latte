@@ -1,10 +1,14 @@
 <div n:snippet="img">
-	<input class="form-control" type="text" placeholder="URL adresa obrázku">
-	<select class="form-control">
-		<option>Bez zarovnání</option>
-		<option>Zarovnat doleva</option>
-		<option>Zarovnat na střed</option>
-		<option>Zarovnat doprava</option>
+	<input class="form-control" type="text" placeholder="URL adresa obrázku" id="{$prototype->id}-img-url">
+	<select class="form-control" id="{$prototype->id}-img-align">
+		<option value="*">Bez zarovnání</option>
+		<option value="<">Zarovnat doleva</option>
+		<option value=">">Zarovnat doprava</option>
 	</select>
-	<a class="btn btn-default">Vložit</a>
+	<select class="form-control" id="{$prototype->id}-img-class">
+		<option value="">Bez stylu</option>
+		<option value="img-responsive">Přizpůsobit šířce</option>
+		<option value="img-thumbnail">Přidat rámeček</option>
+	</select>
+	<a class="btn btn-default" onclick="(new Texy($({='#'.$prototype->id}).get(0))).img($({='#'.$prototype->id.'-img-url'}).val(), $({='#'.$prototype->id.'-img-align'}).val(), $({='#'.$prototype->id.'-img-class'}).val())">Vložit</a>
 </div>

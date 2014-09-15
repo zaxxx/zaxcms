@@ -38,17 +38,17 @@
 				<a class="btn btn-default dropdown-toggle" title="Nadpis" data-toggle="dropdown">H <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li>
-						<a title="Velký nadpis" data-texyarea="{$prototype->id}" data-function="h1">
+						<a data-texyarea="{$prototype->id}" data-function="h1">
 							<strong>H</strong> Velký
 						</a>
 					</li>
 					<li>
-						<a title="Střední nadpis" data-texyarea="{$prototype->id}" data-function="h2">
+						<a data-texyarea="{$prototype->id}" data-function="h2">
 							<small>H</small> Střední
 						</a>
 					</li>
 					<li>
-						<a title="Malý nadpis" data-texyarea="{$prototype->id}" data-function="h3">
+						<a data-texyarea="{$prototype->id}" data-function="h3">
 							<small><small><small>H</small></small></small> Malý
 						</a>
 					</li
@@ -86,10 +86,7 @@
 				<a class="btn btn-default" title="Obrázek" data-toggle="popover" data-url="{link widget!, widget => Img}" data-widget="{$control->getUniqueId()}-img">
 					{icon picture}
 				</a>
-				<a class="btn btn-default" title="Obrázkový odkaz" data-toggle="popover"  data-url="{link widget!, widget => ImgLink}" data-widget="{$control->getUniqueId()}-imglink">
-					{icon link}{icon picture}
-				</a>
-				<a class="btn btn-default" title="Youtube" data-toggle="popover" data-url="{link widget!, widget => Youtube}" data-widget="{$control->getUniqueId()}-youtube">
+				<a class="btn btn-default" title="Youtube video" data-toggle="popover" data-url="{link widget!, widget => Youtube}" data-widget="{$control->getUniqueId()}-youtube">
 					{icon facetime-video}
 				</a>
 			</div>

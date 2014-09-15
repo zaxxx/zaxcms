@@ -68,14 +68,6 @@ var initTexyArea = function() {
             var texy = new Texy(texyarea.get(0));
             var func = $(this).data('function');
             texy[func]();
-            /*var start = texyarea.selectionStart;
-            var end = texyarea.selectionEnd;
-            if(start === end) {
-                texyarea.val(texyarea.val() + $(this).data('function'));
-            }
-            texyarea.focus();*/
-
-            //texyarea.val($(this).data('function'));
         });
     });
 };

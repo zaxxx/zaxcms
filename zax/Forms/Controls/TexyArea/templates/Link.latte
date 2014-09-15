@@ -1,6 +1,6 @@
 <div n:snippet="link">
-	<input class="form-control" type="text" placeholder="URL adresa odkazu">
-	<input class="form-control" type="text" placeholder="Text odkazu">
-	<div class="checkbox"><label><input type="checkbox"> Otevírat v nové záložce</label></div>
-	<a class="btn btn-default">Vložit</a>
+	<input class="form-control" type="text" placeholder="URL adresa odkazu" id="{$prototype->id}-link-url">
+	<input class="form-control" type="text" placeholder="Text odkazu" id="{$prototype->id}-link-text">
+	<div class="checkbox"><label><input type="checkbox" id="{$prototype->id}-link-newTab"> Otevírat v nové záložce</label></div>
+	<a class="btn btn-default" onclick="(new Texy($({='#'.$prototype->id}).get(0))).link($({='#'.$prototype->id.'-link-text'}).val(), $({='#'.$prototype->id.'-link-url'}).val(), $({='#'.$prototype->id.'-link-newTab'}).prop('checked'))">Vložit</a>
 </div>
