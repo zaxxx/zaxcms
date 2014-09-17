@@ -6,3 +6,4 @@ nette:
         bar:
             #- Nette\Bridges\DITracy\ContainerPanel
             - Nette\Bridges\HttpTracy\SessionPanel
+            - Zax\Tracy\Panels\IdentityPanel
