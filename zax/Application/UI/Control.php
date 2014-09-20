@@ -281,7 +281,14 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * @return string
 	 */
 	public function getTemplatePath($view, $render = '') {
-		return dirname($this->reflection->fileName) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $view . (strlen($render) > 0 ? '.' . $render : '') . '.latte';
+		$class = $this->reflection;
+		do { // Template inheritance.. kinda..
+			$path = dirname($class->fileName) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $view . (strlen($render) > 0 ? '.' . $render : '') . '.latte';
+			if(is_file($path)) {
+				return $path;
+			}
+			$class = $class->getParentClass();
+		} while (TRUE);
 	}
 
 	/* TODO: some stuff for Texy ;-)
