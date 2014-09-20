@@ -30,7 +30,7 @@
 					{include itemLink, item => $prev}
 					{str_repeat('</li></ul>', $depth - $item->depth)|noescape}{='</li>'|noescape}
 				{/if}
-				<li n:class="(expand) $classes[li]">
+				<li n:class="(expand) $classes[li], $control->isActive($item) ? active">
 				{?$depth = $item->depth}
 				{?$prev = $item}
 				{?$first = FALSE}

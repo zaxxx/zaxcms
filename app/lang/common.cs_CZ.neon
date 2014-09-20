@@ -38,3 +38,5 @@ general:
     never: "Nikdy"
     is: "je"
     isnt: "není"
+    yes: "Ano"
+    no: "Ne"

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h5 class="panel-title">{_'user.panel.basicInfo'}<span class="pull-right"><a n:class="$ajaxEnabled ? ajax" title="{_'common.button.edit'}" n:href="this, view => Edit">{icon pencil}</a></span></h5>
+		<h5 class="panel-title">{_'user.panel.basicInfo'}<span n:secured="Users, Edit" class="pull-right"><a n:class="$ajaxEnabled ? ajax" title="{_'common.button.edit'}" n:href="this, view => Edit">{icon pencil}</a></span></h5>
 	</div>
 	<div class="panel-body">
 		{include #panelContent}

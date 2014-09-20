@@ -6,9 +6,9 @@ use Nette,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+    Zax\Application\UI\SecuredControl;
 
-class BasicInfoControl extends Control {
+class BasicInfoControl extends SecuredControl {
 
 	protected $selectedUser;
 
@@ -27,6 +27,7 @@ class BasicInfoControl extends Control {
         
     }
 
+	/** @secured Users, Edit */
 	public function viewEdit() {
 
 	}
@@ -35,6 +36,7 @@ class BasicInfoControl extends Control {
         $this->template->selectedUser = $this->selectedUser;
     }
 
+	/** @secured Users, Edit */
 	protected function createComponentEditUserForm() {
 	    return $this->editUserFormFactory->create()
 		    ->setSelectedUser($this->selectedUser);
