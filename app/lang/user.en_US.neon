@@ -1,6 +1,13 @@
 panel:
     users: "Users"
+    basicInfo: "Basic info"
+    security: "Security"
 form:
     username: "Username"
+    email: "E-mail"
+    registered: "Registered"
+    role: "Role"
+    passwordChanged: "Password changed"
+    banned: "Banned"
 button:
     createUser: "Create user"

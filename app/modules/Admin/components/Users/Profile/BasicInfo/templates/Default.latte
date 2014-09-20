@@ -1,0 +1,18 @@
+{layout './@layout.latte'}
+
+{define panelContent}
+	<table class="table table-hover">
+		<tr>
+			<th>{_'user.form.username'}</th>
+			<td><strong>{$selectedUser->name}</strong></td>
+		</tr>
+		<tr>
+			<th>{_'user.form.email'}</th>
+			<td><a href="mailto:{$selectedUser->email}">{$selectedUser->email}</a></td>
+		</tr>
+		<tr>
+			<th>{_'user.form.registered'}</th>
+			<td><span title="{$selectedUser->login->registeredAt|beautifulDateTime}">{$selectedUser->login->registeredAt|relativeDate}</span></td>
+		</tr>
+	</table>
+{/define}

@@ -29,9 +29,10 @@ class UserQuery extends Zax\Model\Doctrine\QueryObject {
 
 	protected function doCreateQuery(Kdyby\Persistence\Queryable $repository) {
 		$qb = $repository->createQueryBuilder()
-			->select('a, b')
+			->select('a, b, c')
 			->from(Model\CMS\Entity\User::getClassName(), 'a')
-			->join('a.role', 'b');
+			->join('a.role', 'b')
+			->join('a.login', 'c');
 		$this->applyFilters($qb);
 		return $qb->getQuery()
 			->useResultCache(TRUE);

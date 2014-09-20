@@ -1,6 +1,13 @@
 panel:
     users: "Uživatelé"
+    basicInfo: "Základní info"
+    security: "Zabezpečení"
 form:
     username: "Jméno"
+    email: "E-mail"
+    registered: "Zaregistrován"
+    role: "Role"
+    passwordChanged: "Heslo změněno"
+    banned: "Zabanován"
 button:
     createUser: "Vytvořit uživatele"

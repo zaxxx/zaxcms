@@ -4,3 +4,8 @@ services:
 
     - ZaxCMS\AdminModule\Components\Users\IRoleFilterFactory
     - ZaxCMS\AdminModule\Components\Users\IUserSearchFactory
+
+    - ZaxCMS\AdminModule\Components\Users\IBasicInfoFactory
+    - ZaxCMS\AdminModule\Components\Users\ISecurityInfoFactory
+
+    - ZaxCMS\AdminModule\Components\Users\IEditUserFormFactory
