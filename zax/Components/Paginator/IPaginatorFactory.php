@@ -1,6 +1,6 @@
 <?php
 
-namespace Zax\Components\Filter;
+namespace Zax\Components\Paginator;
 
 interface IPaginatorFactory {
 

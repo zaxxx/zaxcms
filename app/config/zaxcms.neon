@@ -18,6 +18,7 @@ services:
     - ZaxCMS\Model\CMS\Service\PrivilegeService
     - ZaxCMS\Model\CMS\Service\ResourceService
     - ZaxCMS\Model\CMS\Service\RoleService
+    - ZaxCMS\Model\CMS\DeleteRole
     - ZaxCMS\Model\CMS\Service\WebContentService
     - ZaxCMS\Model\CMS\Service\MenuService
     - ZaxCMS\Model\CMS\Service\PageService
@@ -40,7 +41,6 @@ services:
 ## Presenters
 
     - ZaxCMS\FrontModule\DefaultPresenter(%CMSInstalled%)
-    - ZaxCMS\FrontModule\ArticlesPresenter
     - ZaxCMS\FrontModule\PagePresenter
     - ZaxCMS\FrontModule\UserPresenter
 

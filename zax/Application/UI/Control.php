@@ -321,11 +321,17 @@ abstract class Control extends Nette\Application\UI\Control {
 		return $template;
 	}
 
+	protected function prepareComponent($name, $control) {
+		if($control instanceof Control || $control instanceof Form) {
+			if($this->ajaxEnabled && !in_array($name, $this->ajaxDisabledFor) && ($control instanceof Control || $control instanceof Form)) {
+				$control->enableAjax();
+			}
+		}
+	}
+
 	protected function createComponent($name) {
 		$control = parent::createComponent($name);
-		if($this->ajaxEnabled && !in_array($name, $this->ajaxDisabledFor) && ($control instanceof Control || $control instanceof Form)) {
-			$control->enableAjax();
-		}
+		$this->prepareComponent($name, $control);
 		return $control;
 	}
 

@@ -8,7 +8,7 @@ use Zax,
 	Kdyby;
 
 
-class RoleService extends Zax\Model\Service {
+class RoleService extends Zax\Model\Doctrine\Service {
 
 	use Zax\Traits\TTranslatable;
 

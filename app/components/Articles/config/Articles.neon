@@ -1,2 +1,0 @@
-services:
-    - ZaxCMS\Components\Articles\IArticlesFactory

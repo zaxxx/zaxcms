@@ -1,11 +1,10 @@
 <?php
 
-namespace Zax\Model;
+namespace Zax\Model\Doctrine;
 use Zax,
 	Nette,
 	Kdyby,
 	Gedmo,
-	Doctrine,
 	Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 class TranslatedNestedTreeRepository extends NestedTreeRepository {
@@ -19,11 +18,11 @@ class TranslatedNestedTreeRepository extends NestedTreeRepository {
 
 	public function childrenQuery($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false) {
 		if($this->locale === NULL) {
-			throw new LocaleNotSetException('Locale not set, use setLocale() method.');
+			throw new Zax\Model\LocaleNotSetException('Locale not set, use setLocale() method.');
 		}
 		$query = $this->childrenQueryBuilder($node, $direct, $sortByField, $direction, $includeNode)->getQuery();
 		$query->setHint(
-			Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+			\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
 			'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
 		);
 		$query->setHint(

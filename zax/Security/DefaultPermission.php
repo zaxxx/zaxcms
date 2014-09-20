@@ -2,8 +2,6 @@
 
 namespace Zax\Security;
 use Zax,
-	ZaxCMS,
-	ZaxCMS\Model,
 	Nette;
 
 /**
@@ -57,10 +55,6 @@ class DefaultPermission extends Permission {
 			'privilege' => array_shift($parts),
 			'params' => $parts
 		];
-	}
-
-	public function test($resource, $privilege, $params) {
-		dump(func_get_args());
 	}
 
 	/**

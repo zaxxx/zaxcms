@@ -9,7 +9,7 @@ use Zax,
 	Gedmo;
 
 
-class UserLoginHistoryService extends Zax\Model\Service {
+class UserLoginHistoryService extends Zax\Model\Doctrine\Service {
 
 	public function __construct(Kdyby\Doctrine\EntityManager $entityManager) {
 		parent::__construct($entityManager);

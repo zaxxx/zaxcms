@@ -8,7 +8,7 @@ use Zax,
 	Kdyby;
 
 
-class WebContentService extends Zax\Model\Service {
+class WebContentService extends Zax\Model\Doctrine\Service {
 
 	public function __construct(Kdyby\Doctrine\EntityManager $entityManager) {
 		parent::__construct($entityManager);

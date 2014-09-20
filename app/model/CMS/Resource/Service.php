@@ -9,7 +9,7 @@ use Zax,
 	Gedmo;
 
 
-class ResourceService extends Zax\Model\Service {
+class ResourceService extends Zax\Model\Doctrine\Service {
 
 	protected $defaultResources = [
 		'AdminPanel' => ['cs_CZ' => 'Administrace', 'en_US' => 'Admin panel'],

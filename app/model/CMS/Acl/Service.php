@@ -9,7 +9,7 @@ use Zax,
 	Gedmo;
 
 
-class AclService extends Zax\Model\Service {
+class AclService extends Zax\Model\Doctrine\Service {
 
 	public function __construct(Kdyby\Doctrine\EntityManager $entityManager) {
 		parent::__construct($entityManager);

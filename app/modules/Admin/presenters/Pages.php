@@ -14,9 +14,14 @@ class PagesPresenter extends BasePresenter {
 		$this->pagesFactory = $pagesFactory;
 	}
 
+	public function actionDefault() {
+		$this['pages']; // AJAX
+	}
+
 	protected function createComponentPages() {
 	    return $this->pagesFactory->create()
-		    ->enableAjax();
+		    ->enableAjax()
+		    ->enablePaginator(13);
 	}
 
 }

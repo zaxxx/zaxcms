@@ -2,8 +2,6 @@
 
 namespace Zax\Security;
 use Zax,
-	ZaxCMS,
-	ZaxCMS\Model,
 	Nette;
 
 /**

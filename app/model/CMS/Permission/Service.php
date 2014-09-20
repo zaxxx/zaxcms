@@ -9,7 +9,7 @@ use Zax,
 	Gedmo;
 
 
-class PermissionService extends Zax\Model\Service {
+class PermissionService extends Zax\Model\Doctrine\Service {
 
 	public function __construct(Kdyby\Doctrine\EntityManager $entityManager) {
 		parent::__construct($entityManager);

@@ -9,7 +9,9 @@ use Nette,
 	Nette\Application\UI as NetteUI,
     Zax\Application\UI\SecuredControl;
 
-class PagesControl extends SecuredControl {
+class PagesControl extends Zax\Components\Collections\FilterableControl {
+
+	use Zax\Components\Collections\TPaginable;
 
 	/** @persistent */
 	public $page;
@@ -36,6 +38,14 @@ class PagesControl extends SecuredControl {
 		$this->editPageFormFactory = $editPageFormFactory;
 		$this->deletePageFormFactory = $deletePageFormFactory;
 		$this->webContentFactory = $webContentFactory;
+	}
+
+	protected function createQueryObject() {
+		return new Model\CMS\Query\PageQuery;
+	}
+
+	protected function getService() {
+		return $this->pageService;
 	}
 
     public function viewDefault() {
@@ -68,7 +78,7 @@ class PagesControl extends SecuredControl {
 	}
     
     public function beforeRender() {
-        $this->template->pages = $this->pageService->findAll();
+        $this->template->pages = $this->getFilteredResultSet();
 	    if($page = $this->getPage()) {
 		    $page->setTranslatableLocale($this->getLocale());
 		    $this->pageService->refresh($page);

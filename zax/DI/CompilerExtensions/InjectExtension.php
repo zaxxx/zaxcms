@@ -10,9 +10,6 @@ use Nette,
  */
 final class InjectExtension extends CompilerExtension {
 
-	/**
-	 *
-	 */
 	public function beforeCompile() {
 		$builder = $this->getContainerBuilder();
 		foreach ($builder->definitions as $definition) {

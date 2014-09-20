@@ -9,7 +9,7 @@ use Zax,
 	Gedmo;
 
 
-class MenuService extends Zax\Model\Service {
+class MenuService extends Zax\Model\Doctrine\Service {
 
 	const CACHE_TAG = 'ZaxCMS.Model.Menu';
 

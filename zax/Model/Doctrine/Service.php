@@ -1,16 +1,15 @@
 <?php
 
-namespace Zax\Model;
-use ZaxCMS,
-	Doctrine,
+namespace Zax\Model\Doctrine;
+use Zax,
 	Kdyby,
 	Nette;
 
 /**
  * @method Kdyby\Doctrine\QueryBuilder createQueryBuilder()
- * @method Doctrine\ORM\Query createQuery()
+ * @method \Doctrine\ORM\Query createQuery()
  */
-abstract class Service extends Nette\Object implements IService {
+abstract class Service extends Nette\Object implements IDoctrineService {
 
 	protected $entityClassName;
 
@@ -26,14 +25,14 @@ abstract class Service extends Nette\Object implements IService {
 
 	public function getRepository() {
 		if($this->entityClassName === NULL) {
-			throw new MissingEntityClassNameException;
+			throw new Zax\Model\MissingEntityClassNameException;
 		}
 		return $this->entityManager->getRepository($this->entityClassName);
 	}
 
 	public function create() {
 		if($this->entityClassName === NULL) {
-			throw new MissingEntityClassNameException;
+			throw new Zax\Model\MissingEntityClassNameException;
 		}
 		return new $this->entityClassName;
 	}
@@ -82,7 +81,7 @@ abstract class Service extends Nette\Object implements IService {
 		$this->entityManager->refresh($entity);
 	}
 
-	public function fetchQueryObject($queryObject) {
+	public function fetchQueryObject(Kdyby\Doctrine\QueryObject $queryObject) {
 		return $this->getRepository()->fetch($queryObject);
 	}
 

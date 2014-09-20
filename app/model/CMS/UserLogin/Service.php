@@ -8,7 +8,7 @@ use Zax,
 	Kdyby;
 
 
-class UserLoginService extends Zax\Model\Service {
+class UserLoginService extends Zax\Model\Doctrine\Service {
 
 	public function __construct(Kdyby\Doctrine\EntityManager $entityManager) {
 		parent::__construct($entityManager);

@@ -1,0 +1,5 @@
+<ul class="pagination" n:if="$paginator->pageCount > 1">
+	<li n:class="$paginator->first ? disabled"><a n:class="!$paginator->first && $ajaxEnabled ? ajax"{if !$paginator->first} href="{$control->link('this', ['page' => $control->page - 1])}"{/if}>&laquo;</a></li>
+	<li>{include #mid}</li>
+	<li n:class="$paginator->last ? disabled"><a n:class="!$paginator->last && $ajaxEnabled ? ajax"{if !$paginator->last} href="{$control->link('this', ['page' => $control->page + 1])}"{/if}>&raquo;</a></li>
+</ul>

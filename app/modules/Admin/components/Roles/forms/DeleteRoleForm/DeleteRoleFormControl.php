@@ -12,12 +12,12 @@ use Nette,
 
 class DeleteRoleFormControl extends FormControl {
 
-	protected $roleService;
+	protected $deleteRole;
 
 	protected $role;
 
-	public function __construct(Model\CMS\Service\RoleService $roleService) {
-		$this->roleService = $roleService;
+	public function __construct(Model\CMS\DeleteRole $deleteRole) {
+		$this->deleteRole = $deleteRole;
 	}
 
 	public function setRole(Model\CMS\Entity\Role $role) {
@@ -46,11 +46,10 @@ class DeleteRoleFormControl extends FormControl {
     
     public function formSuccess(Form $form, $values) {
 	    if($form->submitted === $form['deleteItem']) {
-		    $this->roleService->remove($this->role);
-		    $this->roleService->flush();
+		    $this->deleteRole->deleteRole($this->role);
 		    $this->parent->onUpdate();
 		    $this->flashMessage('common.alert.entryDeleted', 'success');
-		    $this->parent->go('this', ['view' => 'Default']);
+		    $this->parent->go('this', ['view' => 'Default', 'selectRole' => NULL]);
 	    }
     }
     
