@@ -6,6 +6,7 @@ button:
     deleteRole: "Delete role"
     permissions: "Permissions"
     allRoles: "All roles"
+    showUsers: "Show users"
 panel:
     roles: "Roles"
 text:

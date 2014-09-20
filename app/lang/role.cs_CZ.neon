@@ -6,6 +6,7 @@ button:
     deleteRole: "Odstranit roli"
     permissions: "Oprávnění"
     allRoles: "Všechny role"
+    showUsers: "Zobrazit uživatele"
 panel:
     roles: "Role"
 text:
