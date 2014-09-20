@@ -37,6 +37,7 @@ class UserSortControl extends Control implements Zax\Model\Doctrine\IQueryObject
     public function viewDefault() {
         $this->template->wl = $this->sortWhiteList;
 	    $this->template->sort = $this->getSort();
+	    $this->template->asc = (bool)$this->asc;
     }
     
     public function beforeRender() {
