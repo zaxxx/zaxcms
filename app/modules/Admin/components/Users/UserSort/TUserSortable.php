@@ -6,14 +6,22 @@ use Zax,
 
 trait TUserSortable {
 
-	protected $userSortFactory;
+	/** @var Zax\Components\Sort\ISortFactory */
+	protected $sortFactory;
 
-	public function injectUserSort(IUserSortFactory $userSortFactory) {
-		$this->userSortFactory = $userSortFactory;
+	public function injectSort(Zax\Components\Sort\ISortFactory $sortFactory) {
+		$this->sortFactory = $sortFactory;
 	}
 
 	protected function createComponentUserSort() {
-	    return $this->userSortFactory->create();
+	    return $this->sortFactory->create()
+		    ->setDefaultSort('a.id')
+		    ->setSortWhiteList(
+			    [
+				    'a.id' => 'common.form.id',
+				    'a.name' => 'user.form.username'
+			    ]
+		    );
 	}
 
 	public function enableUserSort() {

@@ -3,5 +3,4 @@ services:
     - ZaxCMS\AdminModule\Components\Users\IProfileFactory
 
     - ZaxCMS\AdminModule\Components\Users\IRoleFilterFactory
-    - ZaxCMS\AdminModule\Components\Users\IUserSortFactory
     - ZaxCMS\AdminModule\Components\Users\IUserSearchFactory

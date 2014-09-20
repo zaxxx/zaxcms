@@ -1,5 +1,5 @@
 <div class="btn-group" n:snippet>
-	<div class="dropdown">
+	<div class="dropdown if-not-js-hide">
 		<a title="{_'common.form.sort'}" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">{if $asc}{icon sort-by-alphabet}{else}{icon sort-by-alphabet-alt}{/if} {_$wl[$sort]} <span class="caret"></span></a>
 		<ul class="dropdown-menu" n:inner-foreach="$wl as $key => $text">
 			<li n:class="$sort === $key ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, sort => $key, asc => ($sort === $key ? !$asc : TRUE)">{_$text}</a></li>

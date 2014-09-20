@@ -1,5 +1,5 @@
 <div class="btn-group" n:snippet>
-	<div class="dropdown">
+	<div class="dropdown if-not-js-hide">
 		<a title="{_'common.form.filter'}" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">{icon filter} {if $selectedRole === NULL}{_}role.button.allRoles{/_}{else}{$selectedRole->displayName}{/if} <span class="caret"></span></a>
 		<ul class="dropdown-menu" n:inner-foreach="$roles as $role">
 			{if $iterator->first}
