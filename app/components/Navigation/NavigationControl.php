@@ -40,10 +40,16 @@ class NavigationControl extends SecuredControl {
 		'sub-ul' => []
 	];
 
+	protected $strategies = [];
+
 	public function __construct(Model\CMS\Service\MenuService $menuService,
-								IEditFactory $editFactory) {
+								IEditFactory $editFactory,
+								MarkActiveStrategies\PresenterStrategy $presenterStrategy,
+								MarkActiveStrategies\PageStrategy $pageStrategy) {
 		$this->menuService = $menuService;
 		$this->editFactory = $editFactory;
+		$this->strategies['presenter'] = $presenterStrategy;
+		$this->strategies['page'] = $pageStrategy;
 	}
 
 	public function attached($presenter) {
@@ -123,6 +129,13 @@ class NavigationControl extends SecuredControl {
 			$this->menu = $this->menuService->getByName($this->menuName, TRUE);
 		}
 		return $this->menu;
+	}
+
+	public function isActive(Model\CMS\Entity\Menu $menuItem) {
+		if(isset($menuItem->nhrefParams['page'])) {
+			return $this->strategies['page']->isActive($menuItem);
+		}
+		return $this->strategies['presenter']->isActive($menuItem);
 	}
 
 	public function viewDefault() {

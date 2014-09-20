@@ -9,3 +9,6 @@ services:
 
     - ZaxCMS\Components\Navigation\IAddMenuItemFactory
     - ZaxCMS\Components\Navigation\IEditMenuItemFactory
+
+    - ZaxCMS\Components\Navigation\MarkActiveStrategies\PresenterStrategy
+    - ZaxCMS\Components\Navigation\MarkActiveStrategies\PageStrategy
