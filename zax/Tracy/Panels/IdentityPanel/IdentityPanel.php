@@ -30,9 +30,8 @@ class IdentityPanel extends Panel {
 		$form->addSubmit('setRole', 'Set')
 			->getControlPrototype()->addClass('btn btn-default');
 
-		if($form->isSubmitted()) {
-			$role = $form->getValues()->role;
-			$this->user->identity->setRoles([$role]);
+		if($form->isSubmitted() && strlen($form->values->role) > 2) {
+			$this->user->identity->setRoles([$form->values->role]);
 		}
 
 		$tpl = $this->createTemplate('panel');
