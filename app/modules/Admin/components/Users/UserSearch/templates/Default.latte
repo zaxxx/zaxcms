@@ -1,5 +1,5 @@
 <div class="btn-group">
 	<form n:class="form-inline, $ajaxEnabled ? ajax" n:name="searchForm">
-		<input onchange="this.nextSibling.click()" title="{_'common.form.search'}" placeholder="{_'common.form.search'}" class="form-control input-sm" type="text" n:name="search"><button n:class="$ajaxEnabled ? ajax, btn, btn-sm, btn-primary, if-js-hide" n:name="find">{icon search}</button>
+		<input onkeyup="this.nextSibling.click()" title="{_'common.form.search'}" placeholder="{_'common.form.search'}" class="form-control input-sm" type="text" n:name="search"><button n:class="$ajaxEnabled ? ajax, btn, btn-sm, btn-primary, if-js-hide" n:name="find">{icon search}</button>
 	</form>
 </div>
