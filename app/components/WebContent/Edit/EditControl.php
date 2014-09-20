@@ -113,7 +113,6 @@ class EditControl extends SecuredControl {
 	 */
 	protected function createComponentEditForm() {
 		return $this->editFormFactory->create()
-			->setService($this->webContentService)
 			->setWebContent($this->getWebContent());
 	}
 

@@ -14,6 +14,12 @@ class EditFormControl extends FormControl {
 
 	protected $webContent;
 
+	protected $webContentService;
+
+	public function __construct(Model\CMS\Service\WebContentService $webContentService) {
+		$this->webContentService = $webContentService;
+	}
+
 	/**
 	 * @secured WebContent, Edit
 	 */
@@ -34,7 +40,7 @@ class EditFormControl extends FormControl {
 		$f = parent::createForm();
 
 		$this->webContent->setTranslatableLocale($this->parent->getLocale());
-		$this->service->refresh($this->webContent);
+		$this->webContentService->refresh($this->webContent);
 
 		$f->addStatic('localeFlag', 'webContent.form.locale')
 			->setDefaultValue($this->parent->getLocale())
@@ -76,15 +82,13 @@ class EditFormControl extends FormControl {
 
 	public function formSuccess(Nette\Forms\Form $form, $values) {
 		if($form->submitted === $form['editWebContent']) {
-			//dump($this->webContent);
+			$this->webContent->setTranslatableLocale($values->locale);
 			$this->binder->formToEntity($form, $this->webContent);
-			//$this->webContent->content = $values->content;
-			//dump($this->webContent);
-			$this->service->persist($this->webContent);
-			$this->service->flush();
+			$this->webContentService->persist($this->webContent);
+			$this->webContentService->flush();
 			$this->lookup('ZaxCMS\Components\WebContent\WebContentControl')->invalidateCache();
 			$this->flashMessage('common.alert.changesSaved', 'success');
-			//$this->parent->go('this');
+			$this->parent->go('this');
 		} else if($form->submitted === $form['previewWebContent']) {
 			$this->binder->formToEntity($form, $this->webContent);
 			$this->parent->redrawControl('preview');

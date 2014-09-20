@@ -15,11 +15,6 @@ class WebContentService extends Zax\Model\Doctrine\Service {
 		$this->entityClassName = Entity\WebContent::getClassName();
 	}
 
-	public function getLogEntries(WebContent $entity) {
-		return $this->getEntityManager()->getRepository('Gedmo\Loggable\Entity\LogEntry')
-			->getLogEntries($entity);
-	}
-
 	public function createWebContent($name) {
 		$webContent = $this->create();
 		$webContent->name = $name;
