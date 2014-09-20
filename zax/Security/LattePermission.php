@@ -15,11 +15,14 @@ class LattePermission extends Nette\Object {
 
 	public function install(Latte\Engine $latte) {
 		$set = new Latte\Macros\MacroSet($latte->getCompiler());
-		$set->addMacro('secured', [$this, 'macroSecured'], 'endif');
+		$set->addMacro('secured', [$this, 'macroSecured'], '}');
 	}
 
 	public function macroSecured(Latte\MacroNode $node, Latte\PhpWriter $writer) {
-		return $writer->write('if ($acl->isUserAllowedTo(%node.args)):');
+		if($node->prefix === $node::PREFIX_TAG) {
+			return $writer->write($node->htmlNode->closing ? 'if(array_pop($_l->secured)){' : 'if($_l->secured[] = $acl->isUserAllowedTo(%node.args)) {');
+		}
+		return $writer->write('if ($acl->isUserAllowedTo(%node.args)) {');
 	}
 
 }
