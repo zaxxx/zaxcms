@@ -145,4 +145,13 @@ class Menu extends BaseEntity implements Translatable {
 		return $this->locale;
 	}
 
+	public function getPresenterName() {
+		if($this->nhref === NULL) {
+			return NULL;
+		}
+		$split = explode(':', $this->nhref, -1);
+		array_shift($split);
+		return implode(':', $split);
+	}
+
 }

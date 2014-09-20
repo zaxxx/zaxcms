@@ -7,10 +7,12 @@ use Zax,
 
 class PresenterStrategy extends Strategy {
 
+	public function isValidForItem(ZaxCMS\Model\CMS\Entity\Menu $menuItem) {
+		return $menuItem->nhref !== NULL;
+	}
+
 	public function isActive(ZaxCMS\Model\CMS\Entity\Menu $menuItem) {
-		$split = explode(':', $menuItem->nhref, -1);
-		array_shift($split);
-		return $this->request->presenterName === implode(':', $split);
+		return $this->request->presenterName === $menuItem->getPresenterName();
 	}
 
 }

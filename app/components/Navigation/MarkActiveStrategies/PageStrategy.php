@@ -7,10 +7,12 @@ use Zax,
 
 class PageStrategy extends Strategy {
 
+	public function isValidForItem(ZaxCMS\Model\CMS\Entity\Menu $menuItem) {
+		return $menuItem->getPresenterName() === 'Front:Page' && isset($this->request->parameters['page']);
+	}
+
 	public function isActive(ZaxCMS\Model\CMS\Entity\Menu $menuItem) {
-		$split = explode(':', $menuItem->nhref, -1);
-		array_shift($split);
-		$activePresenter = $this->request->presenterName === implode(':', $split);
+		$activePresenter = $this->request->presenterName === $menuItem->getPresenterName();
 		$activePage = isset($this->request->parameters['page']) && $this->request->parameters['page'] === $menuItem->nhrefParams['page'];
 		return $activePresenter && $activePage;
 	}

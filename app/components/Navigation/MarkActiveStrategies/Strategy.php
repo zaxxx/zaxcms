@@ -5,7 +5,7 @@ use Zax,
 	ZaxCMS,
 	Nette;
 
-abstract class Strategy extends Nette\Object {
+abstract class Strategy extends Nette\Object implements IStrategy {
 
 	protected $application;
 
@@ -15,6 +15,8 @@ abstract class Strategy extends Nette\Object {
 		$this->application = $application;
 		$this->request = $application->createInitialRequest();
 	}
+
+	abstract public function isValidForItem(ZaxCMS\Model\CMS\Entity\Menu $menuItem);
 
 	abstract public function isActive(ZaxCMS\Model\CMS\Entity\Menu $menuItem);
 
