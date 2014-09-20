@@ -23,8 +23,9 @@ class UserQuery extends Kdyby\Doctrine\QueryObject {
 
 	protected function doCreateQuery(Kdyby\Persistence\Queryable $repository) {
 		$qb = $repository->createQueryBuilder()
-			->select('a')
-			->from(Model\CMS\Entity\User::getClassName(), 'a');
+			->select('a, b')
+			->from(Model\CMS\Entity\User::getClassName(), 'a')
+			->join('a.role', 'b');
 		foreach($this->filter as $modifier) {
 			$modifier($qb);
 		};

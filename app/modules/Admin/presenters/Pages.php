@@ -21,7 +21,7 @@ class PagesPresenter extends BasePresenter {
 	protected function createComponentPages() {
 	    return $this->pagesFactory->create()
 		    ->enableAjax()
-		    ->enablePaginator(13);
+		    ->enablePaginator(10);
 	}
 
 }

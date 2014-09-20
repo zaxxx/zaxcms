@@ -1,0 +1,5 @@
+services:
+    - ZaxCMS\AdminModule\Components\Users\IUsersFactory
+    - ZaxCMS\AdminModule\Components\Users\IProfileFactory
+
+    - ZaxCMS\AdminModule\Components\Users\IRoleFilterFactory

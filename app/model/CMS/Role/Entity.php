@@ -13,7 +13,7 @@ use Zax,
 
 /**
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Zax\Model\TranslatedNestedTreeRepository")
+ * @ORM\Entity(repositoryClass="ZaxCMS\Model\CMS\Repository\RoleTreeRepository")
  *
  * @property-read int $id
  * @property string $name

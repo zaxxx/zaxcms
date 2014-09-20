@@ -10,5 +10,20 @@ use Nette,
 
 class UsersPresenter extends BasePresenter {
 
+	protected $usersFactory;
+
+	public function __construct(ZaxCMS\AdminModule\Components\Users\IUsersFactory $usersFactory) {
+		$this->usersFactory = $usersFactory;
+	}
+
+	public function actionDefault() {
+		$this['users']; // AJAX
+	}
+
+	protected function createComponentUsers() {
+	    return $this->usersFactory->create()
+		    ->enableAjax()
+		    ->enablePaginator(5);
+	}
     
 }

@@ -5,6 +5,7 @@ button:
     editRole: "Edit role"
     deleteRole: "Delete role"
     permissions: "Permissions"
+    allRoles: "All roles"
 panel:
     roles: "Roles"
 text:
