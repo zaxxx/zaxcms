@@ -22,11 +22,12 @@ class MenuInstaller extends Nette\Object {
 		return $menu;
 	}
 
-	protected function createMenuItem($text, $nhref) {
+	protected function createMenuItem($text, $nhref, $icon = NULL) {
 		$item = $this->service->create();
 		$item->text = $text;
 		$item->nhref = $nhref;
 		$item->secured = FALSE;
+		$item->icon = $icon;
 		return $item;
 	}
 
@@ -57,15 +58,15 @@ class MenuInstaller extends Nette\Object {
 		$dashboardItem->setTranslatableLocale('cs_CZ');
 		$this->service->getRepository()->persistAsLastChildOf($dashboardItem, $adminMenu);
 
-		$pagesItem = $this->createMenuItem('Stránky', ':Admin:Pages:default');
+		$pagesItem = $this->createMenuItem('Stránky', ':Admin:Pages:default', 'file');
 		$pagesItem->setTranslatableLocale('cs_CZ');
 		$this->service->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
 
-		$usersItem = $this->createMenuItem('Uživatelé', ':Admin:Users:default');
+		$usersItem = $this->createMenuItem('Uživatelé', ':Admin:Users:default', 'user');
 		$usersItem->setTranslatableLocale('cs_CZ');
 		$this->service->getRepository()->persistAsLastChildOf($usersItem, $adminMenu);
 
-		$rolesItem = $this->createMenuItem('Role', ':Admin:Roles:default');
+		$rolesItem = $this->createMenuItem('Role & oprávnění', ':Admin:Roles:default', 'lock');
 		$rolesItem->setTranslatableLocale('cs_CZ');
 		$this->service->getRepository()->persistAsLastChildOf($rolesItem, $adminMenu);
 
@@ -78,7 +79,7 @@ class MenuInstaller extends Nette\Object {
 			$pagesItem->setTranslatableLocale('en_US');
 			$usersItem->text = 'Users';
 			$usersItem->setTranslatableLocale('en_US');
-			$rolesItem->text = 'Roles';
+			$rolesItem->text = 'Roles & permissions';
 			$rolesItem->setTranslatableLocale('en_US');
 			$this->service->persist($dashboardItem);
 			$this->service->persist($pagesItem);
