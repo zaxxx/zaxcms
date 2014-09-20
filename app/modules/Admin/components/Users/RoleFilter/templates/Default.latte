@@ -1,10 +1,12 @@
-<div class="dropdown">
-	<a class="btn btn-default dropdown-toggle" data-toggle="dropdown">{if $selectedRole === NULL}{_}role.button.allRoles{/_}{else}{$selectedRole->displayName}{/if} <span class="caret"></span></a>
-	<ul class="dropdown-menu" n:inner-foreach="$roles as $role">
-		{if $iterator->first}
-			<li n:class="$selectedRole === NULL ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, selectRole => NULL">{_}role.button.allRoles{/_}</a></li>
-			<li class="divider"></li>
-		{/if}
-		<li n:class="$selectedRole === $role ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, selectRole => $role->id">{$role->displayName}</a></li>
-	</ul>
+<div class="btn-group">
+	<div class="dropdown">
+		<a title="{_'common.form.filter'}" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">{icon filter} {if $selectedRole === NULL}{_}role.button.allRoles{/_}{else}{$selectedRole->displayName}{/if} <span class="caret"></span></a>
+		<ul class="dropdown-menu" n:inner-foreach="$roles as $role">
+			{if $iterator->first}
+				<li n:class="$selectedRole === NULL ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, selectRole => NULL">{_}role.button.allRoles{/_}</a></li>
+				<li class="divider"></li>
+			{/if}
+			<li n:class="$selectedRole === $role ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, selectRole => $role->id">{$role->displayName}</a></li>
+		</ul>
+	</div>
 </div>

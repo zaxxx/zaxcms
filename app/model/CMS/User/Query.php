@@ -21,6 +21,13 @@ class UserQuery extends Kdyby\Doctrine\QueryObject {
 		return $this;
 	}
 
+	public function orderBy($sort, $order) {
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($sort, $order) {
+			$qb->addOrderBy($sort, $order);
+		};
+		return $this;
+	}
+
 	protected function doCreateQuery(Kdyby\Persistence\Queryable $repository) {
 		$qb = $repository->createQueryBuilder()
 			->select('a, b')

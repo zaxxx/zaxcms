@@ -13,6 +13,7 @@ button:
     chooseFile: "Choose file"
     preview: "Preview"
 form:
+    id: "ID"
     name: "Name"
     uniqueName: "Unique name"
     title: "Title"
@@ -22,6 +23,8 @@ form:
     description: "Description"
     confirmDelete: "Do you really want to delete this item?"
     advancedOptions: "Show advanced options"
+    sort: "Sort"
+    filter: "Filter"
 alert:
     changesSaved: "Changes saved."
     changesError: "Error while saving changes."

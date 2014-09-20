@@ -1,0 +1,6 @@
+panel:
+    users: "Users"
+form:
+    username: "Username"
+button:
+    createUser: "Create user"

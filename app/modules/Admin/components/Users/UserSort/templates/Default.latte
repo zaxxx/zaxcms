@@ -1,0 +1,8 @@
+<div class="btn-group">
+	<div class="dropdown">
+		<a title="{_'common.form.sort'}" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">{icon sort} {_$wl[$sort]} <span class="caret"></span></a>
+		<ul class="dropdown-menu" n:inner-foreach="$wl as $key => $text">
+			<li n:class="$sort === $key ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, sort => $key">{_$text}</a></li>
+		</ul>
+	</div>
+</div>

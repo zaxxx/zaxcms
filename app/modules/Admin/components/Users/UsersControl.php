@@ -11,7 +11,8 @@ use Nette,
 class UsersControl extends Zax\Components\Collections\FilterableControl {
 
 	use Zax\Components\Collections\TPaginable,
-		TRoleFilterable;
+		TRoleFilterable,
+		TUserSortable;
 
 	/** @persistent */
 	public $selectUser;

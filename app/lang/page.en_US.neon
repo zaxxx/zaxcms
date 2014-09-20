@@ -1,3 +1,5 @@
+panel:
+    title: "Pages"
 button:
     addPage: "Add page"
     editPage: "Edit page"

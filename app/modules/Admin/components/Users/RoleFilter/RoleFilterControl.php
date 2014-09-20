@@ -36,6 +36,7 @@ class RoleFilterControl extends Control implements Zax\Model\Doctrine\IQueryObje
 	}
 
 	public function filterQueryObject(Kdyby\Doctrine\QueryObject $queryObject) {
+		/** @var Model\CMS\Query\UserQuery $queryObject */
 		return $queryObject->inRole($this->getSelectedRole());
 	}
 

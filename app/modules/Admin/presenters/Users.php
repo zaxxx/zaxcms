@@ -23,6 +23,8 @@ class UsersPresenter extends BasePresenter {
 	protected function createComponentUsers() {
 	    return $this->usersFactory->create()
 		    ->enableAjax()
+	        ->enableRoleFilter()
+	        ->enableUserSort()
 		    ->enablePaginator(5);
 	}
     

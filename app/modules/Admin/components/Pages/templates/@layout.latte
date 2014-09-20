@@ -32,17 +32,26 @@
 	</div>
 {/define}
 
-<div n:snippet>
-	<div class="row">
-		<div class="col-sm-4">
-			{include #pages}
-		</div>
-		<div class="col-sm-8">
-		{if isset($page) && $page !== NULL}
-			{include #page, page => $page}
-		{else}
-			{include #page}
-		{/if}
+<div class="row">
+	<div class="col-sm-12" n:snippet>
+		<div class="panel panel-primary">
+
+			<div class="panel-heading">
+				<h3 class="panel-title">&nbsp;<span class="hidden-xs">{icon file} {_}page.panel.title{/_}</span></h3>
+			</div>
+			<div class="panel-body">
+			<div class="row">
+				<div class="col-sm-3">
+					{include #pages}
+				</div>
+				<div class="col-sm-9">
+					{if isset($page) && $page !== NULL}
+						{include #page, page => $page}
+					{else}
+						{include #page}
+					{/if}
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,3 +1,5 @@
+panel:
+    title: "Stránky"
 button:
     addPage: "Založit stránku"
     editPage: "Upravit stránku"

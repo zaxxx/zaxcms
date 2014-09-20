@@ -1,0 +1,6 @@
+panel:
+    users: "Uživatelé"
+form:
+    username: "Jméno"
+button:
+    createUser: "Vytvořit uživatele"
