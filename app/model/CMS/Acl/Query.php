@@ -7,17 +7,16 @@ use Zax,
 	Kdyby,
 	Doctrine;
 
-class AclQuery extends Kdyby\Doctrine\QueryObject {
+class AclQuery extends Zax\Model\Doctrine\QueryObject {
 
 	protected function doCreateQuery(Kdyby\Persistence\Queryable $repository) {
-		return $repository->createQueryBuilder()
-			//->select('acl, role, resource, privilege')
+		$qb = $repository->createQueryBuilder()
 			->select('acl')
-			->from(Model\CMS\Entity\Acl::getClassName(), 'acl')
-			//->join('acl.role', 'role')
-			//->join('acl.resource', 'resource')
-			//->join('acl.privilege', 'privilege')
-			->getQuery()
+			->from(Model\CMS\Entity\Acl::getClassName(), 'acl');
+
+		$this->applyFilters($qb);
+
+		return $qb->getQuery()
 			->useResultCache(TRUE, NULL, Model\CMS\AclFactory::CACHE_TAG);
 	}
 

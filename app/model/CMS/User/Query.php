@@ -7,9 +7,7 @@ use Zax,
 	Kdyby,
 	Doctrine;
 
-class UserQuery extends Kdyby\Doctrine\QueryObject {
-
-	private $filter = [];
+class UserQuery extends Zax\Model\Doctrine\QueryObject {
 
 	public function inRole(Model\CMS\Entity\Role $role = NULL) {
 		if($role === NULL) {
@@ -17,13 +15,6 @@ class UserQuery extends Kdyby\Doctrine\QueryObject {
 		}
 		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($role) {
 			$qb->andWhere('a.role = :role')->setParameter('role', $role->id);
-		};
-		return $this;
-	}
-
-	public function orderBy($sort, $order) {
-		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($sort, $order) {
-			$qb->addOrderBy($sort, $order);
 		};
 		return $this;
 	}
@@ -41,9 +32,7 @@ class UserQuery extends Kdyby\Doctrine\QueryObject {
 			->select('a, b')
 			->from(Model\CMS\Entity\User::getClassName(), 'a')
 			->join('a.role', 'b');
-		foreach($this->filter as $modifier) {
-			$modifier($qb);
-		};
+		$this->applyFilters($qb);
 		return $qb->getQuery()
 			->useResultCache(TRUE);
 	}

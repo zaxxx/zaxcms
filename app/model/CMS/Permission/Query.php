@@ -8,7 +8,7 @@ use Zax,
 	Gedmo,
 	Doctrine;
 
-class PermissionQuery extends Kdyby\Doctrine\QueryObject {
+class PermissionQuery extends Zax\Model\Doctrine\QueryObject {
 
 	protected $locale;
 
@@ -17,14 +17,18 @@ class PermissionQuery extends Kdyby\Doctrine\QueryObject {
 	}
 
 	protected function doCreateQuery(Kdyby\Persistence\Queryable $repository) {
-		$query =  $repository->createQueryBuilder()
+		$qb = $repository->createQueryBuilder()
 			->select('perm', 'res', 'priv')
 			->from(Model\CMS\Entity\Permission::getClassName(), 'perm')
 			->join('perm.resource', 'res')
 			->join('perm.privilege', 'priv')
-			->orderBy('res.id, priv.id')
-			->getQuery()
+			->orderBy('res.id, priv.id');
+
+		$this->applyFilters($qb);
+
+		$query = $qb->getQuery()
 			->useResultCache(TRUE, NULL, Model\CMS\AclFactory::CACHE_TAG);
+
 		$query->setHint(
 			Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
 			'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
@@ -33,6 +37,7 @@ class PermissionQuery extends Kdyby\Doctrine\QueryObject {
 			Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
 			$this->locale
 		);
+
 		return $query;
 	}
 
