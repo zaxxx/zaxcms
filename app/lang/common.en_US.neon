@@ -16,6 +16,7 @@ form:
     id: "ID"
     name: "Name"
     uniqueName: "Unique name"
+    search: "Search"
     title: "Title"
     displayText: "Displayed text"
     internalName: "Internal name"

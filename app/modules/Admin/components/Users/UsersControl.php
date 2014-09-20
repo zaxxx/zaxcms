@@ -12,7 +12,8 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 
 	use Zax\Components\Collections\TPaginable,
 		TRoleFilterable,
-		TUserSortable;
+		TUserSortable,
+		TUserSearchable;
 
 	/** @persistent */
 	public $selectUser;

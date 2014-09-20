@@ -263,6 +263,12 @@ abstract class Control extends Nette\Application\UI\Control {
 		}
 	}
 
+	public function redrawNothing() {
+		foreach($this->getPresenter()->getComponents(TRUE, 'Nette\Application\UI\IRenderable') as $component) {
+			$component->redrawControl(NULL, FALSE);
+		}
+	}
+
 	public function link($destination, $args = []) {
 		return parent::link($destination, array_merge($this->defaultLinkParams, $args));
 	}

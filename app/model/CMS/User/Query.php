@@ -28,6 +28,14 @@ class UserQuery extends Kdyby\Doctrine\QueryObject {
 		return $this;
 	}
 
+	public function search($needle) {
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($needle) {
+			$qb->andWhere('a.name LIKE :search')
+				->setParameter('search', "%$needle%");
+		};
+		return $this;
+	}
+
 	protected function doCreateQuery(Kdyby\Persistence\Queryable $repository) {
 		$qb = $repository->createQueryBuilder()
 			->select('a, b')

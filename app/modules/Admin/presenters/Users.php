@@ -25,6 +25,7 @@ class UsersPresenter extends BasePresenter {
 		    ->enableAjax()
 	        ->enableRoleFilter()
 	        ->enableUserSort()
+	        ->enableUserSearch()
 		    ->enablePaginator(5);
 	}
     

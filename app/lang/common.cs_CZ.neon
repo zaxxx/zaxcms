@@ -17,6 +17,7 @@ form:
     id: "ID"
     name: "Název"
     uniqueName: "Unikátní název"
+    search: "Hledat"
     title: "Titulek"
     displayText: "Zobrazený text"
     internalName: "Vnitřní název"
