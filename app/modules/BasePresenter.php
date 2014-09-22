@@ -24,6 +24,10 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected $localeSelectFactory;
 
+	protected $pageStrategy;
+
+	protected $presenterStrategy;
+
 	public function injectFlashMessageFactory(Components\FlashMessage\IFlashMessageFactory $flashMessageFactory) {
 		$this->flashMessageFactory = $flashMessageFactory;
 	}
@@ -48,6 +52,12 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		$this->localeSelectFactory = $localeSelectFactory;
 	}
 
+	public function injectMarkNavAsActiveStrategies(Components\Navigation\MarkActiveStrategies\PageStrategy $pageStrategy,
+													Components\Navigation\MarkActiveStrategies\PresenterStrategy $presenterStrategy) {
+		$this->pageStrategy = $pageStrategy;
+		$this->presenterStrategy = $presenterStrategy;
+	}
+
 	protected function createComponentLocaleSelect() {
 	    return $this->localeSelectFactory->create();
 	}
@@ -61,12 +71,18 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected function createComponentNavigation() {
 		return new NetteUI\Multiplier(function($id) {
-	        return $this->navigationFactory->create()
+	        $nav = $this->navigationFactory->create()
 		        ->enableAjax()
 		        ->setMenuName($id)
 	            ->enableDropdown()
 	            ->enableDropdownCaret()
 		        ->setBSNavbarClasses();
+
+			$nav->getMarkActiveStrategy()
+				->addStrategy($this->pageStrategy)
+				->addStrategy($this->presenterStrategy);
+
+			return $nav;
 		});
 	}
 
@@ -74,7 +90,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		return new NetteUI\Multiplier(function($name) {
 			return $this->webContentFactory->create()
 				->setCacheNamespace('ZaxCMS.WebContent.' . $name)
-				->enableAjax(TRUE)
+				->enableAjax()
 				->setName($name);
 		});
 	}
@@ -89,6 +105,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 				->setCacheNamespace('Zax.StaticLinker.' . $id)
 				->setRoot($this->rootDir)
 				->setOutputDirectory($dir . '/combined/' . $id)
+				->setMinifier(new Components\StaticLinker\NoMinifier)
 				->addCssFiles(Nette\Utils\Finder::findFiles('*.css')->from($dir . '/' . $id . '/css'))
 				->addJsFiles(Nette\Utils\Finder::findFiles('*.js')->from($dir . '/' . $id . '/js'));
 		});
