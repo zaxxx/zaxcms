@@ -12,11 +12,12 @@ class ProfileControl extends SecuredControl {
 
 	protected $selectedUser;
 
-	protected $basicInfoFactory;
+    protected $basicInfoFactory;
 
 	protected $securityInfoFactory;
 
-	public function __construct(IBasicInfoFactory $basicInfoFactory, ISecurityInfoFactory $securityInfoFactory) {
+    public function __construct(IBasicInfoFactory $basicInfoFactory,
+                                ISecurityInfoFactory $securityInfoFactory) {
 		$this->basicInfoFactory = $basicInfoFactory;
 		$this->securityInfoFactory = $securityInfoFactory;
 	}

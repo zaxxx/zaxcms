@@ -40,4 +40,14 @@ class RoleService extends Zax\Model\Doctrine\Service {
 		return $children;
 	}
 
+	public function getFormSelectOptions() {
+		$options = [];
+		$guest = $this->getGuestRole();
+		$children = $this->getChildren($guest);
+		foreach($children as $child) {
+			$options[$child->id] = $child->displayName;
+		}
+		return $options;
+	}
+
 }

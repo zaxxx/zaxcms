@@ -9,3 +9,6 @@ services:
     - ZaxCMS\AdminModule\Components\Users\ISecurityInfoFactory
 
     - ZaxCMS\AdminModule\Components\Users\IEditUserFormFactory
+    - ZaxCMS\AdminModule\Components\Users\IAddUserFormFactory
+
+    - ZaxCMS\AdminModule\Components\Users\ISecurityFormFactory

@@ -18,7 +18,7 @@ abstract class UserFormControl extends FormControl {
 
 	protected $aclFactory;
 
-	public function __construct(Model\CMS\Service\UserService $userService,
+	public function injectPrimary(Model\CMS\Service\UserService $userService,
 								Model\CMS\AclFactory $aclFactory) {
 		$this->userService = $userService;
 		$this->aclFactory = $aclFactory;
@@ -36,12 +36,16 @@ abstract class UserFormControl extends FormControl {
 	public function handleCancel() {
 		$this->parent->go('this', ['view' => 'Default']);
 	}
+
+    public function extendForm(Form $form) {}
     
     public function createForm() {
         $f = parent::createForm();
 
 	    $f->addText('name', 'user.form.username');
 	    $f->addText('email', 'user.form.email');
+
+        $this->extendForm($f);
 
 	    $this->binder->entityToForm($this->selectedUser, $f);
 
@@ -50,23 +54,11 @@ abstract class UserFormControl extends FormControl {
 
 	    $f->enableBootstrap(['success' => ['saveUser'], 'default' => ['cancel']], TRUE);
 
+        $f->autofocus('name');
+
 	    return $f;
     }
 
-	abstract protected function successFlashMessage();
-    
-    public function formSuccess(Form $form, $values) {
-        if($form->submitted === $form['saveUser']) {
-	        $this->binder->formToEntity($form, $this->selectedUser);
-	        $this->userService->persist($this->selectedUser);
-	        $this->userService->flush();
-	        $this->aclFactory->invalidateCache();
-
-	        $this->successFlashMessage();
-	        $this->parent->go('this', ['view' => 'Default']);
-        }
-    }
-    
     public function formError(Form $form) {
         
     }

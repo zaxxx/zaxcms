@@ -22,10 +22,14 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 
 	protected $profileFactory;
 
+    protected $addUserFormFactory;
+
 	public function __construct(Model\CMS\Service\UserService $userService,
-								IProfileFactory $profileFactory) {
+								IProfileFactory $profileFactory,
+                                IAddUserFormFactory $addUserFormFactory) {
 		$this->userService = $userService;
 		$this->profileFactory = $profileFactory;
+        $this->addUserFormFactory = $addUserFormFactory;
 	}
 
 	protected function getService() {
@@ -47,6 +51,10 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 	public function viewProfile() {
 
 	}
+
+    public function viewAdd() {
+
+    }
     
     public function beforeRender() {
         $this->template->users = $this->getFilteredResultSet();
@@ -56,5 +64,10 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 	    return $this->profileFactory->create()
 		    ->setSelectedUser($this->getSelectedUser());
 	}
+
+    protected function createComponentAddUserForm() {
+        return $this->addUserFormFactory->create()
+            ->setSelectedUser($this->userService->create());
+    }
 
 }

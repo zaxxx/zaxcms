@@ -6,21 +6,21 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<div class="well">
 							{control roleFilter}{control userSort}{control userSearch}
 							<div n:snippet="list">
 								<ul class="nav nav-pills nav-stacked">
-									<li n:secured="Users, Add"><a>{icon plus} {_}user.button.createUser{/_}</a></li>
+									<li n:secured="Users, Add" n:class="$view === Add ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, view => Add, selectUser => NULL">{icon plus} {_}user.button.createUser{/_}</a></li>
 									{foreach $users as $user}
-									<li n:class="$user->id === (int)$control->selectUser ? active"><a n:href="this, view => Profile, selectUser => $user->id" n:class="$ajaxEnabled ? ajax">{$user->name} <span class="pull-right text-muted">#{$user->id}</span></a></li>
+									<li n:class="$user->id === (int)$control->selectUser ? active"><a n:href="this, view => Profile, selectUser => $user->id" n:class="$ajaxEnabled ? ajax">{$user->name} <span class="pull-right text-muted">{$user->role->displayName} &middot; #{$user->id}</span></a></li>
 									{/foreach}
 								</ul>
 								{control paginator}
 							</div>
 						</div>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-8">
 						<div class="well">
 							{include #content}
 						</div>
