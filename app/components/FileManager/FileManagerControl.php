@@ -139,6 +139,9 @@ class FileManagerControl extends FileManagerAbstract {
 		parent::__call($method, $args);
 	}
 
+	/**
+	 * @secured FileManager, Use
+	 */
 	public function viewDefault() {}
 
 	public function beforeRender() {
@@ -165,9 +168,10 @@ class FileManagerControl extends FileManagerAbstract {
 	public function getFileManager() {
 		return $this;
 	}
-
 	/**
 	 * @return DirectoryListControl
+	 *
+	 * @secured FileManager, Use
 	 */
 	protected function createComponentDirectoryList() {
 		return $this->directoryListFactory->create();
@@ -175,6 +179,8 @@ class FileManagerControl extends FileManagerAbstract {
 
 	/**
 	 * @return FileListControl
+	 *
+	 * @secured FileManager, Use
 	 */
 	protected function createComponentFileList() {
 		return $this->fileListFactory->create();

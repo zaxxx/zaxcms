@@ -148,7 +148,7 @@ class NavigationControl extends SecuredControl {
 
     }
 
-	/** @secured Menu, Edit */
+	/** @secured Menu, Use */
 	public function viewEdit() {
 	    
 	}
@@ -167,7 +167,7 @@ class NavigationControl extends SecuredControl {
 	    $this->template->dropdown = $this->dropdown;
     }
 
-	/** @secured Menu, Edit */
+	/** @secured Menu, Use */
 	protected function createComponentEdit() {
 	    return $this->editFactory->create()
 		    ->setName($this->getMenu()->name);

@@ -12,6 +12,12 @@ use Nette,
 
 class EditRoleFormControl extends RoleFormControl {
 
+	/** @secured Roles, Edit */
+	public function viewDefault() {}
+
+	/** @secured Roles, Edit */
+	public function beforeRender() {}
+
 	protected function createSubmitButtons(Form $form) {
 		$form->addButtonSubmit('saveRole', 'role.button.editRole', 'pencil');
 		$form->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));

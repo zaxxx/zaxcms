@@ -32,8 +32,10 @@ class SecurityFormControl extends FormControl {
 	    $this->loginService = $loginService;
     }
 
+	/** @secured Users, Secure */
     public function viewDefault() {}
 
+	/** @secured Users, Secure */
     public function beforeRender() {}
 
     public function setSelectedUser(Model\CMS\Entity\User $user) {

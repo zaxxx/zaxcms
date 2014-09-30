@@ -111,7 +111,7 @@ class WebContentControl extends SecuredControl {
 	}
 
 	/**
-	 * @secured WebContent, Edit
+	 * @secured WebContent, Use
 	 */
 	public function viewEdit() {
 

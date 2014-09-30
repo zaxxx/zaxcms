@@ -25,8 +25,10 @@ class DeletePageFormControl extends FormControl {
 		return $this;
 	}
 
+	/** @secured Pages, Delete */
 	public function viewDefault() {}
 
+	/** @secured Pages, Delete */
 	public function beforeRender() {}
 
 	public function handleCancel() {

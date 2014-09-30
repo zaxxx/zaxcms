@@ -48,7 +48,10 @@ class PagesControl extends Zax\Components\Collections\FilterableControl {
 		return $this->pageService;
 	}
 
-    public function viewDefault() {
+	/**
+	 * @secured Pages, Use
+	 */
+	public function viewDefault() {
         
     }
 

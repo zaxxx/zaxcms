@@ -12,6 +12,12 @@ use Nette,
 
 class AddRoleFormControl extends RoleFormControl {
 
+	/** @secured Roles, Add */
+	public function viewDefault() {}
+
+	/** @secured Roles, Add */
+	public function beforeRender() {}
+
 	public function setRole(Model\CMS\Entity\Role $role) {
 		if(!$role->parent->canBeInheritedFrom()) {
 			throw new Model\CMS\ProtectedRoleException('You cannot inherit from this role.');

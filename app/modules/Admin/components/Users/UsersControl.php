@@ -25,14 +25,18 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 
 	protected $userService;
 
+	protected $roleService;
+
 	protected $profileFactory;
 
     protected $addUserFormFactory;
 
 	public function __construct(Model\CMS\Service\UserService $userService,
+								Model\CMS\Service\RoleService $roleService,
 								IProfileFactory $profileFactory,
                                 IAddUserFormFactory $addUserFormFactory) {
 		$this->userService = $userService;
+		$this->roleService = $roleService;
 		$this->profileFactory = $profileFactory;
         $this->addUserFormFactory = $addUserFormFactory;
 	}
@@ -42,34 +46,40 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 	}
 
 	protected function createQueryObject() {
-		return new Model\CMS\Query\UserQuery;
+		return new Model\CMS\Query\UserQuery($this->getLocale());
 	}
 
 	protected function getSelectedUser() {
 		return $this->userService->get($this->selectUser);
 	}
 
+	/** @secured Users, Use */
     public function viewDefault() {
         
     }
 
+	/** @secured Users, Use */
 	public function viewProfile() {
 
 	}
 
+	/** @secured Users, Add */
     public function viewAdd() {
 
     }
-    
+
+	/** @secured Users, Use */
     public function beforeRender() {
         $this->template->users = $this->getFilteredResultSet();
     }
 
+	/** @secured Users, Use */
 	protected function createComponentProfile() {
 	    return $this->profileFactory->create()
 		    ->setSelectedUser($this->getSelectedUser());
 	}
 
+	/** @secured Users, Add */
     protected function createComponentAddUserForm() {
         return $this->addUserFormFactory->create()
             ->setSelectedUser($this->userService->create());

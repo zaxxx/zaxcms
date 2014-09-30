@@ -5,9 +5,16 @@ use Zax,
 	ZaxCMS\Model,
 	Nette,
 	Kdyby,
+	Gedmo,
 	Doctrine;
 
 class UserQuery extends Zax\Model\Doctrine\QueryObject {
+
+	protected $locale;
+
+	public function __construct($locale = NULL) {
+		$this->locale = $locale;
+	}
 
 	public function inRole(Model\CMS\Entity\Role $role = NULL) {
 		if($role === NULL) {
@@ -34,8 +41,15 @@ class UserQuery extends Zax\Model\Doctrine\QueryObject {
 			->join('a.role', 'b')
 			->join('a.login', 'c');
 		$this->applyFilters($qb);
-		return $qb->getQuery()
+		$query = $qb->getQuery()
 			->useResultCache(TRUE);
+		if($this->locale !== NULL) {
+			$query->setHint(
+				Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
+				$this->locale
+			);
+		}
+		return $query;
 	}
 
 }

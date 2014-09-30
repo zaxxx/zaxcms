@@ -39,12 +39,12 @@ class PermissionsControl extends SecuredControl {
 		return $this->aclService->fetchQueryObject(new Model\CMS\Query\AclQuery);
 	}
 
-	/** @secured Roles, Edit */
+	/** @secured Roles, Secure */
     public function viewDefault() {
         
     }
 
-	/** @secured Roles, Edit */
+	/** @secured Roles, Secure */
 	public function handleAllow($role, $permission) {
 		$this->aclService->allow($this->role, $this->permissionService->get($permission));
 		$this->aclService->flush();
@@ -53,7 +53,7 @@ class PermissionsControl extends SecuredControl {
 		$this->go('this');
 	}
 
-	/** @secured Roles, Edit */
+	/** @secured Roles, Secure */
 	public function handleDeny($role, $permission) {
 		$this->aclService->deny($this->role, $this->permissionService->get($permission));
 		$this->aclService->flush();
@@ -62,7 +62,7 @@ class PermissionsControl extends SecuredControl {
 		$this->go('this');
 	}
 
-	/** @secured Roles, Edit */
+	/** @secured Roles, Secure */
     public function beforeRender() {
 	    $this->template->permissions = $this->permissionService->fetchQueryObject(new Model\CMS\Query\PermissionQuery($this->getLocale()));
 	    $this->template->authorizator = $this->authorizator;

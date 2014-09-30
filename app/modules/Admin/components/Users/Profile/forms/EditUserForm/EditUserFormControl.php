@@ -12,6 +12,12 @@ use Nette,
 
 class EditUserFormControl extends UserFormControl {
 
+	/** @secured Users, Edit */
+	public function viewDefault() {}
+
+	/** @secured Users, Edit */
+	public function beforeRender() {}
+
     public function formSuccess(Form $form, $values) {
         if($form->submitted === $form['saveUser']) {
             $this->binder->formToEntity($form, $this->selectedUser);

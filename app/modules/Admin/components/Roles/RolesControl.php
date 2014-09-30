@@ -45,6 +45,7 @@ class RolesControl extends SecuredControl {
 		$this->onUpdate[] = [$aclFactory, 'invalidateCache'];
 	}
 
+	/** @secured Roles, Use */
     public function viewDefault() {
 
     }
@@ -53,7 +54,8 @@ class RolesControl extends SecuredControl {
 		$this->roleService->setLocale($this['localeSelect']->getLocale());
 		return $this->roleService->get($this->selectRole);
 	}
-    
+
+	/** @secured Roles, Use */
     public function beforeRender() {
 	    $this->roleService->setLocale($this['localeSelect']->getLocale());
 	    $guest = $this->roleService->getGuestRole();
@@ -73,7 +75,7 @@ class RolesControl extends SecuredControl {
 
 	}
 
-	/** @secured Roles, Edit */
+	/** @secured Roles, Secure */
 	public function viewPermissions() {
 
 	}
@@ -107,7 +109,7 @@ class RolesControl extends SecuredControl {
 		    ->setRole($this->getSelectedRole());
 	}
 
-	/** @secured Roles, Edit */
+	/** @secured Roles, Secure */
 	protected function createComponentPermissions() {
 	    return $this->permissionsFactory->create()
 		    ->setRole($this->getSelectedRole());

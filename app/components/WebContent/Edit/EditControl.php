@@ -70,7 +70,7 @@ class EditControl extends SecuredControl {
 	}
 
 	/**
-	 * @secured WebContent, Edit
+	 * @secured WebContent, Use
 	 */
 	public function viewDefault() {
 

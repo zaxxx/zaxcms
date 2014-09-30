@@ -16,6 +16,12 @@ class AddUserFormControl extends UserFormControl {
 
     protected $roleService;
 
+	/** @secured Users, Add */
+	public function viewDefault() {}
+
+	/** @secured Users, Add */
+	public function beforeRender() {}
+
     public function __construct(Model\CMS\Auth $auth, Model\CMS\Service\RoleService $roleService) {
         $this->auth = $auth;
         $this->roleService = $roleService;

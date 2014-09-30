@@ -27,19 +27,23 @@ class ProfileControl extends SecuredControl {
 		return $this;
 	}
 
+	/** @secured Users, Use */
     public function viewDefault() {
         
     }
-    
+
+	/** @secured Users, Use */
     public function beforeRender() {
         $this->template->selectedUser = $this->selectedUser;
     }
 
+	/** @secured Users, Use */
 	protected function createComponentBasicInfo() {
 	    return $this->basicInfoFactory->create()
 		    ->setSelectedUser($this->selectedUser);
 	}
 
+	/** @secured Users, Use */
 	protected function createComponentSecurityInfo() {
 	    return $this->securityInfoFactory->create()
 		    ->setSelectedUser($this->selectedUser);

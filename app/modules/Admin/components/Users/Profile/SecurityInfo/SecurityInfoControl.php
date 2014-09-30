@@ -23,18 +23,22 @@ class SecurityInfoControl extends SecuredControl {
 		return $this;
 	}
 
+	/** @secured Users, Use */
     public function viewDefault() {
         
     }
 
+	/** @secured Users, Security */
     public function viewEdit() {
 
     }
-    
+
+	/** @secured Users, Use */
     public function beforeRender() {
         $this->template->selectedUser = $this->selectedUser;
     }
 
+	/** @secured Users, Security */
     public function createComponentSecurityForm() {
         return $this->securityFormFactory->create()
             ->setSelectedUser($this->selectedUser);

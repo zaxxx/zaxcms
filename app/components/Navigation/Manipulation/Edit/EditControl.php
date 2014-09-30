@@ -70,7 +70,7 @@ class EditControl extends SecuredControl {
 		return $this->getMenu();
 	}
 
-	/** @secured Menu, Edit */
+	/** @secured Menu, Use */
 	public function viewDefault() {
 
 	}
@@ -104,7 +104,7 @@ class EditControl extends SecuredControl {
 			->setMenuItem($this->menuService->get($this->selectItem));
 	}
 
-	/** @secured Menu, Edit */
+	/** @secured Menu, Use */
 	protected function createComponentLocaleSelect() {
 	    return $this->localeSelectFactory->create();
 	}

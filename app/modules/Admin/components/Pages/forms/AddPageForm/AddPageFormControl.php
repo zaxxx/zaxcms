@@ -12,8 +12,10 @@ use Nette,
 
 class AddPageFormControl extends PageFormControl {
 
+	/** @secured Pages, Add */
     public function viewDefault() {}
-    
+
+	/** @secured Pages, Add */
     public function beforeRender() {}
 
 	protected function successFlashMessage() {

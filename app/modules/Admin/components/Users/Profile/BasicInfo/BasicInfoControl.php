@@ -23,6 +23,7 @@ class BasicInfoControl extends SecuredControl {
 		return $this;
 	}
 
+	/** @secured Users, Use */
     public function viewDefault() {
         
     }
