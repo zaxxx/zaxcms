@@ -37,7 +37,7 @@ class AddUserFormControl extends UserFormControl {
 
     public function formSuccess(Form $form, $values) {
         if($form->submitted === $form['saveUser']) {
-            $this->auth->createUser($values->email, $values->name, $values->password, $this->roleService->getUserRole());
+            $this->auth->createUser($values->email, $values->name, $values->password, $this->roleService->getUserRole(), TRUE);
             $this->aclFactory->invalidateCache();
 
             $this->flashMessage('common.alert.newEntrySaved', 'success');
