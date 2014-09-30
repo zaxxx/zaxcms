@@ -9,7 +9,7 @@ error:
     invalidEmail: "User with this e-mail doesn't exist."
     invalidPassword: "Wrong password."
     unverifiedUser: "This user is not verified yet."
-    bannedUser: "This user is banned."
+    bannedUser: "Your account has been banned."
     invalidCredentials: "Nesprávné přihlašovací údaje."
 general:
     loggedAs: "Logged in as"
