@@ -47,6 +47,8 @@ abstract class UserFormControl extends FormControl {
 
         $this->extendForm($f);
 
+	    $f->addProtection();
+
 	    $this->binder->entityToForm($this->selectedUser, $f);
 
 	    $f->addButtonSubmit('saveUser', 'common.button.save', 'ok');

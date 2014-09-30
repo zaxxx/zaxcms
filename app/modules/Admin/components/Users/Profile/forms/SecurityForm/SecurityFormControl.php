@@ -65,6 +65,8 @@ class SecurityFormControl extends FormControl {
 
 	    $this->binder->entityToForm($this->selectedUser, $f);
 
+	    $f->addProtection();
+
         $f->addButtonSubmit('saveSettings', 'common.button.save', 'ok');
         $f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
 

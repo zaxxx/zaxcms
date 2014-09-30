@@ -39,6 +39,7 @@ class DeletePageFormControl extends FormControl {
 		$f = parent::createForm();
 		$f->addButtonSubmit('deleteItem', 'common.button.delete', 'trash');
 		$f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
+		$f->addProtection();
 		$f->enableBootstrap(['danger' => ['deleteItem'], 'default' => ['cancel']], TRUE, 3, 'sm', 'form-inline');
 		return $f;
 	}

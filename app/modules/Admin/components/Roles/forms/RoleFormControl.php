@@ -54,6 +54,8 @@ abstract class RoleFormControl extends FormControl {
 			    });
 	    }
 
+	    $f->addProtection();
+
 	    $this->createSubmitButtons($f);
 
 	    $f->autofocus('name');

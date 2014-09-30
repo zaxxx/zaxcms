@@ -50,6 +50,8 @@ abstract class PageFormControl extends FormControl {
 			->setRequired()
 			->addRule(Form::MAX_LENGTH, NULL, 255);
 
+		$f->addProtection();
+
 		$this->createSubmitButtons($f);
 
 		if($this->ajaxEnabled) {

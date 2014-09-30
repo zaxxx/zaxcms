@@ -90,6 +90,8 @@ abstract class MenuItemFormControl extends FormControl {
 		    ->addRule(Form::MAX_LENGTH, NULL, 63)
 		    ->setOption('id', $this->getUniqueId() . '-htmlTarget');
 
+	    $f->addProtection();
+
 	    $this->createSubmitButtons($f);
 
 	    $f->autofocus('text');

@@ -43,6 +43,7 @@ class DeleteMenuItemFormControl extends FormControl {
         $f = parent::createForm();
 	    $f->addButtonSubmit('deleteItem', 'common.button.delete', 'trash');
 	    $f->addLinkSubmit('cancel', '', 'remove', $this->getEditMenuItem()->link('this', ['view' => 'Default']));
+	    $f->addProtection();
 	    $f->enableBootstrap(['danger' => ['deleteItem'], 'default' => ['cancel']], TRUE, 3, 'sm', 'form-inline');
 	    if($this->ajaxEnabled) {
 		    $f->enableAjax();
