@@ -19,7 +19,9 @@ trait TUserSortable {
 		    ->setSortWhiteList(
 			    [
 				    'a.id' => 'common.form.id',
-				    'a.name' => 'user.form.username'
+				    'a.name' => 'user.form.username',
+				    'c.registeredAt' => 'user.form.registered',
+				    'c.passwordLastChangedAt' => 'user.form.passwordChanged'
 			    ]
 		    );
 	}

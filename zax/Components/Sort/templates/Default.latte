@@ -1,8 +1,13 @@
 <div class="btn-group" n:snippet>
 	<div class="dropdown if-not-js-hide">
-		<a title="{_'common.form.sort'}" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">{if $asc}{icon sort-by-alphabet}{else}{icon sort-by-alphabet-alt}{/if} {_$wl[$sort]} <span class="caret"></span></a>
+		<a title="{_'common.form.sort'}" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">{if $asc}{icon arrow-up}{else}{icon arrow-down}{/if} {_$wl[$sort]} <span class="caret"></span></a>
 		<ul class="dropdown-menu" n:inner-foreach="$wl as $key => $text">
-			<li n:class="$sort === $key ? active"><a n:class="$ajaxEnabled ? ajax" n:href="this, sort => $key, asc => ($sort === $key ? !$asc : TRUE)">{_$text}</a></li>
+			<li n:class="$sort === $key ? active">
+				<a n:class="$ajaxEnabled ? ajax" n:href="this, sort => $key, asc => ($sort === $key ? !$asc : TRUE)">
+					{_$text}
+					<span n:if="$sort === $key" class="pull-right">{if $asc}{icon arrow-up}{else}{icon arrow-down}{/if}</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>
