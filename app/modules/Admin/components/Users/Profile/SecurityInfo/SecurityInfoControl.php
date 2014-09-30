@@ -28,7 +28,7 @@ class SecurityInfoControl extends SecuredControl {
         
     }
 
-	/** @secured Users, Security */
+	/** @secured Users, Secure */
     public function viewEdit() {
 
     }
@@ -38,7 +38,7 @@ class SecurityInfoControl extends SecuredControl {
         $this->template->selectedUser = $this->selectedUser;
     }
 
-	/** @secured Users, Security */
+	/** @secured Users, Secure */
     public function createComponentSecurityForm() {
         return $this->securityFormFactory->create()
             ->setSelectedUser($this->selectedUser);
