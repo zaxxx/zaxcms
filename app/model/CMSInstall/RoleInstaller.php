@@ -33,10 +33,10 @@ class RoleInstaller extends Nette\Object {
 		$user->setTranslatableLocale('cs_CZ');
 		$this->service->persist($user);
 
-		$admin = $this->createRole('admin', 'Administrátor', 'Administrátor smí vše ;-)', ZaxCMS\Model\CMS\Entity\Role::ADMIN_ROLE);
-		$admin->parent = $user;
-		$admin->setTranslatableLocale('cs_CZ');
-		$this->service->persist($admin);
+		$superadmin = $this->createRole('superadmin', 'Superadmin', 'Superadmin má neomezenou moc', ZaxCMS\Model\CMS\Entity\Role::ADMIN_ROLE);
+		$superadmin->parent = $user;
+		$superadmin->setTranslatableLocale('cs_CZ');
+		$this->service->persist($superadmin);
 
 		$this->service->flush();
 
@@ -51,10 +51,10 @@ class RoleInstaller extends Nette\Object {
 			$user->setTranslatableLocale('en_US');
 			$this->service->persist($user);
 
-			$admin->displayName = 'Administrator';
-			$admin->description = 'Administrator is the boss ;-)';
-			$admin->setTranslatableLocale('en_US');
-			$this->service->persist($admin);
+			$superadmin->displayName = 'Superadmin';
+			$superadmin->description = 'Superadmin has unlimited powers';
+			$superadmin->setTranslatableLocale('en_US');
+			$this->service->persist($superadmin);
 
 			$this->service->flush();
 		}
