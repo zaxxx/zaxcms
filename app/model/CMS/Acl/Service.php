@@ -16,6 +16,7 @@ class AclService extends Zax\Model\Doctrine\Service {
 		$this->entityClassName = Entity\Acl::getClassName();
 	}
 
+	/** @internal */
 	public function createAclEntry(Entity\Role $role, Entity\Permission $permission, $allow = FALSE) {
 		$acl = $this->create();
 		$acl->role = $role;
@@ -27,6 +28,9 @@ class AclService extends Zax\Model\Doctrine\Service {
 	}
 
 	public function allow(Entity\Role $role, Entity\Permission $permission) {
+		if($role->hasReadOnlyPermissions()) {
+			throw new Zax\Security\ForbiddenRequestException('This role has read-only permissions.');
+		}
 		$acl = $this->getBy(['role.id' => $role->id, 'permission.id' => $permission->id]);
 		if($acl === NULL) {
 			$acl = $this->create();
@@ -39,6 +43,9 @@ class AclService extends Zax\Model\Doctrine\Service {
 	}
 
 	public function deny(Entity\Role $role, Entity\Permission $permission) {
+		if($role->hasReadOnlyPermissions()) {
+			throw new Zax\Security\ForbiddenRequestException('This role has read-only permissions.');
+		}
 		$acl = $this->getBy(['role.id' => $role->id, 'permission.id' => $permission->id]);
 		if($acl === NULL) {
 			$acl = $this->create();

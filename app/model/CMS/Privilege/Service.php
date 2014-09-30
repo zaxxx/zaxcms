@@ -31,6 +31,8 @@ class PrivilegeService extends Zax\Model\Doctrine\Service {
 		$this->createPrivilege('Delete');
 		$this->createPrivilege('Upload');
 		$this->createPrivilege('Publish');
+		$this->createPrivilege('Ban');
+		$this->createPrivilege('Secure');
 
 		$this->flush();
 	}

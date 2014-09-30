@@ -12,3 +12,4 @@ panel:
 text:
     allowed: "Smí"
     disallowed: "Nesmí"
+    readOnlyMode: "U této role není možné měnit oprávnění"

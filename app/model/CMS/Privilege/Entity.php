@@ -39,7 +39,10 @@ class Privilege extends BaseEntity {
 			'Edit' => 'pencil',
 			'Delete' => 'trash',
 			'Use' => 'user',
-			'Upload' => 'upload'
+			'Upload' => 'upload',
+			'Publish' => 'globe',
+			'Ban' => 'ban-circle',
+			'Secure' => 'lock'
 		];
 		if(!in_array($this->name, array_keys($icons))) {
 			return 'question-sign';

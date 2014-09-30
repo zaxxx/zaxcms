@@ -12,3 +12,4 @@ panel:
 text:
     allowed: "Is allowed to"
     disallowed: "Is not allowed to"
+    readOnlyMode: "It is not allowed to modify the permissions for this role"

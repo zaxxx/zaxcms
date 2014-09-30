@@ -98,20 +98,32 @@ class Role extends BaseEntity {
 	 */
 	protected $users;
 
+	public function isGuestRole() {
+		return $this->special === self::GUEST_ROLE;
+	}
+
+	public function isUserRole() {
+		return $this->special === self::USER_ROLE;
+	}
+
+	public function isAdminRole() {
+		return $this->special === self::ADMIN_ROLE;
+	}
+
 	public function canBeDeleted() {
 		return $this->special === NULL;
 	}
 
 	public function hasReadOnlyPermissions() {
-		return $this->special === self::ADMIN_ROLE;
+		return $this->isAdminRole();
 	}
 
 	public function canInherit() {
-		return $this->special !== self::GUEST_ROLE;
+		return !$this->isGuestRole();
 	}
 
 	public function canBeInheritedFrom() {
-		return $this->special !== self::ADMIN_ROLE;
+		return !$this->isAdminRole();
 	}
 
 	/**

@@ -17,6 +17,7 @@ class AclFactory extends Nette\Object {
 			'Use' => ['cs_CZ' => 'používat administraci', 'en_US' => 'use the admin panel']
 		],
 		'WebContent' => [
+			'Use' => ['cs_CZ' => 'používat editor statického obsahu', 'en_US' => 'use the static content editor'], // TODO: implement
 			'Edit' => ['cs_CZ' => 'upravovat statický obsah na webu', 'en_US' => 'edit the static content on web']
 		],
 		'FileManager' => [
@@ -26,22 +27,31 @@ class AclFactory extends Nette\Object {
 			'Upload' => ['cs_CZ' => 'nahrávat nové soubory', 'en_US' => 'upload new files']
 		],
 		'Menu' => [
-			'Edit' => ['cs_CZ' => 'upravovat nabídky a navigace', 'en_US' => 'modify menus and navigations']
+			'Use' => ['cs_CZ' => 'používat správce nabídek', 'en_US' => 'use the navigations edit panel'], // TODO: implement
+			'Edit' => ['cs_CZ' => 'upravovat nabídky a navigace', 'en_US' => 'modify menus and navigations'],
+			'Secure' => ['cs_CZ' => 'nastavovat skrývání položek na základě oprávnění', 'en_US' => 'change the visibility of items based on permissions'] // TODO: implement
 		],
 		'Pages' => [
+			'Use' => ['cs_CZ' => 'používat správce stránek', 'en_US' => 'use the pages admin panel'], // TODO: implement
 			'Add' => ['cs_CZ' => 'přidávat nové stránky', 'en_US' => 'create new pages'],
 			'Edit' => ['cs_CZ' => 'upravovat existující stránky', 'en_US' => 'modify existing pages'],
-			'Delete' => ['cs_CZ' => 'mazat stránky', 'en_US' => 'delete pages']
+			'Delete' => ['cs_CZ' => 'mazat stránky', 'en_US' => 'delete pages'],
+			'Secure' => ['cs_CZ' => 'nastavovat potřebná oprávnění pro zobrazení stránky', 'en_US' => 'change the needed permissions to display a page'] // TODO: implement
 		],
 		'Users' => [
+			'Use' => ['cs_CZ' => 'používat správce uživatelů', 'en_US' => 'use the users admin panel'], // TODO: implement
 			'Add' => ['cs_CZ' => 'vytvářet nové uživatele', 'en_US' => 'create new users'],
 			'Edit' => ['cs_CZ' => 'upravovat existující uživatele', 'en_US' => 'edit existing users'],
-			'Delete' => ['cs_CZ' => 'mazat uživatele', 'en_US' => 'delete users']
+			'Delete' => ['cs_CZ' => 'mazat uživatele', 'en_US' => 'delete users'],
+			'Ban' => ['cs_CZ' => 'banovat uživatele', 'en_US' => 'ban users'], // TODO: implement
+			'Secure' => ['cs_CZ' => 'přiřazovat uživatelům role', 'en_US' => 'assign roles to users'] // TODO: implement
 		],
 		'Roles' => [
+			'Use' => ['cs_CZ' => 'používat správce rolí', 'en_US' => 'use the roles admin panel'], // TODO: implement
 			'Add' => ['cs_CZ' => 'vytvářet nové role', 'en_US' => 'create new roles'],
 			'Edit' => ['cs_CZ' => 'upravovat existující role', 'en_US' => 'edit existing roles'],
-			'Delete' => ['cs_CZ' => 'mazat role', 'en_US' => 'delete roles']
+			'Delete' => ['cs_CZ' => 'mazat role', 'en_US' => 'delete roles'],
+			'Secure' => ['cs_CZ' => 'měnit oprávnění', 'en_US' => 'change permissions'] // TODO: implement
 		]
 	];
 
