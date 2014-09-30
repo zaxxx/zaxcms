@@ -15,6 +15,11 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 		TUserSortable,
 		TUserSearchable;
 
+	protected $defaultLinkParams = [
+		'profile-basicInfo-view' => NULL,
+		'profile-securityInfo-view' => NULL
+	];
+
 	/** @persistent */
 	public $selectUser;
 
