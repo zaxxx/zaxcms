@@ -53,7 +53,7 @@ Custom abstract component:
 - [x] Cleaner snippet IDs
 
 Translations
-- [x] TranslatedNestedTree (Gedmo kinda sucks though, might give KNP a try)
+- [x] TranslatedNestedTree (Gedmo kinda sucks though, might give KNP a try one day...)
 - [x] General component for choosing locale
 
 Services for injecting appDir and rootDir
@@ -118,6 +118,7 @@ Installer module
 - [x] Asking for database login and saving to neon
 - [x] Installing database
 - [x] Registering admin user
+- [ ] Choose default locale
 
 ... (tons of stuff)
 
@@ -125,11 +126,12 @@ Backend and administration
 - [ ] Custom pages
  - [x] Embedded WebContent component
  - [x] Ajax
- - [ ] Title
+ - [x] Title
  - [ ] Localization
  - [ ] Secured pages
-- [ ] User settings
+ - [ ] Collections
+- [x] User settings
 - [ ] Security settings
  - [x] Roles
- - [ ] ACL
+ - [x] ACL
 - [ ] ...
