@@ -43,11 +43,10 @@ class DefaultPermission extends Permission {
 	 */
 	public function parseAnnotations($element) {
 		/** @var Nette\Reflection\Method $element */
-		if(!$element->hasAnnotation('secured')) {
+		if(!$element->hasAnnotation('secured') || strpos($security = $element->getAnnotation('secured'), ',') === FALSE) {
 			return NULL;
 		}
 
-		$security = $element->getAnnotation('secured');
 		$parts = explode(',', $security);
 		$parts = array_map('trim', $parts);
 		return [
