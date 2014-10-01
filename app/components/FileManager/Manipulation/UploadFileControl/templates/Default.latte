@@ -1,8 +1,12 @@
 <div class="well well-sm">
+	<h4>{_'fileManager.button.uploadFiles'}</h4>
     {control uploadForm}
     <p class="text-muted">
         <span class="glyphicon glyphicon-info-sign"></span> {_'fileManager.message.maxUploadSize', NULL, [size => Zax\Utils\HttpHelpers::getMaxUploadSize()]}
     </p>
+	<p class="text-muted">
+		<span class="glyphicon glyphicon-info-sign"></span> {_'fileManager.message.maxFileUploads', NULL, [files => Zax\Utils\HttpHelpers::getMaxFileUploads()]}
+	</p>
     <p n:if="$messages !== NULL" n:foreach="$messages as $message" class="text-muted">
         {icon info-sign} {$message}</p>
     </p>

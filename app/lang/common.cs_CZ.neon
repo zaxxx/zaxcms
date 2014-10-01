@@ -11,6 +11,7 @@ button:
     saveChanges: "Uložit změny"
     editAndClose: "Upravit a zavřít"
     chooseFile: "Vybrat soubor"
+    chooseFiles: "Vybrat soubory"
     preview: "Náhled"
     pickLocale: "Change language"
 form:

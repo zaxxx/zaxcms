@@ -1,5 +1,5 @@
 button:
-    uploadFile: "Nahrát soubor"
+    uploadFiles: "Nahrát soubory"
     usageInfo: "Zobrazit/skrýt využití složek"
     renameFile: "Přejmenovat soubor"
     deleteFile: "Odstranit soubor"
@@ -14,15 +14,17 @@ message:
     deleteDirConfirm: "Opravdu chcete odstranit složku '%dir%' včetně všeho, co obsahuje?"
     deleteFileConfirm: "Opravdu chcete odstranit soubor '%file%'?"
     maxUploadSize: "Maximální serverem povolená velikost je %size% MB."
+    maxFileUploads: "Naráz jde nahrát až %files% souborů."
     xFiles: "%files% soubor|%files% soubory|%files% souborů"
 form:
     file: "Soubor"
+    files: "Soubory"
 alert:
     dirCreated: "Složka byla vytvořena."
     dirRenamed: "Složka byla přejmenována."
     dirDeleted: "Složka byla odstraněna."
     dirTruncated: "Složka byla vyprázdněna."
-    fileUploaded: "Soubor byl nahrán."
+    filesUploaded: "Soubory byly nahrány."
     fileNotUploaded: "Při nahrávání souboru došlo k chybě."
     fileRenamed: "Soubor byl přejmenován."
     fileDeleted: "Soubor byl odstraněn."

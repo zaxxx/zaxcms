@@ -74,7 +74,7 @@ class UploadFileControl extends FileManipulationControl {
 	protected function createComponentUploadForm() {
 		$f = $this->createForm();
 
-		$f->addUpload('file', 'fileManager.form.file')
+		$f->addUpload('file', 'fileManager.form.files', TRUE)
 			->addRule(Zax\Application\UI\Form::MAX_FILE_SIZE, NULL, Zax\Utils\HttpHelpers::getMaxUploadSize()*1024*1024);
 
 		$f->addButtonSubmit('upload', 'fileManager.button.upload', 'upload');
@@ -110,10 +110,15 @@ class UploadFileControl extends FileManipulationControl {
 	public function uploadFormSubmitted(Nette\Application\UI\Form $form, $values) {
 		/** @var Nette\Http\FileUpload $file */
 		if($form->submitted === $form['upload']) {
-			$file = $values->file;
-			if($file->isOk()) {
-				$file->move($this->getFileManager()->getAbsoluteDirectory() . '/' . $file->getSanitizedName());
-				$this->flashMessage('fileManager.alert.fileUploaded', 'success');
+			$success = FALSE;
+			foreach($values->file as $file) {
+				if($file->isOk()) {
+					$file->move($this->getFileManager()->getAbsoluteDirectory() . '/' . $file->getSanitizedName());
+					$success = TRUE;
+				}
+			}
+			if($success) {
+				$this->flashMessage('fileManager.alert.filesUploaded', 'success');
 			}
 		}
 		$this->fileList->go('this', ['view' => 'Default']);

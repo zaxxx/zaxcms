@@ -11,6 +11,7 @@ button:
     saveChanges: "Save changes"
     editAndClose: "Edit and close"
     chooseFile: "Choose file"
+    chooseFiles: "Choose files"
     preview: "Preview"
 form:
     id: "ID"

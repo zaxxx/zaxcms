@@ -17,6 +17,11 @@ class HttpHelpers extends Nette\Object {
 	static protected $maxUploadSize;
 
 	/**
+	 * @var int
+	 */
+	static protected $maxFileUploads;
+
+	/**
 	 * @return int (in MB)
 	 */
 	static public function getMaxUploadSize() {
@@ -27,6 +32,13 @@ class HttpHelpers extends Nette\Object {
 			self::$maxUploadSize = min($max_upload, $max_post, $memory_limit);
 		}
 		return self::$maxUploadSize;
+	}
+
+	static public function getMaxFileUploads() {
+		if(self::$maxFileUploads === NULL) {
+			self::$maxFileUploads = (int)(ini_get('max_file_uploads'));
+		}
+		return self::$maxFileUploads;
 	}
 
 }

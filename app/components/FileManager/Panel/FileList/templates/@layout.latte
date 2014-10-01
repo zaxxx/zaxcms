@@ -1,15 +1,15 @@
 {define files}
 
-    <div class="pull-right">
-        <a n:if="$control->fileManager->isFeatureEnabled('uploadFile')" title="{_'fileManager.button.uploadFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => UploadFile])}" n:class="btn, $ajaxEnabled ? ajax">
-            {icon upload}
-        </a>
+    <div class="text-center">
+	    <p>
+	        <a n:if="!isset($uploadFile) && $control->fileManager->isFeatureEnabled('uploadFile')" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => UploadFile])}" n:class="btn, btn-success, $ajaxEnabled ? ajax">
+	            {icon upload} {_'fileManager.button.uploadFiles'}
+	        </a>
+	    </p>
     </div>
-    <div class="clearfix"></div>
 
     <div n:if="$control->fileManager->isFeatureEnabled('uploadFile') && isset($uploadFile) && $uploadFile">
         {control uploadFile}
-        <hr>
     </div>
 
 <ul class="list-group" n:inner-foreach="$fileSystemCurrent as $k => $file">

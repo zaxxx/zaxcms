@@ -195,7 +195,7 @@ class Form extends Nette\Application\UI\Form {
 	 */
 	public function addUpload($name, $label = NULL, $multiple = FALSE) {
 		$upload = parent::addUpload($name, $label, $multiple);
-		$upload->getControlPrototype()->setData(['buttonText' => $this->translator->translate('common.button.chooseFile')]);
+		$upload->getControlPrototype()->setData(['buttonText' => $this->translator->translate('common.button.chooseFile' . ($multiple ? 's' : ''))]);
 		return $upload;
 	}
 

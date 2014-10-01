@@ -1,5 +1,5 @@
 button:
-    uploadFile: "Upload file"
+    uploadFiles: "Upload files"
     usageInfo: "Toggle space usage"
     renameFile: "Rename file"
     deleteFile: "Delete file"
@@ -14,15 +14,17 @@ message:
     deleteDirConfirm: "Do you really want to delete folder '%dir%' including all it's contents?"
     deleteFileConfirm: "Do you really want to delete file '%file%'?"
     maxUploadSize: "Maximum allowed file size is %size% MB."
+    maxFileUploads: "You can upload up to %files% files simultaneously."
     xFiles: "%files% file|%files% files"
 form:
     file: "File"
+    files: "Files"
 alert:
     dirCreated: "Folder was created."
     dirRenamed: "Folder was renamed."
     dirDeleted: "Folder was deleted."
     dirTruncated: "Folder was truncated.."
-    fileUploaded: "File was successfuly uploaded."
+    filesUploaded: "Files were successfully uploaded."
     fileNotUploaded: "There was an error when uploading a file."
     fileRenamed: "File was renamed."
     fileDeleted: "File was deleted."
