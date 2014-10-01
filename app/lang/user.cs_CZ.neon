@@ -9,5 +9,6 @@ form:
     role: "Role"
     passwordChanged: "Heslo změněno"
     banned: "Zabanován"
+    superadminWarning: "Pozor! Pokud povýšíte tohoto uživatele na superadmina, nebude již možné jej sesadit!"
 button:
     createUser: "Vytvořit uživatele"

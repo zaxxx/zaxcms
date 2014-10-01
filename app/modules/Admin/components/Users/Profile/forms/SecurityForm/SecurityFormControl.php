@@ -57,7 +57,15 @@ class SecurityFormControl extends FormControl {
                 });
         } else {
             $f->addSelect('userrole', 'user.form.role', $this->roleService->getFormSelectOptions())
-                ->setDefaultValue($this->selectedUser->role->id);
+                ->setDefaultValue($this->selectedUser->role->id)
+	            ->addCondition($f::EQUAL, $this->roleService->getAdminRole()->id)
+	                ->toggle('superadminWarning');
+
+	        $f->addStatic('superadminWarning', '')
+	            ->setValue($this->translator->translate('user.form.superadminWarning'))
+		        ->setOption('id', 'superadminWarning')
+		        ->getControlPrototype()
+		            ->addClass('has-error');
         }
 
 	    $f->addCheckbox('banned', 'user.form.banned')
