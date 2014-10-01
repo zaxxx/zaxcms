@@ -76,18 +76,22 @@ class FileListControl extends FileManagerAbstract {
 		$this->rootDirProvider = $rootDirProvider;
 	}
 
+	/** @secured FileManager, Use */
 	public function viewDefault() {
 
 	}
 
+	/** @secured FileManager, Edit */
 	public function viewRenameFile($file) {
 		$this->template->renameFile = $this->renaming = $file;
 	}
 
+	/** @secured FileManager, Delete */
 	public function viewDeleteFile($file) {
 		$this->template->deleteFile = $this->deleting = $file;
 	}
 
+	/** @secured FileManager, Upload */
 	public function viewUploadFile() {
 		$this->template->uploadFile = TRUE;
 		$this->template->uploadMessages = $this->uploadMessages;
@@ -151,6 +155,8 @@ class FileListControl extends FileManagerAbstract {
 
 	/**
 	 * @return RenameFileControl|NULL
+	 *
+	 * @secured FileManager, Edit
 	 */
 	protected function createComponentRenameFile() {
 		if($this->fileManager->isFeatureEnabled('renameFile')) {
@@ -161,6 +167,8 @@ class FileListControl extends FileManagerAbstract {
 
 	/**
 	 * @return DeleteFileControl|NULL
+	 *
+	 * @secured FileManager, Delete
 	 */
 	protected function createComponentDeleteFile() {
 		if($this->fileManager->isFeatureEnabled('deleteFile')) {
@@ -171,6 +179,8 @@ class FileListControl extends FileManagerAbstract {
 
 	/**
 	 * @return UploadFileControl|NULL
+	 *
+	 * @secured FileManager, Upload
 	 */
 	protected function createComponentUploadFile() {
 		if($this->fileManager->isFeatureEnabled('uploadFile')) {

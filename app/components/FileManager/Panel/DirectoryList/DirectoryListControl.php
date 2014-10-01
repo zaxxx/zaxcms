@@ -64,17 +64,20 @@ class DirectoryListControl extends FileManagerAbstract {
 		return $this;
 	}
 
-
+	/** FileManager, Use */
 	public function viewDefault() {}
 
+	/** FileManager, Edit */
 	public function viewCreateDir() {
 		$this->template->createDir = TRUE;
 	}
 
+	/** @secured FileManager, Edit */
 	public function viewRenameDir() {
 		$this->template->renameDir = TRUE;
 	}
 
+	/** @secured FileManager, Delete */
 	public function viewDeleteDir() {
 		$this->template->deleteDir = TRUE;
 	}
@@ -134,6 +137,8 @@ class DirectoryListControl extends FileManagerAbstract {
 
 	/**
 	 * @return CreateDirControl|NULL
+	 *
+	 * @secured FileManager, Edit
 	 */
 	protected function createComponentCreateDir() {
 		if($this->fileManager->isFeatureEnabled('createDir')) {
@@ -144,6 +149,8 @@ class DirectoryListControl extends FileManagerAbstract {
 
 	/**
 	 * @return RenameDirControl|NULL
+	 *
+	 * @secured FileManager, Edit
 	 */
 	protected function createComponentRenameDir() {
 		if($this->fileManager->isFeatureEnabled('renameDir')) {
@@ -153,6 +160,8 @@ class DirectoryListControl extends FileManagerAbstract {
 
 	/**
 	 * @return DeleteDirControl|NULL
+	 *
+	 * @secured FileManager, Delete
 	 */
 	protected function createComponentDeleteDir() {
 		if($this->fileManager->isFeatureEnabled('deleteDir') || $this->fileManager->isFeatureEnabled('truncateDir')) {

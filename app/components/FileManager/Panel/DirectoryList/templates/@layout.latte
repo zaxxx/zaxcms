@@ -5,7 +5,7 @@
 		<a n:href="this, usageInfo => !$usageInfo" n:class="btn, $ajaxEnabled ? ajax" title="{_'fileManager.button.usageInfo'}">
 			{icon stats}
 		</a>
-		<a n:if="$control->fileManager->isFeatureEnabled('renameDir')"
+		<a n:secured="FileManager, Edit" n:if="$control->fileManager->isFeatureEnabled('renameDir')"
 		   {if !$isRoot}
 				href="{$control->fileManager->link('this', [view => Default, directoryList-view =>RenameDir])}"
 		   {else}
@@ -13,7 +13,7 @@
 		   {/if}class="btn{if $isRoot} disabled{/if}{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.renameDir'}">
 			{icon pencil}
 		</a>
-		<a n:if="$control->fileManager->isFeatureEnabled('deleteDir') || $control->fileManager->isFeatureEnabled('truncateDir')" href="{$control->fileManager->link('this', [view => Default, directoryList-view =>DeleteDir])}" class="btn{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.deleteDir'}">
+		<a n:secured="FileManager, Delete" n:if="$control->fileManager->isFeatureEnabled('deleteDir') || $control->fileManager->isFeatureEnabled('truncateDir')" href="{$control->fileManager->link('this', [view => Default, directoryList-view =>DeleteDir])}" class="btn{if $ajaxEnabled} ajax{/if}" title="{_'fileManager.button.deleteDir'}">
 			{icon trash}
 		</a>
 	</span>
@@ -81,7 +81,7 @@
 		{if $control->fileManager->isFeatureEnabled('createDir') && isset($createDir) && $createDir}
 			<li>{control createDir}</li>
 		{elseif $control->fileManager->isFeatureEnabled('createDir')}
-			<li><a n:href="this, view => createDir"{if $ajaxEnabled} class="ajax"{/if}>{icon plus} {_'fileManager.button.createDir'}</a></li>
+			<li><a n:secured="FileManager, Edit" n:href="this, view => createDir"{if $ajaxEnabled} class="ajax"{/if}>{icon plus} {_'fileManager.button.createDir'}</a></li>
 		{/if}
 		{if $depth == $currentDirDepth}
 		</ul>

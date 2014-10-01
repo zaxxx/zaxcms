@@ -1,6 +1,6 @@
 {define files}
 
-    <div class="text-center">
+    <div class="text-center" n:secured="FileManager, Upload">
 	    <p>
 	        <a n:if="!isset($uploadFile) && $control->fileManager->isFeatureEnabled('uploadFile')" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => UploadFile])}" n:class="btn, btn-success, $ajaxEnabled ? ajax">
 	            {icon upload} {_'fileManager.button.uploadFiles'}
@@ -8,7 +8,7 @@
 	    </p>
     </div>
 
-    <div n:if="$control->fileManager->isFeatureEnabled('uploadFile') && isset($uploadFile) && $uploadFile">
+    <div n:secured="FileManager, Upload" n:if="$control->fileManager->isFeatureEnabled('uploadFile') && isset($uploadFile) && $uploadFile">
         {control uploadFile}
     </div>
 
@@ -18,10 +18,10 @@
         {var $fileName = Zax\Utils\PathHelpers::getName($k)}
         {* toolbar *}
         <span class="pull-right">
-            <a n:if="$control->fileManager->isFeatureEnabled('renameFile')" title="{_'fileManager.button.renameFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => RenameFile, fileList-file => $fileName])}" n:class="btn, $ajaxEnabled ? ajax">
+            <a n:secured="FileManager, Edit" n:if="$control->fileManager->isFeatureEnabled('renameFile')" title="{_'fileManager.button.renameFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => RenameFile, fileList-file => $fileName])}" n:class="btn, $ajaxEnabled ? ajax">
                 {icon pencil}
             </a>
-            <a n:if="$control->fileManager->isFeatureEnabled('deleteFile')" title="{_'fileManager.button.deleteFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => DeleteFile, fileList-file => $fileName])}" n:class="btn, $ajaxEnabled ? ajax">
+            <a n:secured="FileManager, Delete" n:if="$control->fileManager->isFeatureEnabled('deleteFile')" title="{_'fileManager.button.deleteFile'}" href="{$control->fileManager->link('this', [view=>Default, directoryList-view => Default, fileList-view => DeleteFile, fileList-file => $fileName])}" n:class="btn, $ajaxEnabled ? ajax">
                 {icon trash}
             </a>
         </span>
