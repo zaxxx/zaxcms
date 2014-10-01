@@ -10,5 +10,11 @@ form:
     passwordChanged: "Password changed"
     banned: "Banned"
     superadminWarning: "Warning! If you promote this user to Superadmin, you won't be able to demote him!"
+    oldPassword: "Old password"
+    newPassword: "New password"
+    strongPasswordNote: "It is in your own interest to choose a sufficiently strong password."
 button:
     createUser: "Create user"
+    changePassword: "Change password"
+alert:
+    passwordChanged: "Your password was changed."

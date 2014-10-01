@@ -10,5 +10,11 @@ form:
     passwordChanged: "Heslo změněno"
     banned: "Zabanován"
     superadminWarning: "Pozor! Pokud povýšíte tohoto uživatele na superadmina, nebude již možné jej sesadit!"
+    oldPassword: "Staré heslo"
+    newPassword: "Nové heslo"
+    strongPasswordNote: "Je ve Vašem vlastním zájmu zvolit si dostatečně silné heslo."
 button:
     createUser: "Vytvořit uživatele"
+    changePassword: "Změnit heslo"
+alert:
+    passwordChanged: "Nové heslo bylo nastaveno."

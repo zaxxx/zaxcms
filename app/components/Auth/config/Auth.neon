@@ -3,3 +3,4 @@ services:
     - ZaxCMS\Components\Auth\ILoginFormFactory
     - ZaxCMS\Components\Auth\ITinyLoginBoxFactory
     - ZaxCMS\Components\Auth\ILogoutButtonFactory
+    - ZaxCMS\Components\Auth\IChangePasswordFactory
