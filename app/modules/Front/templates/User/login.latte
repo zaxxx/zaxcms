@@ -1,14 +1,5 @@
 {layout '../@layout.latte'}
 {block title}Přihlášení{/block}
 {block content}
-	{var $depth = -1}
-	{foreach $roles as $role}
-		{if $depth < $role->depth}<ul>
-		{else}
-			{str_repeat('</li></ul>', $depth - $role->depth)|noescape}
-		{/if}
-		<li>{$role->id}: {$role->name}
-		{? $depth = $role->depth}
-	{/foreach}
-	{str_repeat('</li></ul>', $depth + 1)|noescape}
+	{control loginForm}
 {/block}

@@ -28,6 +28,7 @@ services:
 
     - ZaxCMS\Model\CMS\AclFactory(%CMSInstalled%)
     - ZaxCMS\Model\CMS\Auth(%loginType%)
+    - ZaxCMS\Model\CMS\ChangePassword
 
 ## Router
     - ZaxCMS\Routers\RouterFactory
