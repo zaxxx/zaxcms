@@ -16,6 +16,11 @@ class StaticControl extends BaseControl {
 
 	protected $filters = [];
 
+	public function __construct($caption = NULL) {
+		parent::__construct($caption);
+		$this->control->setName('p');
+	}
+
 	public function loadHttpData() {
 
 	}
@@ -32,11 +37,11 @@ class StaticControl extends BaseControl {
 		foreach($this->filters as $filter) {
 			$value = $filter($value);
 		}
-		$p = Html::el('p')->id($this->getHtmlId())->class('form-control-static form-group');
+		$p = parent::getControl()->id($this->getHtmlId())->addClass('form-control-static');
 		if($value instanceof Html)
-			return $p->setHtml($value);
+			return $p->setHtml($value->addClass('control-label'));
 		else
-			return $p->setText((string)$value);
+			return $p->setText(Html::el('span')->addClass('control-label')->setText((string)$value));
 	}
 }
  
