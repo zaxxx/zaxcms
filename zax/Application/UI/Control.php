@@ -46,10 +46,20 @@ abstract class Control extends Nette\Application\UI\Control {
 
 	protected $icons;
 
+	protected $eventManager;
+
 	public function __construct() {}
 
 	public function injectIcons(Zax\Html\Icons\IIcons $icons) {
 		$this->icons = $icons;
+	}
+
+	public function injectEventManager(Kdyby\Events\EventManager $eventManager) {
+		$this->eventManager = $eventManager;
+	}
+
+	public function fireEvent($event, $args = []) {
+		$this->eventManager->dispatchEvent(get_class($this) . '::' . $event, new Kdyby\Events\EventArgsList($args));
 	}
 
 	/**
