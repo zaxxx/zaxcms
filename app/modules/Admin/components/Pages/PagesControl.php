@@ -82,7 +82,8 @@ class PagesControl extends Zax\Components\Collections\FilterableControl {
     
     public function beforeRender() {
         $this->template->pages = $this->getFilteredResultSet();
-	    if($page = $this->getPage()) {
+	    $page = $this->getPage();
+	    if($page instanceof Model\CMS\Entity\Page) {
 		    $page->setTranslatableLocale($this->getLocale());
 		    $this->pageService->refresh($page);
 		    $this->template->page = $page;

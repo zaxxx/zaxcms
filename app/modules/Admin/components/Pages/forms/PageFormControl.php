@@ -72,6 +72,7 @@ abstract class PageFormControl extends FormControl {
 			try{
 				$this->pageService->persist($page);
 				$this->pageService->flush();
+				$this->pageService->invalidateCache();
 				$this->successFlashMessage();
 				$this->parent->go('this', ['view' => 'Default']);
 			} catch (Kdyby\Doctrine\DuplicateEntryException $ex) {

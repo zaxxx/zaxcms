@@ -42,7 +42,7 @@ class UserQuery extends Zax\Model\Doctrine\QueryObject {
 			->join('a.login', 'c');
 		$this->applyFilters($qb);
 		$query = $qb->getQuery()
-			->useResultCache(TRUE);
+			->useResultCache(TRUE, NULL, Model\CMS\AclFactory::CACHE_TAG);
 		if($this->locale !== NULL) {
 			$query->setHint(
 				Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,

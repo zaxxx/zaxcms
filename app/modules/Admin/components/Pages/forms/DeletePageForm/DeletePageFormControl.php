@@ -48,9 +48,10 @@ class DeletePageFormControl extends FormControl {
 		if($form->submitted === $form['deleteItem']) {
 			$this->pageService->remove($this->page);
 			$this->pageService->flush();
+			$this->pageService->invalidateCache();
 
 			$this->flashMessage('common.alert.entryDeleted', 'success');
-			$this->parent->go('this', ['view' => 'Default']);
+			$this->parent->go('this', ['view' => 'Default', 'page' => NULL]);
 		}
 	}
 

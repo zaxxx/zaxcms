@@ -62,6 +62,8 @@ class ChangePasswordControl extends Control {
 
 		$form->onSuccess[] = [$this, 'changePasswordFormSuccess'];
 
+		$form->autofocus('oldPassword');
+
 		return $form;
 	}
 

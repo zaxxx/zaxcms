@@ -17,7 +17,7 @@ class PageQuery extends Zax\Model\Doctrine\QueryObject {
 		$this->applyFilters($qb);
 
 		return $qb->getQuery()
-			->useResultCache(TRUE);
+			->useResultCache(TRUE, NULL, Model\CMS\Service\PageService::CACHE_TAG);
 	}
 
 }

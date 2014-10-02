@@ -69,4 +69,8 @@ class DatabaseGenerator extends Nette\Object {
 		return $this->schemaTool->getCreateSchemaSql($this->getEntityClasses());
 	}
 
+	public function getSchemaTool() {
+		return $this->schemaTool;
+	}
+
 }
