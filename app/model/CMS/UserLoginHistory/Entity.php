@@ -33,9 +33,9 @@ class UserLoginHistory extends BaseEntity {
 	protected $timeAt;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="UserLogin")
-	 * @ORM\JoinColumn(name="user_login_id", referencedColumnName="id")
+	 * @ORM\ManyToOne(targetEntity="User")
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 	 */
-	protected $userLogin;
+	protected $user;
 
 }

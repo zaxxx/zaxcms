@@ -16,4 +16,12 @@ class UserLoginHistoryService extends Zax\Model\Doctrine\Service {
 		$this->entityClassName = Entity\UserLoginHistory::getClassName();
 	}
 
+	public function logLogin(Entity\User $user) {
+		$logEntry = $this->create();
+		$logEntry->user = $user;
+		$logEntry->timeAt = new Nette\Utils\DateTime;
+		$this->persist($logEntry);
+		$this->flush();
+	}
+
 }

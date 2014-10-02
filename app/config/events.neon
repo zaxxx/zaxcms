@@ -1,0 +1,3 @@
+events:
+   subscribers:
+       - ZaxCMS\Components\Auth\LoginLogListener
