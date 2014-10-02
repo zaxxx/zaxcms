@@ -1,1 +1,1 @@
-<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.06833900 1410451588";}?>ALTER TABLE permission ADD CONSTRAINT FK_E04992AA89329D25 FOREIGN KEY (resource_id) REFERENCES resource (id)
+<?php //netteCache[01]000048a:1:{s:4:"time";s:21:"0.25520200 1412266910";}?>ALTER TABLE user ADD CONSTRAINT FK_8D93D6495CB2E05D FOREIGN KEY (login_id) REFERENCES user_login (id)
