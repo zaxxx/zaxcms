@@ -32,13 +32,24 @@ class SecurityFormControl extends FormControl {
 	    $this->loginService = $loginService;
     }
 
-	/** @secured Users, Secure */
-    public function viewDefault() {}
+	/** @secured Users, Use */
+    public function viewDefault() {
+	    if(!$this->user->isAllowed('Users', 'Ban') && !$this->user->isAllowed('Users', 'Secure')) {
+		    throw new Zax\Security\ForbiddenRequestException;
+	    }
+    }
 
-	/** @secured Users, Secure */
-    public function beforeRender() {}
+	/** @secured Users, Use */
+    public function beforeRender() {
+	    if(!$this->user->isAllowed('Users', 'Ban') && !$this->user->isAllowed('Users', 'Secure')) {
+		    throw new Zax\Security\ForbiddenRequestException;
+	    }
+    }
 
     public function setSelectedUser(Model\CMS\Entity\User $user) {
+	    if($user->role->isAdminRole()) {
+		    throw new Model\CMS\ProtectedRoleException;
+	    }
         $this->selectedUser = $user;
         return $this;
     }
@@ -50,26 +61,24 @@ class SecurityFormControl extends FormControl {
     public function createForm() {
         $f = parent::createForm();
 
-        if(!$this->selectedUser->role->canBeInheritedFrom()) {
-            $f->addStatic('role', 'user.form.role')
-                ->addFilter(function($role) {
-                    return $role->displayName;
-                });
-        } else {
-            $f->addSelect('userrole', 'user.form.role', $this->roleService->getFormSelectOptions())
-                ->setDefaultValue($this->selectedUser->role->id)
+	    if($this->user->isAllowed('Users', 'Secure')) {
+	        $f->addSelect('userrole', 'user.form.role', $this->roleService->getFormSelectOptions())
+	            ->setDefaultValue($this->selectedUser->role->id)
 	            ->addCondition($f::EQUAL, $this->roleService->getAdminRole()->id)
 	                ->toggle('superadminWarning');
 
-	        $f->addStatic('superadminWarning', '')
-	            ->setValue($this->translator->translate('user.form.superadminWarning'))
-		        ->setOption('id', 'superadminWarning')
-		        ->getControlPrototype()
-		            ->addClass('has-error');
-        }
+		    $f->addStatic('superadminWarning', '')
+			    ->setValue($this->translator->translate('user.form.superadminWarning'))
+			    ->setOption('id', 'superadminWarning')
+			    ->getControlPrototype()
+			    ->addClass('has-error');
+	    }
 
-	    $f->addCheckbox('banned', 'user.form.banned')
-		    ->setDefaultValue($this->selectedUser->login->isBanned);
+
+	    if($this->user->isAllowed('Users', 'Ban')) {
+		    $f->addCheckbox('banned', 'user.form.banned')
+			    ->setDefaultValue($this->selectedUser->login->isBanned);
+	    }
 
 	    $this->binder->entityToForm($this->selectedUser, $f);
 
@@ -85,15 +94,15 @@ class SecurityFormControl extends FormControl {
 
     public function formSuccess(Form $form, $values) {
 		if($form->submitted === $form['saveSettings']) {
-			if($this->selectedUser->role->canBeInheritedFrom()) {
-				if($role = $this->roleService->get($values->userrole)) {
-					$this->selectedUser->role = $role;
-					$this->userService->persist($this->selectedUser);
-				}
+			if($this->user->isAllowed('Users', 'Secure') && $role = $this->roleService->get($values->userrole)) {
+				$this->selectedUser->role = $role;
+				$this->userService->persist($this->selectedUser);
 			}
 
-			$this->selectedUser->login->isBanned = $values->banned;
-			$this->loginService->persist($this->selectedUser->login);
+			if($this->user->isAllowed('Users', 'Ban')) {
+				$this->selectedUser->login->isBanned = $values->banned;
+				$this->loginService->persist($this->selectedUser->login);
+			}
 
 			$this->loginService->flush();
 			$this->aclFactory->invalidateCache();

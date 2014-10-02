@@ -28,9 +28,11 @@ class SecurityInfoControl extends SecuredControl {
         
     }
 
-	/** @secured Users, Secure */
+	/** @secured Users, Use */
     public function viewEdit() {
-
+	    if(!$this->user->isAllowed('Users', 'Ban') && !$this->user->isAllowed('Users', 'Secure')) {
+		    throw new Zax\Security\ForbiddenRequestException;
+	    }
     }
 
 	/** @secured Users, Use */
@@ -38,7 +40,7 @@ class SecurityInfoControl extends SecuredControl {
         $this->template->selectedUser = $this->selectedUser;
     }
 
-	/** @secured Users, Secure */
+	/** @secured Users, Use */
     public function createComponentSecurityForm() {
         return $this->securityFormFactory->create()
             ->setSelectedUser($this->selectedUser);

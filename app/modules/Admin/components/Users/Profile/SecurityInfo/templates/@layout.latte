@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h5 class="panel-title">{icon lock} {_'user.panel.security'}<span n:secured="Users, Secure" class="pull-right"><a n:class="$ajaxEnabled ? ajax" title="{_'common.button.edit'}" n:href="this, view => Edit">{icon pencil}</a></span></h5>
+		<h5 class="panel-title">{icon lock} {_'user.panel.security'}<span n:if="!$selectedUser->role->isAdminRole() && ($acl->isUserAllowedTo(Users, Secure) || $acl->isUserAllowedTo(Users, Ban))" class="pull-right"><a n:class="$ajaxEnabled ? ajax" title="{_'common.button.edit'}" n:href="this, view => Edit">{icon pencil}</a></span></h5>
 	</div>
 	<div class="panel-body">
 		{include #panelContent}
