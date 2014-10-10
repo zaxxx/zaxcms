@@ -27,6 +27,8 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 
 	protected $suppressRedraw = [];
 
+	protected $options = [];
+
 	public function __construct($caption = NULL) {
 		$this->monitor('Nette\Application\UI\Presenter');
 		parent::__construct();
@@ -112,9 +114,18 @@ abstract class BaseControl extends Control implements Nette\Forms\IControl {
 		return $this->getControl();
 	}
 
-	public function setOption() {}
+	public function setOption($key, $val) {
+		if($val === NULL) {
+			unset($this->options[$key]);
+		} else {
+			$this->options[$key] = $val;
+		}
+		return $this;
+	}
 
-	public function getOption() {}
+	public function getOption($key, $default = NULL) {
+		return isset($this->options[$key]) ? $this->options[$key] : $default;
+	}
 
 	public function isDisabled() {
 		return FALSE; // TODO
