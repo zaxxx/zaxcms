@@ -56,13 +56,9 @@ abstract class MenuItemFormControl extends FormControl {
 	    $f->addText('text', 'common.form.displayText')
 		    ->addRule(Form::MAX_LENGTH, NULL, 255);
 
-	    $f->addIconSelect('icon', 'menu.form.icon');
-
-	    $f->addText('title', 'menu.form.title')
-		    ->addRule(Form::MAX_LENGTH, NULL, 511);
-
 	    $f->addText('href', 'menu.form.url')
-		    ->addRule(Form::MAX_LENGTH, NULL, 511);
+		    ->addRule(Form::MAX_LENGTH, NULL, 511)
+		    ->getControlPrototype()->addClass('bg-primary');
 
 	    $f->addText('nhref', 'menu.form.nhref')
 		    ->addRule(Form::MAX_LENGTH, NULL, 255);
@@ -73,8 +69,18 @@ abstract class MenuItemFormControl extends FormControl {
 	    $f->addCheckbox('advancedStuff', 'common.form.advancedOptions')
 		    ->addCondition($f::EQUAL, TRUE)
 		        ->toggle($this->getUniqueId() . '-uniqueName')
+			    ->toggle($this->getUniqueId() . '-title')
+			    ->toggle($this->getUniqueId() . '-icon')
 		        ->toggle($this->getUniqueId() . '-htmlTarget')
 		        ->toggle($this->getUniqueId() . '-htmlClass');
+
+
+	    $f->addIconSelect('icon', 'menu.form.icon')
+		    ->setOption('id', $this->getUniqueId() . '-icon');
+
+	    $f->addText('title', 'menu.form.title')
+		    ->setOption('id', $this->getUniqueId() . '-title')
+		    ->addRule(Form::MAX_LENGTH, NULL, 511);
 
 	    $f->addText('name', 'common.form.uniqueName')
 		    ->setOption('id', $this->getUniqueId() . '-uniqueName')
