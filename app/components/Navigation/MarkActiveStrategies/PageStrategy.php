@@ -8,7 +8,8 @@ use Zax,
 class PageStrategy extends Strategy {
 
 	public function isValidForItem(ZaxCMS\Model\CMS\Entity\Menu $menuItem) {
-		return $menuItem->getPresenterName() === 'Front:Page' && isset($this->request->parameters['page']);
+		$presenter = $menuItem->getPresenterName();
+		return strrpos($presenter, ':Page') === strlen($presenter) - 5 && isset($this->request->parameters['page']);
 	}
 
 	public function isActive(ZaxCMS\Model\CMS\Entity\Menu $menuItem) {
