@@ -55,6 +55,10 @@ class TestMailFormControl extends FormControl {
 	        foreach($params as $param) {
 		        $processedParams[$param] = $values->$param;
 	        }
+	        $arrays = $this->mailTemplate->getTemplateArrays();
+	        foreach($arrays as $tplArray) {
+		        $processedParams[$tplArray] = [];
+	        }
 
 	        $this->sendMail->sendEmail($this->mailTemplate->name, $values->to, $processedParams);
 

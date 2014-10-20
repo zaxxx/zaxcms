@@ -19,6 +19,8 @@ use Zax,
  */
 class MailTemplate extends BaseEntity {
 
+	const PREG_PHP_VAR = '\$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)';
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -99,9 +101,17 @@ class MailTemplate extends BaseEntity {
 	}
 
 	public function getTemplateParameters() {
-		$params = [];
-		preg_match_all('#\$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)#', $this->template, $params);
-		return $params[1];
+		$template = $this->template;
+		$template = preg_replace('#{foreach (.*?)\/foreach}#s', '', $template);
+		$vars = [];
+		preg_match_all('#{' . self::PREG_PHP_VAR . '}#', $template, $vars);
+		return $vars[1];
+	}
+
+	public function getTemplateArrays() {
+		$arrays = [];
+		preg_match_all('#{foreach ' . self::PREG_PHP_VAR . '#', $this->template, $arrays);
+		return $arrays[1];
 	}
 
 }
