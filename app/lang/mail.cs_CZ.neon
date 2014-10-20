@@ -4,8 +4,8 @@ form:
     subject: "Předmět"
     template: "Šablona"
     copy: "Zasílat kopie"
-    cc: "Kopie"
-    bcc: "Skrytá kopie"
+    cc: "Kopie (cc)"
+    bcc: "Skrytá kopie (bcc)"
 button:
     editMail: "Upravit e-mail"
     testMail: "Poslat testovací e-mail"

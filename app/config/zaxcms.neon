@@ -30,6 +30,7 @@ services:
     - ZaxCMS\Model\CMS\AclFactory(%CMSInstalled%)
     - ZaxCMS\Model\CMS\Auth(%loginType%)
     - ZaxCMS\Model\CMS\ChangePassword
+    - ZaxCMS\Model\CMS\SendMail
 
 ## Router
     - ZaxCMS\Routers\RouterFactory

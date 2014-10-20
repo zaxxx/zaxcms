@@ -14,10 +14,10 @@ class TestMailFormControl extends FormControl {
 
 	protected $mailTemplate;
 
-	protected $mailer;
+	protected $sendMail;
 
-	public function __construct(Nette\Mail\IMailer $mailer) {
-		$this->mailer = $mailer;
+	public function __construct(Model\CMS\SendMail $sendMail) {
+		$this->sendMail = $sendMail;
 	}
 
 	public function setSelectedMail(Model\CMS\Entity\MailTemplate $mailTemplate) {
@@ -56,10 +56,7 @@ class TestMailFormControl extends FormControl {
 		        $processedParams[$param] = $values->$param;
 	        }
 
-	        $message = $this->mailTemplate->toMessage($processedParams);
-	        $message->addTo($values->to);
-
-	        $this->mailer->send($message);
+	        $this->sendMail->sendEmail($this->mailTemplate->name, $values->to, $processedParams);
 
 	        $this->flashMessage('mail.alert.testMailSent', 'success');
 	        $this->go('this');
