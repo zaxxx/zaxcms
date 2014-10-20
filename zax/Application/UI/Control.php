@@ -298,7 +298,7 @@ abstract class Control extends Nette\Application\UI\Control {
 				return $path;
 			}
 			$class = $class->getParentClass();
-		} while (TRUE);
+		} while ($class !== NULL);
 	}
 
 	/* TODO: some stuff for Texy ;-)
