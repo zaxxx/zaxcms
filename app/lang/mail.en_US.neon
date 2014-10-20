@@ -1,0 +1,15 @@
+form:
+    from: "From"
+    to: "To"
+    subject: "Subject"
+    template: "Template"
+    copy: "Send copy"
+    cc: "Cc"
+    bcc: "Bcc"
+button:
+    editMail: "Edit e-mail"
+    testMail: "Send test e-mail"
+panel:
+    emails: "E-mails"
+alert:
+    testMailSent: "Test e-mail sent."

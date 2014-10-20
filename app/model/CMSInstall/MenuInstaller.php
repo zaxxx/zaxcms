@@ -62,6 +62,10 @@ class MenuInstaller extends Nette\Object {
 		$pagesItem->setTranslatableLocale('cs_CZ');
 		$this->service->getRepository()->persistAsLastChildOf($pagesItem, $adminMenu);
 
+		$mailsItem = $this->createMenuItem('E-maily', ':Admin:Mails:default', 'envelope');
+		$mailsItem->setTranslatableLocale('cs_CZ');
+		$this->service->getRepository()->persistAsLastChildOf($mailsItem, $adminMenu);
+
 		$usersItem = $this->createMenuItem('Uživatelé', ':Admin:Users:default', 'user');
 		$usersItem->setTranslatableLocale('cs_CZ');
 		$this->service->getRepository()->persistAsLastChildOf($usersItem, $adminMenu);
@@ -77,12 +81,15 @@ class MenuInstaller extends Nette\Object {
 			$dashboardItem->setTranslatableLocale('en_US');
 			$pagesItem->text = 'Pages';
 			$pagesItem->setTranslatableLocale('en_US');
+			$mailsItem->text = 'E-mails';
+			$mailsItem->setTranslatableLocale('en_US');
 			$usersItem->text = 'Users';
 			$usersItem->setTranslatableLocale('en_US');
 			$rolesItem->text = 'Roles & permissions';
 			$rolesItem->setTranslatableLocale('en_US');
 			$this->service->persist($dashboardItem);
 			$this->service->persist($pagesItem);
+			$this->service->persist($mailsItem);
 			$this->service->persist($usersItem);
 			$this->service->persist($rolesItem);
 

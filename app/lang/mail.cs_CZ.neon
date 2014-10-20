@@ -1,0 +1,15 @@
+form:
+    from: "Odesílatel"
+    to: "Příjemce"
+    subject: "Předmět"
+    template: "Šablona"
+    copy: "Zasílat kopie"
+    cc: "Kopie"
+    bcc: "Skrytá kopie"
+button:
+    editMail: "Upravit e-mail"
+    testMail: "Poslat testovací e-mail"
+panel:
+    emails: "E-maily"
+alert:
+    testMailSent: "Testovací e-mail byl odeslán."

@@ -1,0 +1,4 @@
+services:
+    - ZaxCMS\AdminModule\Components\Mails\IMailsFactory
+    - ZaxCMS\AdminModule\Components\Mails\IEditMailFormFactory
+    - ZaxCMS\AdminModule\Components\Mails\ITestMailFormFactory

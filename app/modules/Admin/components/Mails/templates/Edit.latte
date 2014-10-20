@@ -1,0 +1,13 @@
+{layout './@layout.latte'}
+
+{define content}
+
+	<span class="pull-right">
+		<a n:href="this, view => Test" n:class="$ajaxEnabled ? ajax" data-placement="left" title="{_'mail.button.testMail'}">{icon envelope}</a>
+	</span>
+
+	<h4>{_'mail.button.editMail'}</h4>
+
+	{control editMailForm}
+
+{/define}

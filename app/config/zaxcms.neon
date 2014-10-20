@@ -25,6 +25,7 @@ services:
     - ZaxCMS\Model\CMS\Service\UserService
     - ZaxCMS\Model\CMS\Service\UserLoginService
     - ZaxCMS\Model\CMS\Service\UserLoginHistoryService
+    - ZaxCMS\Model\CMS\Service\MailTemplateService
 
     - ZaxCMS\Model\CMS\AclFactory(%CMSInstalled%)
     - ZaxCMS\Model\CMS\Auth(%loginType%)

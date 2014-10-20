@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-sm-12" n:snippet>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">&nbsp;<span class="hidden-xs">{icon envelope} {_}mail.panel.emails{/_}</span></h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="well">
+							<div n:snippet="list">
+								<ul class="nav nav-pills nav-stacked">
+									{foreach $allMails as $mail}
+										<li n:class="(int)$control->selectMail === $mail->id ? active"><a n:href="this, view => Edit, selectMail => $mail->id" n:class="$ajaxEnabled ? ajax">{$mail->subject}</a></li>
+									{/foreach}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="well">
+							{include #content}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
