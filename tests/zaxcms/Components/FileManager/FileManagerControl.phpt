@@ -9,6 +9,7 @@ use Tester,
 
 $container = require __DIR__ . '/../../../bootstrap.php';
 
+/** @skip */
 class FileManagerControlTest extends Tester\TestCase {
 
 	/** @var Nette\DI\Container */
