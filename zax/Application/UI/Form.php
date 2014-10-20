@@ -199,8 +199,16 @@ class Form extends Nette\Application\UI\Form {
 		return $upload;
 	}
 
-	public function addArrayTextArea($name, $label=NULL) {
-		$control = new Zax\Forms\Controls\ArrayTextAreaControl($label);
+	public function addEmail($name, $label = NULL, $cols = NULL, $maxLength = NULL) {
+		$text = parent::addText($name, $label, $cols, $maxLength);
+		$text->setType('email');
+		$text->addCondition(Nette\Forms\Form::FILLED)
+			->addRule(Nette\Forms\Form::EMAIL);
+		return $text;
+	}
+
+	public function addArrayTextArea($name, $label = NULL, $keyValDelimiter = NULL) {
+		$control = new Zax\Forms\Controls\ArrayTextAreaControl($label, $keyValDelimiter);
 		return $this[$name] = $control;
 	}
 
