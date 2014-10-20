@@ -39,6 +39,10 @@ class ArrayTextAreaControl extends Nette\Forms\Controls\TextBase {
 	}
 
 	protected function textToArray($text) {
+		if(strlen($text) === 0) {
+			return [];
+		}
+
 		$processed = [];
 		$lines = explode("\n", preg_replace('~\r\n?~', "\n", $text)); // explode(PHP_EOL, $text);
 		if($this->keyValDelimiter === NULL) {
