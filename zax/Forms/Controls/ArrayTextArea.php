@@ -11,9 +11,12 @@ class ArrayTextAreaControl extends Nette\Forms\Controls\TextBase {
 
 	protected $value = [];
 
-	public function __construct($label = NULL) {
+	protected $keyValDelimiter;
+
+	public function __construct($label = NULL, $keyValDelimiter = NULL) {
 		parent::__construct($label);
 		$this->control->setName('textarea');
+		$this->keyValDelimiter = $keyValDelimiter === NULL ? NULL : (string) $keyValDelimiter;
 	}
 
 	public function loadHttpData() {
@@ -21,21 +24,33 @@ class ArrayTextAreaControl extends Nette\Forms\Controls\TextBase {
 	}
 
 	protected function arrayToText($arr) {
-		$pairs = [];
-		foreach($arr as $key => $val) {
-			$pairs[] = $key . '=>' . $val;
+		$processed = [];
+		if($this->keyValDelimiter === NULL) {
+			foreach($arr as $val) {
+				$processed[] = $val;
+			}
+		} else {
+			foreach($arr as $key => $val) {
+				$processed[] = $key . $this->keyValDelimiter . $val;
+			}
 		}
-		return implode(PHP_EOL, $pairs);
+
+		return implode(PHP_EOL, $processed);
 	}
 
 	protected function textToArray($text) {
-		$data = [];
-		$pairs = explode(PHP_EOL, $text);
-		foreach($pairs as $pair) {
-			list($key, $value) = explode('=>', $pair);
-			$data[trim($key)] = trim($value);
+		$processed = [];
+		$lines = explode("\n", preg_replace('~\r\n?~', "\n", $text)); // explode(PHP_EOL, $text);
+		if($this->keyValDelimiter === NULL) {
+			$processed = $lines;
+		} else {
+			foreach($lines as $pair) {
+				list($key, $value) = explode($this->keyValDelimiter, $pair);
+				$processed[trim($key)] = trim($value);
+			}
 		}
-		return $data;
+
+		return $processed;
 	}
 
 	public function setValue($value) {
