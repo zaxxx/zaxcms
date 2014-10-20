@@ -51,11 +51,6 @@ class ControlTest extends Tester\TestCase {
 		Assert::same($this->tp('Foo.Bar'), $path2);
 	}
 
-	public function testView() {
-		$this->control->setView('foo');
-		Assert::exception(function() {$this->control->run();}, 'RuntimeException', 'Missing template file \'' . $this->tp('Foo') . '\'.');
-	}
-
 	public function testTemplateVars() {
 		$this->control->enableAjax();
 		$this->control->setView('foo');
@@ -63,12 +58,6 @@ class ControlTest extends Tester\TestCase {
 		$template = $this->control->createTemplate();
 		Assert::true($template->ajaxEnabled);
 		Assert::same('Foo', $template->view);
-	}
-
-	public function testRenderHack() {
-		$this->control->setView('foo');
-		Assert::exception(function() {$this->control->render();}, 'RuntimeException', 'Missing template file \'' . $this->tp('Foo') . '\'.');
-		Assert::exception(function() {$this->control->renderBar();}, 'RuntimeException', 'Missing template file \'' . $this->tp('Foo.Bar') . '\'.');
 	}
 
 	public function testAjaxRecursive() {
