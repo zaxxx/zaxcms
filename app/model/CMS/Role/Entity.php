@@ -24,6 +24,8 @@ use Zax,
  */
 class Role extends BaseEntity {
 
+	use Zax\Model\Doctrine\TNestedSet;
+
 	const GUEST_ROLE = 0,
 			USER_ROLE = 1,
 			ADMIN_ROLE = 2;
@@ -56,30 +58,6 @@ class Role extends BaseEntity {
 	 * @ORM\Column(type="integer", length=1, nullable=TRUE)
 	 */
 	protected $special;
-
-	/**
-	 * @Gedmo\TreeLeft
-	 * @ORM\Column(type="integer")
-	 */
-	protected $lft;
-
-	/**
-	 * @Gedmo\TreeRight
-	 * @ORM\Column(type="integer")
-	 */
-	protected $rgt;
-
-	/**
-	 * @Gedmo\TreeLevel
-	 * @ORM\Column(type="integer")
-	 */
-	protected $depth;
-
-	/**
-	 * @Gedmo\TreeRoot
-	 * @ORM\Column(type="integer", nullable=TRUE)
-	 */
-	protected $root;
 
 	/**
 	 * @Gedmo\TreeParent

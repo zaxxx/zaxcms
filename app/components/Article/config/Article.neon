@@ -1,0 +1,3 @@
+services:
+    - ZaxCMS\Components\Article\IArticleFactory
+    - ZaxCMS\Components\Article\IArticleListFactory

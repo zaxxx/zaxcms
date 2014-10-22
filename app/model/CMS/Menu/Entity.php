@@ -32,6 +32,8 @@ use Zax,
  */
 class Menu extends BaseEntity implements Translatable {
 
+	use Zax\Model\Doctrine\TNestedSet;
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -94,30 +96,6 @@ class Menu extends BaseEntity implements Translatable {
 	 * @ORM\ManyToMany(targetEntity="Permission")
 	 */
 	protected $permissions;
-
-	/**
-	 * @Gedmo\TreeLeft
-	 * @ORM\Column(type="integer")
-	 */
-	protected $lft;
-
-	/**
-	 * @Gedmo\TreeRight
-	 * @ORM\Column(type="integer")
-	 */
-	protected $rgt;
-
-	/**
-	 * @Gedmo\TreeLevel
-	 * @ORM\Column(type="integer")
-	 */
-	protected $depth;
-
-	/**
-	 * @Gedmo\TreeRoot
-	 * @ORM\Column(type="integer", nullable=TRUE)
-	 */
-	protected $root;
 
 	/**
 	 * @Gedmo\TreeParent

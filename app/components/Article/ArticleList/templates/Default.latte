@@ -1,0 +1,18 @@
+{control paginator}
+
+{foreach $articles as $article}
+	<h4><a href="{$presenter->link(':Front:Article:default', [slug => $article->slug, categorySlug => $article->category->slug])}">{$article->title}</a></h4>
+	<p><em>
+			<span title="{$article->createdAt|beautifulDateTime}">{$article->createdAt|relativeDate}</span>
+			&middot;
+			<a href="{$presenter->link(':Front:Category:default', [slug => $article->category->slug])}">{$article->category->title}</a>
+	</em></p>
+
+	<p>{icon tags}
+		{foreach $article->tags as $tag}
+			<a href="{$presenter->link(':Front:Tag:default', [slug => $tag->slug])}">{$tag->title}</a>{sep}, {/sep}
+		{/foreach}
+	</p>
+{/foreach}
+
+{control paginator}

@@ -1,0 +1,9 @@
+{layout '../@layout.latte'}
+{block title}{$category->title}{/block}
+{block content}
+
+	<h3>Kategorie {$category->title}</h3>
+
+	{control articleList}
+
+{/block}
