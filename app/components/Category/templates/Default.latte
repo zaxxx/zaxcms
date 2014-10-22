@@ -1,9 +1,0 @@
-<h3>{$category->title}</h3>
-
-{foreach $category->articles as $article}
-	<h4><a href="{$presenter->link(':Front:Article:default', [slug => $article->slug, categorySlug => $category->slug])}">{$article->title}</a></h4>
-	<p><em>{$article->createdAt|relativeDate}</em></p>
-	{foreach $article->tags as $tag}
-		{$tag->title}{sep}, {/sep}
-	{/foreach}
-{/foreach}

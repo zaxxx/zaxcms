@@ -1,4 +1,3 @@
-{control paginator}
 
 {foreach $articles as $article}
 	<h4><a href="{$presenter->link(':Front:Article:default', [slug => $article->slug, categorySlug => $article->category->slug])}">{$article->title}</a></h4>
@@ -15,4 +14,4 @@
 	</p>
 {/foreach}
 
-{control paginator}
+{control paginator:pager}

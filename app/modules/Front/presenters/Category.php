@@ -35,6 +35,7 @@ class CategoryPresenter extends BasePresenter {
 
 	public function renderDefault($slug) {
 		$this->template->category = $this->category;
+		$this->template->ancestors = $this->categoryService->findPath($this->category);
 	}
 
 	protected function createComponentArticleList() {

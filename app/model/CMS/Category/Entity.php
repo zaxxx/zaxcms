@@ -31,6 +31,12 @@ class Category extends BaseEntity {
 	protected $parent;
 
 	/**
+	 * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+	 * @ORM\OrderBy({"id" = "ASC"})
+	 */
+	protected $children;
+
+	/**
 	 * @Gedmo\Translatable
 	 * @ORM\Column(type="string", length=255)
 	 */

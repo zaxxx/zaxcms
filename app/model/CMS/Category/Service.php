@@ -27,4 +27,14 @@ class CategoryService extends Zax\Model\Doctrine\Service {
 		$doctrineCache->flushAll();
 	}
 
+	public function findPath(Entity\Category $node) {
+		$tmpNode = $node;
+		$nodes = [];
+		while($tmpNode !== NULL) {
+			$nodes[] = $tmpNode;
+			$tmpNode = $tmpNode->parent;
+		}
+		return array_reverse($nodes);
+	}
+
 } 
