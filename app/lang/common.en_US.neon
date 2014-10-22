@@ -13,6 +13,8 @@ button:
     chooseFile: "Choose file"
     chooseFiles: "Choose files"
     preview: "Preview"
+    older: "Older"
+    newer: "Newer"
 form:
     id: "ID"
     name: "Name"

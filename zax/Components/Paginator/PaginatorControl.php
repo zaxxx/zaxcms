@@ -41,12 +41,16 @@ class PaginatorControl extends Control implements Zax\Model\Doctrine\IResultSetF
 	}
 
     public function viewDefault() {
-        
+	    $this->template->paginator = $this->getPaginator();
     }
     
     public function beforeRender() {
-        $this->template->paginator = $this->getPaginator();
+
     }
+
+	public function beforeRenderPager() {
+
+	}
 
 	public function loadState(array $params) {
 		parent::loadState($params);
