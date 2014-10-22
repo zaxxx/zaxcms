@@ -14,7 +14,7 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	protected $articleService;
 
-	protected $category;
+	protected $categories;
 
 	protected $tag;
 
@@ -22,8 +22,8 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 		$this->articleService = $articleService;
 	}
 
-	public function setCategory(Model\CMS\Entity\Category $category) {
-		$this->category = $category;
+	public function setCategories($categories) {
+		$this->categories = $categories;
 		return $this;
 	}
 
@@ -38,7 +38,7 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	protected function createQueryObject() {
 		return (new Model\CMS\Query\ArticleQuery($this->getLocale()))
-			->inCategory($this->category)
+			->inCategories($this->categories)
 			->withTag($this->tag);
 	}
 

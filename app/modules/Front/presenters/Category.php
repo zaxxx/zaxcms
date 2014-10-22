@@ -39,9 +39,10 @@ class CategoryPresenter extends BasePresenter {
 	}
 
 	protected function createComponentArticleList() {
+		$children = $this->categoryService->getRepository()->getChildren($this->category, FALSE, NULL, 'asc', TRUE);
 	    return $this->articleListFactory->create()
 	        ->enablePaginator(5)
-		    ->setCategory($this->category);
+		    ->setCategories($children);
 	}
 
 }

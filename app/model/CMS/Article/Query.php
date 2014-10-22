@@ -16,12 +16,18 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 		$this->locale = $locale;
 	}
 
-	public function inCategory(Model\CMS\Entity\Category $category = NULL) {
-		if($category === NULL) {
+	public function inCategories($categories) {
+		if($categories === NULL) {
 			return $this;
 		}
-		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($category) {
-			$qb->andWhere('a.category = :category')->setParameter('category', $category->id);
+
+		$ids = [];
+		foreach($categories as $category) {
+			$ids[] = $category->id;
+		}
+
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($categories) {
+			$qb->andWhere('a.category IN (:categories)')->setParameter('categories', $categories);
 		};
 		return $this;
 	}
