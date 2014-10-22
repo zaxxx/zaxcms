@@ -48,7 +48,7 @@ class RouterFactory extends Nette\Object {
 
 	    $r[] = new Route($ls . 'user[/<action>]', Route::meta('Front:User', 'default'));
 
-        $r[] = new Route($ls . '[<module=Front>][/<presenter>[/<action>]]', [
+        $r[] = new Route($ls . '[<module=Front>[/p-<presenter>[/a-<action>]]]', [
 	        'presenter' => 'Default',
 	        'action' => 'default'
         ]);

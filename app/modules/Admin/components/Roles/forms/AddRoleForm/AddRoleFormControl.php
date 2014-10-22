@@ -28,7 +28,7 @@ class AddRoleFormControl extends RoleFormControl {
     protected function createSubmitButtons(Form $form) {
 	    $form->addButtonSubmit('saveRole', 'role.button.addRole', 'plus');
 	    $form->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
-	    $form->enableBootstrap(['primary' => ['saveRole'], 'default' => ['cancel']], TRUE);
+	    $form->enableBootstrap(['success' => ['saveRole'], 'default' => ['cancel']], TRUE);
     }
 
 	protected function successFlashMessage() {

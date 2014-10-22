@@ -25,7 +25,7 @@ class EditPageFormControl extends PageFormControl {
     public function createSubmitButtons(Form $form) {
 	    $form->addButtonSubmit('savePage', 'page.button.editPage', 'file');
 	    $form->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
-	    $form->enableBootstrap(['primary' => ['savePage'], 'default' => ['cancel']], TRUE);
+	    $form->enableBootstrap(['success' => ['savePage'], 'default' => ['cancel']], TRUE);
     }
     
     public function formError(Form $form) {

@@ -2,6 +2,7 @@
 
 namespace ZaxCMS\FrontModule;
 use Nette,
+	ZaxCMS,
 	ZaxCMS\Model,
     Nette\Application\UI\Presenter,
     Zax\Application\UI as ZaxUI,
