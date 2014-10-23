@@ -68,9 +68,26 @@ class Article extends BaseEntity {
 	protected $updatedAt;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Tag", mappedBy="articles")
+	 * @ORM\ManyToOne(targetEntity="User")
+	 * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+	 */
+	protected $author;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $isPublic;
+
+	/**
+	 * @ORM\ManyToMany(targetEntity="Tag", inversedBy="articles")
+	 * @ORM\JoinTable(name="tag_article")
+	 * @ORM\OrderBy({"id" = "DESC"})
 	 */
 	protected $tags;
+
+	public function setTags($tags) {
+		$this->tags = $tags;
+	}
 
 	/**
 	 * @Gedmo\Locale

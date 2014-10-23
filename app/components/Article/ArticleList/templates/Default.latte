@@ -1,17 +1,12 @@
 
-{foreach $articles as $article}
-	<h4><a href="{$presenter->link(':Front:Article:default', [slug => $article->slug, categorySlug => $article->category->slug])}">{$article->title}</a></h4>
-	<p><em>
-			<span title="{$article->createdAt|beautifulDateTime}">{$article->createdAt|relativeDate}</span>
-			&middot;
-			<a href="{$presenter->link(':Front:Category:default', [slug => $article->category->slug])}">{$article->category->title}</a>
-	</em></p>
 
-	<p>{icon tags}
-		{foreach $article->tags as $tag}
-			<a href="{$presenter->link(':Front:Tag:default', [slug => $tag->slug])}">{$tag->title}</a>{sep}, {/sep}
-		{/foreach}
-	</p>
+
+<a n:if="$showAddButton" n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => Add">{icon plus} {_'article.button.addArticle'}</a>
+
+{foreach $articles as $article}
+
+	{includeblock '../../articleListItem.latte'}
+
 {/foreach}
 
-{control paginator:pager}
+{control paginator:pager, suffix => ' ' . $template->translate('article.general.articles')}

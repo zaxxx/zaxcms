@@ -1,0 +1,18 @@
+general:
+    articles: "články"
+    category: "Kategorie"
+    tag: "Štítek"
+    tags: "Štítky"
+    inCategory: "v kategorii"
+button:
+    addArticle: "Přidat článek"
+    editArticle: "Upravit článek"
+form:
+    title: "Nadpis"
+    perex: "Perex"
+    content: "Obsah"
+    category: "Kategorie"
+    publish: "Zveřejnit"
+    tags: "Štítky (jeden na řádek)"
+alert:
+    articleSaved: "Článek byl uložen."

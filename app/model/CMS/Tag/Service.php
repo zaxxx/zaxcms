@@ -16,4 +16,15 @@ class TagService extends Zax\Model\Doctrine\Service {
 		$this->entityClassName = Entity\Tag::getClassName();
 	}
 
+	public function getOrCreateTag($title) {
+		$tag = $this->getBy(['title' => $title]);
+		if($tag === NULL) {
+			$tag = $this->create();
+			$tag->title = $title;
+			$this->persist($tag);
+			$this->flush();
+		}
+		return $tag;
+	}
+
 }

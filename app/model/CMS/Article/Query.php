@@ -16,6 +16,16 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 		$this->locale = $locale;
 	}
 
+	public function publicOnly($publicOnly = TRUE) {
+		if(!$publicOnly) {
+			return $this;
+		}
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) {
+			$qb->andWhere('a.isPublic = :public')->setParameter('public', TRUE);
+		};
+		return $this;
+	}
+
 	public function inCategories($categories) {
 		if($categories === NULL) {
 			return $this;
@@ -37,8 +47,8 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 			return $this;
 		}
 		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($tag) {
-			$qb->innerJoin('a.tags', 'd')
-				->andWhere('d.id IN (:tag)')->setParameter('tag', $tag->id);
+			$qb->innerJoin('a.tags', 'innerTags')
+				->andWhere('innerTags.id IN (:tag)')->setParameter('tag', $tag->id);
 		};
 		return $this;
 	}
@@ -54,10 +64,11 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 
 	protected function doCreateQuery(Kdyby\Persistence\Queryable $repository) {
 		$qb = $repository->createQueryBuilder()
-			->select('a, b, c')
+			->select('a, b, c, d')
 			->from(Model\CMS\Entity\Article::getClassName(), 'a')
 			->innerJoin('a.category', 'b')
 			->leftJoin('a.tags', 'c')
+			->innerJoin('a.author', 'd')
 			->orderBy('a.id', 'DESC');
 		$this->applyFilters($qb);
 		$query = $qb->getQuery()

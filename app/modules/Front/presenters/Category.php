@@ -42,6 +42,7 @@ class CategoryPresenter extends BasePresenter {
 		$children = $this->categoryService->getRepository()->getChildren($this->category, FALSE, NULL, 'asc', TRUE);
 	    return $this->articleListFactory->create()
 	        ->enablePaginator(5)
+	        ->setMainCategory($this->category)
 		    ->setCategories($children);
 	}
 

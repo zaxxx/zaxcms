@@ -26,9 +26,7 @@ class Tag extends BaseEntity {
 	protected $id;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
-	 * @ORM\JoinTable(name="tag_article")
-	 * @ORM\OrderBy({"id" = "DESC"})
+	 * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
 	 */
 	protected $articles;
 

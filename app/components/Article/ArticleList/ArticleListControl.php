@@ -14,12 +14,23 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	protected $articleService;
 
+	protected $addArticleFactory;
+
+	protected $category;
+
 	protected $categories;
 
 	protected $tag;
 
-	public function __construct(Model\CMS\Service\ArticleService $articleService) {
+	public function __construct(Model\CMS\Service\ArticleService $articleService,
+								IAddArticleFactory $addArticleFactory) {
 		$this->articleService = $articleService;
+		$this->addArticleFactory = $addArticleFactory;
+	}
+
+	public function setMainCategory(Model\CMS\Entity\Category $category) {
+		$this->category = $category;
+		return $this;
 	}
 
 	public function setCategories($categories) {
@@ -39,15 +50,26 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 	protected function createQueryObject() {
 		return (new Model\CMS\Query\ArticleQuery($this->getLocale()))
 			->inCategories($this->categories)
-			->withTag($this->tag);
+			->withTag($this->tag)
+			->publicOnly(!$this->user->isAllowed('WebContent', 'Edit'));
 	}
 
     public function viewDefault() {
-        
+        $this->template->showAddButton = $this->category !== NULL;
     }
+
+	/** @secured WebContent, Edit */
+	public function viewAdd() {
+
+	}
     
     public function beforeRender() {
         $this->template->articles = $this->getFilteredResultSet();
     }
+
+	protected function createComponentAddArticle() {
+	    return $this->addArticleFactory->create()
+		    ->setCategory($this->category);
+	}
 
 }

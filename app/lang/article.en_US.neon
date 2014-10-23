@@ -1,0 +1,18 @@
+general:
+    articles: "articles"
+    category: "Category"
+    tag: "Tag"
+    tags: "Tags"
+    inCategory: "in category"
+button:
+    addArticle: "Add article"
+    editArticle: "Edit article"
+form:
+    title: "Title"
+    perex: "Perex"
+    content: "Content"
+    category: "Category"
+    publish: "Publish"
+    tags: "Tags (one per line)"
+alert:
+    articleSaved: "Article saved."
