@@ -367,9 +367,10 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * Life cycle
 	 *
 	 * @param string $render
+	 * @param array $renderParams
 	 * @throws \Nette\Application\UI\BadSignalException
 	 */
-	final public function run($render = '') {
+	final public function run($render = '', $renderParams = []) {
 		$template = $this->getTemplate();
 		$template->setFile($this->getTemplatePath($this->view, $render));
 
@@ -378,7 +379,7 @@ abstract class Control extends Nette\Application\UI\Control {
 			throw new Nette\Application\UI\BadSignalException("There is no handler for view '$this->view' in class $class.");
 		}
 
-		if(!$this->tryCall($this->formatBeforeRenderMethod($render), array())) {
+		if(!$this->tryCall($this->formatBeforeRenderMethod($render), $renderParams)) {
 			$class = get_class($this);
 			throw new Nette\Application\UI\BadSignalException("There is no 'beforeRender$render' method in class $class.");
 		}
@@ -414,7 +415,11 @@ abstract class Control extends Nette\Application\UI\Control {
 	 */
 	public function __call($func, $args = []) {
 		if (Strings::startsWith($func, 'render')) {
-			return $this->run(Strings::substring($func, 6));
+			$tmp = @array_reduce($args, 'array_merge', []); // @ - intentionally
+			if($tmp === NULL) {
+				$tmp = $args;
+			}
+			return $this->run(Strings::substring($func, 6), $tmp);
 		}
 		return parent::__call($func, $args);
 	}
