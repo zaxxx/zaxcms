@@ -60,7 +60,7 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	/** @secured WebContent, Edit */
 	public function viewAdd() {
-
+		$this['addArticle'];
 	}
     
     public function beforeRender() {
@@ -69,7 +69,8 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	protected function createComponentAddArticle() {
 	    return $this->addArticleFactory->create()
-		    ->setCategory($this->category);
+		    ->setCategory($this->category)
+		    ->enableAjax();
 	}
 
 }

@@ -6,9 +6,9 @@ use Nette,
     ZaxCMS\Model,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+    Zax\Application\UI\SecuredControl;
 
-class AddArticleControl extends Control {
+class AddArticleControl extends SecuredControl {
 
 	protected $articleService;
 

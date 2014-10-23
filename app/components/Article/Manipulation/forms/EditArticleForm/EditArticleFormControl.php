@@ -12,4 +12,8 @@ use Nette,
 
 class EditArticleFormControl extends ArticleFormControl {
 
+	public function handleCancel() {
+		$this->parent->parent->go('this', ['view' => 'Default']);
+	}
+
 }

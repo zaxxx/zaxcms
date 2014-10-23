@@ -34,6 +34,8 @@ abstract class ArticleFormControl extends FormControl {
     public function viewDefault() {}
     
     public function beforeRender() {}
+
+	abstract public function handleCancel();
     
     public function createForm() {
         $f = parent::createForm();
@@ -65,7 +67,7 @@ abstract class ArticleFormControl extends FormControl {
 	    $f->addCheckbox('isPublic', 'article.form.publish');
 
 	    $f->addButtonSubmit('saveArticle', 'common.button.save', 'ok');
-	    $f->addLinkSubmit('cancel', '', 'remove');
+	    $f->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
 
 	    $f->enableBootstrap(['success' => ['saveArticle'], 'default' => ['cancel']], TRUE);
 

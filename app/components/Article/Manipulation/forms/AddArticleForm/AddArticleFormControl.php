@@ -22,4 +22,8 @@ class AddArticleFormControl extends ArticleFormControl {
 		$article->author = $this->userService->get($this->user->id);
 	}
 
+	public function handleCancel() {
+		$this->parent->parent->go('this', ['view' => 'Default']);
+	}
+
 }

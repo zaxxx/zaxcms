@@ -18,6 +18,13 @@ class ArticleControl extends SecuredControl {
 		$this->editArticleFactory = $editArticleFactory;
 	}
 
+	public function attached($presenter) {
+		parent::attached($presenter);
+		if($this->permission->isUserAllowedTo('WebContent', 'Edit')) {
+			$this['editArticle'];
+		}
+	}
+
 	public function setArticle(Model\CMS\Entity\Article $article) {
 		$this->article = $article;
 		return $this;
@@ -38,7 +45,8 @@ class ArticleControl extends SecuredControl {
 
 	protected function createComponentEditArticle() {
 	    return $this->editArticleFactory->create()
-		    ->setArticle($this->article);
+		    ->setArticle($this->article)
+		    ->enableAjax();
 	}
 
 
