@@ -48,8 +48,8 @@ class PaginatorControl extends Control implements Zax\Model\Doctrine\IResultSetF
 
     }
 
-	public function beforeRenderPager() {
-
+	public function beforeRenderPager($suffix = '') {
+		$this->template->suffix = $suffix;
 	}
 
 	public function loadState(array $params) {

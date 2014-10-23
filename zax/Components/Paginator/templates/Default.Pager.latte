@@ -1,4 +1,4 @@
 <ul class="pager" n:if="$paginator->pageCount > 1">
-	<li class="previous" n:if="!$paginator->last"><a n:class="$ajaxEnabled ? ajax" href="{$control->link('this', ['page' => $control->page + 1])}">&laquo; {_'common.button.older'}</a></li>
-	<li class="next" n:if="!$paginator->first"><a n:class="$ajaxEnabled ? ajax" href="{$control->link('this', ['page' => $control->page - 1])}">{_'common.button.newer'} &raquo;</a></li>
+	<li class="previous" n:if="!$paginator->last"><a n:class="$ajaxEnabled ? ajax" href="{$control->link('this', ['page' => $control->page + 1])}">&laquo; {_'common.button.older'}{$suffix}</a></li>
+	<li class="next" n:if="!$paginator->first"><a n:class="$ajaxEnabled ? ajax" href="{$control->link('this', ['page' => $control->page - 1])}">{_'common.button.newer'}{$suffix} &raquo;</a></li>
 </ul>
