@@ -64,16 +64,6 @@ class Category extends BaseEntity {
 	 */
 	private $locale;
 
-	public function getPathCategories($includeSelf = TRUE) {
-		$tmpNode = $includeSelf ? $this : $this->parent;
-		$nodes = [];
-		while($tmpNode !== NULL) {
-			$nodes[] = $tmpNode;
-			$tmpNode = $tmpNode->parent;
-		}
-		return array_reverse($nodes);
-	}
-
 	public function setTranslatableLocale($locale) {
 		$this->locale = $locale;
 	}

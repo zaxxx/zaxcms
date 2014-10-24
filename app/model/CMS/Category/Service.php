@@ -28,7 +28,9 @@ class CategoryService extends Zax\Model\Doctrine\Service {
 	}
 
 	public function findPath(Entity\Category $node) {
-		return $node->getPathCategories();
+		$ids = explode('/', $node->path);
+		$nodes = $this->findBy(['id' => $ids], ['depth' => 'ASC']);
+		return $nodes;
 	}
 
 } 
