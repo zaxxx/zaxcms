@@ -24,6 +24,8 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected $localeSelectFactory;
 
+	protected $categoryStrategy;
+
 	protected $pageStrategy;
 
 	protected $presenterStrategy;
@@ -52,8 +54,10 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		$this->localeSelectFactory = $localeSelectFactory;
 	}
 
-	public function injectMarkNavAsActiveStrategies(Components\Navigation\MarkActiveStrategies\PageStrategy $pageStrategy,
+	public function injectMarkNavAsActiveStrategies(Components\Navigation\MarkActiveStrategies\CategoryStrategy $categoryStrategy,
+													Components\Navigation\MarkActiveStrategies\PageStrategy $pageStrategy,
 													Components\Navigation\MarkActiveStrategies\PresenterStrategy $presenterStrategy) {
+		$this->categoryStrategy = $categoryStrategy;
 		$this->pageStrategy = $pageStrategy;
 		$this->presenterStrategy = $presenterStrategy;
 	}
@@ -79,6 +83,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		        ->setBSNavbarClasses();
 
 			$nav->getMarkActiveStrategy()
+				->addStrategy($this->categoryStrategy)
 				->addStrategy($this->pageStrategy)
 				->addStrategy($this->presenterStrategy);
 

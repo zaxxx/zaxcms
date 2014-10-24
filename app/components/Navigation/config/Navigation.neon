@@ -12,3 +12,4 @@ services:
 
     - ZaxCMS\Components\Navigation\MarkActiveStrategies\PresenterStrategy
     - ZaxCMS\Components\Navigation\MarkActiveStrategies\PageStrategy
+    - ZaxCMS\Components\Navigation\MarkActiveStrategies\CategoryStrategy
