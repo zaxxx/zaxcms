@@ -1,7 +1,7 @@
 
+<a n:if="$isSpecificCategory" n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => AddCategory">{icon plus} {_'article.button.addCategory'}</a>
 
-
-<a n:if="$showAddButton" n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => Add">{icon plus} {_'article.button.addArticle'}</a>
+<a n:if="$isSpecificCategory" n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => Add">{icon plus} {_'article.button.addArticle'}</a>
 
 {foreach $articles as $article}
 

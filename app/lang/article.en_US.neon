@@ -7,6 +7,7 @@ general:
 button:
     addArticle: "Add article"
     editArticle: "Edit article"
+    addCategory: "Add category"
 form:
     title: "Title"
     perex: "Perex"
@@ -14,5 +15,7 @@ form:
     category: "Category"
     publish: "Publish"
     tags: "Tags (one per line)"
+    parentCategory: "Parent category"
 alert:
     articleSaved: "Article saved."
+    categorySaved: "Category saved."

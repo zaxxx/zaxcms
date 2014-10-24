@@ -5,3 +5,6 @@ services:
     - ZaxCMS\Components\Article\IEditArticleFactory
     - ZaxCMS\Components\Article\IAddArticleFormFactory
     - ZaxCMS\Components\Article\IEditArticleFormFactory
+
+    - ZaxCMS\Components\Article\IAddCategoryFactory
+    - ZaxCMS\Components\Article\IAddCategoryFormFactory

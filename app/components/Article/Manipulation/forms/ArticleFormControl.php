@@ -101,7 +101,7 @@ abstract class ArticleFormControl extends FormControl {
 	        $this->articleService->flush();
 
 	        $this->flashMessage('article.alert.articleSaved', 'success');
-	        $this->presenter->redirect(':Front:Article:default', ['slug' => $this->article->slug, 'categorySlug' => $this->article->category->slug]);
+	        $this->presenter->redirect('Article:default', ['slug' => $this->article->slug, 'categorySlug' => $this->article->category->slug]);
 
         }
     }

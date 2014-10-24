@@ -1,0 +1,13 @@
+<div class="panel panel-primary" n:snippet>
+	<div class="panel-heading">
+		<h3 class="panel-title">&nbsp;<span class="hidden-xs">{_'article.button.addCategory'}</span></h3>
+		<ul class="nav panel-tabs pull-right">
+			<li><a href="{$control->parent->link('this', [view => Default])}" n:class="btn, btn-danger" title="{_'common.button.close'}" data-placement="auto">&times;</a></li>
+		</ul>
+	</div>
+	<div class="panel-body">
+
+		{control addCategoryForm}
+
+	</div>
+</div>

@@ -16,6 +16,8 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	protected $addArticleFactory;
 
+	protected $addCategoryFactory;
+
 	protected $category;
 
 	protected $categories;
@@ -23,9 +25,11 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 	protected $tag;
 
 	public function __construct(Model\CMS\Service\ArticleService $articleService,
-								IAddArticleFactory $addArticleFactory) {
+								IAddArticleFactory $addArticleFactory,
+								IAddCategoryFactory $addCategoryFactory) {
 		$this->articleService = $articleService;
 		$this->addArticleFactory = $addArticleFactory;
+		$this->addCategoryFactory = $addCategoryFactory;
 	}
 
 	public function setMainCategory(Model\CMS\Entity\Category $category) {
@@ -55,12 +59,17 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 	}
 
     public function viewDefault() {
-        $this->template->showAddButton = $this->category !== NULL;
+        $this->template->isSpecificCategory = $this->category !== NULL;
     }
 
 	/** @secured WebContent, Edit */
 	public function viewAdd() {
 		$this['addArticle'];
+	}
+
+	/** @secured WebContent, Edit */
+	public function viewAddCategory() {
+
 	}
     
     public function beforeRender() {
@@ -71,6 +80,11 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 	    return $this->addArticleFactory->create()
 		    ->setCategory($this->category)
 		    ->enableAjax();
+	}
+
+	protected function createComponentAddCategory() {
+	    return $this->addCategoryFactory->create()
+		    ->setParentCategory($this->category);
 	}
 
 }

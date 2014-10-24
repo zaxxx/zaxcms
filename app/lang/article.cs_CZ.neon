@@ -7,6 +7,7 @@ general:
 button:
     addArticle: "Přidat článek"
     editArticle: "Upravit článek"
+    addCategory: "Přidat kategorii"
 form:
     title: "Nadpis"
     perex: "Perex"
@@ -14,5 +15,7 @@ form:
     category: "Kategorie"
     publish: "Zveřejnit"
     tags: "Štítky (jeden na řádek)"
+    parentCategory: "Nadřazená kategorie"
 alert:
     articleSaved: "Článek byl uložen."
+    categorySaved: "Kategorie byla uložena."
