@@ -51,7 +51,7 @@
 						<a data-texyarea="{$prototype->id}" data-function="h3">
 							<small><small><small>H</small></small></small> Malý
 						</a>
-					</li
+					</li>
 				</ul>
 			</div>
 			<div class="btn-group btn-group-sm dropdown">
@@ -90,6 +90,19 @@
 					{icon facetime-video}
 				</a>
 			</div>
+
+
+			<div class="btn-group btn-group-sm dropdown" n:if="count($divButtonsClasses) > 0">
+				<a class="btn btn-default dropdown-toggle" title="Ostatní" data-toggle="dropdown">{icon star} <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					{foreach $divButtonsClasses as $divClass => $name}
+						<li>
+							<a data-texyarea="{$prototype->id}" data-function="div" data-params="{$divClass}">{$name}</a>
+						</li>
+					{/foreach}
+				</ul>
+			</div>
+
 		</div>
 		<div class="col-sm-1 pull-right">
 			<a class="btn" href="http://texy.info/cs/syntax" target="_blank" title="Jak formátovat text - texy.info (otevře se v novém panelu)">

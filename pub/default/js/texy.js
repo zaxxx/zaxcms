@@ -142,6 +142,10 @@ Texy.prototype = jQuery.extend({}, Selection.prototype, {
             tag = '\n/--div .[embed-responsive embed-responsive-' + (size == 1 ? '4by3' : '16by9') + ']' + '\n' +  tag + '\n' + '\\--\n';
         }
         this.replace(tag);
+    },
+
+    div: function(divClass) {
+        this.tag('/--div .[' + divClass + ']\n\n', '\n\n\\--');
     }
 
 });

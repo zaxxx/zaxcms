@@ -74,7 +74,11 @@ var initTexyArea = function() {
         $(this).on('click', function() {
             var texy = new Texy(texyarea.get(0));
             var func = $(this).data('function');
-            texy[func]();
+            if($(this).data('params')) {
+                texy[func]($(this).data('params'));
+            } else {
+                texy[func]();
+            }
         });
     });
 };

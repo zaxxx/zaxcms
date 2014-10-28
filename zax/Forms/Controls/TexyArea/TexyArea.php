@@ -10,9 +10,16 @@ class TexyAreaInput extends BaseControl {
 
 	protected $prototype;
 
+	protected $divButtonsClasses = [];
+
 	public function __construct($label) {
 		parent::__construct($label);
 		$this->prototype = Html::el('textarea')->addClass('texyarea');
+	}
+
+	public function setDivButtons($classes = []) {
+		$this->divButtonsClasses = $classes;
+		return $this;
 	}
 
 	public function getControlPrototype() {
@@ -39,6 +46,7 @@ class TexyAreaInput extends BaseControl {
 		$this->prototype->name = $this->getHtmlName();
 		$t->prototype = $this->prototype;
 		$t->rich = $this->rich;
+		$t->divButtonsClasses = $this->divButtonsClasses;
 	}
 
 }
