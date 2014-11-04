@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d694e04f1eddfce489f4d0dfe09eb2dc",
+    "hash": "b57447097d5e1f7fce586a7a12bcb4ed",
     "packages": [
         {
             "name": "dg/texy",
@@ -136,12 +136,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "f7a1d660c521461b835dc31af0f6c9836769e917"
+                "reference": "912e8a11ce3c75a630b225dd82aed83e00943ed5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/f7a1d660c521461b835dc31af0f6c9836769e917",
-                "reference": "f7a1d660c521461b835dc31af0f6c9836769e917",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/912e8a11ce3c75a630b225dd82aed83e00943ed5",
+                "reference": "912e8a11ce3c75a630b225dd82aed83e00943ed5",
                 "shasum": ""
             },
             "require": {
@@ -197,7 +197,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2014-09-29 13:28:56"
+            "time": "2014-10-20 19:28:25"
         },
         {
             "name": "doctrine/collections",
@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "93af9aabc5622f7d357907a6f0889669ba906191"
+                "reference": "d12672808124e711c2cb78a82d4461ba2e89c7ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/93af9aabc5622f7d357907a6f0889669ba906191",
-                "reference": "93af9aabc5622f7d357907a6f0889669ba906191",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/d12672808124e711c2cb78a82d4461ba2e89c7ef",
+                "reference": "d12672808124e711c2cb78a82d4461ba2e89c7ef",
                 "shasum": ""
             },
             "require": {
@@ -412,7 +412,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-10-08 01:36:57"
+            "time": "2014-10-29 16:12:22"
         },
         {
             "name": "doctrine/inflector",
@@ -687,6 +687,78 @@
                 "uploadable"
             ],
             "time": "2014-01-12 16:34:06"
+        },
+        {
+            "name": "janmarek/webloader",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/janmarek/WebLoader.git",
+                "reference": "3bdc32a34d4c964d4b00a4c54a1982d75d5200f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/janmarek/WebLoader/zipball/3bdc32a34d4c964d4b00a4c54a1982d75d5200f1",
+                "reference": "3bdc32a34d4c964d4b00a4c54a1982d75d5200f1",
+                "shasum": ""
+            },
+            "require": {
+                "nette/application": "~2.2@dev",
+                "nette/di": "~2.2@dev",
+                "nette/utils": "~2.2@dev"
+            },
+            "require-dev": {
+                "jakub-onderka/php-parallel-lint": "~0.7",
+                "latte/latte": "~2.2@dev",
+                "mockery/mockery": "0.7.*",
+                "nette/bootstrap": "~2.2@dev",
+                "nette/caching": "~2.2@dev",
+                "nette/component-model": "~2.2@dev",
+                "nette/database": "~2.2@dev",
+                "nette/deprecated": "~2.2@dev",
+                "nette/finder": "~2.2@dev",
+                "nette/forms": "~2.2@dev",
+                "nette/http": "~2.2@dev",
+                "nette/mail": "~2.2@dev",
+                "nette/neon": "~2.2@dev",
+                "nette/php-generator": "~2.2@dev",
+                "nette/reflection": "~2.2@dev",
+                "nette/robot-loader": "~2.2@dev",
+                "nette/safe-stream": "~2.2@dev",
+                "nette/security": "~2.2@dev",
+                "nette/tokenizer": "~2.2@dev",
+                "phpunit/phpunit": "3.7.*",
+                "tracy/tracy": "~2.2@dev"
+            },
+            "suggest": {
+                "leafo/lessphp": "Lessphp is a composer for LESS written in PHP."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "WebLoader": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Marek",
+                    "email": "mail@janmarek.net"
+                }
+            ],
+            "description": "Tool for loading or deploying CSS and JS files into web pages",
+            "homepage": "http://addons.nette.org/cs/webloader",
+            "keywords": [
+                "assets",
+                "css",
+                "javascript",
+                "nette",
+                "webloader"
+            ],
+            "time": "2014-10-12 22:41:49"
         },
         {
             "name": "kdyby/annotations",
@@ -2322,12 +2394,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "b9f7877e02682cb081585c58baf3b9760865b98e"
+                "reference": "6b6a1dc0df014fedc00fdef04b8ccc666f34fcfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/b9f7877e02682cb081585c58baf3b9760865b98e",
-                "reference": "b9f7877e02682cb081585c58baf3b9760865b98e",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/6b6a1dc0df014fedc00fdef04b8ccc666f34fcfa",
+                "reference": "6b6a1dc0df014fedc00fdef04b8ccc666f34fcfa",
                 "shasum": ""
             },
             "require": {
@@ -2361,7 +2433,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-09-25 18:11:49"
+            "time": "2014-11-03 03:55:50"
         },
         {
             "name": "symfony/console",
@@ -2370,12 +2442,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "771649efa94246e63a6ab2726ba908a358bdd403"
+                "reference": "2fc3644d2e10e14935b2c79e57a5185281eb1eb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/771649efa94246e63a6ab2726ba908a358bdd403",
-                "reference": "771649efa94246e63a6ab2726ba908a358bdd403",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/2fc3644d2e10e14935b2c79e57a5185281eb1eb7",
+                "reference": "2fc3644d2e10e14935b2c79e57a5185281eb1eb7",
                 "shasum": ""
             },
             "require": {
@@ -2418,7 +2490,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-05 13:59:22"
+            "time": "2014-11-03 03:55:50"
         },
         {
             "name": "symfony/filesystem",
@@ -2474,12 +2546,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "adc92684c607801186cc9e3179314b738f0d62d7"
+                "reference": "a2b07ab1fd04bfa53f4ec081c36cc37b372e78ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/adc92684c607801186cc9e3179314b738f0d62d7",
-                "reference": "adc92684c607801186cc9e3179314b738f0d62d7",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/a2b07ab1fd04bfa53f4ec081c36cc37b372e78ae",
+                "reference": "a2b07ab1fd04bfa53f4ec081c36cc37b372e78ae",
                 "shasum": ""
             },
             "require": {
@@ -2523,7 +2595,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:53:11"
+            "time": "2014-10-26 07:46:28"
         },
         {
             "name": "tracy/tracy",

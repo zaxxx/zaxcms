@@ -1,0 +1,41 @@
+parameters:
+    wwwDir: %rootDir%
+    zax:
+        webloader:
+            bowerDir: %rootDir%/pub/zaxcms/bower_components
+            outputDir: %rootDir%/pub/compiled
+
+extensions:
+    webloader: WebLoader\Nette\Extension
+
+services:
+    CssFilter: WebLoader\Filter\CssUrlsFilter(%zax.webloader.outputDir%)
+
+webloader:
+    css:
+        libs:
+            tempDir: %zax.webloader.outputDir%
+            tempPath: pub/compiled
+            files:
+                - %zax.webloader.bowerDir%/bootstrap/dist/css/bootstrap.min.css
+                - %rootDir%/pub/zaxcms/css/zax.alerts.css
+                - %rootDir%/pub/zaxcms/css/zax.flags.css
+                - %rootDir%/pub/zaxcms/css/zax.panelTabs.css
+                - %rootDir%/pub/zaxcms/css/zax.progressBar.css
+                - %rootDir%/pub/zaxcms/css/zax.treePills.css
+                - %rootDir%/pub/zaxcms/css/zax.webContentEditable.css
+                - %rootDir%/pub/zaxcms/css/zaxcms.css
+
+    js:
+        libs:
+            tempDir: %zax.webloader.outputDir%
+            tempPath: pub/compiled
+            files:
+                - %zax.webloader.bowerDir%/jquery/jquery.min.js
+                - %zax.webloader.bowerDir%/bootstrap/dist/js/bootstrap.min.js
+                - %zax.webloader.bowerDir%/nette.ajax.js/nette.ajax.js
+                - %zax.webloader.bowerDir%/nette-forms/src/assets/netteForms.js
+                - %zax.webloader.bowerDir%/bootstrap-filestyle/src/bootstrap-filestyle.js
+                - %zax.webloader.bowerDir%/texyla-selection/index.js
+                - %rootDir%/pub/zaxcms/js/texy.js
+                - %rootDir%/pub/zaxcms/js/zax.js

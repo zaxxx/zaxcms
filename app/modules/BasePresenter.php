@@ -7,6 +7,7 @@ use Nette,
 	ZaxCMS\Components,
 	Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
+	WebLoader,
 	Kdyby;
 
 
@@ -29,6 +30,12 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 	protected $pageStrategy;
 
 	protected $presenterStrategy;
+
+	protected $webLoaderFactory;
+
+	public function injectWebLoaderFactory(WebLoader\Nette\LoaderFactory $webLoaderFactory) {
+		$this->webLoaderFactory = $webLoaderFactory;
+	}
 
 	public function injectFlashMessageFactory(Components\FlashMessage\IFlashMessageFactory $flashMessageFactory) {
 		$this->flashMessageFactory = $flashMessageFactory;
@@ -113,6 +120,18 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 				->setMinifier(new Components\StaticLinker\NoMinifier)
 				->addCssFiles(Nette\Utils\Finder::findFiles('*.css')->from($dir . '/' . $id . '/css'))
 				->addJsFiles(Nette\Utils\Finder::findFiles('*.js')->from($dir . '/' . $id . '/js'));
+		});
+	}
+
+	protected function createComponentCss() {
+		return new NetteUI\Multiplier(function($id) {
+	        return $this->webLoaderFactory->createCssLoader($id);
+		});
+	}
+
+	protected function createComponentJs() {
+		return new NetteUI\Multiplier(function($id) {
+			return $this->webLoaderFactory->createJavascriptLoader($id);
 		});
 	}
 

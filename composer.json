@@ -16,7 +16,8 @@
         "rixxi/gedmo": "1.0.1",
         "dg/texy": "v2.6",
         "kdyby/translation": "v2.0.3",
-        "gedmo/doctrine-extensions": "v2.3.9"
+        "gedmo/doctrine-extensions": "v2.3.9",
+        "janmarek/webloader": "v2.3.0"
     },
     "require-dev": {
         "nette/tester": "v1.2.0"
