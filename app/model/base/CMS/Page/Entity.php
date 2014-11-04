@@ -12,13 +12,11 @@ use Zax,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- *
  * @property-read int $id
  * @property string $name
  * @property string $title
  */
-class Page extends BaseEntity {
+abstract class BasePage extends BaseEntity {
 
 	/**
 	 * @ORM\Id

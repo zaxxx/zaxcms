@@ -10,7 +10,19 @@ use Zax,
 	Gedmo\Translatable\Translatable,
 	Gedmo\Mapping\Annotation as Gedmo,
 	Doctrine\ORM\Mapping as ORM;
-
+/**
+ * @property-read int $id
+ * @property Category $category
+ * @property string $title
+ * @property string|NULL $perex
+ * @property string|NULL $content
+ * @property string $slug
+ * @property \DateTime $createdAt
+ * @property \DateTime $updatedAt
+ * @property User $author
+ * @property bool $isPublic
+ * @property Tag[] $tags
+ */
 abstract class BaseArticle extends BaseEntity {
 
 	/**

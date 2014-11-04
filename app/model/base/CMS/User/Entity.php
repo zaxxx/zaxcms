@@ -12,15 +12,13 @@ use Zax,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- *
  * @property-read $id
  * @property string $name
  * @property string $email
  * @property Role $role
  * @property UserLogin $login
  */
-class User extends BaseEntity {
+abstract class BaseUser extends BaseEntity {
 
 	/**
 	 * @ORM\Id

@@ -12,12 +12,14 @@ use Zax,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Gedmo\Tree(type="materializedPath")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
- *
  * @property-read int $id
+ * @property Category|NULL $parent
+ * @property Category[]|NULL $children
+ * @property string $title
+ * @property string $slug
+ * @property Article[] $articles
  */
-class Category extends BaseEntity {
+abstract class BaseCategory extends BaseEntity {
 
 	use Zax\Model\Doctrine\TMaterializedPath;
 

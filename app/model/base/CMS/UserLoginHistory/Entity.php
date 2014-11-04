@@ -15,7 +15,7 @@ use Zax,
  * @ORM\Entity
  *
  * @property-read int $id
- * @property Nette\Utils\DateTime $timeAt
+ * @property \DateTime $timeAt
  * @property UserLogin $userLogin
  */
 class UserLoginHistory extends BaseEntity {

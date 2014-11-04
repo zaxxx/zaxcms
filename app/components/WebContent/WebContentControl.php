@@ -118,13 +118,15 @@ class WebContentControl extends SecuredControl {
 	}
 
 	public function beforeRender() {
+
 	}
 
 	/**
 	 * @secured WebContent, Use
 	 */
 	protected function createComponentEdit() {
-		return $this->editFactory->create()->setWebContent($this->getWebContent());
+		return $this->editFactory->create()
+			->setWebContent($this->getWebContent());
 	}
 
 

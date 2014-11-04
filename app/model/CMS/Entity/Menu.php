@@ -12,9 +12,12 @@ use Zax,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * Project-specific menu extension
+ *
+ * @Gedmo\Tree(type="nested")
+ * @ORM\Entity(repositoryClass="ZaxCMS\Model\CMS\Repository\MenuTreeRepository")
  */
-class Article extends BaseArticle {
+class Menu extends BaseMenu {
 
 
 

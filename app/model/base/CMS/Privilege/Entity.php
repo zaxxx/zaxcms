@@ -16,8 +16,7 @@ use Zax,
  *
  * @property-read int $id
  * @property string $name
- * @property string $displayName
- * @property string|NULL $description
+ * @property-read string $icon
  */
 class Privilege extends BaseEntity {
 

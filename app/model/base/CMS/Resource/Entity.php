@@ -15,10 +15,10 @@ use Zax,
  * @ORM\Entity
  *
  * @property-read int $id
- * @property Resource $resource
- * @property Privilege $privilege
+ * @property string $name
+ * @property string|NULL $note
  */
-class Permission extends BaseEntity {
+class Resource extends BaseEntity {
 
 	/**
 	 * @ORM\Id
@@ -28,16 +28,9 @@ class Permission extends BaseEntity {
 	protected $id;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Resource")
-	 * @ORM\JoinColumn(name="resource_id", referencedColumnName="id")
+	 * @ORM\Column(type="string", length=63, unique=TRUE)
 	 */
-	protected $resource;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="Privilege")
-	 * @ORM\JoinColumn(name="privilege_id", referencedColumnName="id")
-	 */
-	protected $privilege;
+	protected $name;
 
 	/**
 	 * @Gedmo\Translatable

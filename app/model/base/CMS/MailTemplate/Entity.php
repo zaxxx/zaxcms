@@ -16,6 +16,12 @@ use Zax,
  * @ORM\Entity
  *
  * @property-read int $id
+ * @property string $name
+ * @property string $from
+ * @property array|NULL $cc
+ * @property array|NULL $bcc
+ * @property string $subject
+ * @property string $template
  */
 class MailTemplate extends BaseEntity {
 

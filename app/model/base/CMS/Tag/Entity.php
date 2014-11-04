@@ -12,14 +12,12 @@ use Zax,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- *
  * @property-read int $id
- * @property string $name
- * @property string $displayName
- * @property string $description
+ * @property Article[]|NULL $articles
+ * @property string $title
+ * @property string $slug
  */
-class Resource extends BaseEntity {
+abstract class BaseTag extends BaseEntity {
 
 	/**
 	 * @ORM\Id
@@ -29,15 +27,21 @@ class Resource extends BaseEntity {
 	protected $id;
 
 	/**
-	 * @ORM\Column(type="string", length=63, unique=TRUE)
+	 * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
 	 */
-	protected $name;
+	protected $articles;
 
 	/**
 	 * @Gedmo\Translatable
-	 * @ORM\Column(type="string", length=255, nullable=TRUE)
+	 * @ORM\Column(type="string", length=255)
 	 */
-	protected $note;
+	protected $title;
+
+	/**
+	 * @Gedmo\Slug(fields={"title"})
+	 * @ORM\Column(name="slug", type="string", length=255, unique=TRUE)
+	 */
+	protected $slug;
 
 	/**
 	 * @Gedmo\Locale
@@ -46,10 +50,6 @@ class Resource extends BaseEntity {
 
 	public function setTranslatableLocale($locale) {
 		$this->locale = $locale;
-	}
-
-	public function getLocale() {
-		return $this->locale;
 	}
 
 }

@@ -13,24 +13,23 @@ use Zax,
 	Doctrine\Common\Cache\Cache as Cache;
 
 /**
- * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="ZaxCMS\Model\CMS\Repository\MenuTreeRepository")
- *
  * @property-read int $id
  * @property string $name
- * @property string $description
  * @property string $text
- * @property string|NULL $html
  * @property string|NULL $nhref
  * @property array|NULL $nhrefParams
  * @property string|NULL $href
  * @property string|NULL $htmlClass
- * @property bool $isMenuItem
+ * @property string|NULL $htmlTarget
+ * @property string|NULL $icon
+ * @property string|NULL $title
  * @property bool $secured
  * @property Permission[] $permissions
  * @property Menu|NULL $parent
+ * @property Menu[]|NULL $children
+ * @property-read string|NULL $presenterName
  */
-class Menu extends BaseEntity implements Translatable {
+abstract class BaseMenu extends BaseEntity implements Translatable {
 
 	use Zax\Model\Doctrine\TNestedSet;
 

@@ -19,8 +19,10 @@ use Zax,
  * @property string $name
  * @property string $displayName
  * @property string $description
+ * @property int|NULL $special
  * @property Role|NULL $parent
  * @property Role[]|NULL $children
+ * @property User[]|NULL $users
  */
 class Role extends BaseEntity {
 
