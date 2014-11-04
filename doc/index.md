@@ -52,7 +52,7 @@ you have to specify manually ;-)
 
 If you want to force certain config files to load automatically with higher priority, put this inside them:
 
-```priority: [1]
+		priority: [1]
 
 (higher number means higher priority)
 
