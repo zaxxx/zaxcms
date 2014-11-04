@@ -31,7 +31,7 @@ webloader:
             tempDir: %zax.webloader.outputDir%
             tempPath: pub/compiled
             files:
-                - %zax.webloader.bowerDir%/jquery/jquery.min.js
+                - %zax.webloader.bowerDir%/jquery/dist/jquery.min.js
                 - %zax.webloader.bowerDir%/bootstrap/dist/js/bootstrap.min.js
                 - %zax.webloader.bowerDir%/nette.ajax.js/nette.ajax.js
                 - %zax.webloader.bowerDir%/nette-forms/src/assets/netteForms.js
