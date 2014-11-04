@@ -13,6 +13,11 @@ use Nette,
 
 abstract class BasePresenter extends ZaxUI\Presenter {
 
+	use Zax\Traits\TTranslatable;
+
+	/** @persistent */
+	public $locale = 'cs_CZ';
+
 	protected $webContentFactory;
 
 	protected $staticLinkerFactory;

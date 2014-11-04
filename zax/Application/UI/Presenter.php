@@ -17,11 +17,7 @@ use Nette,
  */
 abstract class Presenter extends Nette\Application\UI\Presenter {
 
-	use Zax\Traits\TTranslatable,
-		Nextras\Application\UI\SecuredLinksPresenterTrait;
-
-	/** @persistent */
-	public $locale = 'cs_CZ';
+	use Nextras\Application\UI\SecuredLinksPresenterTrait;
 
 	/** @var bool */
 	protected $ajaxEnabled = FALSE;

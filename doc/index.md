@@ -18,33 +18,29 @@ Install using composer:
 Installing jQuery, Bootstrap...
 -------------------------------
 
-The fastest way is to put Bootstrap css into '/pub/libs/css' directory
-and JS libraries (jquery.js, bootstrap.js, nette.ajax.js, nette.forms.js, bootstrap.filestyle.js) into
-'/pub/libs/js' directory. These files will be automatically found by Nette Finder (in alphabetical order), combined into 2 files (css and js), cached
-and included in layout. Actual implementation is in [BasePresenter](https://github.com/zaxxx/zaxcms/blob/master/app/modules/BasePresenter.php).
-
-Custom CSS and JS
------------------
-
-The same rules apply, but change 'libs' for 'default'. Or any name, thanks to UI\Multiplier. Don't forget to add it in your [@layout](https://github.com/zaxxx/zaxcms/blob/master/app/modules/%40layout.latte).
+This CMS depends on [Bower]:http://bower.io/ to do the job. Go to `pub/zaxcms` directory and run `bower install`, it should download all dependencies. If you also want to use Bootstrap Glyphicons, move/copy them to `pub/fonts`.
 
 Installing the CMS
 ------------------
 
-Let's assume that the base URL is http://zaxcms. Go to http://zaxcms/install and follow the installer. It should carry you through setting up the database
-and registering you as admin. **Don't forget to delete '/app/modules/Install' directory on production.** *(but you shouldn't be using this on production atm anyway)*
+Just try to load default page, it should redirect you to the installer, which will carry you through the process. **After installation, it is recommended to delete the '/app/modules/Install' directory.** *(but you shouldn't be using this on production atm anyway)*
 
 When installed, you should see an empty page with menu bar and a bunch of pencil icons.
+
+*Known issue: installer is currently broken and won't work unless you have a valid login in `app/config/database.neon` config file.*
 
 Framework behavior
 ==================
 
-There are certain things that need to be kept in mind:
-----------------------------------------------------------------------
+Injecting dependencies:
+-----------------------
 
 @inject annotations and inject* methods are ON for all services and factories.
 I use inject* methods to prevent constructor hell.
 **Do not use @inject annotations, though! They're bad, mmmkay!**
+
+Config files autoloading:
+-------------------------
 
 Config autoloader is ON by default -
 this thing uses [Finder](https://github.com/nette/finder) and
@@ -53,6 +49,47 @@ inside application dir. This way I can have separated configs for just
 about anything, but I mainly use it for components. You can turn this off
 in index.php, but you'll get only annoyed by the amount of config files
 you have to specify manually ;-)
+
+If you want to force certain config files to load automatically with higher priority, put this inside them:
+
+```priority: [1]
+
+(higher number means higher priority)
+
+Configuration
+=============
+
+There are few config files in `app/config` directory worth mentioning:
+
+database.neon
+--------------
+
+This config file contains connection info for database.
+
+localization.neon
+-----------------
+
+Here you can set available locales as well as default locale (don't forget to change default locale in BasePresenter as well). You can also register your own locale resolver.
+
+model.neon
+----------
+
+Here is where you put your model classes. Of course, you're free to create your own configs for that :-)
+
+presenters.neon
+---------------
+
+List your presenters here to make them load faster. It move the heavy work from runtime (PresenterFactory) to compiletime (DI container).
+
+webloader.neon
+--------------
+
+This is where you can configure the [WebLoader](https://github.com/janmarek/webloader) component to add custom CSS and JS.
+
+zaxcms.neon
+-----------
+
+There are some interfaces you can implement to highly customize some of global CMS behavior (for example, you're not strictly tied to Glyphicons) and zaxcms.neon is where you register those implementations.
 
 Components
 ==========

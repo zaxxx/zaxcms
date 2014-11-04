@@ -17,8 +17,6 @@ class InstallControl extends Control {
 
 	protected $CMSInstaller;
 
-	protected $fileManagerFactory;
-
 	protected $appDir;
 
 	protected $databaseGenerator;
@@ -27,13 +25,11 @@ class InstallControl extends Control {
 	                            ICreateUserFactory $createUserFactory,
 	                            Model\CMSInstall\CMSInstaller $CMSInstaller,
 								Model\CMSInstall\DatabaseGenerator $databaseGenerator,
-								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
 								Zax\Utils\AppDir $appDir) {
 		$this->checkDatabaseFactory = $checkDatabaseFactory;
 		$this->createUserFactory = $createUserFactory;
 		$this->CMSInstaller = $CMSInstaller;
 		$this->databaseGenerator = $databaseGenerator;
-		$this->fileManagerFactory = $fileManagerFactory;
 		$this->appDir = $appDir;
 		$this->CMSInstaller->checkIsInstalled();
 	}
