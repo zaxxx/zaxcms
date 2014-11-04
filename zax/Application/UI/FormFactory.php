@@ -9,19 +9,24 @@ use Zax,
 /**
  * Class FormFactory
  *
- * Factory for forms translated using Kdyby/Translation
+ * Default Form factory
  *
  * @package Zax\Application\UI
  */
-class FormFactory extends Nette\Object {
+class FormFactory extends Nette\Object implements IFormFactory {
+
+	protected $defaultClass;
 
 	/** @var Kdyby\Translation\Translator */
 	protected $translator;
 
+	/** @var Zax\Html\Icons\IIcons */
 	protected $icons;
 
-	public function __construct(Kdyby\Translation\Translator $translator,
+	public function __construct($defaultClass = NULL,
+								Kdyby\Translation\Translator $translator,
 								Zax\Html\Icons\IIcons $icons) {
+		$this->defaultClass = $defaultClass;
 		$this->translator = $translator;
 		$this->icons = $icons;
 	}
@@ -29,12 +34,18 @@ class FormFactory extends Nette\Object {
 	/**
 	 * Translated form factory
 	 *
-	 * @return Zax\Application\UI\Form
+	 * @return Nette\Forms\Form
+	 * @throws Nette\InvalidArgumentException
 	 */
 	public function create() {
-		$f = new Form;
+		$f = $this->defaultClass === NULL ? new Form : new $this->defaultClass;
+		if(!$f instanceof Nette\Forms\Form) {
+			throw new Nette\InvalidArgumentException("Class '$class' is not a valid Nette form.");
+		}
 		$f->setTranslator($this->translator);
-		$f->setIcons($this->icons);
+		if($f instanceof Zax\Application\UI\Form) {
+			$f->setIcons($this->icons);
+		}
 		return $f;
 	}
 

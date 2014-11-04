@@ -44,8 +44,10 @@ abstract class Control extends Nette\Application\UI\Control {
 	/** @var SnippetGenerators\ISnippetGenerator */
 	protected $snippetGenerator;
 
+	/** @var Zax\Html\Icons\IIcons */
 	protected $icons;
 
+	/** @var Kdyby\Events\EventManager */
 	protected $eventManager;
 
 	public function __construct() {}

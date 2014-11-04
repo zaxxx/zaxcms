@@ -7,7 +7,7 @@ use Nette,
 
 abstract class FormControl extends SecuredControl {
 
-	/** @var Zax\Application\UI\FormFactory */
+	/** @var IFormFactory */
 	protected $formFactory;
 
 	/** @var Zax\Forms\IBinder|NULL */
@@ -16,7 +16,7 @@ abstract class FormControl extends SecuredControl {
 	/** @var Zax\Model\IService|NULL */
 	protected $service;
 
-	public function injectDependencies(Zax\Application\UI\FormFactory $formFactory,
+	public function injectDependencies(IFormFactory $formFactory,
 									   Zax\Forms\IBinder $binder = NULL) {
 		$this->formFactory = $formFactory;
 		$this->binder = $binder;
@@ -28,8 +28,6 @@ abstract class FormControl extends SecuredControl {
 	}
 
 	/**
-	 * Translated form factory
-	 *
 	 * @return Form
 	 */
 	public function createForm() {
