@@ -21,14 +21,15 @@ $r[] = new Route('[<action>][/pohled-<pohled>][/<detailne>]',
 
 
  */
-class RouterFactory extends Nette\Object {
+class RouterFactory extends Nette\Object implements Zax\Application\Routers\IRouterFactory {
 
 	protected $availableLocales = [];
 
-	protected $defaultLocale = 'cs_CZ';
+	protected $defaultLocale;
 
-	public function __construct(Kdyby\Translation\Translator $translator) {
+	public function __construct($defaultLocale, Kdyby\Translation\Translator $translator) {
 		$this->availableLocales = $translator->getAvailableLocales();
+		$this->defaultLocale = $defaultLocale;
 	}
 
     /** @return Nette\Application\Routers\RouteList */
