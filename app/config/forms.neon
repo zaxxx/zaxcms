@@ -1,8 +1,18 @@
-### Translated error messages ###
+### Setup forms and error messages ###
 
+parameters:
+    zax:
+        defaultFormClass: ZaxCMS\BaseForm
+
+        ## Default error messages for custom validators
+        formsMessages:
+            Zax\\Forms\\Validators\\UploadValidator::validateExtension: 'form.error.fileExtension'
+
+## Setup
 nette:
     forms:
         messages:
+            ## Default error messages for Nette validators
             FILLED: 'form.error.filled'
             MIN_LENGTH: 'form.error.minLength'
             MAX_LENGTH: 'form.error.maxLength'
@@ -13,9 +23,15 @@ nette:
             MAX_FILE_SIZE: 'form.error.maxFileSize'
             MIME_TYPE: 'form.error.mimeType'
 
-parameters:
-    zax.formsMessages:
-        Zax\\Forms\\Validators\\UploadValidator::validateExtension: 'form.error.fileExtension'
-
 services:
-    - Zax\Forms\DoctrineBinder  # Zax\Forms\IBinder
+    ## Zax\Application\UI\IFormFactory
+    #
+    # Creates default forms
+    #
+    - Zax\Application\UI\FormFactory(%zax.defaultFormClass%)
+
+    ## Zax\Forms\IBinder
+    #
+    # Provides simple methods for filling form from entity values and vice versa.
+    #
+    - Zax\Forms\DoctrineBinder

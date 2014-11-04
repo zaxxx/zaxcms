@@ -1,8 +1,12 @@
 ### Core configuration file ###
+
 parameters:
-## Namespace <--> presenter mapping
-    mapping:
-        *: ZaxCMS\*Module\*Presenter
+
+    ## Namespace <--> presenter mapping
+    zax:
+        application:
+            mapping:
+                *: ZaxCMS\*Module\*Presenter
 
 ## Nette settings
 nette:
@@ -12,13 +16,13 @@ nette:
 
 ## NDB won't be probably used when using Doctrine, but good fallback if needed
     database:
-        dsn: 'mysql:host=%host%;dbname=%database%'
-        user: %user%
-        password: %password%
+        dsn: 'mysql:host=%zax.database.host%;dbname=%zax.database.database%'
+        user: %zax.database.user%
+        password: %zax.database.password%
         options:
             lazy: on
     application:
-        mapping: %mapping%
+        mapping: %zax.application.mapping%
 
 ## Register extensions
 extensions:
@@ -28,7 +32,7 @@ extensions:
     annotations: Kdyby\Annotations\DI\AnnotationsExtension
     doctrine: Kdyby\Doctrine\DI\OrmExtension
     gedmo: Rixxi\Gedmo\DI\OrmExtension
-    translation: Kdyby\Translation\DI\TranslationExtension
+    priority: Zax\DI\CompilerExtensions\EmptyExtension
 
 ## Gedmo settings
 gedmo:
@@ -45,10 +49,10 @@ gedmo:
 
 ## Doctrine settings
 doctrine:
-    host: %host%
-    dbname: %database%
-    user: %user%
-    password: %password%
+    host: %zax.database.host%
+    dbname: %zax.database.database%
+    user: %zax.database.user%
+    password: %zax.database.password%
     charset: UTF8
     driver: pdo_mysql
     logging: %debugMode%
@@ -71,26 +75,12 @@ doctrine:
     filters:
         soft-deleteable: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
 
-## Kdyby/Translation settings
-translation:
-    default: cs_CZ
-    whitelist: [cs, en]
-    fallback: [cs_CZ]
-    debugger: TRUE
-    resolvers:
-        session: off
-        request: on
-        header: off
-
-
-## Mandatory services
 services:
-    - Gedmo\Translatable\TranslatableListener
-    #- My\Locale\Resolver
-    translation.userLocaleResolver:
-        setup:
-            #- addResolver(@My\Locale\Resolver);
 
+    ## Empty Control factory
+    - Zax\Application\UI\IEmptyFactory
 
-
-    
+    ## Easy access to project-specific dirs (as absolute paths), these services implement __toString()
+    - Zax\Utils\AppDir(%appDir%)
+    - Zax\Utils\RootDir(%rootDir%)
+    - Zax\Utils\TempDir(%tempDir%)

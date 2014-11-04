@@ -1,0 +1,12 @@
+### Register presenters as services for better performance ###
+
+services:
+    - ZaxCMS\FrontModule\DefaultPresenter(%CMSInstalled%)
+    - ZaxCMS\FrontModule\PagePresenter
+    - ZaxCMS\FrontModule\UserPresenter
+
+    - ZaxCMS\AdminModule\DefaultPresenter
+    - ZaxCMS\AdminModule\FilesPresenter
+    - ZaxCMS\AdminModule\PagesPresenter
+    - ZaxCMS\AdminModule\RolesPresenter
+    - ZaxCMS\AdminModule\UsersPresenter

@@ -1,0 +1,7 @@
+### Installer scripts ###
+
+services:
+    - ZaxCMS\Model\CMSInstall\DatabaseGenerator
+    - ZaxCMS\Model\CMSInstall\CMSInstaller(%CMSInstalled%)
+    - ZaxCMS\Model\CMSInstall\MenuInstaller
+    - ZaxCMS\Model\CMSInstall\RoleInstaller

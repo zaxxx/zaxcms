@@ -1,3 +1,7 @@
+### Kdyby\Events ###
+
 events:
-   subscribers:
-       - ZaxCMS\Components\Auth\LoginLogListener
+    subscribers:
+
+        ## Logs users login times
+        - ZaxCMS\Components\Auth\LoginLogListener

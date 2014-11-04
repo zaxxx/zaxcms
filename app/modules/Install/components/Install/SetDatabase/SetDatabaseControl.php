@@ -24,11 +24,11 @@ class SetDatabaseControl extends FormControl {
     public function beforeRender() {}
 
 	protected function loadConfig() {
-		return Nette\Neon\Neon::decode(file_get_contents($this->appDir . '/config/connection.neon'));
+		return Nette\Neon\Neon::decode(file_get_contents($this->appDir . '/config/database.neon'));
 	}
 
 	protected function saveConfig($config) {
-		return file_put_contents($this->appDir . '/config/connection.neon', Nette\Neon\Neon::encode($config, Nette\Neon\Encoder::BLOCK));
+		return file_put_contents($this->appDir . '/config/database.neon', Nette\Neon\Neon::encode($config, Nette\Neon\Encoder::BLOCK));
 	}
 
     public function createForm() {
@@ -41,9 +41,9 @@ class SetDatabaseControl extends FormControl {
 	    $f->addText('password', 'system.form.dbPassword');
 	    $f->addText('database', 'system.form.dbDatabase');
 
-	    if(isset($config['parameters'])) {
+	    if(isset($config['parameters']['zax']['database'])) {
 		    $binder = new Zax\Forms\ArrayBinder;
-		    $binder->entityToForm($config['parameters'], $f);
+		    $binder->entityToForm($config['parameters']['zax.database'], $f);
 	    }
 
 	    $f->addButtonSubmit('test', 'system.button.testConnection', 'refresh');
@@ -58,14 +58,18 @@ class SetDatabaseControl extends FormControl {
     public function formSuccess(Form $form, $values) {
         $config = [
 	        'parameters' => [
-		        'host' => '',
-		        'user' => '',
-		        'password' => '',
-		        'database' => ''
+		        'zax' => [
+	                'database' => [
+				        'host' => '',
+				        'user' => '',
+				        'password' => '',
+				        'database' => ''
+		            ]
+                ]
             ]
         ];
 	    $binder = new Zax\Forms\ArrayBinder;
-	    $config['parameters'] = $binder->formToEntity($form, $config['parameters']);
+	    $config['parameters']['zax']['database'] = $binder->formToEntity($form, $config['parameters']);
 
 	    $this->saveConfig($config);
 

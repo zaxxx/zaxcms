@@ -1,0 +1,26 @@
+## Default model ##
+
+services:
+
+    ## Zax\Model\IService
+    - ZaxCMS\Model\CMS\Service\AclService
+    - ZaxCMS\Model\CMS\Service\PermissionService
+    - ZaxCMS\Model\CMS\Service\PrivilegeService
+    - ZaxCMS\Model\CMS\Service\ResourceService
+    - ZaxCMS\Model\CMS\Service\RoleService
+    - ZaxCMS\Model\CMS\Service\WebContentService
+    - ZaxCMS\Model\CMS\Service\MenuService
+    - ZaxCMS\Model\CMS\Service\PageService
+    - ZaxCMS\Model\CMS\Service\UserService
+    - ZaxCMS\Model\CMS\Service\UserLoginService
+    - ZaxCMS\Model\CMS\Service\UserLoginHistoryService
+    - ZaxCMS\Model\CMS\Service\MailTemplateService
+    - ZaxCMS\Model\CMS\Service\CategoryService
+    - ZaxCMS\Model\CMS\Service\ArticleService
+    - ZaxCMS\Model\CMS\Service\TagService
+
+    ## Model classes
+    - ZaxCMS\Model\CMS\DeleteRole
+    - ZaxCMS\Model\CMS\Auth(%zax.auth.loginType%)
+    - ZaxCMS\Model\CMS\ChangePassword
+    - ZaxCMS\Model\CMS\SendMail

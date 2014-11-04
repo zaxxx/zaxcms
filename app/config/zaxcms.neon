@@ -1,57 +1,59 @@
-### Zax CMS services, model and components ###
+### ZaxCMS config ###
+
 parameters:
-    loginType: ZaxCMS\Model\CMS\Auth::LOGIN_BY_NAME
+    zax:
+        auth:
+            loginType: ZaxCMS\Model\CMS\Auth::LOGIN_BY_NAME
 
 services:
 
-## Installer scripts
+    ## Nette\Application\UI\ITemplateFactory
+    nette.templateFactory: Zax\Latte\TemplateFactory
 
-    - ZaxCMS\Model\CMSInstall\DatabaseGenerator
-    - ZaxCMS\Model\CMSInstall\CMSInstaller(%CMSInstalled%)
-    - ZaxCMS\Model\CMSInstall\MenuInstaller
-    - ZaxCMS\Model\CMSInstall\RoleInstaller
+    ## Nette\Application\UI\IPresenterFactory
+    nette.presenterFactory: Zax\Application\PresenterFactory(%rootDir%)
 
-## Model
+    ## Zax\Application\Routers\IRouterFactory
+    zax.routerFactory: ZaxCMS\Routers\RouterFactory(%zax.locale.defaultLocale%)
 
-    - ZaxCMS\Model\CMS\Service\AclService
-    - ZaxCMS\Model\CMS\Service\PermissionService
-    - ZaxCMS\Model\CMS\Service\PrivilegeService
-    - ZaxCMS\Model\CMS\Service\ResourceService
-    - ZaxCMS\Model\CMS\Service\RoleService
-    - ZaxCMS\Model\CMS\DeleteRole
-    - ZaxCMS\Model\CMS\Service\WebContentService
-    - ZaxCMS\Model\CMS\Service\MenuService
-    - ZaxCMS\Model\CMS\Service\PageService
-    - ZaxCMS\Model\CMS\Service\UserService
-    - ZaxCMS\Model\CMS\Service\UserLoginService
-    - ZaxCMS\Model\CMS\Service\UserLoginHistoryService
-    - ZaxCMS\Model\CMS\Service\MailTemplateService
-    - ZaxCMS\Model\CMS\Service\CategoryService
-    - ZaxCMS\Model\CMS\Service\ArticleService
-    - ZaxCMS\Model\CMS\Service\TagService
+    ## Zax\Security\IAclFactory
+    zax.aclFactory: ZaxCMS\Model\CMS\AclFactory(%CMSInstalled%)
 
-    - ZaxCMS\Model\CMS\AclFactory(%CMSInstalled%)
-    - ZaxCMS\Model\CMS\Auth(%loginType%)
-    - ZaxCMS\Model\CMS\ChangePassword
-    - ZaxCMS\Model\CMS\SendMail
+    ## Nette\Application\IRouter
+    router: @zax.routerFactory::create
 
-## Router
-    - ZaxCMS\Routers\RouterFactory
-    router: @ZaxCMS\Routers\RouterFactory::create
+    ## Nette\Security\IAuthorizator
+    acl: @zax.aclFactory::create
 
-## Security
+    ## Nette\Security\IAuthenticator
     - ZaxCMS\Security\Authenticator
-    acl: @ZaxCMS\Model\CMS\AclFactory::createNetteAcl
+
+    ## Zax\Application\UI\ISnippetGenerator
+    #
+    # Allows to define custom naming pattern for snippet IDs
+    #
+    - Zax\Application\UI\SnippetGenerators\ShortSnippetGenerator
+
+    ## Zax\Html\IIcons
+    #
+    # Encapsulates rendering icons
+    #
+    - Zax\Html\Icons\Glyphicons
+
+    ## Zax\Security\IPermission
+    #
+    # Provides methods for easy ACL checks.
+    #
+    -
+        class: Zax\Security\DefaultPermission
+        setup:
+            ### Custom permissions
+            ### Example:
+            ### - addHandler(Menu, Edit, [@My\Cool\PermissionService, method]) # custom permissions example
+            ### will call (simplified):
+            ### $context->getService(My\Cool\PermissionService)->method(Menu, Edit, $params)
+            ### whenever you check permissions for Menu, Edit and default Nette ACL check fails
 
 
-## Presenters
 
-    - ZaxCMS\FrontModule\DefaultPresenter(%CMSInstalled%)
-    - ZaxCMS\FrontModule\PagePresenter
-    - ZaxCMS\FrontModule\UserPresenter
 
-    - ZaxCMS\AdminModule\DefaultPresenter
-    - ZaxCMS\AdminModule\FilesPresenter
-    - ZaxCMS\AdminModule\PagesPresenter
-    - ZaxCMS\AdminModule\RolesPresenter
-    - ZaxCMS\AdminModule\UsersPresenter

@@ -1,0 +1,33 @@
+### Localization config ###
+
+parameters:
+    zax:
+        locale:
+            defaultLocale: cs_CZ
+            availableLocales: [cs, en]
+            debugMode: TRUE
+
+## Setup
+extensions:
+    translation: Kdyby\Translation\DI\TranslationExtension
+
+translation:
+    default: %zax.locale.defaultLocale%
+    whitelist: %zax.locale.availableLocales%
+    fallback: [%zax.locale.defaultLocale%]
+    debugger: %zax.locale.debugMode%
+    resolvers:
+        session: off
+        request: on
+        header: off
+
+services:
+    - Gedmo\Translatable\TranslatableListener
+
+
+## Custom locale resolver
+
+    #- My\Locale\Resolver
+    #translation.userLocaleResolver:
+    #   setup:
+    #       - addResolver(@My\Locale\Resolver);
