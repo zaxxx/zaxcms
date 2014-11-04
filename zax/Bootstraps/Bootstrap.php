@@ -179,6 +179,44 @@ class Bootstrap implements Zax\IBootstrap {
 		}
 	}
 
+	protected function loadConfigFiles(Nette\Configurator $configurator) {
+		// load neon files from all config folders within the app
+		if($this->autoloadConfig) {
+			$cacheJournal = new Nette\Caching\Storages\FileJournal($this->tempDir);
+			$cacheStorage = new Nette\Caching\Storages\FileStorage($this->tempDir . '/cache', $cacheJournal);
+			$cache = new Nette\Caching\Cache($cacheStorage, 'configFiles');
+			$files = $cache->load('configFiles');
+			if($files === NULL) {
+				$files = [
+					0 => []
+				];
+				foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir, $this->rootDir . '/zax') as $path => $file) {
+
+					// check neon file contents for priority
+					$content = Nette\Neon\Neon::decode(file_get_contents($path));
+					if(isset($content['priority']) && isset($content['priority'][0])) {
+						$priority = $content['priority'][0];
+						if(!isset($files[$priority])) {
+							$files[$priority] = [];
+						}
+						$files[$priority][] = $path;
+					} else {
+						$files[0][] = $path;
+					}
+				}
+				$cache->save('configFiles', $files);
+			}
+			foreach($files as $priorityFiles) {
+				foreach($priorityFiles as $config) {
+					$configurator->addConfig($config);
+				}
+			}
+		}
+		foreach($this->configs as $config) {
+			$configurator->addConfig($config);
+		}
+	}
+
 	/** Create and setup Nette\Configurator
 	 *
 	 * @return Nette\Configurator
@@ -209,38 +247,16 @@ class Bootstrap implements Zax\IBootstrap {
 
 		// Load app
 		$loader = $configurator->createRobotLoader()
-			->addDirectory($this->appDir . '/model')
-			->addDirectory($this->appDir . '/components')
-			->addDirectory($this->appDir . '/modules')
-			->addDirectory($this->appDir . '/routers')
-			->addDirectory($this->appDir . '/security')
-			->addDirectory(__DIR__ . '/../');
+			->addDirectory($this->appDir)       // app dir
+			->addDirectory(__DIR__ . '/../');   // zax dir
+
 		// Load additional paths specified in index.php
 		foreach($this->loaderPaths as $path) {
 			$loader->addDirectory($path);
 		}
 		$loader->register();
 
-		// load neon files from all config folders within the app
-		if($this->autoloadConfig) {
-			$cacheJournal = new Nette\Caching\Storages\FileJournal($this->tempDir);
-			$cacheStorage = new Nette\Caching\Storages\FileStorage($this->tempDir . '/cache', $cacheJournal);
-			$cache = new Nette\Caching\Cache($cacheStorage, 'configFiles');
-			$files = $cache->load('configFiles');
-			if($files === NULL) {
-				$files = [];
-				foreach(Nette\Utils\Finder::findFiles('config/*.neon')->from($this->appDir, $this->rootDir . '/zax') as $path => $file) {
-					$files[] = $path;
-				}
-				$cache->save('configFiles', $files);
-			}
-			foreach($files as $config) {
-				$configurator->addConfig($config);
-			}
-		}
-		foreach($this->configs as $config) {
-			$configurator->addConfig($config);
-		}
+		$this->loadConfigFiles($configurator);
 
 		return $configurator;
 	}
