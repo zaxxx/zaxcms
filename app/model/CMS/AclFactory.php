@@ -122,7 +122,7 @@ class AclFactory extends Nette\Object {
 	}
 
 	/** @return Nette\Security\Permission */
-	public function createNetteAcl() {
+	public function create() {
 		if(!$this->cmsInstalled) {
 			return new Nette\Security\Permission;
 		}
