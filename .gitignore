@@ -15,6 +15,7 @@ app/temp/btfj.dat
 
 # CSS & JS
 pub/zaxcms/bower_components/*
+pub/zaxcms/fonts/*
 pub/zaxcms/compiled/*
 
 # Upload folder
