@@ -8,3 +8,15 @@ interface IDeleteRoleFormFactory {
     public function create();
 
 }
+
+
+trait TInjectDeleteRoleFormFactory {
+
+	protected $deleteRoleFormFactory;
+
+	public function injectDeleteRoleFormFactory(IDeleteRoleFormFactory $deleteRoleFormFactory) {
+		$this->deleteRoleFormFactory = $deleteRoleFormFactory;
+	}
+
+}
+

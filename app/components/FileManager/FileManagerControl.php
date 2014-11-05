@@ -26,18 +26,11 @@ use Zax,
  */
 class FileManagerControl extends FileManagerAbstract {
 
+	use TInjectDirectoryListFactory,
+		TInjectFileListFactory;
+
 	/** @persistent */
 	public $dir = '';
-
-	/**
-	 * @var IFileListFactory
-	 */
-	protected $fileListFactory;
-
-	/**
-	 * @var IDirectoryListFactory
-	 */
-	protected $directoryListFactory;
 
 	/**
 	 * @var
@@ -48,18 +41,6 @@ class FileManagerControl extends FileManagerAbstract {
 	 * @var array
 	 */
 	protected $featuresEnabled = [];
-
-	/**
-	 * @param IDirectoryListFactory $directoryListFactory
-	 * @param IFileListFactory      $fileListFactory
-	 */
-	public function __construct(
-			IDirectoryListFactory $directoryListFactory,
-			IFileListFactory $fileListFactory
-	) {
-		$this->directoryListFactory = $directoryListFactory;
-		$this->fileListFactory = $fileListFactory;
-	}
 
 	/**
 	 * @param $name

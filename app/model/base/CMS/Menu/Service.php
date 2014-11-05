@@ -73,3 +73,16 @@ class MenuService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectMenuService {
+
+	/** @var MenuService */
+	protected $menuService;
+
+	public function injectMenuService(MenuService $menuService) {
+		$this->menuService = $menuService;
+	}
+
+}
+

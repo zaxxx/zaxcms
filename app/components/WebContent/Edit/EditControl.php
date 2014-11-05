@@ -11,50 +11,13 @@ use Nette,
 
 class EditControl extends SecuredControl {
 
+	use TInjectEditFormFactory,
+		Model\CMS\Service\TInjectWebContentService,
+		ZaxCMS\Components\FileManager\TInjectFileManagerFactory,
+		ZaxCMS\Components\LocaleSelect\TInjectLocaleSelectFactory,
+		Zax\Utils\TInjectRootDir;
+
 	protected $webContent;
-
-	/**
-	 * @var Model\WebContentService
-	 */
-	protected $webContentService;
-
-	/**
-	 * @var IEditFormFactory
-	 */
-	protected $editFormFactory;
-
-	/**
-	 * @var ZaxCMS\Components\FileManager\IFileManagerFactory
-	 */
-	protected $fileManagerFactory;
-
-	/**
-	 * @var ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory
-	 */
-	protected $localeSelectFactory;
-
-	/**
-	 * @var Zax\Utils\RootDir
-	 */
-	protected $rootDir;
-
-	/**
-	 * @param IEditFormFactory                               $editFormFactory
-	 * @param Model\WebContentService                        $webContentService
-	 * @param ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory
-	 * @param Zax\Utils\RootDir                              $rootDir
-	 */
-	public function __construct(IEditFormFactory $editFormFactory,
-								Model\CMS\Service\WebContentService $webContentService,
-								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
-								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory,
-								Zax\Utils\RootDir $rootDir) {
-		$this->editFormFactory = $editFormFactory;
-		$this->webContentService = $webContentService;
-		$this->fileManagerFactory = $fileManagerFactory;
-		$this->localeSelectFactory = $localeSelectFactory;
-		$this->rootDir = $rootDir;
-	}
 
 	public function getLocale() {
 		return $this['localeSelect']->getLocale();

@@ -10,17 +10,10 @@ use Nette,
 
 class AddArticleControl extends SecuredControl {
 
-	protected $articleService;
-
-	protected $addArticleFormFactory;
+	use Model\CMS\Service\TInjectArticleService,
+		TInjectAddArticleFormFactory;
 
 	protected $category;
-
-	public function __construct(Model\CMS\Service\ArticleService $articleService,
-								IAddArticleFormFactory $addArticleFormFactory) {
-		$this->articleService = $articleService;
-		$this->addArticleFormFactory = $addArticleFormFactory;
-	}
 
 	public function setCategory(Model\CMS\Entity\Category $category) {
 		$this->category = $category;

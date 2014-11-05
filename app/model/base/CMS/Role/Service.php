@@ -51,3 +51,16 @@ class RoleService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectRoleService {
+
+	/** @var RoleService */
+	protected $roleService;
+
+	public function injectRoleService(RoleService $roleService) {
+		$this->roleService = $roleService;
+	}
+
+}
+

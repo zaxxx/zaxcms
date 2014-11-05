@@ -25,3 +25,16 @@ class PermissionService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectPermissionService {
+
+	/** @var PermissionService */
+	protected $permissionService;
+
+	public function injectPermissionService(PermissionService $permissionService) {
+		$this->permissionService = $permissionService;
+	}
+
+}
+

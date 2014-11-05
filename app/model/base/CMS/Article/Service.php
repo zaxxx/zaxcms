@@ -17,3 +17,16 @@ class ArticleService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectArticleService {
+
+	/** @var ArticleService */
+	protected $articleService;
+
+	public function injectArticleService(ArticleService $articleService) {
+		$this->articleService = $articleService;
+	}
+
+}
+

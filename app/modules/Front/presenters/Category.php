@@ -9,41 +9,8 @@ use Nette,
 	Nette\Application\UI as NetteUI,
 	Zax;
 
-class CategoryPresenter extends BasePresenter {
+class CategoryPresenter extends ZaxCMS\BaseCategoryPresenter {
 
-	protected $categoryService;
 
-	protected $articleListFactory;
-
-	protected $category;
-
-	public function __construct(Model\CMS\Service\CategoryService $categoryService,
-								ZaxCMS\Components\Article\IArticleListFactory $articleListFactory) {
-		$this->categoryService = $categoryService;
-		$this->articleListFactory = $articleListFactory;
-	}
-
-	public function actionDefault($slug) {
-		$category = $this->categoryService->getBy(['slug' => $slug]);
-		if($category === NULL) {
-			throw new Nette\Application\BadRequestException;
-		}
-		$category->setTranslatableLocale($this->getLocale());
-		$this->categoryService->refresh($category);
-		$this->category = $category;
-	}
-
-	public function renderDefault($slug) {
-		$this->template->category = $this->category;
-		$this->template->ancestors = $this->categoryService->findPath($this->category);
-	}
-
-	protected function createComponentArticleList() {
-		$children = $this->categoryService->getRepository()->getChildren($this->category, FALSE, NULL, 'asc', TRUE);
-	    return $this->articleListFactory->create()
-	        ->enablePaginator(5)
-	        ->setMainCategory($this->category)
-		    ->setCategories($children);
-	}
 
 }

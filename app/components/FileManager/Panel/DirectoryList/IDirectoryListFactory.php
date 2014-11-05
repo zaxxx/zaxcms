@@ -8,3 +8,15 @@ interface IDirectoryListFactory {
 	public function create();
 
 }
+
+
+trait TInjectDirectoryListFactory {
+
+	protected $directoryListFactory;
+
+	public function injectDirectoryListFactory(IDirectoryListFactory $directoryListFactory) {
+		$this->directoryListFactory = $directoryListFactory;
+	}
+
+}
+

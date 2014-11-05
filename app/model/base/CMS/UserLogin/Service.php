@@ -16,3 +16,16 @@ class UserLoginService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectUserLoginService {
+
+	/** @var UserLoginService */
+	protected $userLoginService;
+
+	public function injectUserLoginService(UserLoginService $userLoginService) {
+		$this->userLoginService = $userLoginService;
+	}
+
+}
+

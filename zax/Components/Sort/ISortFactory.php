@@ -8,3 +8,16 @@ interface ISortFactory {
     public function create();
 
 }
+
+
+
+trait TInjectSortFactory {
+
+	protected $sortFactory;
+
+	public function injectSortFactory(ISortFactory $sortFactory) {
+		$this->sortFactory = $sortFactory;
+	}
+
+}
+

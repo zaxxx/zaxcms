@@ -8,3 +8,16 @@ interface IAddArticleFactory {
     public function create();
 
 }
+
+
+trait TInjectAddArticleFactory {
+
+	/** @var IAddArticleFactory */
+	protected $addArticleFactory;
+
+	public function injectAddArticleFactory(IAddArticleFactory $addArticleFactory) {
+		$this->addArticleFactory = $addArticleFactory;
+	}
+
+}
+

@@ -1,0 +1,15 @@
+extensions:
+    ZaxCMSArticle: ZaxCMS\DI\ArticleExtension
+
+## NULL = show only if can edit
+ZaxCMSArticle:
+    list:
+        itemsPerPage: 10
+    category:
+        showBreadCrumb: NULL
+        showSubcategories: NULL
+    article:
+        showTimePosted: FALSE
+        showAuthor: FALSE
+        showCategory: FALSE
+        showTags: FALSE

@@ -25,3 +25,16 @@ class UserLoginHistoryService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectUserLoginHistoryService {
+
+	/** @var UserLoginHistoryService */
+	protected $userLoginHistoryService;
+
+	public function injectUserLoginHistoryService(UserLoginHistoryService $userLoginHistoryService) {
+		$this->userLoginHistoryService = $userLoginHistoryService;
+	}
+
+}
+

@@ -10,17 +10,10 @@ use Nette,
 
 class AddCategoryControl extends Control {
 
-	protected $categoryService;
-
-	protected $addCategoryFormFactory;
+	use Model\CMS\Service\TInjectCategoryService,
+		TInjectAddCategoryFormFactory;
 
 	protected $category;
-
-	public function __construct(Model\CMS\Service\CategoryService $categoryService,
-								IAddCategoryFormFactory $addCategoryFormFactory) {
-		$this->categoryService = $categoryService;
-		$this->addCategoryFormFactory = $addCategoryFormFactory;
-	}
 
 	public function setParentCategory(Model\CMS\Entity\Category $category) {
 		$this->category = $category;

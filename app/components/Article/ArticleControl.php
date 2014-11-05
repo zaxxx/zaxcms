@@ -10,13 +10,9 @@ use Nette,
 
 class ArticleControl extends SecuredControl {
 
-	protected $editArticleFactory;
+	use TInjectEditArticleFactory;
 
 	protected $article;
-
-	public function __construct(IEditArticleFactory $editArticleFactory) {
-		$this->editArticleFactory = $editArticleFactory;
-	}
 
 	public function attached($presenter) {
 		parent::attached($presenter);

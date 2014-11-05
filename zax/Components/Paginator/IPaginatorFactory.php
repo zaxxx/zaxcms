@@ -8,3 +8,15 @@ interface IPaginatorFactory {
     public function create();
 
 }
+
+
+trait TInjectPaginatorFactory {
+
+	protected $paginatorFactory;
+
+	public function injectPaginatorFactory(IPaginatorFactory $paginatorFactory) {
+		$this->paginatorFactory = $paginatorFactory;
+	}
+
+}
+

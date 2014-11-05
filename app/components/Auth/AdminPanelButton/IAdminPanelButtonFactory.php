@@ -8,3 +8,15 @@ interface IAdminPanelButtonFactory {
     public function create();
 
 }
+
+
+trait TInjectAdminPanelButtonFactory {
+
+	protected $adminPanelButtonFactory;
+
+	public function injectAdminPanelButtonFactory(IAdminPanelButtonFactory $adminPanelButtonFactory) {
+		$this->adminPanelButtonFactory = $adminPanelButtonFactory;
+	}
+
+}
+

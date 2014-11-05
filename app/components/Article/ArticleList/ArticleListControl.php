@@ -4,33 +4,24 @@ namespace ZaxCMS\Components\Article;
 use Nette,
     Zax,
     ZaxCMS\Model,
+	ZaxCMS,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
     Zax\Application\UI\Control;
 
 class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
-	use Zax\Components\Collections\TPaginable;
-
-	protected $articleService;
-
-	protected $addArticleFactory;
-
-	protected $addCategoryFactory;
+	use Zax\Components\Collections\TPaginable,
+		Model\CMS\Service\TInjectArticleService,
+		TInjectAddArticleFactory,
+		TInjectAddCategoryFactory,
+		ZaxCMS\DI\TInjectArticleConfig;
 
 	protected $category;
 
 	protected $categories;
 
 	protected $tag;
-
-	public function __construct(Model\CMS\Service\ArticleService $articleService,
-								IAddArticleFactory $addArticleFactory,
-								IAddCategoryFactory $addCategoryFactory) {
-		$this->articleService = $articleService;
-		$this->addArticleFactory = $addArticleFactory;
-		$this->addCategoryFactory = $addCategoryFactory;
-	}
 
 	public function setMainCategory(Model\CMS\Entity\Category $category) {
 		$this->category = $category;
@@ -74,6 +65,7 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
     
     public function beforeRender() {
         $this->template->articles = $this->getFilteredResultSet();
+	    $this->template->articleConfig = $this->articleConfig;
     }
 
 	protected function createComponentAddArticle() {

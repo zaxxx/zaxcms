@@ -136,3 +136,16 @@ class Auth extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectAuth {
+
+	/** @var Auth */
+	protected $auth;
+
+	public function injectAuth(Auth $auth) {
+		$this->auth = $auth;
+	}
+
+}
+

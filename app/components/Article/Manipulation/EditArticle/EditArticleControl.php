@@ -11,21 +11,11 @@ use Nette,
 
 class EditArticleControl extends SecuredControl {
 
-	protected $editArticleFormFactory;
-
-	protected $fileManagerFactory;
-
-	protected $rootDir;
+	use TInjectEditArticleFormFactory,
+		ZaxCMS\Components\FileManager\TInjectFileManagerFactory,
+		Zax\Utils\TInjectRootDir;
 
 	protected $article;
-
-	public function __construct(IEditArticleFormFactory $editArticleFormFactory,
-								ZaxCMS\Components\FileManager\IFileManagerFactory $fileManagerFactory,
-								Zax\Utils\RootDir $rootDir) {
-		$this->editArticleFormFactory = $editArticleFormFactory;
-		$this->fileManagerFactory = $fileManagerFactory;
-		$this->rootDir = $rootDir;
-	}
 
 	public function setArticle(Model\CMS\Entity\Article $article) {
 		$this->article = $article;

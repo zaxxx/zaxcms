@@ -11,3 +11,15 @@ interface IFileManagerFactory {
 	public function create();
 
 }
+
+
+trait TInjectFileManagerFactory {
+
+	protected $fileManagerFactory;
+
+	public function injectFileManagerFactory(IFileManagerFactory $fileManagerFactory) {
+		$this->fileManagerFactory = $fileManagerFactory;
+	}
+
+}
+

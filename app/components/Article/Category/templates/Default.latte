@@ -1,0 +1,14 @@
+
+<ol class="breadcrumb" n:if="$articleConfig->showBreadCrumb">
+	Kategorie:
+	{foreach $ancestors as $ancestor}
+		<li><a href="{$presenter->link('Category:default', [category-slug => $ancestor->slug])}">{$ancestor->title}</a></li>
+	{/foreach}
+</ol>
+
+<ul n:if="$articleConfig->showSubcategories && count($category->children) > 0" n:inner-foreach="$category->children as $child">
+	<li><a href="{$presenter->link('Category:default', [category-slug => $child->slug])}">{$child->title}</a></li>
+</ul>
+
+
+{control articleList}

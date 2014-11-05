@@ -33,4 +33,17 @@ class CategoryService extends Zax\Model\Doctrine\Service {
 		return $nodes;
 	}
 
-} 
+}
+
+
+trait TInjectCategoryService {
+
+	/** @var CategoryService */
+	protected $categoryService;
+
+	public function injectCategoryService(CategoryService $categoryService) {
+		$this->categoryService = $categoryService;
+	}
+
+}
+

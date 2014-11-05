@@ -8,3 +8,15 @@ interface IChangePasswordFactory {
     public function create();
 
 }
+
+
+trait TInjectChangePasswordFactory {
+
+	protected $changePasswordFactory;
+
+	public function injectChangePasswordFactory(IChangePasswordFactory $changePasswordFactory) {
+		$this->changePasswordFactory = $changePasswordFactory;
+	}
+
+}
+

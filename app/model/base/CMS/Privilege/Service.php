@@ -38,3 +38,16 @@ class PrivilegeService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectPrivilegeService {
+
+	/** @var PrivilegeService */
+	protected $privilegeService;
+
+	public function injectPrivilegeService(PrivilegeService $privilegeService) {
+		$this->privilegeService = $privilegeService;
+	}
+
+}
+

@@ -8,3 +8,15 @@ interface ILoginFormFactory {
     public function create();
 
 }
+
+
+trait TInjectLoginFormFactory {
+
+	protected $loginFormFactory;
+
+	public function injectLoginFormFactory(ILoginFormFactory $loginFormFactory) {
+		$this->loginFormFactory = $loginFormFactory;
+	}
+
+}
+

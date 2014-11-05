@@ -8,3 +8,15 @@ interface IPagesFactory {
     public function create();
 
 }
+
+
+trait TInjectPagesFactory {
+
+	protected $pagesFactory;
+
+	public function injectPagesFactory(IPagesFactory $pagesFactory) {
+		$this->pagesFactory = $pagesFactory;
+	}
+
+}
+

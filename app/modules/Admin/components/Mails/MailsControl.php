@@ -10,22 +10,12 @@ use Nette,
 
 class MailsControl extends SecuredControl {
 
-	protected $mailTemplateService;
-
-	protected $editMailFormFactory;
-
-	protected $testMailFormFactory;
+	use Model\CMS\Service\TInjectMailTemplateService,
+		TInjectEditMailFormFactory,
+		TInjectTestMailFormFactory;
 
 	/** @persistent */
 	public $selectMail;
-
-	public function __construct(Model\CMS\Service\MailTemplateService $mailTemplateService,
-								IEditMailFormFactory $editMailFormFactory,
-								ITestMailFormFactory $testMailFormFactory) {
-		$this->mailTemplateService = $mailTemplateService;
-		$this->editMailFormFactory = $editMailFormFactory;
-		$this->testMailFormFactory = $testMailFormFactory;
-	}
 
 	protected function getSelectedMail() {
 		return $this->mailTemplateService->get($this->selectMail);

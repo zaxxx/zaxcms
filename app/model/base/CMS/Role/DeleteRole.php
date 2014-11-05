@@ -48,3 +48,16 @@ class DeleteRole extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectDeleteRole {
+
+	/** @var DeleteRole */
+	protected $deleteRole;
+
+	public function injectDeleteRole(DeleteRole $deleteRole) {
+		$this->deleteRole = $deleteRole;
+	}
+
+}
+

@@ -12,17 +12,10 @@ use Nette,
 
 abstract class UserFormControl extends FormControl {
 
+	use Model\CMS\Service\TInjectUserService,
+		Model\CMS\TInjectAclFactory;
+
 	protected $selectedUser;
-
-	protected $userService;
-
-	protected $aclFactory;
-
-	public function injectPrimary(Model\CMS\Service\UserService $userService,
-								Model\CMS\AclFactory $aclFactory) {
-		$this->userService = $userService;
-		$this->aclFactory = $aclFactory;
-	}
 
     public function viewDefault() {}
     

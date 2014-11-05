@@ -9,38 +9,8 @@ use Nette,
 	Nette\Application\UI as NetteUI,
 	Zax;
 
-class TagPresenter extends BasePresenter {
+class TagPresenter extends ZaxCMS\BaseTagPresenter {
 
-	protected $tagService;
 
-	protected $articleListFactory;
-
-	protected $tag;
-
-	public function __construct(Model\CMS\Service\TagService $tagService,
-	                            ZaxCMS\Components\Article\IArticleListFactory $articleListFactory) {
-		$this->tagService = $tagService;
-		$this->articleListFactory = $articleListFactory;
-	}
-
-	public function actionDefault($slug) {
-		$tag = $this->tagService->getBy(['slug' => $slug]);
-		if($tag === NULL) {
-			throw new Nette\Application\BadRequestException;
-		}
-		$tag->setTranslatableLocale($this->getLocale());
-		$this->tagService->refresh($tag);
-		$this->tag = $tag;
-	}
-
-	public function renderDefault($slug) {
-		$this->template->tag = $this->tag;
-	}
-
-	protected function createComponentArticleList() {
-		return $this->articleListFactory->create()
-			->enablePaginator(5)
-			->setTag($this->tag);
-	}
 
 }

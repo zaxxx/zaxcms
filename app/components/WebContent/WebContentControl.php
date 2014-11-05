@@ -8,6 +8,10 @@ use Nette,
 
 class WebContentControl extends SecuredControl {
 
+	use Zax\Traits\TCacheable,
+		Model\CMS\Service\TInjectWebContentService,
+		TInjectEditFactory;
+
 	protected $defaultLinkParams = [
 		'edit-localeSelect-locale' => NULL,
 		'edit-view' => NULL,
@@ -15,13 +19,7 @@ class WebContentControl extends SecuredControl {
 		'edit-fileManager-fileList-view' => NULL
 	];
 
-	use Zax\Traits\TCacheable;
-
-	protected $webContentService;
-
 	protected $webContent;
-
-	protected $editFactory;
 
 	protected $texyHeadingTop = 3;
 
@@ -29,12 +27,6 @@ class WebContentControl extends SecuredControl {
 	 * @var string
 	 */
 	protected $name;
-
-	public function __construct(Model\CMS\Service\WebContentService $webContentService,
-								IEditFactory $editFactory) {
-		$this->webContentService = $webContentService;
-		$this->editFactory = $editFactory;
-	}
 
 	public function setTexyHeadingTop($top = 3) {
 		$this->texyHeadingTop = $top;

@@ -42,3 +42,16 @@ class ChangePassword extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectChangePassword {
+
+	/** @var ChangePassword */
+	protected $changePassword;
+
+	public function injectChangePassword(ChangePassword $changePassword) {
+		$this->changePassword = $changePassword;
+	}
+
+}
+

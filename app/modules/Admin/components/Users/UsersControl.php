@@ -13,7 +13,12 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 	use Zax\Components\Collections\TPaginable,
 		TRoleFilterable,
 		TUserSortable,
-		TUserSearchable;
+		TUserSearchable,
+
+		Model\CMS\Service\TInjectUserService,
+		Model\CMS\Service\TInjectRoleService,
+		TInjectProfileFactory,
+		TInjectAddUserFormFactory;
 
 	protected $defaultLinkParams = [
 		'profile-basicInfo-view' => NULL,
@@ -22,24 +27,6 @@ class UsersControl extends Zax\Components\Collections\FilterableControl {
 
 	/** @persistent */
 	public $selectUser;
-
-	protected $userService;
-
-	protected $roleService;
-
-	protected $profileFactory;
-
-    protected $addUserFormFactory;
-
-	public function __construct(Model\CMS\Service\UserService $userService,
-								Model\CMS\Service\RoleService $roleService,
-								IProfileFactory $profileFactory,
-                                IAddUserFormFactory $addUserFormFactory) {
-		$this->userService = $userService;
-		$this->roleService = $roleService;
-		$this->profileFactory = $profileFactory;
-        $this->addUserFormFactory = $addUserFormFactory;
-	}
 
 	protected function getService() {
 		return $this->userService;

@@ -11,3 +11,15 @@ interface IRenameFileFactory {
 	public function create();
 
 }
+
+
+trait TInjectRenameFileFactory {
+
+	protected $renameFileFactory;
+
+	public function injectRenameFileFactory(IRenameFileFactory $renameFileFactory) {
+		$this->renameFileFactory = $renameFileFactory;
+	}
+
+}
+

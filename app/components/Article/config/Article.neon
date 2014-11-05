@@ -8,3 +8,5 @@ services:
 
     - ZaxCMS\Components\Article\IAddCategoryFactory
     - ZaxCMS\Components\Article\IAddCategoryFormFactory
+
+    - ZaxCMS\Components\Article\ICategoryFactory

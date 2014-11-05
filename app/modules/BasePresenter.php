@@ -13,22 +13,16 @@ use Nette,
 
 abstract class BasePresenter extends ZaxUI\Presenter {
 
-	use Zax\Traits\TTranslatable;
+	use Zax\Traits\TTranslatable,
+
+		Components\FlashMessage\TInjectFlashMessageFactory,
+		Components\WebContent\TInjectWebContentFactory,
+		Components\Navigation\TInjectNavigationFactory,
+		Components\Auth\TInjectTinyLoginBoxFactory,
+		Components\LocaleSelect\TInjectLocaleSelectFactory;
 
 	/** @persistent */
 	public $locale = 'cs_CZ';
-
-	protected $webContentFactory;
-
-	protected $staticLinkerFactory;
-
-	protected $flashMessageFactory;
-
-	protected $navigationFactory;
-
-	protected $tinyLoginBoxFactory;
-
-	protected $localeSelectFactory;
 
 	protected $categoryStrategy;
 
@@ -40,30 +34,6 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	public function injectWebLoaderFactory(WebLoader\Nette\LoaderFactory $webLoaderFactory) {
 		$this->webLoaderFactory = $webLoaderFactory;
-	}
-
-	public function injectFlashMessageFactory(Components\FlashMessage\IFlashMessageFactory $flashMessageFactory) {
-		$this->flashMessageFactory = $flashMessageFactory;
-	}
-
-	public function injectStaticLinkerFactory(Components\StaticLinker\IStaticLinkerFactory $staticLinkerFactory) {
-		$this->staticLinkerFactory = $staticLinkerFactory;
-	}
-
-	public function injectWebContentFactory(Components\WebContent\IWebContentFactory $webContentFactory) {
-		$this->webContentFactory = $webContentFactory;
-	}
-
-	public function injectNavigationFactory(Components\Navigation\INavigationFactory $navigationFactory) {
-		$this->navigationFactory = $navigationFactory;
-	}
-
-	public function injectTinyLoginBoxFactory(Components\Auth\ITinyLoginBoxFactory $tinyLoginBoxFactory) {
-		$this->tinyLoginBoxFactory = $tinyLoginBoxFactory;
-	}
-
-	public function injectLocaleSelectFactory(Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
-		$this->localeSelectFactory = $localeSelectFactory;
 	}
 
 	public function injectMarkNavAsActiveStrategies(Components\Navigation\MarkActiveStrategies\CategoryStrategy $categoryStrategy,
@@ -87,6 +57,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 
 	protected function createComponentNavigation() {
 		return new NetteUI\Multiplier(function($id) {
+
 	        $nav = $this->navigationFactory->create()
 		        ->enableAjax()
 		        ->setMenuName($id)
@@ -109,22 +80,6 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 				->setCacheNamespace('ZaxCMS.WebContent.' . $name)
 				->enableAjax()
 				->setName($name);
-		});
-	}
-
-	/**
-	 * @return Nette\Application\UI\Multiplier
-	 */
-	protected function createComponentStaticLinker() {
-		return new Nette\Application\UI\Multiplier(function($id) {
-			$dir = $this->rootDir . '/pub';
-			return $this->staticLinkerFactory->create()
-				->setCacheNamespace('Zax.StaticLinker.' . $id)
-				->setRoot($this->rootDir)
-				->setOutputDirectory($dir . '/combined/' . $id)
-				->setMinifier(new Components\StaticLinker\NoMinifier)
-				->addCssFiles(Nette\Utils\Finder::findFiles('*.css')->from($dir . '/' . $id . '/css'))
-				->addJsFiles(Nette\Utils\Finder::findFiles('*.js')->from($dir . '/' . $id . '/js'));
 		});
 	}
 

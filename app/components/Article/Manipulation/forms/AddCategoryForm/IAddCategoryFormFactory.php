@@ -8,3 +8,15 @@ interface IAddCategoryFormFactory {
     public function create();
 
 }
+
+
+trait TInjectAddCategoryFormFactory {
+
+	protected $addCategoryFormFactory;
+
+	public function injectAddCategoryFormFactory(IAddCategoryFormFactory $addCategoryFormFactory) {
+		$this->addCategoryFormFactory = $addCategoryFormFactory;
+	}
+
+}
+

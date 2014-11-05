@@ -16,44 +16,17 @@ use Nette,
  */
 class DirectoryListControl extends FileManagerAbstract {
 
+	use TInjectCreateDirFactory,
+		TInjectRenameDirFactory,
+		TInjectDeleteDirFactory;
+
 	/** @persistent */
 	public $usageInfo = FALSE;
-
-	/**
-	 * @var ICreateDirFactory
-	 */
-	protected $createDirFactory;
-
-	/**
-	 * @var IRenameDirFactory
-	 */
-	protected $renameDirFactory;
-
-	/**
-	 * @var IDeleteDirFactory
-	 */
-	protected $deleteDirFactory;
 
 	/**
 	 * @var int
 	 */
 	protected $createDirPermissions = 0766;
-
-	/**
-	 * @param ICreateDirFactory $createDirFactory
-	 * @param IRenameDirFactory $renameDirFactory
-	 * @param IDeleteDirFactory $deleteDirFactory
-	 */
-	public function __construct(
-		ICreateDirFactory $createDirFactory,
-		IRenameDirFactory $renameDirFactory,
-		IDeleteDirFactory $deleteDirFactory
-	) {
-		$this->createDirFactory = $createDirFactory;
-		$this->renameDirFactory = $renameDirFactory;
-		$this->deleteDirFactory = $deleteDirFactory;
-	}
-
 
 	/**
 	 * @param $permissions

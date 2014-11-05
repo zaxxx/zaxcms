@@ -8,3 +8,15 @@ interface ISecurityInfoFactory {
     public function create();
 
 }
+
+
+trait TInjectSecurityInfoFactory {
+
+	protected $securityInfoFactory;
+
+	public function injectSecurityInfoFactory(ISecurityInfoFactory $securityInfoFactory) {
+		$this->securityInfoFactory = $securityInfoFactory;
+	}
+
+}
+

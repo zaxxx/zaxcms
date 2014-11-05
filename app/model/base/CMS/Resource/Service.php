@@ -51,3 +51,16 @@ class ResourceService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectResourceService {
+
+	/** @var ResourceService */
+	protected $resourceService;
+
+	public function injectResourceService(ResourceService $resourceService) {
+		$this->resourceService = $resourceService;
+	}
+
+}
+

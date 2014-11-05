@@ -8,3 +8,16 @@ interface IPermissionsFactory {
     public function create();
 
 }
+
+
+trait TInjectPermissionsFactory {
+
+	/** @var IPermissionsFactory */
+	protected $permissionsFactory;
+
+	public function injectPermissionFactory(IPermissionsFactory $permissionsFactory) {
+		$this->permissionsFactory = $permissionsFactory;
+	}
+
+}
+

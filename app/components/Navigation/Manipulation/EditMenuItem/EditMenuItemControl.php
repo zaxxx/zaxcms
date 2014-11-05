@@ -12,21 +12,11 @@ use Nette,
 
 class EditMenuItemControl extends SecuredControl {
 
+	use TInjectEditMenuItemFormFactory,
+		TInjectDeleteMenuItemFormFactory,
+		Model\CMS\Service\TInjectMenuService;
+
 	protected $menuItem;
-
-	protected $editMenuItemFormFactory;
-
-	protected $deleteMenuItemFormFactory;
-
-	protected $menuService;
-
-	public function __construct(IEditMenuItemFormFactory $editMenuItemFormFactory,
-	                            IDeleteMenuItemFormFactory $deleteMenuItemFormFactory,
-								Model\CMS\Service\MenuService $menuService) {
-		$this->editMenuItemFormFactory = $editMenuItemFormFactory;
-		$this->deleteMenuItemFormFactory = $deleteMenuItemFormFactory;
-		$this->menuService = $menuService;
-	}
 
 	public function setMenuItem(Model\CMS\Entity\Menu $menuItem) {
 		$this->menuItem = $menuItem;

@@ -12,17 +12,10 @@ use Nette,
 // TODO: DRY
 class AddMenuItemControl extends SecuredControl {
 
-	protected $addMenuItemFormFactory;
+	use TInjectAddMenuItemFormFactory,
+		Model\CMS\Service\TInjectMenuService;
 
 	protected $parentMenu;
-
-	protected $menuService;
-
-	public function __construct(IAddMenuItemFormFactory $addMenuItemFormFactory,
-								Model\CMS\Service\MenuService $menuService) {
-		$this->addMenuItemFormFactory = $addMenuItemFormFactory;
-		$this->menuService = $menuService;
-	}
 
 	public function setParentMenu(Model\CMS\Entity\Menu $menu) {
 		$this->parentMenu = $menu;

@@ -28,3 +28,16 @@ class TagService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectTagService {
+
+	/** @var TagService */
+	protected $tagService;
+
+	public function injectTagService(TagService $tagService) {
+		$this->tagService = $tagService;
+	}
+
+}
+

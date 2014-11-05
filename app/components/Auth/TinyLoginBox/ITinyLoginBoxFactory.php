@@ -8,3 +8,15 @@ interface ITinyLoginBoxFactory {
     public function create();
 
 }
+
+
+trait TInjectTinyLoginBoxFactory {
+
+	protected $tinyLoginBoxFactory;
+
+	public function injectTinyLoginBoxFactory(ITinyLoginBoxFactory $tinyLoginBoxFactory) {
+		$this->tinyLoginBoxFactory = $tinyLoginBoxFactory;
+	}
+
+}
+

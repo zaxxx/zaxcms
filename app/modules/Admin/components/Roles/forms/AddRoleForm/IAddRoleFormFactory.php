@@ -8,3 +8,15 @@ interface IAddRoleFormFactory {
     public function create();
 
 }
+
+
+trait TInjectAddRoleFormFactory {
+
+	protected $addRoleFormFactory;
+
+	public function injectAddRoleFormFactory(IAddRoleFormFactory $addRoleFormFactory) {
+		$this->addRoleFormFactory = $addRoleFormFactory;
+	}
+
+}
+

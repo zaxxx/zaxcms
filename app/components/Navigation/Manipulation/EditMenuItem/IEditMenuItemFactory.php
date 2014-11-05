@@ -8,3 +8,16 @@ interface IEditMenuItemFactory {
 	public function create();
 
 }
+
+
+trait TInjectEditMenuItemFactory {
+
+	/** @var IEditMenuItemFactory */
+	protected $editMenuItemFactory;
+
+	public function injectEditMenuItemFactory(IEditMenuItemFactory $editMenuItemFactory) {
+		$this->editMenuItemFactory = $editMenuItemFactory;
+	}
+
+}
+
