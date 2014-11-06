@@ -36,7 +36,7 @@ abstract class CategoryFormControl extends FormControl {
 
 	    $f->addStatic('parent', 'article.form.parentCategory')
 		    ->addFilter(function($cat) {
-			    return $cat->title;
+			    return $cat === NULL ? '(' . $this->translator->translate('common.general.nothing') . ')' : $cat->title;
 		    });
 
 	    $f->addText('title', 'article.form.title')

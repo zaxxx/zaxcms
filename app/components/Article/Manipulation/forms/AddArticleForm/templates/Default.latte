@@ -17,15 +17,6 @@
 		<div role="tabpanel" class="tab-pane tab-pane-form" id="{$htmlId}-pic">
 			<div class="row">
 				<div class="col-sm-12">
-					{if $article->image !== NULL}
-						<div class="row">
-							<div class="col-sm-3"></div>
-							<div class="col-sm-7"><img src="{$baseUri}/{$article->image}" class="img-responsive img-thumbnail" style="margin-bottom:30px"></div>
-							<div class="col-sm-2"></div>
-						</div>
-
-					{/if}
-
 					{$form->renderer->renderContainer($form, $form['pic'])}
 				</div>
 			</div>

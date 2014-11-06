@@ -1,17 +1,34 @@
 <div n:snippet>
-<ol class="breadcrumb" n:if="$articleConfig->showBreadCrumb">
-	Kategorie:
-	{foreach $ancestors as $ancestor}
-		<li><a href="{$presenter->link('Blog:category', [category-slug => $ancestor->slug])}">{$ancestor->title}</a></li>
-	{/foreach}
-</ol>
+	<div class="row">
+		<div class="col-sm-{=12-$articleConfig->categorySidebarWidth}">
+			<ol class="breadcrumb" n:if="$articleConfig->showBreadCrumb">
+				Kategorie:
+				{foreach $ancestors as $ancestor}
+					<li><a href="{$presenter->link('Blog:category', [category-slug => $ancestor->slug])}">{$ancestor->title}</a></li>
+				{/foreach}
+				<li n:secured="WebContent, Edit" class="pull-right"><a title="{_'article.button.editCategory'}" n:href="this, view => EditCategory">{icon pencil}</a></li>
+			</ol>
 
-<ul n:if="$articleConfig->showSubcategories && count($category->children) > 0" n:inner-foreach="$category->children as $child">
-	<li><a href="{$presenter->link('Blog:category', [category-slug => $child->slug])}">{$child->title}</a></li>
-</ul>
-<a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => AddCategory">{icon plus} {_'article.button.addCategory'}</a>
+			<div><a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => AddCategory">{icon plus} {_'article.button.addCategory'}</a></div>
 
-<a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => Add">{icon plus} {_'article.button.addArticle'}</a>
+			<ul n:if="$articleConfig->showSubcategories && count($category->children) > 0">
+				<li n:foreach="$category->children as $child"><a href="{$presenter->link('Blog:category', [category-slug => $child->slug])}">{$child->title}</a></li>
+			</ul>
 
-{control articleList}
+			<hr n:secured="WebContent, Edit">
+
+			<a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => Add">{icon plus} {_'article.button.addArticle'}</a>
+
+			{control articleList}
+
+		</div>
+		<div class="col-sm-{$articleConfig->categorySidebarWidth}">
+
+			{if $category->depth === 0}
+				{includeblock '../../rootSidebar.latte'}
+			{else}
+				{includeblock '../../categorySidebar.latte'}
+			{/if}
+		</div>
+	</div>
 </div>

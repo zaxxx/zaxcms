@@ -4,6 +4,7 @@ namespace ZaxCMS\Components\Article;
 use Nette,
     Zax,
     ZaxCMS\Model,
+	ZaxCMS,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
     Zax\Application\UI\Control;
@@ -11,7 +12,8 @@ use Nette,
 class AuthorControl extends Control {
 
 	use Model\CMS\Service\TInjectAuthorService,
-		TInjectArticleListFactory;
+		TInjectArticleListFactory,
+		ZaxCMS\DI\TInjectArticleConfig;
 
 	/** @persistent */
 	public $slug;
@@ -38,12 +40,13 @@ class AuthorControl extends Control {
     }
     
     public function beforeRender() {
-        
+        $this->template->articleConfig = $this->articleConfig;
     }
 
 	protected function createComponentArticleList() {
 	    return $this->articleListFactory->create()
-		    ->setAuthor($this->getAuthor());
+		    ->setAuthor($this->getAuthor())
+		    ->enablePaginator($this->articleConfig->getListItemsPerPage());
 	}
 
 }

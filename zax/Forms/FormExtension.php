@@ -43,6 +43,7 @@ class FormExtension extends Nette\Object {
 			return;
 		}
 
+		// addLinkSubmit
 		Container::extensionMethod('addLinkSubmit', function(Container $container, $name, $label = NULL, $icon = NULL, $destination = NULL) {
 			$control = new Zax\Forms\Controls\LinkSubmitButton($label);
 			$proto = $control->getControlPrototype();
@@ -51,6 +52,7 @@ class FormExtension extends Nette\Object {
 			return $container[$name] = $control;
 		});
 
+		// addButtonSubmit
 		Container::extensionMethod('addButtonSubmit', function(Container $container, $name, $label = NULL, $icon = NULL, $data = []) {
 			$control = new Nette\Forms\Controls\SubmitButton($label);
 			$proto = $control->getControlPrototype();

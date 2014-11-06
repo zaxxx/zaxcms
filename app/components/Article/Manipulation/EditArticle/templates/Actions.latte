@@ -4,11 +4,22 @@
 
 	<div class="row">
 		<div class="col-xs-4 text-right">
-			<a n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="setCreatedNow!">{icon time} {_'common.button.setCreatedNow'}</a>
+			<a n:class="$ajaxEnabled ? ajax, btn, btn-warning" n:href="setCreatedNow!">{icon time} {_'common.button.setCreatedNow'}</a>
 		</div>
 		<div class="col-xs-8">
-			<p>
-				Použijte toto tlačítko pro nastavení data vytvoření článku na aktuální datum a čas.
+			<p class=" form-control-static">
+				TODO: popisek
+			</p>
+		</div>
+	</div>
+<hr>
+	<div class="row">
+		<div class="col-xs-4 text-right">
+			<a n:class="$ajaxEnabled ? ajax, btn, btn-danger" n:href="this, view => Delete">{icon trash} {_'common.button.delete'}</a>
+		</div>
+		<div class="col-xs-8 form-control-static">
+			<p class="control-label">
+				TODO: popisek
 			</p>
 		</div>
 	</div>

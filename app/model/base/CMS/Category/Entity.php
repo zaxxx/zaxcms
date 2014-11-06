@@ -56,6 +56,12 @@ abstract class BaseCategory extends BaseEntity {
 	protected $slug;
 
 	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $sidebar;
+
+	/**
 	 * @ORM\OneToMany(targetEntity="Article", mappedBy="category")
 	 * @ORM\OrderBy({"id" = "DESC"})
 	 */

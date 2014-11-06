@@ -74,16 +74,38 @@ abstract class BaseArticle extends BaseEntity {
 	 */
 	protected $updatedAt;
 
-	/**
+	/*
 	 * @ORM\ManyToOne(targetEntity="Author")
-	 * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+	 * @ORM\JoinColumn(name="author_id", referencedColumnName="id", nullable=TRUE)
+	 *
+	protected $author;*/
+
+	/**
+	 * @ORM\ManyToMany(targetEntity="Author", inversedBy="articles")
+	 * @ORM\JoinTable(name="author_article")
+	 * @ORM\OrderBy({"id" = "DESC"})
 	 */
-	protected $author;
+	protected $authors;
 
 	/**
 	 * @ORM\Column(type="string", length=512, nullable=TRUE)
 	 */
 	protected $image;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $imageList;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $imageRoot;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $imageDetail;
 
 	/**
 	 * @ORM\Column(type="boolean")
@@ -107,8 +129,39 @@ abstract class BaseArticle extends BaseEntity {
 	 */
 	protected $tags;
 
+	protected $displayImgKeys = [
+		'list',
+		'root',
+		'detail'
+	];
+
+	public function setDisplayImgFromArray(array $config) {
+		foreach($this->displayImgKeys as $key) {
+			$uckey = ucfirst($key);
+			$propertyName = 'image' . $uckey;
+			if(property_exists(get_class($this), $propertyName)) {
+				$this->{$propertyName} = isset($config[$key]) ? (bool)$config[$key] : FALSE;
+			}
+		};
+	}
+
+	public function getDisplayImgArray() {
+		$r = [];
+		foreach($this->displayImgKeys as $key) {
+			$property = 'image' . ucfirst($key);
+			if(property_exists(get_class($this), $property) && $this->{$property}) {
+				$r[] = $key;
+			}
+		}
+		return $r;
+	}
+
 	public function setTags($tags) {
 		$this->tags = $tags;
+	}
+
+	public function setAuthors($authors) {
+		$this->authors = $authors;
 	}
 
 	/**

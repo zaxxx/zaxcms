@@ -85,3 +85,10 @@ input.about-2-chars-long {
 .tab-pane-form {
     padding-top: 30px;
 }
+
+.inactive-transparent {
+    opacity: .5;
+}
+.inactive-transparent:hover {
+    opacity: 1;
+}

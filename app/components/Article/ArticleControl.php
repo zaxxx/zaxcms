@@ -4,6 +4,7 @@ namespace ZaxCMS\Components\Article;
 use Nette,
     Zax,
     ZaxCMS\Model,
+	ZaxCMS,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
     Zax\Application\UI\SecuredControl;
@@ -11,7 +12,8 @@ use Nette,
 class ArticleControl extends SecuredControl {
 
 	use TInjectEditArticleFactory,
-		Model\CMS\Service\TInjectArticleService;
+		Model\CMS\Service\TInjectArticleService,
+		ZaxCMS\DI\TInjectArticleConfig;
 
 	/** @persistent */
 	public $slug;
@@ -53,6 +55,7 @@ class ArticleControl extends SecuredControl {
     
     public function beforeRender() {
         $this->template->article = $this->article;
+	    $this->template->articleConfig = $this->articleConfig;
     }
 
 	/** @secured WebContent, Edit */

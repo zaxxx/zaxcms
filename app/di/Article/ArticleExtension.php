@@ -9,11 +9,14 @@ class ArticleExtension extends Nette\DI\CompilerExtension {
 
 	protected $defaults =  [
 		'list' => [
-			'itemsPerPage' => 10
+			'itemsPerPage' => 10,
+			'showTags' => TRUE,
+			'tagsOnBottom' => TRUE
 		],
 		'category' => [
 			'showBreadCrumb' => TRUE,
-			'showSubcategories' => TRUE
+			'showSubcategories' => TRUE,
+			'sidebarWidth' => 3
 		],
 		'article' => [
 			'defaults' => [
@@ -24,8 +27,13 @@ class ArticleExtension extends Nette\DI\CompilerExtension {
 			'showTimePosted' => TRUE,
 			'showAuthor' => TRUE,
 			'showCategory' => TRUE,
-			'showTags' => TRUE,
-			'tagsOnBottom' => TRUE
+			'showTagsList' => TRUE,
+			'showTagsDetail' => TRUE,
+			'tagsOnBottom' => FALSE,
+			'sidebarWidth' => 3
+		],
+		'author' => [
+			'sidebarWidth' => 3
 		]
 	];
 

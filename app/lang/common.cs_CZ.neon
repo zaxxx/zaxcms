@@ -18,6 +18,7 @@ button:
     newer: "Novější"
     setCreatedNow: "Nastavit čas vytvoření na nyní"
     actions: "Akce"
+    publish: "Zveřejnit"
 form:
     id: "ID"
     name: "Název"
@@ -44,6 +45,7 @@ alert:
 general:
     note: "Pozn."
     never: "Nikdy"
+    nothing: "nic"
     is: "je"
     isnt: "není"
     yes: "Ano"

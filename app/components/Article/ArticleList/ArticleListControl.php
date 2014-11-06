@@ -61,13 +61,14 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 		return (new Model\CMS\Query\ArticleQuery($this->getLocale()))
 			->inCategories($this->categories)
 			->withTag($this->tag)
-			->publicOnly(!$this->user->isAllowed('WebContent', 'Edit'))
 			->byAuthor($this->author)
-			->search($this->search, $this->searchTitleOnly);
+			->search($this->search, $this->searchTitleOnly)
+			->publicOnly(!$this->user->isAllowed('WebContent', 'Edit'))
+			->addRootCategoryFilter($this->category, $this->user->isAllowed('WebContent', 'Edit'));
 	}
 
     public function viewDefault() {
-        $this->template->isSpecificCategory = $this->category !== NULL;
+        $this->template->isRootCategory = $this->category !== NULL && $this->category->depth === 0;
     }
     
     public function beforeRender() {

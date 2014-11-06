@@ -12,6 +12,7 @@ use Nette,
 class CategoryControl extends SecuredControl {
 
 	use TInjectArticleListFactory,
+		TInjectEditCategoryFactory,
 		Model\CMS\Service\TInjectCategoryService,
 		TInjectAddArticleFactory,
 		TInjectAddCategoryFactory,
@@ -52,6 +53,11 @@ class CategoryControl extends SecuredControl {
 	public function viewAddCategory() {
 
 	}
+
+	/** @secured WebContent, Edit */
+	public function viewEditCategory() {
+
+	}
     
     public function beforeRender() {
 	    $this->template->category = $this->getCategory();
@@ -75,6 +81,11 @@ class CategoryControl extends SecuredControl {
 	protected function createComponentAddCategory() {
 		return $this->addCategoryFactory->create()
 			->setParentCategory($this->getCategory());
+	}
+
+	protected function createComponentEditCategory() {
+	    return $this->editCategoryFactory->create()
+		    ->setCategory($this->getCategory());
 	}
 
 }

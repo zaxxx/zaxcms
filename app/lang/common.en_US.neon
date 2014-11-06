@@ -17,6 +17,7 @@ button:
     newer: "Newer"
     setCreatedNow: "Set time created to now"
     actions: "Actions"
+    publish: "Publish"
 form:
     id: "ID"
     name: "Name"
@@ -43,6 +44,7 @@ alert:
 general:
     note: "Note"
     never: "Never"
+    nothing: "nothing"
     is: "is"
     isnt: "is not"
     yes: "Yes"

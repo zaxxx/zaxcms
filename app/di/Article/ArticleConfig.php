@@ -32,6 +32,68 @@ class ArticleConfig extends AbstractConfig {
 			: $sub;
 	}
 
+	public function getListShowTags() {
+		$bc = $this->config['list']['showTags'];
+		return $bc === NULL
+			? $this->user->isAllowed('WebContent', 'Edit')
+			: $bc;
+	}
+
+	public function getArticleShowTags() {
+		$bc = $this->config['article']['showTags'];
+		return $bc === NULL
+			? $this->user->isAllowed('WebContent', 'Edit')
+			: $bc;
+	}
+
+	public function getShowTimePosted() {
+		$bc = $this->config['article']['showTimePosted'];
+		return $bc === NULL
+			? $this->user->isAllowed('WebContent', 'Edit')
+			: $bc;
+	}
+
+	public function getShowCategory() {
+		$bc = $this->config['article']['showCategory'];
+		return $bc === NULL
+			? $this->user->isAllowed('WebContent', 'Edit')
+			: $bc;
+	}
+
+	public function getShowAuthor() {
+		$bc = $this->config['article']['showAuthor'];
+		return $bc === NULL
+			? $this->user->isAllowed('WebContent', 'Edit')
+			: $bc;
+	}
+
+	public function getArticleTagsOnBottom() {
+		$bc = $this->config['article']['tagsOnBottom'];
+		return $bc === NULL
+			? $this->user->isAllowed('WebContent', 'Edit')
+			: $bc;
+	}
+
+	public function getListTagsOnBottom() {
+		$bc = $this->config['list']['tagsOnBottom'];
+		return $bc === NULL
+			? $this->user->isAllowed('WebContent', 'Edit')
+			: $bc;
+	}
+
+	public function getCategorySidebarWidth() {
+		return $this->config['category']['sidebarWidth'];
+	}
+
+	public function getArticleSidebarWidth() {
+		return $this->config['article']['sidebarWidth'];
+	}
+
+	public function getAuthorSidebarWidth() {
+		return $this->config['author']['sidebarWidth'];
+	}
+
+
 	public function getArticleDefaults($key) {
 		return $this->config['article']['defaults'][$key];
 	}

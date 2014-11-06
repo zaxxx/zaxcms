@@ -8,6 +8,7 @@ button:
     addArticle: "Add article"
     editArticle: "Edit article"
     addCategory: "Add category"
+    editCategory: "Edit category"
     saveAndGo: "and show"
 form:
     title: "Title"
@@ -23,6 +24,7 @@ form:
     setVisibleOnMain: "Show in main category"
     introPicture: "Picture"
     layout: "Layout"
+    displayImg: "Show image"
 alert:
     articleSaved: "Article saved."
     categorySaved: "Category saved."

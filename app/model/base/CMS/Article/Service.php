@@ -25,6 +25,9 @@ class ArticleService extends Zax\Model\Doctrine\Service {
 		$article->isMain = $articleConfig->getArticleDefaults('isMain');
 		$article->isVisibleInRootCategory = $articleConfig->getArticleDefaults('isVisibleInRootCategory');
 		$article->isPublic = $articleConfig->getArticledefaults('isPublic');
+		$article->imageRoot = TRUE;
+		$article->imageList = TRUE;
+		$article->imageDetail = TRUE;
 		return $article;
 	}
 

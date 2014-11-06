@@ -12,6 +12,7 @@ use Nette,
 class EditArticleControl extends SecuredControl {
 
 	use TInjectEditArticleFormFactory,
+		TInjectDeleteArticleFormFactory,
 		ZaxCMS\Components\FileManager\TInjectFileManagerFactory,
 		Model\CMS\Service\TInjectArticleService,
 		Zax\Utils\TInjectRootDir;
@@ -31,6 +32,10 @@ class EditArticleControl extends SecuredControl {
 	public function viewFiles() {
 
 	}
+
+	public function viewDelete() {
+
+	}
 	
 	public function viewActions() {
 	    
@@ -38,6 +43,14 @@ class EditArticleControl extends SecuredControl {
 
 	public function beforeRender() {
 
+	}
+
+	/** @secured WebContent, Edit */
+	public function handlePublish() {
+		$this->article->isPublic = TRUE;
+		$this->articleService->persist($this->article);
+		$this->articleService->flush();
+		$this->go('this');
 	}
 
 	/** @secured WebContent, Edit */
@@ -52,6 +65,11 @@ class EditArticleControl extends SecuredControl {
 	    return $this->editArticleFormFactory->create()
 		    ->setArticle($this->article)
 		    ->disableAjaxFor(['form']);
+	}
+
+	protected function createComponentDeleteArticleForm() {
+	    return $this->deleteArticleFormFactory->create()
+		    ->setArticle($this->article);
 	}
 
 	/** @secured FileManager, Use */

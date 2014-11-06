@@ -5,15 +5,19 @@ extensions:
 ZaxCMSArticle:
     list:
         itemsPerPage: 10
+        showTags: TRUE
+        tagsOnBottom: TRUE
     category:
         showBreadCrumb: NULL
         showSubcategories: NULL
+        sidebarWidth: 3
     article:
-        showTimePosted: FALSE
-        showAuthor: FALSE
-        showCategory: FALSE
-        showTags: FALSE
-        tagsOnBottom: FALSE
+        showTimePosted: TRUE
+        showAuthor: TRUE
+        showCategory: TRUE
+        showTags: TRUE
+        tagsOnBottom: TRUE
+        sidebarWidth: 3
         defaults:
             isVisibleInRootCategory: TRUE
             isMain: FALSE

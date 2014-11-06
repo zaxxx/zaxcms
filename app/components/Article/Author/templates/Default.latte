@@ -1,1 +1,13 @@
-{control articleList}
+<div class="row">
+	<div class="col-sm-{=12-$articleConfig->authorSidebarWidth}">
+
+		{control articleList}
+
+	</div>
+	<div class="col-sm-{$articleConfig->authorSidebarWidth}">
+
+		{includeblock '../../authorSidebar.latte'}
+
+	</div>
+</div>
+

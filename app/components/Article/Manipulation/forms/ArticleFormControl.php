@@ -37,6 +37,8 @@ abstract class ArticleFormControl extends FormControl {
     public function createForm() {
         $f = parent::createForm();
 
+	    $id = $this->lookupPath('Nette\Application\UI\Presenter') . '-form';
+
 	    $main = $f->addContainer('main');
 
 	    $main->addStatic('category', 'article.form.category')
@@ -51,10 +53,15 @@ abstract class ArticleFormControl extends FormControl {
 	    $main['title']->getLabelPrototype()
 		    ->addClass('lead');
 
+	    $authors = [];
+	    if($this->article->authors !== NULL) {
+		    foreach($this->article->authors as $author) {
+			    $authors[] = $author->name;
+		    }
+	    }
 	    $allAuthors = $this->authorService->findPairs(NULL, 'name');
-
-	    $main->addAutoComplete('authorName', 'article.form.author', array_values($allAuthors))
-		    ->setDefaultValue($this->article->author === NULL ? '' : $this->article->author->name);
+	    $main->addMultiAutoComplete('authorsList', 'article.form.author', array_values($allAuthors))
+		    ->setDefaultValue(implode(', ', $authors));
 
 
 	    $tags = [];
@@ -63,9 +70,7 @@ abstract class ArticleFormControl extends FormControl {
 			    $tags[] = $tag->title;
 		    }
 	    }
-
 	    $allTags = $this->tagService->findPairs(NULL, 'title');
-
 	    $main->addMultiAutoComplete('tagsList', 'article.form.tags', array_values($allTags))
 		    ->setDefaultValue(implode(', ', $tags));
 
@@ -77,14 +82,36 @@ abstract class ArticleFormControl extends FormControl {
 
 		$pic = $f->addContainer('pic');
 
+	    // article has image and deleteImg checkbox is checked => hide the displayImg checkboxlist
 	    if($this->article->image !== NULL) {
-		    $pic->addCheckbox('deleteImg', 'common.form.removeImage');
+		    $pic->addCheckbox('deleteImg', 'common.form.removeImage')
+			    ->addCondition($f::EQUAL, FALSE)
+			        ->toggle($id . '-pic-displayImg');
 	    }
 
 	    $pic->addFileUpload('img', 'common.form.image')
+		    ->setOption('id', $id . '-pic-image')
 		    ->addCondition($f::FILLED)
-		    ->addRule($f::IMAGE);
+			    ->addRule($f::IMAGE);
 
+	    // upload is filled => show displayImg checkboxlist
+	    $pic['img']
+		    ->addCondition($f::FILLED)
+		        ->toggle($id . '-pic-displayImg');
+
+	    // article has image and deleteImg is checked => show upload
+	    if($this->article->image !== NULL) {
+		    $pic['deleteImg']
+		        ->addCondition($f::EQUAL, TRUE)
+			        ->toggle($id . '-pic-image');
+	    }
+
+	    $pic->addCheckboxList('displayImg', 'article.form.displayImg', [
+		    'list' => 'V seznamech',
+		    'root' => 'V kořenové kategorii',
+		    'detail' => 'V detailu článku'
+	    ])->setvalue($this->article->getDisplayImgArray())
+		    ->setOption('id', $id . '-pic-displayImg');
 
 
 	    $options = $f->addContainer('options');
@@ -93,9 +120,9 @@ abstract class ArticleFormControl extends FormControl {
 
 	    $options->addCheckbox('isVisibleInRootCategory', 'article.form.setVisibleOnMain');
 
-	    $id = $this->lookupPath();
+
 	    $options->addCheckbox('isMain', 'article.form.setAsMain')
-		    ->setOption('id', $id . '-form-style-isMain');
+		    ->setOption('id', $id . '-style-isMain');
 
 	    $style = $f->addContainer('style');
 
@@ -104,27 +131,13 @@ abstract class ArticleFormControl extends FormControl {
 		//$proto->add($box);
 	    $proto->add('test');
 
-		$styles = [
-			0 => $proto,
-			1 => $proto
-		];
+	    $style->addStatic('todo', '')
+		    ->setValue('TODO!');
 
-	    $style->addRadioList('displayStyleList', 'Zobrazení v seznamu', $styles);
-
-	    $style->addRadioList('displayStyleRoot', 'Zobrazení v kořenové kategorii', $styles + [3 => 'stejné jako v seznamu'])
-		    ->setOption('id', $id . '-form-style-displayStyleRoot');
-
-	    $style->addRadioList('displayStyleMain', 'Pokud je označen jako hlavní', $styles + [3 => 'stejné jako v seznamu'])
-		    ->setOption('id', $id . '-form-style-displayStyleMain');
-
-	    $style->addRadioList('displayStyle', 'Zobrazení detailu', $styles);
-
-
+		// hide root-related stuff when category is not displayed in root
 	    $options['isVisibleInRootCategory']
 		    ->addCondition(Form::EQUAL, TRUE)
-		        ->toggle($id . '-form-style-displayStyleRoot')
-		        ->toggle($id . '-form-style-displayStyleMain')
-		        ->toggle($id . '-form-style-isMain');
+		        ->toggle($id . '-style-isMain');
 
 	    $footer = $f->addContainer('footer');
 
@@ -132,8 +145,11 @@ abstract class ArticleFormControl extends FormControl {
 	    $footer->addButtonSubmit('saveArticleGo', 'article.button.saveAndGo', '');
 	    $footer->addLinkSubmit('cancel', '', 'remove', $this->link('cancel!'));
 
+	    $f->addProtection();
+
 	    $f->enableBootstrap(['success' => ['saveArticle', 'saveArticleGo'], 'default' => ['cancel']], TRUE);
 
+	    // fill the form from entity
 	    $this->binder->entityToForm($this->article, $main);
 	    $this->binder->entityToForm($this->article, $pic);
 	    $this->binder->entityToForm($this->article, $options);
@@ -143,39 +159,66 @@ abstract class ArticleFormControl extends FormControl {
 
 	    return $f;
     }
-
-	protected function postProcess(Model\CMS\Entity\Article $article) {
-
-	}
     
     public function formSuccess(Form $form, $values) {
         if($form->submitted === $form['footer-saveArticle'] || $form->submitted === $form['footer-saveArticleGo']) {
+
+	        // Fill entity
 	        $this->binder->formToEntity($form['main'], $this->article);
 	        $this->binder->formToEntity($form['pic'], $this->article);
 	        $this->binder->formToEntity($form['options'], $this->article);
 	        $this->binder->formToEntity($form['style'], $this->article);
 
-	        $tags = array_map('trim', explode(',', $values->main->tagsList));
-	        $entityTags = [];
-	        if($tags !== NULL && count($tags) > 0) {
-		        foreach($tags as $tag) {
-			        if(strlen($tag) > 0) {
-				        $entityTags[$tag] = $this->tagService->getOrCreateTag($tag);
+	        $displayImg = array_flip($values->pic->displayImg);
+	        $displayImg = array_fill_keys(array_keys($displayImg), TRUE);
+	        $this->article->setDisplayImgFromArray($displayImg);
+
+	        // Process tags
+	        $authors = array_map('trim', explode(',', $values->main->tagsList));
+	        $entityAuthors = [];
+	        if($authors !== NULL && count($authors) > 0) {
+		        foreach($authors as $author) {
+			        if(strlen($author) > 0) {
+				        $entityAuthors[$author] = $this->tagService->getOrCreateTag($author);
 			        }
 		        }
 	        }
-	        $this->article->setTags(count($entityTags) > 0 ? array_values($entityTags) : NULL);
+	        $this->article->setTags(count($entityAuthors) > 0 ? array_values($entityAuthors) : NULL);
 
-	        $this->article->author = $this->authorService->getOrCreateAuthor($values->main->authorName);
+	        // Process authors
+	        $authors = array_map('trim', explode(',', $values->main->authorsList));
+	        $entityAuthors = [];
+	        if($authors !== NULL && count($authors) > 0) {
+		        foreach($authors as $author) {
+			        if(strlen($author) > 0) {
+				        $entityAuthors[$author] = $this->authorService->getOrCreateAuthor($author);
+			        }
+		        }
+	        }
+	        $this->article->setAuthors(count($entityAuthors) > 0 ? array_values($entityAuthors) : NULL);
 
 	        $this->articleService->persist($this->article);
 	        $this->articleService->flush();
 
+	        // Process delete image
+	        if(isset($values->pic->deleteImg) && $values->pic->deleteImg) {
+		        $file = $this->rootDir . DIRECTORY_SEPARATOR . $this->article->image;
+		        if(file_exists($file))
+			        Nette\Utils\FileSystem::delete($file);
+		        $this->article->image = NULL;
+
+		        $this->articleService->persist($this->article);
+		        $this->articleService->flush();
+	        }
+
+	        // Process upload image
 	        if($values->pic->img instanceof Nette\Http\FileUpload && $values->pic->img->isOk()) {
+
 		        $dir = 'upload' . DIRECTORY_SEPARATOR . 'articles' . DIRECTORY_SEPARATOR . $this->article->id;
 		        if(!file_exists($this->rootDir . DIRECTORY_SEPARATOR . $dir)) {
 			        Nette\Utils\FileSystem::createDir($this->rootDir . DIRECTORY_SEPARATOR . $dir);
 		        }
+
 		        $path = $dir . DIRECTORY_SEPARATOR . $values->pic->img->getSanitizedName();
 		        $values->pic->img->move($this->rootDir . DIRECTORY_SEPARATOR . $path);
 
@@ -183,13 +226,9 @@ abstract class ArticleFormControl extends FormControl {
 
 		        $this->articleService->persist($this->article);
 		        $this->articleService->flush();
-	        } else if(isset($values->pic->deleteImg) && $values->pic->deleteImg) {
-		        $this->article->image = NULL;
-
-		        $this->articleService->persist($this->article);
-		        $this->articleService->flush();
 	        }
 
+	        // Set as main
 	        if($this->article->isMain) {
 		        $qb = $this->articleService->getEntityManager()->createQueryBuilder();
 		        $qb->update(Model\CMS\Entity\Article::getClassName(), 'a')
@@ -200,6 +239,7 @@ abstract class ArticleFormControl extends FormControl {
 			        ->execute();
 	        }
 
+	        // Tadaaaa!!
 	        $this->flashMessage('article.alert.articleSaved', 'success');
 	        if($form->submitted === $form['footer-saveArticleGo']) {
 		        $this->presenter->redirect('Blog:article', ['article-slug' => $this->article->slug, 'article-view' => 'Default']);

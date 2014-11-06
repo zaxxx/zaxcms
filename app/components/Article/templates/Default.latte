@@ -1,8 +1,12 @@
+<div class="row">
+	<div class="col-sm-{=12-$articleConfig->articleSidebarWidth}">
+		{includeblock '../articleListItem.latte', isDetail => TRUE, articleContent => $article->content, articleConfig => $articleConfig}
+	</div>
+	<div class="col-sm-{$articleConfig->articleSidebarWidth}">
 
-<span class="pull-right" n:secured="WebContent, Edit">
-	<a n:href="this, view => Edit" title="{_'article.button.editArticle'}">{icon pencil}</a>
-</span>
+		{includeblock '../articleSidebar.latte'}
 
-{includeblock '../articleListItem.latte'}
+	</div>
 
-{$article->content|texy|noescape}
+
+</div>

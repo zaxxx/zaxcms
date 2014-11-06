@@ -8,6 +8,7 @@ button:
     addArticle: "Přidat článek"
     editArticle: "Upravit článek"
     addCategory: "Přidat kategorii"
+    editCategory: "Upravit kategorii"
     saveAndGo: "a zobrazit"
 form:
     title: "Nadpis"
@@ -23,6 +24,7 @@ form:
     setVisibleOnMain: "Zobrazovat v kořenové kategorii"
     introPicture: "Úvodní obrázek"
     layout: "Rozložení"
+    displayImg: "Zobrazit obrázek"
 alert:
     articleSaved: "Článek byl uložen."
     categorySaved: "Kategorie byla uložena."
