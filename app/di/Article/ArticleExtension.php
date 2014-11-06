@@ -14,6 +14,18 @@ class ArticleExtension extends Nette\DI\CompilerExtension {
 		'category' => [
 			'showBreadCrumb' => TRUE,
 			'showSubcategories' => TRUE
+		],
+		'article' => [
+			'defaults' => [
+				'isVisibleInRootCategory' => TRUE,
+				'isMain' => FALSE,
+				'isPublic' => FALSE
+			],
+			'showTimePosted' => TRUE,
+			'showAuthor' => TRUE,
+			'showCategory' => TRUE,
+			'showTags' => TRUE,
+			'tagsOnBottom' => TRUE
 		]
 	];
 

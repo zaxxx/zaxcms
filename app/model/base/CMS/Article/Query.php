@@ -53,11 +53,29 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 		return $this;
 	}
 
-	public function search($needle) {
-		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($needle) {
+	public function byAuthor(Model\CMS\Entity\Author $author = NULL) {
+		if($author === NULL) {
+			return $this;
+		}
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($author) {
+			$qb->andWhere('d.id = :author')->setParameter('author', $author->id);
+		};
+		return $this;
+	}
+
+	public function search($needle = NULL, $titleOnly = FALSE) {
+		if($needle === NULL) {
+			return $this;
+		}
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($needle, $titleOnly) {
 
 			$qb->andWhere('a.title LIKE :search')
 				->setParameter('search', "%$needle%");
+
+			if(!$titleOnly) {
+				$qb->orWhere('a.perex LIKE :search');
+				$qb->orWhere('a.content LIKE :search');
+			}
 		};
 		return $this;
 	}

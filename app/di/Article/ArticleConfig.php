@@ -32,6 +32,10 @@ class ArticleConfig extends AbstractConfig {
 			: $sub;
 	}
 
+	public function getArticleDefaults($key) {
+		return $this->config['article']['defaults'][$key];
+	}
+
 }
 
 trait TInjectArticleConfig {

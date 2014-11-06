@@ -1,14 +1,17 @@
-
+<div n:snippet>
 <ol class="breadcrumb" n:if="$articleConfig->showBreadCrumb">
 	Kategorie:
 	{foreach $ancestors as $ancestor}
-		<li><a href="{$presenter->link('Category:default', [category-slug => $ancestor->slug])}">{$ancestor->title}</a></li>
+		<li><a href="{$presenter->link('Blog:category', [category-slug => $ancestor->slug])}">{$ancestor->title}</a></li>
 	{/foreach}
 </ol>
 
 <ul n:if="$articleConfig->showSubcategories && count($category->children) > 0" n:inner-foreach="$category->children as $child">
-	<li><a href="{$presenter->link('Category:default', [category-slug => $child->slug])}">{$child->title}</a></li>
+	<li><a href="{$presenter->link('Blog:category', [category-slug => $child->slug])}">{$child->title}</a></li>
 </ul>
+<a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => AddCategory">{icon plus} {_'article.button.addCategory'}</a>
 
+<a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => Add">{icon plus} {_'article.button.addArticle'}</a>
 
 {control articleList}
+</div>

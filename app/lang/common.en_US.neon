@@ -15,6 +15,8 @@ button:
     preview: "Preview"
     older: "Older"
     newer: "Newer"
+    setCreatedNow: "Set time created to now"
+    actions: "Actions"
 form:
     id: "ID"
     name: "Name"
@@ -26,9 +28,12 @@ form:
     displayName: "Displayed name"
     description: "Description"
     confirmDelete: "Do you really want to delete this item?"
+    options: "Options"
     advancedOptions: "Show advanced options"
     sort: "Sort"
     filter: "Filter"
+    image: "Image"
+    removeImage: "Remove image"
 alert:
     changesSaved: "Changes saved."
     changesError: "Error while saving changes."

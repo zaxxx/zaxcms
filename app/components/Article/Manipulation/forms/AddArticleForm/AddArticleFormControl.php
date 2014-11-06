@@ -18,10 +18,6 @@ class AddArticleFormControl extends ArticleFormControl {
 		$this->userService = $userService;
 	}
 
-	protected function postProcess(Model\CMS\Entity\Article $article) {
-		$article->author = $this->userService->get($this->user->id);
-	}
-
 	public function handleCancel() {
 		$this->parent->parent->go('this', ['view' => 'Default']);
 	}

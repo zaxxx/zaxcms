@@ -10,7 +10,11 @@ use Nette,
 
 class ArticleControl extends SecuredControl {
 
-	use TInjectEditArticleFactory;
+	use TInjectEditArticleFactory,
+		Model\CMS\Service\TInjectArticleService;
+
+	/** @persistent */
+	public $slug;
 
 	protected $article;
 
@@ -21,9 +25,21 @@ class ArticleControl extends SecuredControl {
 		}
 	}
 
-	public function setArticle(Model\CMS\Entity\Article $article) {
-		$this->article = $article;
-		return $this;
+	protected function getSlug() {
+		return (string)$this->slug;
+	}
+
+	public function getArticle() {
+		if($this->article === NULL) {
+			$article = $this->articleService->getBy(['slug' => $this->getSlug()]);
+			if($article === NULL) {
+				throw new Nette\Application\BadRequestException;
+			}
+			$article->setTranslatableLocale($this->getLocale());
+			$this->articleService->refresh($article);
+			$this->article = $article;
+		}
+		return $this->article;
 	}
 
     public function viewDefault() {
@@ -39,10 +55,10 @@ class ArticleControl extends SecuredControl {
         $this->template->article = $this->article;
     }
 
+	/** @secured WebContent, Edit */
 	protected function createComponentEditArticle() {
 	    return $this->editArticleFactory->create()
-		    ->setArticle($this->article)
-		    ->enableAjax();
+		    ->setArticle($this->getArticle());
 	}
 
 

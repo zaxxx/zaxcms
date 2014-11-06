@@ -60,7 +60,7 @@ abstract class CategoryFormControl extends FormControl {
 	        $this->categoryService->flush();
 
 	        $this->flashMessage('article.alert.categorySaved', 'success');
-	        $this->presenter->redirect('Category:default', ['slug' => $this->category->slug]);
+	        $this->presenter->redirect('Category:default', ['category-slug' => $this->category->slug]);
         }
     }
     

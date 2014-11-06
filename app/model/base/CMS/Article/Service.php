@@ -11,9 +11,21 @@ use Zax,
 
 class ArticleService extends Zax\Model\Doctrine\Service {
 
-	public function __construct(Kdyby\Doctrine\EntityManager $entityManager) {
+	protected $articleConfig;
+
+	public function __construct(Kdyby\Doctrine\EntityManager $entityManager, ZaxCMS\DI\ArticleConfig $articleConfig) {
 		parent::__construct($entityManager);
 		$this->entityClassName = Entity\Article::getClassName();
+		$this->articleConfig = $articleConfig;
+	}
+
+	public function create() {
+		$article = parent::create();
+		$articleConfig = $this->articleConfig;
+		$article->isMain = $articleConfig->getArticleDefaults('isMain');
+		$article->isVisibleInRootCategory = $articleConfig->getArticleDefaults('isVisibleInRootCategory');
+		$article->isPublic = $articleConfig->getArticledefaults('isPublic');
+		return $article;
 	}
 
 }

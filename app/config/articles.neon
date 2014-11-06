@@ -13,3 +13,8 @@ ZaxCMSArticle:
         showAuthor: FALSE
         showCategory: FALSE
         showTags: FALSE
+        tagsOnBottom: FALSE
+        defaults:
+            isVisibleInRootCategory: TRUE
+            isMain: FALSE
+            isPublic: FALSE

@@ -32,7 +32,8 @@ class AddArticleControl extends SecuredControl {
 		$article = $this->articleService->create();
 		$article->category = $this->category;
 	    return $this->addArticleFormFactory->create()
-		    ->setArticle($article);
+		    ->setArticle($article)
+		    ->disableAjaxFor(['form']);
 	}
 
 }

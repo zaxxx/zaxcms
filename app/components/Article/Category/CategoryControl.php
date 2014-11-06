@@ -7,12 +7,14 @@ use Nette,
 	ZaxCMS,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+    Zax\Application\UI\SecuredControl;
 
-class CategoryControl extends Control {
+class CategoryControl extends SecuredControl {
 
 	use TInjectArticleListFactory,
 		Model\CMS\Service\TInjectCategoryService,
+		TInjectAddArticleFactory,
+		TInjectAddCategoryFactory,
 		ZaxCMS\DI\TInjectArticleConfig;
 
 	/** @persistent */
@@ -40,6 +42,16 @@ class CategoryControl extends Control {
     public function viewDefault() {
 
     }
+
+	/** @secured WebContent, Edit */
+	public function viewAdd() {
+		$this['addArticle'];
+	}
+
+	/** @secured WebContent, Edit */
+	public function viewAddCategory() {
+
+	}
     
     public function beforeRender() {
 	    $this->template->category = $this->getCategory();
@@ -53,6 +65,16 @@ class CategoryControl extends Control {
 			->enablePaginator($this->articleConfig->getListItemsPerPage())
 			->setMainCategory($this->getCategory())
 			->setCategories($children);
+	}
+
+	protected function createComponentAddArticle() {
+		return $this->addArticleFactory->create()
+			->setCategory($this->getCategory());
+	}
+
+	protected function createComponentAddCategory() {
+		return $this->addCategoryFactory->create()
+			->setParentCategory($this->getCategory());
 	}
 
 }

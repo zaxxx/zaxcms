@@ -16,6 +16,8 @@ button:
     pickLocale: "Change language"
     older: "Starší"
     newer: "Novější"
+    setCreatedNow: "Nastavit čas vytvoření na nyní"
+    actions: "Akce"
 form:
     id: "ID"
     name: "Název"
@@ -27,9 +29,12 @@ form:
     displayName: "Zobrazený název"
     description: "Popis"
     confirmDelete: "Opravdu chcete odstranit tuto položku?"
+    options: "Volby"
     advancedOptions: "Zobrazit pokročilé volby"
     sort: "Řazení"
     filter: "Filtry"
+    image: "Obrázek"
+    removeImage: "Odstranit obrázek"
 alert:
     changesSaved: "Změny uloženy."
     changesError: "Chyba při ukládání změn."

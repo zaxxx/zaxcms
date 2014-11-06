@@ -81,3 +81,7 @@ input.about-2-chars-long {
 .popover{
     max-width: none;
 }
+
+.tab-pane-form {
+    padding-top: 30px;
+}

@@ -9,7 +9,7 @@ use Nette,
 	Nette\Application\UI as NetteUI,
 	Zax;
 
-class TagPresenter extends ZaxCMS\BaseTagPresenter {
+class SearchPresenter extends ZaxCMS\BaseSearchPresenter {
 
 
 

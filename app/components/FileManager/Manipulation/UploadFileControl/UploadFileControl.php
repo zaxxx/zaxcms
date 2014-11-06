@@ -74,7 +74,7 @@ class UploadFileControl extends FileManipulationControl {
 	protected function createComponentUploadForm() {
 		$f = $this->createForm();
 
-		$f->addUpload('file', 'fileManager.form.files', TRUE)
+		$f->addFileUpload('file', 'fileManager.form.files', TRUE)
 			->addRule(Zax\Application\UI\Form::MAX_FILE_SIZE, NULL, Zax\Utils\HttpHelpers::getMaxUploadSize()*1024*1024);
 
 		$f->addButtonSubmit('upload', 'fileManager.button.upload', 'upload');

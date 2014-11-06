@@ -19,6 +19,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		Components\WebContent\TInjectWebContentFactory,
 		Components\Navigation\TInjectNavigationFactory,
 		Components\Auth\TInjectTinyLoginBoxFactory,
+		Components\Search\TInjectSearchFormFactory,
 		Components\LocaleSelect\TInjectLocaleSelectFactory;
 
 	/** @persistent */
@@ -93,6 +94,10 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		return new NetteUI\Multiplier(function($id) {
 			return $this->webLoaderFactory->createJavascriptLoader($id);
 		});
+	}
+
+	protected function createComponentSearchForm() {
+		return $this->searchFormFactory->create();
 	}
 
 }

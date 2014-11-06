@@ -10,3 +10,7 @@ services:
     - ZaxCMS\Components\Article\IAddCategoryFormFactory
 
     - ZaxCMS\Components\Article\ICategoryFactory
+
+    - ZaxCMS\Components\Article\ITagFactory
+
+    - ZaxCMS\Components\Article\IAuthorFactory

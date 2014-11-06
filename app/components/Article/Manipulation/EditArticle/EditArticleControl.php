@@ -13,6 +13,7 @@ class EditArticleControl extends SecuredControl {
 
 	use TInjectEditArticleFormFactory,
 		ZaxCMS\Components\FileManager\TInjectFileManagerFactory,
+		Model\CMS\Service\TInjectArticleService,
 		Zax\Utils\TInjectRootDir;
 
 	protected $article;
@@ -30,14 +31,27 @@ class EditArticleControl extends SecuredControl {
 	public function viewFiles() {
 
 	}
+	
+	public function viewActions() {
+	    
+	}
 
 	public function beforeRender() {
 
 	}
 
+	/** @secured WebContent, Edit */
+	public function handleSetCreatedNow() {
+		$this->article->createdAt = new \DateTime;
+		$this->articleService->persist($this->article);
+		$this->articleService->flush();
+		$this->go('this');
+	}
+
 	protected function createComponentEditArticleForm() {
 	    return $this->editArticleFormFactory->create()
-		    ->setArticle($this->article);
+		    ->setArticle($this->article)
+		    ->disableAjaxFor(['form']);
 	}
 
 	/** @secured FileManager, Use */

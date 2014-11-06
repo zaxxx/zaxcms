@@ -75,10 +75,25 @@ abstract class BaseArticle extends BaseEntity {
 	protected $updatedAt;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="User")
+	 * @ORM\ManyToOne(targetEntity="Author")
 	 * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
 	 */
 	protected $author;
+
+	/**
+	 * @ORM\Column(type="string", length=512, nullable=TRUE)
+	 */
+	protected $image;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $isMain;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $isVisibleInRootCategory;
 
 	/**
 	 * @ORM\Column(type="boolean")

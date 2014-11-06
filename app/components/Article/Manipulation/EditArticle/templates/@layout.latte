@@ -4,6 +4,7 @@
 		<ul class="nav panel-tabs pull-right">
 
 			<li n:class="$view === Default ? active"><a n:href="this, view => Default" n:class="$ajaxEnabled ? ajax">{icon pencil} {_}webContent.button.content{/_}</a></li>
+			<li n:class="$view === Actions ? active"><a n:href="this, view => Actions" n:class="$ajaxEnabled ? ajax">{icon cog} {_}common.button.actions{/_}</a></li>
 			<li n:secured="FileManager, Use" n:class="$view === Files ? active"><a n:href="this, view => Files" n:class="$ajaxEnabled ? ajax">{icon file} {_}webContent.button.files{/_}</a></li>
 
 			<li><a href="{$control->parent->link('this', [view => Default])}" n:class="btn, btn-danger" title="{_'common.button.close'}" data-placement="auto">&times;</a></li>
