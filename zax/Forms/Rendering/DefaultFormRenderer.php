@@ -22,6 +22,11 @@ class DefaultFormRenderer extends Nette\Forms\Rendering\DefaultFormRenderer {
 
 	}
 
+	public function renderContainer(Nette\Forms\Form $form, Nette\Forms\Container $container) {
+		$this->form = $form;
+		return Nette\Utils\Html::el()->setHtml($this->renderControls($container));
+	}
+
 	/**
 	 * The following method is derived from code of Nette Framework 2.2
 	 *

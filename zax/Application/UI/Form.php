@@ -156,68 +156,6 @@ class Form extends Nette\Application\UI\Form {
 	}
 
 	/**
-	 * Submit button using <button> tag for icons
-	 *
-	 * @param       $name
-	 * @param null  $label
-	 * @param null  $icon
-	 * @param array $data
-	 * @return Nette\Forms\Controls\SubmitButton
-	 */
-	public function addButtonSubmit($name, $label = NULL, $icon = NULL, $data = array()) {
-		$control = new Nette\Forms\Controls\SubmitButton($label);
-		$proto = $control->getControlPrototype();
-		$proto->setName('button');
-		$proto->setType('submit');
-		foreach($data as $key=>$value) {
-			$proto->setData($key, $value);
-		}
-
-		$label = $this->makeLabel($this->translator->translate($label), $icon);
-
-		$proto->setHtml($label);
-		return $this[$name] = $control;
-	}
-
-	public function addTexyArea($name, $label) {
-		$control = new Zax\Forms\Controls\TexyAreaInput($label);
-		$control->injectIcons($this->icons);
-		return $this[$name] = $control;
-	}
-
-	/**
-	 * Custom file upload factory to support 'filestyle' library.
-	 *
-	 * @param      $name
-	 * @param null $label
-	 * @param bool $multiple
-	 * @return Nette\Forms\Controls\UploadControl
-	 */
-	public function addUpload($name, $label = NULL, $multiple = FALSE) {
-		$upload = parent::addUpload($name, $label, $multiple);
-		$upload->getControlPrototype()->setData(['buttonText' => $this->translator->translate('common.button.chooseFile' . ($multiple ? 's' : ''))]);
-		return $upload;
-	}
-
-	public function addEmail($name, $label = NULL, $cols = NULL, $maxLength = NULL) {
-		$text = parent::addText($name, $label, $cols, $maxLength);
-		$text->setType('email');
-		$text->addCondition(Nette\Forms\Form::FILLED)
-			->addRule(Nette\Forms\Form::EMAIL);
-		return $text;
-	}
-
-	public function addArrayTextArea($name, $label = NULL, $keyValDelimiter = NULL) {
-		$control = new Zax\Forms\Controls\ArrayTextAreaControl($label, $keyValDelimiter);
-		return $this[$name] = $control;
-	}
-
-	public function addNeonTextArea($name, $label=NULL) {
-		$control = new Zax\Forms\Controls\NeonTextAreaControl($label);
-		return $this[$name] = $control;
-	}
-
-	/**
 	 * Label with icon factory.
 	 *
 	 * @param $label
@@ -237,36 +175,6 @@ class Form extends Nette\Application\UI\Form {
 			$label = $tmpLabel . ' ' . $label;
 		}
 		return $label;
-	}
-
-	/**
-	 * Static read-only control displayed as text (not input)
-	 *
-	 * @param $name
-	 * @param $label
-	 * @return Zax\Forms\Controls\StaticControl
-	 */
-	public function addStatic($name, $label) {
-		$control = new Zax\Forms\Controls\StaticControl($label);
-		return $this[$name] = $control;
-	}
-
-	/**
-	 * A link that pretends to be a button. Great for 'cancel' submit buttons in forms with files (because regular
-	 * submit will take the time to upload the file before checking that a 'cancel' button has been clicked)
-	 *
-	 * @param      $name
-	 * @param null $label
-	 * @param null $icon
-	 * @param null $destination
-	 * @return Zax\Forms\Controls\LinkSubmitButton
-	 */
-	public function addLinkSubmit($name, $label = NULL, $icon = NULL, $destination = NULL) {
-		$control = new Zax\Forms\Controls\LinkSubmitButton($label);
-		$proto = $control->getControlPrototype();
-		$proto->href($destination);
-		$proto->setHtml($this->makeLabel($this->translator->translate($label), $icon));
-		return $this[$name] = $control;
 	}
 
 	public function addDateTime($name, $label = NULL, $canBeNull = FALSE) {

@@ -5,8 +5,8 @@ use Nette, Zax;
 
 interface IBinder {
 
-	public function formToEntity(Nette\Forms\Form $form, $entity);
+	public function formToEntity(Nette\Forms\Container $form, $entity);
 
-	public function entityToForm($entity, Nette\Forms\Form $form);
+	public function entityToForm($entity, Nette\Forms\Container $form);
 
 }

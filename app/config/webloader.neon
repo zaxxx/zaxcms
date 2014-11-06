@@ -18,6 +18,10 @@ webloader:
             tempPath: pub/compiled
             files:
                 - %zax.webloader.bowerDir%/bootstrap/dist/css/bootstrap.min.css
+                - %zax.webloader.bowerDir%/jquery-ui/themes/base/core.css
+                - %zax.webloader.bowerDir%/jquery-ui/themes/base/menu.css
+                - %zax.webloader.bowerDir%/jquery-ui/themes/base/theme.css
+                - %zax.webloader.bowerDir%/jquery-ui/themes/base/autocomplete.css
                 - %rootDir%/pub/zaxcms/css/zax.alerts.css
                 - %rootDir%/pub/zaxcms/css/zax.flags.css
                 - %rootDir%/pub/zaxcms/css/zax.panelTabs.css
@@ -31,7 +35,8 @@ webloader:
             tempDir: %zax.webloader.outputDir%
             tempPath: pub/compiled
             files:
-                - %zax.webloader.bowerDir%/jquery/dist/jquery.min.js
+                - %zax.webloader.bowerDir%/jquery/dist/jquery.js
+                - %zax.webloader.bowerDir%/jquery-ui/jquery-ui.min.js
                 - %zax.webloader.bowerDir%/bootstrap/dist/js/bootstrap.min.js
                 - %zax.webloader.bowerDir%/nette.ajax.js/nette.ajax.js
                 - %zax.webloader.bowerDir%/nette-forms/src/assets/netteForms.js
