@@ -59,7 +59,17 @@ abstract class BaseCategory extends BaseEntity {
 	 * @Gedmo\Translatable
 	 * @ORM\Column(type="text", nullable=TRUE)
 	 */
-	protected $sidebar;
+	protected $sidebarContent;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $sidebarParent;
+
+	/**
+	 * @ORM\Column(type="string", length=512, nullable=TRUE)
+	 */
+	protected $image;
 
 	/**
 	 * @ORM\OneToMany(targetEntity="Article", mappedBy="category")

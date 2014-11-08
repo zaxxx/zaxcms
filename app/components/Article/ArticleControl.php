@@ -13,6 +13,7 @@ class ArticleControl extends SecuredControl {
 
 	use TInjectEditArticleFactory,
 		Model\CMS\Service\TInjectArticleService,
+		Model\CMS\Service\TInjectCategoryService,
 		ZaxCMS\DI\TInjectArticleConfig,
 		TInjectPublishButtonFactory;
 
@@ -56,6 +57,9 @@ class ArticleControl extends SecuredControl {
     
     public function beforeRender() {
         $this->template->article = $this->article;
+	    if($this->article->sidebarCategory) {
+		    $this->template->ancestors = $this->categoryService->findPath($this->article->category);
+	    }
 	    $this->template->c = $this->articleConfig->getConfig();
     }
 

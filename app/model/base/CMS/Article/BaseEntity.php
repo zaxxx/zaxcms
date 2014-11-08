@@ -95,23 +95,7 @@ abstract class BaseArticle extends BaseEntity {
 	/**
 	 * @Orm\Column(type="array", nullable=TRUE)
 	 */
-	protected $imageConfig = [
-		'visible' => [
-			'root' => TRUE,
-			'list' => TRUE,
-			'detail' => TRUE
-		],
-		'styles' => [
-			'root' => 0,
-			'list' => 0,
-			'detail' => 0
-		],
-		'open' => [
-			'root' => FALSE,
-			'list' => FALSE,
-			'detail' => FALSE
-		]
-	];
+	protected $imageConfig;
 
 	/**
 	 * @ORM\Column(type="boolean")
@@ -134,6 +118,17 @@ abstract class BaseArticle extends BaseEntity {
 	 * @ORM\OrderBy({"id" = "DESC"})
 	 */
 	protected $tags;
+
+	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $sidebarContent;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $sidebarCategory;
 
 	public function setImageConfig(array $config) {
 		$this->imageConfig = $config;

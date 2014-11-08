@@ -21,10 +21,12 @@ class ArticleService extends Zax\Model\Doctrine\Service {
 
 	public function create() {
 		$article = parent::create();
-		$articleConfig = $this->articleConfig->getConfig();
-		$article->isMain = $articleConfig['article']['defaults']['isMain'];
-		$article->isVisibleInRootCategory = $articleConfig['article']['defaults']['isVisibleInRootCategory'];
-		$article->isPublic = $articleConfig['article']['defaults']['isPublic'];
+		$config = $this->articleConfig->getConfig()['article']['defaults'];
+		$article->isMain = $config['isMain'];
+		$article->isVisibleInRootCategory = $config['isVisibleInRootCategory'];
+		$article->isPublic = $config['isPublic'];
+		$article->sidebarCategory = $config['sidebarCategory'];
+		$article->imageConfig = $config['imageConfig'];
 		return $article;
 	}
 

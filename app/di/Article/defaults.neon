@@ -2,23 +2,38 @@ common:
 
 list:
     itemsPerPage: 10
-    showTags: TRUE
-    tagsOnBottom: TRUE
+    showTags: FALSE
+    tagsOnBottom: FALSE
 category:
-    showBreadCrumb: TRUE
-    showSubcategories: TRUE
+    showBreadCrumb: FALSE
+    showSubcategories: FALSE
     sidebarWidth: 3
 article:
     defaults:
-        isVisibleInRootCategory: TRUE
-        isMain: TRUE
-        isPublic: TRUE
-    showTimePosted: TRUE
-    showAuthor: TRUE
-    showCategory: TRUE
-    showTagsList: TRUE
-    showTagsDetail: TRUE
-    tagsOnBottom: TRUE
+        isVisibleInRootCategory: FALSE
+        isMain: FALSE
+        isPublic: FALSE
+        sidebarCategory: FALSE
+        imageConfig:
+            visible:
+                root: TRUE
+                list: TRUE
+                detail: TRUE
+            styles:
+                root: 1
+                list: 1
+                detail: 2
+            open:
+                root: FALSE
+                list: FALSE
+                detail: TRUE
+    showTimePosted: FALSE
+    showAuthor: FALSE
+    showCategory: FALSE
+    showTagsList: FALSE
+    showTagsDetail: FALSE
+    tagsOnBottom: FALSE
     sidebarWidth: 3
 author:
     sidebarWidth: 3
+    showList: FALSE

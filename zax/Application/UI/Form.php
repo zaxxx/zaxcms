@@ -131,7 +131,7 @@ class Form extends Nette\Application\UI\Form {
 	 * @param string $type Bootstrap form type, eg. 'form-horizontal', 'form-inline'
 	 * @return $this
 	 */
-	public function enableBootstrap($buttonTypes = [], $groupSubmits = FALSE, $gridLabelSize = 3, $deviceSize = 'sm', $type = 'form-horizontal') {
+	public function enableBootstrap($buttonTypes = [], $groupSubmits = FALSE, $gridLabelSize = 3, $deviceSize = 'sm', $type = 'form-horizontal', $choiceControlMaxInlineItems = 2) {
 
 		// Setup renderer, blah, I want this nasty code somewhere "away" from my projects
 		$r = $this->getRenderer();
@@ -156,7 +156,7 @@ class Form extends Nette\Application\UI\Form {
 		$this->getElementPrototype()->addClass($type);
 		$this->getElementPrototype()->role = 'form';
 
-		$this->enableBootstrapOnInputs($buttonTypes);
+		$this->enableBootstrapOnInputs($buttonTypes, $choiceControlMaxInlineItems);
 
 		return $this;
 	}

@@ -32,7 +32,8 @@ class AddCategoryControl extends Control {
 		$category = $this->categoryService->create();
 		$category->parent = $this->category;
 	    return $this->addCategoryFormFactory->create()
-		    ->setCategory($category);
+		    ->setCategory($category)
+		    ->disableAjaxFor(['form']);
 	}
 
 }

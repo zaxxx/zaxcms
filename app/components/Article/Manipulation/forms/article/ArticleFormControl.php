@@ -12,12 +12,11 @@ use Nette,
     Zax\Application\UI\Control,
     Zax\Application\UI\FormControl;
 
-abstract class ArticleFormControl extends FormControl {
+abstract class ArticleFormControl extends AbstractFormControl {
 
 	use Model\CMS\Service\TInjectArticleService,
 		Model\CMS\Service\TInjectTagService,
-		Model\CMS\Service\TInjectAuthorService,
-		Zax\Utils\TInjectRootDir;
+		Model\CMS\Service\TInjectAuthorService;
 
 	/** @var Model\CMS\Entity\Article */
 	protected $article;
@@ -76,29 +75,13 @@ abstract class ArticleFormControl extends FormControl {
 		    ->getControlPrototype()->rows(15);
 
 		$pic = $f->addContainer('pic');
+	    $this->createImageUpload($pic, $this->article->image);
 
-	    // article has image and deleteImg checkbox is checked => hide image options
-	    if($this->article->image !== NULL) {
-		    $pic->addCheckbox('deleteImg', 'common.form.removeImage')
-			    ->addCondition($f::EQUAL, FALSE)
-			        ->toggle($id . '-pic-customize');
-	    }
 
-	    $pic->addFileUpload('img', 'common.form.image')
-		    ->setOption('id', $id . '-pic-image')
-		    ->addCondition($f::FILLED)
-			    ->addRule($f::IMAGE);
-
-	    // upload is filled => show img options
-	    $pic['img']
-		    ->addCondition($f::FILLED)
-		        ->toggle($id . '-pic-customize');
-
-	    // article has image and deleteImg is checked => show upload
-	    if($this->article->image !== NULL) {
-		    $pic['deleteImg']
-		        ->addCondition($f::EQUAL, TRUE)
-			        ->toggle($id . '-pic-image');
+	    if($this->article->category->image !== NULL) {
+		    $pic->addCheckbox('useCategoryImage', 'article.form.useCategoryImage')
+			    ->addCondition(Form::FILLED)
+			    ->toggle($id . '-pic-customize');
 	    }
 
 	    $picConfig = $f->addContainer('picConfig');
@@ -117,12 +100,14 @@ abstract class ArticleFormControl extends FormControl {
 		    ->setValue(Arrays::boolToCbl($this->article->getImageConfig('open')))
 		    ->setOption('id', $id . '-pic-displayImgOpen');
 
+	    $picConfig->addStatic('displayStyleNote', 'article.form.imageStyles');
+
 	    $opts = [
-		    0 => 'article.form.floatLeft',
-		    1 => 'article.form.wide'
+		    'article.form.floatLeft',
+		    'article.form.floatLeftPerex',
+		    'article.form.wide'
 	    ];
 	    $configuredStyles = $this->article->getImageConfig('styles');
-
 	    foreach($contexts as $context => $label) {
 		    $picConfig->addRadioList('displayImgStyle' . ucfirst($context), $label, $opts)
 			    ->setValue($configuredStyles[$context]);
@@ -143,6 +128,19 @@ abstract class ArticleFormControl extends FormControl {
 		    ->addCondition(Form::EQUAL, TRUE)
 		        ->toggle($id . '-style-isMain');
 
+	    $sidebar = $f->addContainer('sidebar');
+
+	    $sidebar->addCheckbox('sidebarCategory', 'article.form.useCategorySidebar');
+
+	    $sidebar->addTexyArea('sidebarContent', 'common.form.sidebarContent')
+		    ->setOption('id', $id . '-sidebar')
+		    ->getControlPrototype()
+		    ->rows(15);
+
+	    $sidebar['sidebarCategory']
+		    ->addCondition($f::EQUAL, FALSE)
+		        ->toggle($id . '-sidebar');
+
 	    $footer = $f->addContainer('footer');
 
 	    $footer->addButtonSubmit('saveArticle', 'common.button.save', 'ok');
@@ -151,11 +149,12 @@ abstract class ArticleFormControl extends FormControl {
 
 	    $f->addProtection();
 
-	    $f->enableBootstrap(['success' => ['saveArticle', 'saveArticleGo'], 'default' => ['cancel']], TRUE);
+	    $f->enableBootstrap(['success' => ['saveArticle', 'saveArticleGo'], 'default' => ['cancel']], TRUE, 3, 'sm', 'form-horizontal', 3);
 
 	    // fill the form from entity
 	    $this->binder->entityToForm($this->article, $main);
 	    $this->binder->entityToForm($this->article, $pic);
+	    $this->binder->entityToForm($this->article, $sidebar);
 	    $this->binder->entityToForm($this->article, $options);
 
 	    $f->autofocus('main-title');
@@ -169,6 +168,7 @@ abstract class ArticleFormControl extends FormControl {
 	        // Fill entity
 	        $this->binder->formToEntity($form['main'], $this->article);
 	        $this->binder->formToEntity($form['pic'], $this->article);
+	        $this->binder->formToEntity($form['sidebar'], $this->article);
 	        $this->binder->formToEntity($form['options'], $this->article);
 
 	        // Save image config
@@ -201,9 +201,7 @@ abstract class ArticleFormControl extends FormControl {
 
 	        // Process delete image
 	        if(isset($values->pic->deleteImg) && $values->pic->deleteImg) {
-		        $file = $this->rootDir . DIRECTORY_SEPARATOR . $this->article->image;
-		        if(file_exists($file))
-			        Nette\Utils\FileSystem::delete($file);
+		        $this->deleteImage($this->article->image);
 		        $this->article->image = NULL;
 
 		        $this->articleService->persist($this->article);
@@ -212,17 +210,14 @@ abstract class ArticleFormControl extends FormControl {
 
 	        // Process upload image
 	        if($values->pic->img instanceof Nette\Http\FileUpload && $values->pic->img->isOk()) {
+		        $this->article->image = $this->processImageUpload($values->pic->img, 'articles', $this->article->id);
+		        $this->articleService->persist($this->article);
+		        $this->articleService->flush();
+	        }
 
-		        $dir = 'upload' . DIRECTORY_SEPARATOR . 'articles' . DIRECTORY_SEPARATOR . $this->article->id;
-		        if(!file_exists($this->rootDir . DIRECTORY_SEPARATOR . $dir)) {
-			        Nette\Utils\FileSystem::createDir($this->rootDir . DIRECTORY_SEPARATOR . $dir);
-		        }
-
-		        $path = $dir . DIRECTORY_SEPARATOR . $values->pic->img->getSanitizedName();
-		        $values->pic->img->move($this->rootDir . DIRECTORY_SEPARATOR . $path);
-
-		        $this->article->image = $path;
-
+	        // Article category
+	        if($this->article->category->image !== NULL && $values->pic->useCategoryImage) {
+		        $this->article->image = $this->article->category->image;
 		        $this->articleService->persist($this->article);
 		        $this->articleService->flush();
 	        }

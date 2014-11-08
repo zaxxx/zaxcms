@@ -26,20 +26,41 @@
 	<span n:if="$c[article][showCategory]">{_'article.general.inCategory'} <a href="{$presenter->link('Blog:category', [category-slug => $article->category->slug])}">{$article->category->title}</a></span>
 {/define}
 
+{define image}
+	{var $style = $article->imageConfig[styles][$context]}
+	<a n:if="$showImg" n:tag-if="$openImg || !$detail" href="{if $openImg}{$baseUri}/{$article->image}" target="_blank{elseif !$detail}{$articleLink}{/if}">
+		<img n:if="$showImg" style="{if $style < 2}max-width:250px;margin-right:20px;{/if}margin-bottom:15px;" n:class="$style === 2 ? img-responsive : pull-left" src="{$baseUri}/{$article->image}">
+	</a>
+{/define}
+
+{define adminTools}
+	<span n:secured="WebContent, Edit" class="pull-right btn-group">
+		{control publishButton, article => $article}
+		<a class="btn" title="{_'article.button.editArticle'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit])}">{icon pencil}</a>
+		<a class="btn text-danger" title="{_'common.button.delete'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit, article-editArticle-view => Delete])}">{icon trash}</a>
+	</span>
+{/define}
+
+
 {block article}
+
 	{var $root = isset($isRootCategory) ? $isRootCategory : FALSE}
 	{var $detail = isset($isDetail) ? $isDetail : FALSE}
-	{var $showImg = $article->image !== NULL && (($article->imageConfig[visible][root] && $root) || ($article->imageConfig[visible][detail] && $detail) || ($article->imageConfig[visible][list] && !$detail && !$root))}
+	{var $list = !$detail && !$root}
+	{var $context = $root ? 'root' : ($detail ? 'detail' : 'list')}
+
+	{var $showImg = $article->image !== NULL && $article->imageConfig[visible][$context]}
+	{var $openImg = $article->imageConfig[open][$context]}
+
+	{var $articleLink = $presenter->link('Blog:article', [article-slug => $article->slug])}
 
 	<div n:class="$root && $article->isMain ? lead">
 
-		<span n:secured="WebContent, Edit" class="pull-right btn-group">
-			{control publishButton, article => $article}
-			<a class="btn" title="{_'article.button.editArticle'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit])}">{icon pencil}</a>
-			<a class="btn text-danger" title="{_'common.button.delete'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit, article-editArticle-view => Delete])}">{icon trash}</a>
-		</span>
+		{include #adminTools}
 
-		<h3><a href="{$presenter->link('Blog:article', [article-slug => $article->slug])}">{$article->title}</a></h3>
+		{if $article->imageConfig[styles][$context] === 0}{include #image}{/if}
+
+		<h3><a n:tag-if="!$detail" href="{$articleLink}">{$article->title}</a></h3>
 
 		<p class="text-muted">
 			<em>
@@ -47,9 +68,11 @@
 			</em>
 		</p>
 
-		{if ($detail && !$c[article][tagsOnBottom]) || (!$detail && !$c[list][tagsOnBottom])}{include #tags}{/if}
+		{if ($detail && !$c[article][tagsOnBottom]) || (!$detail && !$c[list][tagsOnBottom])}
+			{include #tags}
+		{/if}
 
-		<img n:if="$showImg" style="max-width:250px;margin-right:20px;margin-bottom:15px;" class="pull-left" src="{$baseUri}/{$article->image}">
+		{if $article->imageConfig[styles][$context] > 0}{include #image}{/if}
 
 		{$article->perex|texy|noescape}
 
@@ -59,7 +82,9 @@
 			{$articleContent|texy|noescape}
 		</div>
 
-		{if ($detail && $c[article][tagsOnBottom]) || (!$detail && $c[list][tagsOnBottom])}{include #tags}{/if}
+		{if ($detail && $c[article][tagsOnBottom]) || (!$detail && $c[list][tagsOnBottom])}
+			{include #tags}
+		{/if}
 	</div>
 
 {/block}

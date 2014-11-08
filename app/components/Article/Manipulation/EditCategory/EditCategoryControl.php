@@ -29,7 +29,8 @@ class EditCategoryControl extends Control {
 
 	protected function createComponentEditCategoryForm() {
 	    return $this->editCategoryFormFactory->create()
-		    ->setCategory($this->category);
+		    ->setCategory($this->category)
+		    ->disableAjaxFor(['form']);
 	}
 
 }

@@ -17,12 +17,12 @@
 		<div role="tabpanel" class="tab-pane tab-pane-form" id="{$htmlId}-pic">
 			<div class="row">
 				<div class="col-sm-12">
-					{if $article->image !== NULL}
+					{if $category->image !== NULL}
 						<div class="row">
 							<div class="col-sm-3"></div>
 							<div class="col-sm-6">
-								<pre>{$baseUri}/{$article->image}</pre>
-								<img src="{$baseUri}/{$article->image}" class="img-responsive" style="margin-bottom:30px">
+								<pre>{$baseUri}/{$category->image}</pre>
+								<img src="{$baseUri}/{$category->image}" class="img-responsive" style="margin-bottom:30px">
 							</div>
 							<div class="col-sm-3"></div>
 						</div>
@@ -30,27 +30,6 @@
 					{/if}
 
 					{$form->renderer->renderContainer($form, $form['pic'])}
-
-					<div id="{$htmlId}-form-pic-customize">
-						<div class="row">
-							<div class="col-sm-3">
-
-							</div>
-							<div class="col-sm-9">
-								<a data-toggle="collapse" class="btn btn-info" href="#" data-target="#{$htmlId}-form-pic-config">
-									{icon picture} {_'common.button.customize'}
-								</a>
-							</div>
-						</div>
-
-						<div class="panel">
-							<div id="{$htmlId}-form-pic-config" class="panel-collapse collapse" role="tabpanel">
-								<div class="panel-body">
-									{$form->renderer->renderContainer($form, $form['picConfig'])}
-								</div>
-							</div>
-						</div>
-					</div>
 
 				</div>
 			</div>
@@ -65,7 +44,7 @@
 		<div role="tabpanel" class="tab-pane tab-pane-form" id="{$htmlId}-options">
 			<div class="row">
 				<div class="col-sm-12">
-					{$form->renderer->renderContainer($form, $form['options'])}
+					{* $form->renderer->renderContainer($form, $form['options']) *}
 				</div>
 			</div>
 		</div>

@@ -28,9 +28,12 @@ form:
     inLists: "In lists"
     inRoot: "In root category"
     inArticleDetail: "In article detail"
-    floatLeft: "Float on left side"
+    floatLeft: "Float left"
+    floatLeftPerex: "Float left below title "
     wide: "Wide"
     imageStyles: "Image display styles"
+    useCategorySidebar: "Use category sidebar"
+    useParentCategorySidebar: "Use parent category sidebar"
 alert:
     articleSaved: "Article saved."
     categorySaved: "Category saved."

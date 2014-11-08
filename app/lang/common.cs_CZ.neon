@@ -37,6 +37,8 @@ form:
     filter: "Filtry"
     image: "Obrázek"
     removeImage: "Odstranit obrázek"
+    sidebar: "Boční lišta"
+    sidebarContent: "Obsah boční lišty"
 alert:
     changesSaved: "Změny uloženy."
     changesError: "Chyba při ukládání změn."

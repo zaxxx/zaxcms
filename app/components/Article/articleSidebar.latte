@@ -1,3 +1,6 @@
-{block sidebar}
-	article
-{/block}
+
+	{if $article->sidebarCategory}
+		{include './categorySidebar.latte', category => $article->category, ancestors => $ancestors}
+	{else}
+		{$article->sidebarContent|texy|noescape}
+	{/if}

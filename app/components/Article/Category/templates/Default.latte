@@ -23,12 +23,7 @@
 
 		</div>
 		<div class="col-sm-{$c[category][sidebarWidth]}">
-
-			{if $category->depth === 0}
-				{includeblock '../../rootSidebar.latte'}
-			{else}
-				{includeblock '../../categorySidebar.latte'}
-			{/if}
+			{includeblock '../../categorySidebar.latte'}
 		</div>
 	</div>
 </div>

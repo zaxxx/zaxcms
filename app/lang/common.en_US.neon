@@ -36,6 +36,8 @@ form:
     filter: "Filter"
     image: "Image"
     removeImage: "Remove image"
+    sidebar: "Sidebar"
+    sidebarContent: "Sidebar content"
 alert:
     changesSaved: "Changes saved."
     changesError: "Error while saving changes."
