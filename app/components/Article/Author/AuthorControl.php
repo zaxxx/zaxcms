@@ -40,7 +40,7 @@ class AuthorControl extends Control {
     }
     
     public function beforeRender() {
-        $this->template->articleConfig = $this->articleConfig;
+        $this->template->c = $this->articleConfig->getConfig();
     }
 
 	protected function createComponentArticleList() {

@@ -1,7 +1,7 @@
 
 {foreach $articles as $article}
 <div n:class="!$article->isPublic || $isRootCategory && !$article->isVisibleInRootCategory ? inactive-transparent">
-	{includeblock '../../articleListItem.latte', isRootCategory => $isRootCategory, articleConfig => $articleConfig}
+	{includeblock '../../articleListItem.latte', isRootCategory => $isRootCategory, c => $c}
 </div>
 	{sep}<hr>{/sep}
 {/foreach}

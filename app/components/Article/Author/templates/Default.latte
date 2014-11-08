@@ -1,10 +1,10 @@
 <div class="row">
-	<div class="col-sm-{=12-$articleConfig->authorSidebarWidth}">
+	<div class="col-sm-{=12-$c[author][sidebarWidth]}">
 
 		{control articleList}
 
 	</div>
-	<div class="col-sm-{$articleConfig->authorSidebarWidth}">
+	<div class="col-sm-{$c[author][sidebarWidth]}">
 
 		{includeblock '../../authorSidebar.latte'}
 

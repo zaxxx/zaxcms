@@ -1,5 +1,5 @@
 {define tags}
-	<p class="text-muted" n:if="$article->tags !== NULL && count($article->tags) > 0 && (($articleConfig->articleShowTags && $detail) || ($articleConfig->listShowTags && !$detail))">
+	<p class="text-muted" n:if="$article->tags !== NULL && count($article->tags) > 0 && (($c[article][showTagsDetail] && $detail) || ($c[article][showTagsList] && !$detail))">
 		<em>
 			{_'article.general.tags'}:
 			{foreach $article->tags as $tag}
@@ -10,11 +10,11 @@
 {/define}
 
 {define timeCreated}
-	<span n:if="$articleConfig->showTimePosted" title="{$article->createdAt|beautifulDateTime}">{$article->createdAt|relativeDate}</span>
+	<span n:if="$c[article][showTimePosted]" title="{$article->createdAt|beautifulDateTime}">{$article->createdAt|relativeDate}</span>
 {/define}
 
 {define author}
-	<span n:if="$articleConfig->showAuthor && $article->authors !== NULL">
+	<span n:if="$c[article][showAuthor] && $article->authors !== NULL">
 		&middot;&middot;
 		{foreach $article->authors as $author}
 			<a href="{$presenter->link('Blog:author', [author-slug => $author->slug])}">{$author->name}</a>{sep}, {/sep}
@@ -23,18 +23,18 @@
 {/define}
 
 {define category}
-	<span n:if="$articleConfig->showCategory">{_'article.general.inCategory'} <a href="{$presenter->link('Blog:category', [category-slug => $article->category->slug])}">{$article->category->title}</a></span>
+	<span n:if="$c[article][showCategory]">{_'article.general.inCategory'} <a href="{$presenter->link('Blog:category', [category-slug => $article->category->slug])}">{$article->category->title}</a></span>
 {/define}
 
 {block article}
 	{var $root = isset($isRootCategory) ? $isRootCategory : FALSE}
 	{var $detail = isset($isDetail) ? $isDetail : FALSE}
-	{var $showImg = $article->image !== NULL && (($article->imageRoot && $root) || ($article->imageDetail && $detail) || ($article->imageList && !$detail && !$root))}
+	{var $showImg = $article->image !== NULL && (($article->imageConfig[visible][root] && $root) || ($article->imageConfig[visible][detail] && $detail) || ($article->imageConfig[visible][list] && !$detail && !$root))}
 
 	<div n:class="$root && $article->isMain ? lead">
 
 		<span n:secured="WebContent, Edit" class="pull-right btn-group">
-{*			<a class="btn" title="{_'common.button.publish'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit, do => article-editArticle-publish])}" n:if="!$article->isPublic">{icon globe}</a> *}
+			{control publishButton, article => $article}
 			<a class="btn" title="{_'article.button.editArticle'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit])}">{icon pencil}</a>
 			<a class="btn text-danger" title="{_'common.button.delete'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit, article-editArticle-view => Delete])}">{icon trash}</a>
 		</span>
@@ -47,7 +47,7 @@
 			</em>
 		</p>
 
-		{if ($detail && !$articleConfig->articleTagsOnBottom) || (!$detail && !$articleConfig->listTagsOnBottom)}{include #tags}{/if}
+		{if ($detail && !$c[article][tagsOnBottom]) || (!$detail && !$c[list][tagsOnBottom])}{include #tags}{/if}
 
 		<img n:if="$showImg" style="max-width:250px;margin-right:20px;margin-bottom:15px;" class="pull-left" src="{$baseUri}/{$article->image}">
 
@@ -59,7 +59,7 @@
 			{$articleContent|texy|noescape}
 		</div>
 
-		{if ($detail && $articleConfig->articleTagsOnBottom) || (!$detail && $articleConfig->listTagsOnBottom)}{include #tags}{/if}
+		{if ($detail && $c[article][tagsOnBottom]) || (!$detail && $c[list][tagsOnBottom])}{include #tags}{/if}
 	</div>
 
 {/block}

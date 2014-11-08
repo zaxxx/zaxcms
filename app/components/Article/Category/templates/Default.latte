@@ -1,7 +1,7 @@
 <div n:snippet>
 	<div class="row">
-		<div class="col-sm-{=12-$articleConfig->categorySidebarWidth}">
-			<ol class="breadcrumb" n:if="$articleConfig->showBreadCrumb">
+		<div class="col-sm-{=12-$c[category][sidebarWidth]}">
+			<ol class="breadcrumb" n:if="$c[category][showBreadCrumb]">
 				Kategorie:
 				{foreach $ancestors as $ancestor}
 					<li><a href="{$presenter->link('Blog:category', [category-slug => $ancestor->slug])}">{$ancestor->title}</a></li>
@@ -11,7 +11,7 @@
 
 			<div><a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => AddCategory">{icon plus} {_'article.button.addCategory'}</a></div>
 
-			<ul n:if="$articleConfig->showSubcategories && count($category->children) > 0">
+			<ul n:if="$c['category']['showSubcategories'] && count($category->children) > 0">
 				<li n:foreach="$category->children as $child"><a href="{$presenter->link('Blog:category', [category-slug => $child->slug])}">{$child->title}</a></li>
 			</ul>
 
@@ -22,7 +22,7 @@
 			{control articleList}
 
 		</div>
-		<div class="col-sm-{$articleConfig->categorySidebarWidth}">
+		<div class="col-sm-{$c[category][sidebarWidth]}">
 
 			{if $category->depth === 0}
 				{includeblock '../../rootSidebar.latte'}

@@ -364,11 +364,6 @@ abstract class Control extends Nette\Application\UI\Control {
 	public function startup() {}
 
 	/**
-	 * replacement for render(), descendants should override this method
-	 */
-	protected function beforeRender() {}
-
-	/**
 	 * Life cycle
 	 *
 	 * @param string $render

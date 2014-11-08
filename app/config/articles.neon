@@ -1,24 +1,26 @@
 extensions:
     ZaxCMSArticle: ZaxCMS\DI\ArticleExtension
 
-## NULL = show only if can edit
 ZaxCMSArticle:
     list:
-        itemsPerPage: 10
-        showTags: TRUE
+        itemsPerPage: 15
+        showTags: FALSE
         tagsOnBottom: TRUE
     category:
         showBreadCrumb: NULL
         showSubcategories: NULL
-        sidebarWidth: 3
+        sidebarWidth: 4
     article:
+        defaults:
+            isPublic: FALSE
+            isVisibleInRootCategory: TRUE
+            isMain: FALSE
         showTimePosted: TRUE
         showAuthor: TRUE
         showCategory: TRUE
-        showTags: TRUE
+        showTagsList: TRUE
+        showTagsDetail: TRUE
         tagsOnBottom: TRUE
-        sidebarWidth: 3
-        defaults:
-            isVisibleInRootCategory: TRUE
-            isMain: FALSE
-            isPublic: FALSE
+        sidebarWidth: 4
+    author:
+        sidebarWidth: 4

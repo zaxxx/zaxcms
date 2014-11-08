@@ -13,7 +13,8 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	use Zax\Components\Collections\TPaginable,
 		Model\CMS\Service\TInjectArticleService,
-		ZaxCMS\DI\TInjectArticleConfig;
+		ZaxCMS\DI\TInjectArticleConfig,
+		TInjectPublishButtonFactory;
 
 	protected $category;
 
@@ -73,9 +74,15 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
     
     public function beforeRender() {
         $this->template->articles = $this->getFilteredResultSet();
-	    $this->template->articleConfig = $this->articleConfig;
+	    $this->template->c = $this->articleConfig->getConfig();
     }
 
-
+	protected function createComponentPublishButton() {
+	    $button = $this->publishButtonFactory->create();
+		$button->onPublish[] = function(Model\CMS\Entity\Article $article) {
+			$this->redirect('this');
+		};
+		return $button;
+	}
 
 }

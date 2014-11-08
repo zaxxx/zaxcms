@@ -5,7 +5,7 @@ use Zax,
 	Nette,
 	ZaxCMS;
 
-class SearchConfig extends AbstractConfig {
+class SearchConfig extends Zax\DI\ExtensionConfig {
 
 	public function getArticlesPerPage() {
 		return $this->config['articlesPerPage'];

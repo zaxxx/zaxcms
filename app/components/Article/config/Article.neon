@@ -19,6 +19,7 @@ services:
     - ZaxCMS\Components\Article\IAddCategoryFormFactory
     - ZaxCMS\Components\Article\IEditCategoryFormFactory
 
+    - ZaxCMS\Components\Article\IPublishButtonFactory
 
 
 

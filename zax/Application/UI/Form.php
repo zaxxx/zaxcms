@@ -73,9 +73,10 @@ class Form extends Nette\Application\UI\Form {
 
 	/**
 	 * @param array $buttonTypes
+	 * @param int $choiceControlMaxInlineItems
 	 * @return $this
 	 */
-	protected function enableBootstrapOnInputs($buttonTypes = []) {
+	protected function enableBootstrapOnInputs($buttonTypes = [], $choiceControlMaxInlineItems = 2) {
 		foreach($this->getControls() as $name => $control) {
 				if($control instanceof Nette\Forms\Controls\Button || $control instanceof Zax\Forms\Controls\LinkSubmitButton) {
 					$applied = FALSE;
@@ -97,7 +98,12 @@ class Form extends Nette\Application\UI\Form {
 				} else if ($control instanceof Nette\Forms\Controls\Checkbox
 					|| $control instanceof Nette\Forms\Controls\CheckboxList
 					|| $control instanceof Nette\Forms\Controls\RadioList) {
+
+					if($control instanceof Nette\Forms\Controls\ChoiceControl && count($control->getItems()) <= $choiceControlMaxInlineItems) {
+						$control->getSeparatorPrototype()->setName('div')->addClass($control->getControlPrototype()->type . '-inline');
+					}
 						$control->getSeparatorPrototype()->setName('div')->addClass($control->getControlPrototype()->type);
+
 
 				}/* else if ($control instanceof Zax\Forms\IControl) { // Just some future plans ;-)
 					$control->enableBootstrap();

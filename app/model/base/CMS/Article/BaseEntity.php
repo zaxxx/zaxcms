@@ -93,19 +93,25 @@ abstract class BaseArticle extends BaseEntity {
 	protected $image;
 
 	/**
-	 * @ORM\Column(type="boolean")
+	 * @Orm\Column(type="array", nullable=TRUE)
 	 */
-	protected $imageList;
-
-	/**
-	 * @ORM\Column(type="boolean")
-	 */
-	protected $imageRoot;
-
-	/**
-	 * @ORM\Column(type="boolean")
-	 */
-	protected $imageDetail;
+	protected $imageConfig = [
+		'visible' => [
+			'root' => TRUE,
+			'list' => TRUE,
+			'detail' => TRUE
+		],
+		'styles' => [
+			'root' => 0,
+			'list' => 0,
+			'detail' => 0
+		],
+		'open' => [
+			'root' => FALSE,
+			'list' => FALSE,
+			'detail' => FALSE
+		]
+	];
 
 	/**
 	 * @ORM\Column(type="boolean")
@@ -129,31 +135,13 @@ abstract class BaseArticle extends BaseEntity {
 	 */
 	protected $tags;
 
-	protected $displayImgKeys = [
-		'list',
-		'root',
-		'detail'
-	];
-
-	public function setDisplayImgFromArray(array $config) {
-		foreach($this->displayImgKeys as $key) {
-			$uckey = ucfirst($key);
-			$propertyName = 'image' . $uckey;
-			if(property_exists(get_class($this), $propertyName)) {
-				$this->{$propertyName} = isset($config[$key]) ? (bool)$config[$key] : FALSE;
-			}
-		};
+	public function setImageConfig(array $config) {
+		$this->imageConfig = $config;
+		return $this;
 	}
 
-	public function getDisplayImgArray() {
-		$r = [];
-		foreach($this->displayImgKeys as $key) {
-			$property = 'image' . ucfirst($key);
-			if(property_exists(get_class($this), $property) && $this->{$property}) {
-				$r[] = $key;
-			}
-		}
-		return $r;
+	public function getImageConfig($key = NULL) {
+		return $key === NULL ? $this->imageConfig : $this->imageConfig[$key];
 	}
 
 	public function setTags($tags) {

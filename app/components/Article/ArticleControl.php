@@ -13,7 +13,8 @@ class ArticleControl extends SecuredControl {
 
 	use TInjectEditArticleFactory,
 		Model\CMS\Service\TInjectArticleService,
-		ZaxCMS\DI\TInjectArticleConfig;
+		ZaxCMS\DI\TInjectArticleConfig,
+		TInjectPublishButtonFactory;
 
 	/** @persistent */
 	public $slug;
@@ -55,13 +56,21 @@ class ArticleControl extends SecuredControl {
     
     public function beforeRender() {
         $this->template->article = $this->article;
-	    $this->template->articleConfig = $this->articleConfig;
+	    $this->template->c = $this->articleConfig->getConfig();
     }
 
 	/** @secured WebContent, Edit */
 	protected function createComponentEditArticle() {
 	    return $this->editArticleFactory->create()
 		    ->setArticle($this->getArticle());
+	}
+
+	protected function createComponentPublishButton() {
+		$button = $this->publishButtonFactory->create();
+		$button->onPublish[] = function(Model\CMS\Entity\Article $article) {
+			$this->redirect('this');
+		};
+		return $button;
 	}
 
 

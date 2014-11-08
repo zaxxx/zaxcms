@@ -92,3 +92,7 @@ input.about-2-chars-long {
 .inactive-transparent:hover {
     opacity: 1;
 }
+
+.radio.radio-inline {
+    padding-left: 0px;
+}

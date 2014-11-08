@@ -1,0 +1,24 @@
+common:
+
+list:
+    itemsPerPage: 10
+    showTags: TRUE
+    tagsOnBottom: TRUE
+category:
+    showBreadCrumb: TRUE
+    showSubcategories: TRUE
+    sidebarWidth: 3
+article:
+    defaults:
+        isVisibleInRootCategory: TRUE
+        isMain: TRUE
+        isPublic: TRUE
+    showTimePosted: TRUE
+    showAuthor: TRUE
+    showCategory: TRUE
+    showTagsList: TRUE
+    showTagsDetail: TRUE
+    tagsOnBottom: TRUE
+    sidebarWidth: 3
+author:
+    sidebarWidth: 3

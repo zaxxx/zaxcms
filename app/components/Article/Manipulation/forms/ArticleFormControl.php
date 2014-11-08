@@ -4,6 +4,7 @@ namespace ZaxCMS\Components\Article;
 use Doctrine\ORM\Query;
 use Nette,
     Zax,
+	Zax\Utils\Arrays,
     ZaxCMS\Model,
     Nette\Forms\Form,
     Zax\Application\UI as ZaxUI,
@@ -18,6 +19,7 @@ abstract class ArticleFormControl extends FormControl {
 		Model\CMS\Service\TInjectAuthorService,
 		Zax\Utils\TInjectRootDir;
 
+	/** @var Model\CMS\Entity\Article */
 	protected $article;
 
 	public function setArticle(Model\CMS\Entity\Article $article) {
@@ -53,26 +55,19 @@ abstract class ArticleFormControl extends FormControl {
 	    $main['title']->getLabelPrototype()
 		    ->addClass('lead');
 
-	    $authors = [];
-	    if($this->article->authors !== NULL) {
-		    foreach($this->article->authors as $author) {
-			    $authors[] = $author->name;
-		    }
-	    }
 	    $allAuthors = $this->authorService->findPairs(NULL, 'name');
-	    $main->addMultiAutoComplete('authorsList', 'article.form.author', array_values($allAuthors))
-		    ->setDefaultValue(implode(', ', $authors));
+	    $filledAuthors = Arrays::objectsToString($this->article->authors, function($author) {
+		    return $author->name;
+	    });
+	    $main->addMultiAutoComplete('authorsList', 'article.form.authors', array_values($allAuthors))
+		    ->setDefaultValue($filledAuthors);
 
-
-	    $tags = [];
-	    if($this->article->tags !== NULL) {
-		    foreach($this->article->tags as $tag) {
-			    $tags[] = $tag->title;
-		    }
-	    }
 	    $allTags = $this->tagService->findPairs(NULL, 'title');
+	    $filledTags = Arrays::objectsToString($this->article->tags, function($tag) {
+		    return $tag->title;
+	    });
 	    $main->addMultiAutoComplete('tagsList', 'article.form.tags', array_values($allTags))
-		    ->setDefaultValue(implode(', ', $tags));
+		    ->setDefaultValue($filledTags);
 
 	    $main->addTexyArea('perex', 'article.form.perex')
 		    ->getControlPrototype()->rows(5);
@@ -82,11 +77,11 @@ abstract class ArticleFormControl extends FormControl {
 
 		$pic = $f->addContainer('pic');
 
-	    // article has image and deleteImg checkbox is checked => hide the displayImg checkboxlist
+	    // article has image and deleteImg checkbox is checked => hide image options
 	    if($this->article->image !== NULL) {
 		    $pic->addCheckbox('deleteImg', 'common.form.removeImage')
 			    ->addCondition($f::EQUAL, FALSE)
-			        ->toggle($id . '-pic-displayImg');
+			        ->toggle($id . '-pic-customize');
 	    }
 
 	    $pic->addFileUpload('img', 'common.form.image')
@@ -94,10 +89,10 @@ abstract class ArticleFormControl extends FormControl {
 		    ->addCondition($f::FILLED)
 			    ->addRule($f::IMAGE);
 
-	    // upload is filled => show displayImg checkboxlist
+	    // upload is filled => show img options
 	    $pic['img']
 		    ->addCondition($f::FILLED)
-		        ->toggle($id . '-pic-displayImg');
+		        ->toggle($id . '-pic-customize');
 
 	    // article has image and deleteImg is checked => show upload
 	    if($this->article->image !== NULL) {
@@ -106,13 +101,32 @@ abstract class ArticleFormControl extends FormControl {
 			        ->toggle($id . '-pic-image');
 	    }
 
-	    $pic->addCheckboxList('displayImg', 'article.form.displayImg', [
-		    'list' => 'V seznamech',
-		    'root' => 'V kořenové kategorii',
-		    'detail' => 'V detailu článku'
-	    ])->setvalue($this->article->getDisplayImgArray())
+	    $picConfig = $f->addContainer('picConfig');
+
+	    $contexts = [
+		    'list' => 'article.form.inLists',
+		    'root' => 'article.form.inRoot',
+		    'detail' => 'article.form.inArticleDetail'
+	    ];
+
+	    $picConfig->addCheckboxList('displayImg', 'article.form.displayImg', $contexts)
+		    ->setValue(Arrays::boolToCbl($this->article->getImageConfig('visible')))
 		    ->setOption('id', $id . '-pic-displayImg');
 
+	    $picConfig->addCheckboxList('displayImgOpen', 'article.form.imgOpenOnClick', $contexts)
+		    ->setValue(Arrays::boolToCbl($this->article->getImageConfig('open')))
+		    ->setOption('id', $id . '-pic-displayImgOpen');
+
+	    $opts = [
+		    0 => 'article.form.floatLeft',
+		    1 => 'article.form.wide'
+	    ];
+	    $configuredStyles = $this->article->getImageConfig('styles');
+
+	    foreach($contexts as $context => $label) {
+		    $picConfig->addRadioList('displayImgStyle' . ucfirst($context), $label, $opts)
+			    ->setValue($configuredStyles[$context]);
+	    }
 
 	    $options = $f->addContainer('options');
 
@@ -123,16 +137,6 @@ abstract class ArticleFormControl extends FormControl {
 
 	    $options->addCheckbox('isMain', 'article.form.setAsMain')
 		    ->setOption('id', $id . '-style-isMain');
-
-	    $style = $f->addContainer('style');
-
-	    $proto = Nette\Utils\Html::el('div');
-	    $box = Nette\Utils\Html::el('div')->style('width:100px;height:50px;border:2px solid #000;float:left;margin-right:5px;');
-		//$proto->add($box);
-	    $proto->add('test');
-
-	    $style->addStatic('todo', '')
-		    ->setValue('TODO!');
 
 		// hide root-related stuff when category is not displayed in root
 	    $options['isVisibleInRootCategory']
@@ -153,7 +157,6 @@ abstract class ArticleFormControl extends FormControl {
 	    $this->binder->entityToForm($this->article, $main);
 	    $this->binder->entityToForm($this->article, $pic);
 	    $this->binder->entityToForm($this->article, $options);
-	    $this->binder->entityToForm($this->article, $style);
 
 	    $f->autofocus('main-title');
 
@@ -167,35 +170,31 @@ abstract class ArticleFormControl extends FormControl {
 	        $this->binder->formToEntity($form['main'], $this->article);
 	        $this->binder->formToEntity($form['pic'], $this->article);
 	        $this->binder->formToEntity($form['options'], $this->article);
-	        $this->binder->formToEntity($form['style'], $this->article);
 
-	        $displayImg = array_flip($values->pic->displayImg);
-	        $displayImg = array_fill_keys(array_keys($displayImg), TRUE);
-	        $this->article->setDisplayImgFromArray($displayImg);
+	        // Save image config
+	        $conf = $this->article->imageConfig;
+	        $formConf = $values->picConfig;
+	        $this->article->setImageConfig([
+		        'visible' =>  Arrays::cblToBool($conf['visible'], $formConf->displayImg),
+		        'open' => Arrays::cblToBool($conf['open'], $formConf->displayImgOpen),
+	            'styles' => [
+			        'root' => $formConf->displayImgStyleRoot,
+			        'list' => $formConf->displayImgStyleList,
+			        'detail' => $formConf->displayImgStyleDetail
+		        ]
+	        ]);
 
 	        // Process tags
-	        $authors = array_map('trim', explode(',', $values->main->tagsList));
-	        $entityAuthors = [];
-	        if($authors !== NULL && count($authors) > 0) {
-		        foreach($authors as $author) {
-			        if(strlen($author) > 0) {
-				        $entityAuthors[$author] = $this->tagService->getOrCreateTag($author);
-			        }
-		        }
-	        }
-	        $this->article->setTags(count($entityAuthors) > 0 ? array_values($entityAuthors) : NULL);
+	        $tags = Arrays::stringToObjects($values->main->tagsList, function($tag) {
+		        return $this->tagService->getOrCreateTag($tag);
+	        });
+	        $this->article->setTags($tags);
 
-	        // Process authors
-	        $authors = array_map('trim', explode(',', $values->main->authorsList));
-	        $entityAuthors = [];
-	        if($authors !== NULL && count($authors) > 0) {
-		        foreach($authors as $author) {
-			        if(strlen($author) > 0) {
-				        $entityAuthors[$author] = $this->authorService->getOrCreateAuthor($author);
-			        }
-		        }
-	        }
-	        $this->article->setAuthors(count($entityAuthors) > 0 ? array_values($entityAuthors) : NULL);
+	        // Authors
+	        $authors = Arrays::stringToObjects($values->main->authorsList, function($author) {
+		        return $this->authorService->getOrCreateAuthor($author);
+	        });
+	        $this->article->setAuthors($authors);
 
 	        $this->articleService->persist($this->article);
 	        $this->articleService->flush();

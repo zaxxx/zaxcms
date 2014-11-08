@@ -3,7 +3,6 @@
 	<li role="presentation" class="active"><a href="#{$htmlId}-main" role="tab" data-toggle="tab">{icon pencil} {_'webContent.button.content'}</a></li>
 	<li role="presentation"><a href="#{$htmlId}-pic" role="tab" data-toggle="tab">{icon picture} {_'article.form.introPicture'}</a></li>
 	<li role="presentation"><a href="#{$htmlId}-options" role="tab" data-toggle="tab">{icon cog} {_'common.form.options'}</a></li>
-	<li role="presentation"><a href="#{$htmlId}-layout" role="tab" data-toggle="tab">{icon file} {_'article.form.layout'}</a></li>
 </ul>
 
 <div class="tab-content">
@@ -30,6 +29,28 @@
 				{/if}
 
 				{$form->renderer->renderContainer($form, $form['pic'])}
+
+				<div id="{$htmlId}-form-pic-customize">
+					<div class="row">
+						<div class="col-sm-3">
+
+						</div>
+						<div class="col-sm-9">
+							<a data-toggle="collapse" class="btn btn-info" href="#" data-target="#{$htmlId}-form-pic-config">
+								{icon picture} {_'common.button.customize'}
+							</a>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div id="{$htmlId}-form-pic-config" class="panel-collapse collapse" role="tabpanel">
+							<div class="panel-body">
+								{$form->renderer->renderContainer($form, $form['picConfig'])}
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -37,15 +58,6 @@
 		<div class="row">
 			<div class="col-sm-12">
 				{$form->renderer->renderContainer($form, $form['options'])}
-			</div>
-		</div>
-	</div>
-	<div role="tabpanel" class="tab-pane tab-pane-form" id="{$htmlId}-layout">
-		<div class="row">
-			<div class="col-sm-12">
-
-				{$form->renderer->renderContainer($form, $form['style'])}
-
 			</div>
 		</div>
 	</div>

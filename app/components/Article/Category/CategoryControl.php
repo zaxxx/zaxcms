@@ -62,7 +62,7 @@ class CategoryControl extends SecuredControl {
     public function beforeRender() {
 	    $this->template->category = $this->getCategory();
 	    $this->template->ancestors = $this->categoryService->findPath($this->getCategory());
-	    $this->template->articleConfig = $this->articleConfig;
+	    $this->template->c = $this->articleConfig->getConfig();
     }
 
 	protected function createComponentArticleList() {

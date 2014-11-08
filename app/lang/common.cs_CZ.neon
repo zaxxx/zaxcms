@@ -19,6 +19,7 @@ button:
     setCreatedNow: "Nastavit čas vytvoření na nyní"
     actions: "Akce"
     publish: "Zveřejnit"
+    customize: "Přizpůsobit"
 form:
     id: "ID"
     name: "Název"

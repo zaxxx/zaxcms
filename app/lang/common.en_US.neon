@@ -18,6 +18,7 @@ button:
     setCreatedNow: "Set time created to now"
     actions: "Actions"
     publish: "Publish"
+    customize: "Customize"
 form:
     id: "ID"
     name: "Name"
