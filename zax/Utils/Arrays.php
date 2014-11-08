@@ -15,6 +15,9 @@ class Arrays extends Nette\Utils\Arrays {
 	}
 
 	public static function objectsToString($entities, $filter, $separator = ', ') {
+		if(!$entities) {
+			return '';
+		}
 		$values = [];
 		foreach($entities as $entity) {
 			$values[] = $filter($entity);
