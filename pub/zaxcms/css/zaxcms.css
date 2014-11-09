@@ -87,7 +87,7 @@ input.about-2-chars-long {
 }
 
 .inactive-transparent {
-    opacity: .5;
+    opacity: 1;
 }
 .inactive-transparent:hover {
     opacity: 1;
@@ -95,4 +95,19 @@ input.about-2-chars-long {
 
 .radio.radio-inline {
     padding-left: 0px;
+}
+
+.img-responsive.img-thumbnail.img-thumbnail-filemanager{
+    max-height:45px;
+    margin-right:10px;
+    z-index:999999;
+}
+
+.img-thumbnail-filemanager:hover{
+    position:relative;
+    transform: scale(5);
+}
+
+.whitespace {
+    margin-bottom:30px;
 }

@@ -26,6 +26,10 @@
             </a>
         </span>
 
+	    <span class="pull-left" n:if="in_array(Zax\Utils\PathHelpers::getExtension($file), [jpg, png, gif])">
+		    <img class="img-responsive img-thumbnail img-thumbnail-filemanager" src="{Zax\Utils\PathHelpers::getPath($basePath, $rootDirProvider, $file)}">
+	    </span>
+
         {* info *}
         {if isset($renameFile) && $renameFile == $fileName}
             {control renameFile}
