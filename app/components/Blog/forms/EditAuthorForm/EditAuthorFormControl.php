@@ -93,7 +93,7 @@ class EditAuthorFormControl extends AbstractFormControl {
 
 		    // Process upload image
 		    if($values->pic->img instanceof Nette\Http\FileUpload && $values->pic->img->isOk()) {
-			    $this->author->image = $this->processImageUpload($values->pic->img, 'author', $this->author->id);
+			    $this->author->image = $this->processImageUpload($values->pic->img, 'author', $this->author->id . '-' . $this->author->slug);
 			    $this->authorService->persist($this->author);
 			    $this->authorService->flush();
 		    }

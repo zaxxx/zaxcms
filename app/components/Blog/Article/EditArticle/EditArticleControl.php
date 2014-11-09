@@ -42,7 +42,7 @@ class EditArticleControl extends SecuredControl {
 	}
 
 	public function beforeRender() {
-
+		$this->template->article = $this->article;
 	}
 
 	/** @secured WebContent, Edit */
@@ -77,7 +77,7 @@ class EditArticleControl extends SecuredControl {
 	/** @secured FileManager, Use */
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()
-			->setRoot($this->rootDir . '/upload/articles/' . $this->article->id)
+			->setRoot($this->rootDir . '/upload/article/' . $this->article->id . '-' . $this->article->slug)
 			->enableFeatures(
 				[
 					'createDir',

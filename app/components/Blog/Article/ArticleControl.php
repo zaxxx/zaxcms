@@ -76,11 +76,18 @@ class ArticleControl extends SecuredControl {
 	}
 
 	protected function createComponentPublishButton() {
-		$button = $this->publishButtonFactory->create();
-		$button->onPublish[] = function(Model\CMS\Entity\Article $article) {
-			$this->redirect('this');
-		};
-		return $button;
+		return new NetteUI\Multiplier(function($id) {
+			$button = $this->publishButtonFactory->create()
+				->setArticleId($id);
+			if($this->isAjaxEnabled()) {
+				$button->enableAjax();
+			}
+			$button->onPublish[] = function(Model\CMS\Entity\Article $article) {
+				$this->go('this');
+			};
+
+			return $button;
+		});
 	}
 
 

@@ -21,6 +21,7 @@ class TagService extends Zax\Model\Doctrine\Service {
 		if($tag === NULL) {
 			$tag = $this->create();
 			$tag->title = $title;
+			$tag->aboutTag = '#### ' . $title;
 			$this->persist($tag);
 			$this->flush();
 		}

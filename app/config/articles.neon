@@ -7,9 +7,10 @@ ZaxCMSArticle:
         showTags: FALSE
         tagsOnBottom: TRUE
         showArticleButton: FALSE
+        showDivider: TRUE
     category:
-        showBreadCrumb: FALSE
-        showSubcategories: FALSE
+        showBreadCrumb: NULL
+        showSubcategories: NULL
         sidebarWidth: 4
     article:
         defaults:
@@ -40,4 +41,5 @@ ZaxCMSArticle:
         sidebarWidth: 4
     author:
         sidebarWidth: 4
-        showList: NULL
+    tag:
+        sidebarWidth: 4

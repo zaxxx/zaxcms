@@ -5,6 +5,7 @@ list:
     showTags: FALSE
     tagsOnBottom: FALSE
     showArticleButton: TRUE
+    showDivider: TRUE
 category:
     showBreadCrumb: FALSE
     showSubcategories: FALSE
@@ -38,4 +39,5 @@ article:
     sidebarWidth: 3
 author:
     sidebarWidth: 3
-    showList: FALSE
+tag:
+    sidebarWidth: 3

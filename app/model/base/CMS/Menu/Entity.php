@@ -131,4 +131,9 @@ abstract class BaseMenu extends BaseEntity implements Translatable {
 		return implode(':', $split);
 	}
 
+	public function getActionName() {
+		$ex = explode(':', $this->nhref);
+		return end($ex);
+	}
+
 }

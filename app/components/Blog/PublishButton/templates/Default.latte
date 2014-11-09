@@ -1,3 +1,1 @@
-<span n:snippet>
-	<a n:if="!$article->isPublic" n:secured="WebContent, Edit" n:class="btn, $ajaxEnabled ? ajax" title="{_'common.button.publish'}" n:href="publish! $article->id">{icon globe}</a>
-</span>
+<span n:snippet><a n:if="!$isPublic" n:secured="WebContent, Edit" n:class="btn, $ajaxEnabled ? ajax" title="{_'common.button.publish'}" n:href="publish! $articleId">{icon globe}</a></span>

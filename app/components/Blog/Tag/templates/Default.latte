@@ -1,1 +1,23 @@
-{control articleList}
+<div n:snippet>
+	<div class="row">
+		<div class="col-sm-{=12-$c[tag][sidebarWidth]}">
+
+			<span class="pull-right" n:secured="WebContent, Edit">
+				<a n:class="btn, $ajaxEnabled ? ajax" title="{_'article.button.editTag'}" n:href="this, view => Edit">{icon pencil}</a>
+				<a n:class="btn, text-danger, $ajaxEnabled ? ajax" title="{_'common.button.delete'}" n:href="this, view => Edit, editTag-view => Delete">{icon trash}</a>
+			</span>
+
+			{$tag->aboutTag|texy|noescape}
+
+			<hr>
+
+			{control articleList}
+
+		</div>
+		<div class="col-sm-{$c[tag][sidebarWidth]}">
+
+			{includeblock '../../tagSidebar.latte'}
+
+		</div>
+	</div>
+</div>

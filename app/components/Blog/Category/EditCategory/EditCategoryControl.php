@@ -12,6 +12,7 @@ use Nette,
 class EditCategoryControl extends SecuredControl {
 
 	use TInjectEditCategoryFormFactory,
+		TInjectDeleteCategoryFormFactory,
 		Zax\Utils\TInjectRootDir,
 		ZaxCMS\Components\FileManager\TInjectFileManagerFactory;
 
@@ -25,13 +26,17 @@ class EditCategoryControl extends SecuredControl {
     public function viewDefault() {
         
     }
+
+	public function viewDelete() {
+
+	}
 	
 	public function viewFiles() {
 	    
 	}
     
     public function beforeRender() {
-        
+        $this->template->category = $this->category;
     }
 
 	/** @secured WebContent, Edit */
@@ -41,10 +46,16 @@ class EditCategoryControl extends SecuredControl {
 		    ->disableAjaxFor(['form']);
 	}
 
+	/** @secured WebContent, Edit */
+	protected function createComponentDeleteCategoryForm() {
+	    return $this->deleteCategoryFormFactory->create()
+		    ->setCategory($this->category);
+	}
+
 	/** @secured FileManager, Use */
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()
-			->setRoot($this->rootDir . '/upload/category/' . $this->category->id)
+			->setRoot($this->rootDir . '/upload/category/' . $this->category->id . '-' . strpos($this->category->slug, '/') > 0 ? end(explode('/', $this->category->slug)) : $this->category->slug)
 			->enableFeatures(
 				[
 					'createDir',

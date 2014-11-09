@@ -36,6 +36,10 @@ form:
     useCategorySidebar: "Use category sidebar"
     useParentCategorySidebar: "Use parent category sidebar"
     useCategoryImage: "Use category image"
+    confirmDeleteArticle: "Are you sure you want to delete '%article%' article?"
+    confirmDeleteCategory: "Are you sure you want to delete '%category%' category?"
+    confirmDeleteTag: "Are you sure you want to delete '%tag%' tag?"
+    confirmDeleteAuthor: "Are you sure you want to delete '%author%' author?"
 alert:
     articleSaved: "Article saved."
     categorySaved: "Category saved."

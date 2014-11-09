@@ -7,11 +7,12 @@ use Nette,
 	ZaxCMS,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
-    Zax\Application\UI\Control;
+    Zax\Application\UI\SecuredControl;
 
-class TagControl extends Control {
+class TagControl extends SecuredControl {
 
 	use TInjectArticleListFactory,
+		TInjectEditTagFactory,
 		Model\CMS\Service\TInjectTagService,
 		ZaxCMS\DI\TInjectArticleConfig;
 
@@ -23,10 +24,22 @@ class TagControl extends Control {
     public function viewDefault() {
         
     }
+
+	/** @secured WebContent, Edit */
+	public function viewEdit() {
+		$this['editTag'];
+	}
     
     public function beforeRender() {
-        
+        $this->template->c = $this->articleConfig->getConfig();
+	    $this->template->tag = $this->getTag();
     }
+
+	protected function createTexy() {
+		$texy = parent::createTexy();
+		$texy->headingModule->top = 2;
+		return $texy;
+	}
 
 	protected function getSlug() {
 		return (string)$this->slug;
@@ -49,6 +62,11 @@ class TagControl extends Control {
 	    return $this->articleListFactory->create()
 		    ->setTag($this->getTag())
 		    ->enablePaginator($this->articleConfig->getListItemsPerPage());
+	}
+
+	protected function createComponentEditTag() {
+	    return $this->editTagFactory->create()
+		    ->setTag($this->getTag());
 	}
 
 }

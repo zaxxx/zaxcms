@@ -11,6 +11,7 @@ services:
 
     - ZaxCMS\Components\Blog\IAddCategoryFactory
     - ZaxCMS\Components\Blog\IEditCategoryFactory
+    - ZaxCMS\Components\Blog\IDeleteCategoryFormFactory
 
     - ZaxCMS\Components\Blog\IAddArticleFormFactory
     - ZaxCMS\Components\Blog\IEditArticleFormFactory
@@ -23,6 +24,10 @@ services:
 
     - ZaxCMS\Components\Blog\IAuthorListFactory
     - ZaxCMS\Components\Blog\IEditAuthorFactory
+    - ZaxCMS\Components\Blog\IDeleteAuthorFormFactory
+
+    - ZaxCMS\Components\Blog\IEditTagFactory
+    - ZaxCMS\Components\Blog\IDeleteTagFormFactory
 
     - ZaxCMS\Components\Blog\IEditAuthorFormFactory
 

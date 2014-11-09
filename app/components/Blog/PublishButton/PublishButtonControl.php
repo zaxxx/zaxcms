@@ -14,6 +14,13 @@ class PublishButtonControl extends SecuredControl {
 
 	public $onPublish = [];
 
+	protected $articleId;
+
+	public function setArticleId($id) {
+		$this->articleId = $id;
+		return $this;
+	}
+
 	/** @secured WebContent, Edit */
 	public function handlePublish($id) {
 		$article = $this->articleService->get($id);
@@ -21,6 +28,7 @@ class PublishButtonControl extends SecuredControl {
 		$this->articleService->persist($article);
 		$this->articleService->flush();
 		$this->articleService->invalidateCache();
+		$this->template->isPublic = TRUE;
 		$this->flashMessage('common.alert.changesSaved', 'success');
 		$this->onPublish($article);
 	}
@@ -28,9 +36,12 @@ class PublishButtonControl extends SecuredControl {
     public function viewDefault() {
         
     }
-    
-    public function beforeRender(Model\CMS\Entity\Article $article) {
-        $this->template->article = $article;
-    }
+
+	public function beforeRender($isPublic) {
+		$this->template->articleId = $this->articleId;
+		if(!isset($this->template->isPublic)) {
+			$this->template->isPublic = $isPublic;
+		}
+	}
 
 }

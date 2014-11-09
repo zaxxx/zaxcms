@@ -25,7 +25,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 	/** @persistent */
 	public $locale = 'cs_CZ';
 
-	protected $categoryStrategy;
+	protected $blogStrategy;
 
 	protected $pageStrategy;
 
@@ -37,10 +37,10 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		$this->webLoaderFactory = $webLoaderFactory;
 	}
 
-	public function injectMarkNavAsActiveStrategies(Components\Navigation\MarkActiveStrategies\CategoryStrategy $categoryStrategy,
+	public function injectMarkNavAsActiveStrategies(Components\Navigation\MarkActiveStrategies\BlogStrategy $blogStrategy,
 													Components\Navigation\MarkActiveStrategies\PageStrategy $pageStrategy,
 													Components\Navigation\MarkActiveStrategies\PresenterStrategy $presenterStrategy) {
-		$this->categoryStrategy = $categoryStrategy;
+		$this->blogStrategy = $blogStrategy;
 		$this->pageStrategy = $pageStrategy;
 		$this->presenterStrategy = $presenterStrategy;
 	}
@@ -67,7 +67,7 @@ abstract class BasePresenter extends ZaxUI\Presenter {
 		        ->setBSNavbarClasses();
 
 			$nav->getMarkActiveStrategy()
-				->addStrategy($this->categoryStrategy)
+				->addStrategy($this->blogStrategy)
 				->addStrategy($this->pageStrategy)
 				->addStrategy($this->presenterStrategy);
 

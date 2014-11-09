@@ -209,7 +209,7 @@ abstract class ArticleFormControl extends AbstractFormControl {
 
 	        // Process upload image
 	        if($values->pic->img instanceof Nette\Http\FileUpload && $values->pic->img->isOk()) {
-		        $this->article->image = $this->processImageUpload($values->pic->img, 'articles', $this->article->id);
+		        $this->article->image = $this->processImageUpload($values->pic->img, 'article', $this->article->id . '-' . $this->article->slug);
 		        $this->articleService->persist($this->article);
 		        $this->articleService->flush();
 	        }

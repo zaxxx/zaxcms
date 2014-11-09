@@ -13,7 +13,8 @@ class EditAuthorControl extends SecuredControl {
 
 	use ZaxCMS\Components\FileManager\TInjectFileManagerFactory,
 		Zax\Utils\TInjectRootDir,
-		TInjectEditAuthorFormFactory;
+		TInjectEditAuthorFormFactory,
+		TInjectDeleteAuthorFormFactory;
 
 	protected $author;
 
@@ -31,15 +32,19 @@ class EditAuthorControl extends SecuredControl {
 	public function viewFiles() {
 
 	}
+
+	public function viewDelete() {
+
+	}
     
     public function beforeRender() {
-
+		$this->template->author = $this->author;
     }
 
 	/** @secured FileManager, Use */
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()
-			->setRoot($this->rootDir . '/upload/author/' . $this->author->id)
+			->setRoot($this->rootDir . '/upload/author/' . $this->author->id . '-' . $this->author->slug)
 			->enableFeatures(
 				[
 					'createDir',
@@ -58,6 +63,11 @@ class EditAuthorControl extends SecuredControl {
 	    return $this->editAuthorFormFactory->create()
 		    ->setAuthor($this->author)
 		    ->disableAjaxFor(['form']);
+	}
+
+	protected function createComponentDeleteAuthorForm() {
+	    return $this->deleteAuthorFormFactory->create()
+		    ->setAuthor($this->author);
 	}
 
 }

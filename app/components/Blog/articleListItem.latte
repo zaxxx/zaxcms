@@ -47,9 +47,9 @@
 
 {define adminTools}
 	<span n:secured="WebContent, Edit" class="pull-right btn-group">
-		{control publishButton, article => $article}
-		<a class="btn" title="{_'article.button.editArticle'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit])}">{icon pencil}</a>
-		<a class="btn text-danger" title="{_'common.button.delete'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit, article-editArticle-view => Delete])}">{icon trash}</a>
+		<span n:if="!$article->isPublic">{control publishButton-$article->id, isPublic => $article->isPublic}</span>
+		<a n:class="btn, $detail && $ajaxEnabled ? ajax" title="{_'article.button.editArticle'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit])}">{icon pencil}</a>
+		<a n:class="btn, text-danger, $detail && $ajaxEnabled ? ajax" title="{_'common.button.delete'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit, article-editArticle-view => Delete])}">{icon trash}</a>
 	</span>
 {/define}
 
@@ -68,7 +68,7 @@
 
 	<div n:class="$root && $article->isMain ? lead">
 
-		{include #adminTools}
+		{include #adminTools article => $article}
 
 		{if $article->imageConfig[styles][$context] === 0}{include #image}{/if}
 

@@ -4,12 +4,11 @@
 
 	<div class="row">
 		<div class="col-sm-7 text-right">
-			<p class="form-control-static">{_'article.form.confirmDeleteArticle', NULL, [article => $article->title]}</p>
+			<p class="form-control-static">{_'article.form.confirmDeleteAuthor', NULL, [author => $author->name]}</p>
 		</div>
 		<div class="col-sm-5">
-			{control deleteArticleForm}
+			{control deleteAuthorForm}
 		</div>
 	</div>
 
 {/define}
-
