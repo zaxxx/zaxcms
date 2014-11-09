@@ -78,7 +78,14 @@ class FormExtension extends Nette\Object {
 		// addFileUpload
 		Container::extensionMethod('addFileUpload', function(Container $container, $name, $label = NULL, $multiple = FALSE) {
 			$upload = new Nette\Forms\Controls\UploadControl($label, $multiple);
-			$upload->getControlPrototype()->setData(['buttonText' => $this->translator->translate('common.button.chooseFile' . ($multiple ? 's' : ''))]);
+			$upload->getControlPrototype()
+				->setData([
+					'buttonText' => $this->translator->translate('common.button.chooseFile' . ($multiple ? 's' : '')),
+					'input' => $multiple ? 'false' : 'true',
+					'maxFiles' => $multiple ? Zax\Utils\HttpHelpers::getMaxFileUploads() : 1
+				]);
+			$upload->addRule(Zax\Application\UI\Form::MAX_FILE_SIZE, NULL, Zax\Utils\HttpHelpers::getMaxUploadSize()*1024*1024);
+
 			return $container[$name] = $upload;
 		});
 

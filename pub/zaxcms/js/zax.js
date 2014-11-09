@@ -22,8 +22,16 @@ var destroyTooltips = function() {
 
 var initFilestyle = function() {
 	$(':file').each(function() {
-        /** Filestyle is bugged, this "solution" seems to work */
-		$(this).filestyle({buttonBefore: true, buttonText: $(this).data('buttontext')});
+        var upload = $(this);
+        upload.filestyle({buttonBefore: true, buttonText: upload.data('buttontext'), input: upload.data('input')});
+        if(upload.data('maxfiles')) {
+            var maxFiles = upload.data('maxfiles');
+            $(document).on('change', upload, function() {
+                if(upload[0].files.length > maxFiles) {
+                    //Nette.addError(upload, 'abc');
+                }
+            });
+        }
 	});
 };
 
