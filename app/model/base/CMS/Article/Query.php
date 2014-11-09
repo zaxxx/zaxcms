@@ -98,7 +98,7 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 		$qb = $repository->createQueryBuilder()
 			->select('a, b, c, d')
 			->from(Model\CMS\Entity\Article::getClassName(), 'a')
-			->innerJoin('a.category', 'b')
+			->leftJoin('a.category', 'b')
 			->leftJoin('a.tags', 'c')
 			->leftJoin('a.authors', 'd');
 
@@ -106,14 +106,10 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 
 		$qb->addOrderBy('a.createdAt', 'DESC');
 
+
 		$query = $qb->getQuery()
-			;//->useResultCache(TRUE, NULL, Model\CMS\AclFactory::CACHE_TAG);
-		/*if($this->locale !== NULL) {
-			$query->setHint(
-				Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
-				$this->locale
-			);
-		}*/
+			->useResultCache(TRUE, NULL, Model\CMS\Service\ArticleService::CACHE_TAG);
+
 		return $query;
 	}
 

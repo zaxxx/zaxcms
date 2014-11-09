@@ -36,7 +36,26 @@ abstract class BaseAuthor extends BaseEntity {
 	protected $slug;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="Article", mappedBy="author")
+	 * @ORM\Column(type="string", length=512, nullable=TRUE)
+	 */
+	protected $image;
+
+	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $aboutAuthor;
+
+	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $sidebarContent;
+
+	/**
+	 * @ORM\ManyToMany(targetEntity="Article", mappedBy="authors")
+	 * @ORM\JoinTable(name="author_article")
+	 * @ORM\OrderBy({"id" = "DESC"})
 	 */
 	protected $articles;
 

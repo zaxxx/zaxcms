@@ -12,7 +12,7 @@ use Nette,
 class SearchControl extends Control {
 
 	use ZaxCMS\DI\TInjectSearchConfig,
-		ZaxCMS\Components\Article\TInjectArticleListFactory,
+		ZaxCMS\Components\Blog\TInjectArticleListFactory,
 		TInjectSearchFormFactory;
 
 	/** @persistent */

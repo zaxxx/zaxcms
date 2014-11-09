@@ -1,0 +1,9 @@
+{var $cacheTags = [ZaxCMS\Model\CMS\Service\ArticleService::CACHE_TAG, ZaxCMS\Model\CMS\Service\CategoryService::CACHE_TAG]}
+
+{cache 'article-' . $article->id . '-sidebar', tags => $cacheTags}
+	{if $article->sidebarCategory}
+		{include './categorySidebar.latte', category => $article->category, ancestors => $ancestors}
+	{else}
+		{$article->sidebarContent|texy|noescape}
+	{/if}
+{/cache}

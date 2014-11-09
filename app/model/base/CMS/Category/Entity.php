@@ -45,6 +45,12 @@ abstract class BaseCategory extends BaseEntity {
 	protected $title;
 
 	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $perex;
+
+	/**
 	 * @Gedmo\Slug(handlers={
 	 *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\TreeSlugHandler", options={
 	 *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),

@@ -21,6 +21,7 @@ class AuthorService extends Zax\Model\Doctrine\Service {
 		if($author === NULL) {
 			$author = $this->create();
 			$author->name = $name;
+			$author->aboutAuthor = '#### ' . $name;
 			$this->persist($author);
 			$this->flush();
 		}

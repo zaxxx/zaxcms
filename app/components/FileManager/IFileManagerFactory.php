@@ -15,6 +15,7 @@ interface IFileManagerFactory {
 
 trait TInjectFileManagerFactory {
 
+	/** @var IFileManagerFactory */
 	protected $fileManagerFactory;
 
 	public function injectFileManagerFactory(IFileManagerFactory $fileManagerFactory) {

@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col-sm-{=12-$c[author][sidebarWidth]}">
+
+
+		<ul class="nav nav-pills" n:inner-foreach="$authors as $author">
+			<li>
+				<a href="{$presenter->link('Blog:author', [author-slug => $author[slug]])}">{$author[name]}
+					<span n:if="$author[countArticles]>0"> &middot; {$author[countArticles]}</span>
+				</a>
+			</li>
+		</ul>
+
+
+	</div>
+	<div class="col-sm-{$c[author][sidebarWidth]}">
+
+		{* includeblock '../../authorSidebar.latte' *}
+
+	</div>
+</div>
+
+
+

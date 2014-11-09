@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-sm-{=12-$c[author][sidebarWidth]}">
+
+		<span class="pull-right" n:secured="WebContent, Edit">
+			<a class="btn" title="{_'article.button.editAuthor'}" n:href="this, view => Edit">{icon pencil}</a>
+			<a class="btn text-danger" title="{_'common.button.delete'}">{icon trash}</a>
+		</span>
+
+		{$author->aboutAuthor|texy|noescape}
+
+		<hr>
+
+		{control articleList}
+
+	</div>
+	<div class="col-sm-{$c[author][sidebarWidth]}">
+
+		{includeblock '../../authorSidebar.latte'}
+
+	</div>
+</div>
+

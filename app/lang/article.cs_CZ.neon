@@ -10,6 +10,7 @@ button:
     addCategory: "Přidat kategorii"
     editCategory: "Upravit kategorii"
     saveAndGo: "a zobrazit"
+    showArticle: "celý článek"
 form:
     title: "Nadpis"
     perex: "Perex"
@@ -35,6 +36,7 @@ form:
     imgOpenOnClick: "Otevřít obrázek při kliknutí"
     useCategorySidebar: "Použít boční lištu z kategorie"
     useParentCategorySidebar: "Použít boční lištu z nadřazené kategorie"
+    useCategoryImage: "Použít obrázek kategorie"
 alert:
     articleSaved: "Článek byl uložen."
     categorySaved: "Kategorie byla uložena."

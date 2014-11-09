@@ -1,7 +1,0 @@
-
-{foreach array_reverse($ancestors) as $ancestor}
-	{if !$ancestor->sidebarParent || $ancestor->depth === 0}
-		{$ancestor->sidebarContent|texy|noescape}
-		{breakIf !$ancestor->sidebarParent || $ancestor->depth === 0}
-	{/if}
-{/foreach}

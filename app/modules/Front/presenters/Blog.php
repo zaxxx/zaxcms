@@ -3,6 +3,7 @@
 namespace ZaxCMS\FrontModule;
 use Nette,
 	ZaxCMS,
+	ZaxCMS\Components\Blog,
 	ZaxCMS\Model,
 	Nette\Application\UI\Presenter,
 	Zax\Application\UI as ZaxUI,
@@ -11,10 +12,11 @@ use Nette,
 
 class BlogPresenter extends BasePresenter {
 
-	use ZaxCMS\Components\Article\TInjectArticleFactory,
-		ZaxCMS\Components\Article\TInjectCategoryFactory,
-		ZaxCMS\Components\Article\TInjectTagFactory,
-		ZaxCMS\Components\Article\TInjectAuthorFactory;
+	use Blog\TInjectArticleFactory,
+		Blog\TInjectCategoryFactory,
+		Blog\TInjectTagFactory,
+		Blog\TInjectAuthorFactory,
+		Blog\TInjectAuthorListFactory;
 
 	protected function createComponentArticle() {
 	    return $this->articleFactory->create()
@@ -33,6 +35,11 @@ class BlogPresenter extends BasePresenter {
 
 	protected function createComponentAuthor() {
 	    return $this->authorFactory->create()
+		    ->enableAjax();
+	}
+
+	protected function createComponentAuthorList() {
+	    return $this->authorListFactory->create()
 		    ->enableAjax();
 	}
 

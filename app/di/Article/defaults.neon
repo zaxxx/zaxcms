@@ -4,6 +4,7 @@ list:
     itemsPerPage: 10
     showTags: FALSE
     tagsOnBottom: FALSE
+    showArticleButton: TRUE
 category:
     showBreadCrumb: FALSE
     showSubcategories: FALSE
@@ -30,6 +31,7 @@ article:
     showTimePosted: FALSE
     showAuthor: FALSE
     showCategory: FALSE
+    showCategoryInCategory: FALSE
     showTagsList: FALSE
     showTagsDetail: FALSE
     tagsOnBottom: FALSE

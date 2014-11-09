@@ -15,7 +15,7 @@ use Zax,
  * Project-specific category extension
  *
  * @Gedmo\Tree(type="materializedPath")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
+ * @ORM\Entity(repositoryClass="ZaxCMS\Model\CMS\Repository\CategoryTreeRepository")
  */
 class Category extends BaseCategory {
 

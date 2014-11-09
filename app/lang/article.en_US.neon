@@ -10,6 +10,7 @@ button:
     addCategory: "Add category"
     editCategory: "Edit category"
     saveAndGo: "and show"
+    showArticle: "continue reading"
 form:
     title: "Title"
     perex: "Perex"
@@ -34,6 +35,7 @@ form:
     imageStyles: "Image display styles"
     useCategorySidebar: "Use category sidebar"
     useParentCategorySidebar: "Use parent category sidebar"
+    useCategoryImage: "Use category image"
 alert:
     articleSaved: "Article saved."
     categorySaved: "Category saved."

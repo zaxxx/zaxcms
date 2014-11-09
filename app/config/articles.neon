@@ -4,10 +4,12 @@ extensions:
 ZaxCMSArticle:
     list:
         itemsPerPage: 15
+        showTags: FALSE
         tagsOnBottom: TRUE
+        showArticleButton: FALSE
     category:
-        showBreadCrumb: NULL
-        showSubcategories: NULL
+        showBreadCrumb: FALSE
+        showSubcategories: FALSE
         sidebarWidth: 4
     article:
         defaults:
@@ -31,6 +33,7 @@ ZaxCMSArticle:
         showTimePosted: TRUE
         showAuthor: TRUE
         showCategory: TRUE
+        showCategoryInCategory: FALSE
         showTagsList: FALSE
         showTagsDetail: TRUE
         tagsOnBottom: TRUE
