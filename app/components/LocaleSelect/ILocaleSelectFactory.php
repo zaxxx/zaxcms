@@ -8,3 +8,15 @@ interface ILocaleSelectFactory {
     public function create();
 
 }
+
+
+trait TInjectLocaleSelectFactory {
+
+	protected $localeSelectFactory;
+
+	public function injectLocaleSelectFactory(ILocaleSelectFactory $localeSelectFactory) {
+		$this->localeSelectFactory = $localeSelectFactory;
+	}
+
+}
+

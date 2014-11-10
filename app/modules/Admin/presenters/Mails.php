@@ -16,7 +16,7 @@ class MailsPresenter extends BasePresenter {
 
 	protected function createComponentMails() {
 	    return $this->mailsFactory->create()
-		    ->enableAjax();
+		    ;//->enableAjax();
 	}
 
 }

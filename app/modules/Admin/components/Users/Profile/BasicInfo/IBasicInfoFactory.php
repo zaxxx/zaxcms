@@ -8,3 +8,15 @@ interface IBasicInfoFactory {
     public function create();
 
 }
+
+
+trait TInjectBasicInfoFactory {
+
+	protected $basicInfoFactory;
+
+	public function injectBasicInfoFactory(IBasicInfoFactory $basicInfoFactory) {
+		$this->basicInfoFactory = $basicInfoFactory;
+	}
+
+}
+

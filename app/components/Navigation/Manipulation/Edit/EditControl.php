@@ -11,17 +11,14 @@ use Nette,
 
 class EditControl extends SecuredControl {
 
+	use Model\CMS\Service\TInjectMenuService,
+		TInjectAddMenuItemFactory,
+		TInjectEditMenuItemFactory,
+		ZaxCMS\Components\LocaleSelect\TInjectLocaleSelectFactory;
+
 	protected $defaultLinkParams = [
 		'editMenuItem-editMenuItemForm-form-icon-selectedValue' => NULL
 	];
-
-	protected $menuService;
-
-	protected $addMenuItemFactory;
-
-	protected $editMenuItemFactory;
-
-	protected $localeSelectFactory;
 
 	protected $name;
 
@@ -32,16 +29,6 @@ class EditControl extends SecuredControl {
 
 	/** @persistent */
 	public $selectMenu;
-
-	public function __construct(Model\CMS\Service\MenuService $menuService,
-								IAddMenuItemFactory $addMenuItemFactory,
-								IEditMenuItemFactory $editMenuItemFactory,
-								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory) {
-		$this->menuService = $menuService;
-		$this->addMenuItemFactory = $addMenuItemFactory;
-		$this->editMenuItemFactory = $editMenuItemFactory;
-		$this->localeSelectFactory = $localeSelectFactory;
-	}
 
 	public function getLocale() {
 		return $this['localeSelect']->getLocale();

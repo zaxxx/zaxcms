@@ -11,3 +11,15 @@ interface IDeleteFileFactory {
 	public function create();
 
 }
+
+
+trait TInjectDeleteFileFactory {
+
+	protected $deleteFileFactory;
+
+	public function injectDeleteFileFactory(IDeleteFileFactory $deleteFileFactory) {
+		$this->deleteFileFactory = $deleteFileFactory;
+	}
+
+}
+

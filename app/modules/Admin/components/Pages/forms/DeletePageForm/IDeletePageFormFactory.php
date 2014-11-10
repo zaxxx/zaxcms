@@ -8,3 +8,15 @@ interface IDeletePageFormFactory {
     public function create();
 
 }
+
+
+trait TInjectDeletePageFormFactory {
+
+	protected $deletePageFormFactory;
+
+	public function injectDeletePageFormFactory(IDeletePageFormFactory $deletePageFormFactory) {
+		$this->deletePageFormFactory = $deletePageFormFactory;
+	}
+
+}
+

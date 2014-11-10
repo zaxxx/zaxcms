@@ -1,0 +1,105 @@
+{var $cacheTags = [ZaxCMS\Model\CMS\Service\ArticleService::CACHE_TAG]}
+
+{define tags}
+	{cache 'article-' . $article->id . '-tags', tags => $cacheTags}
+		<p class="text-muted" n:if="$article->tags !== NULL && count($article->tags) > 0 && (($c[article][showTagsDetail] && $detail) || ($c[article][showTagsList] && !$detail))">
+			<em>
+				{_'article.general.tags'}:
+				{foreach $article->tags as $tag}
+					<a href="{$presenter->link('Blog:tag', [tag-slug => $tag->slug])}">{$tag->title}</a>{sep}, {/sep}
+				{/foreach}
+			</em>
+		</p>
+	{/cache}
+{/define}
+
+{define timeCreated}
+	<span n:if="$c[article][showTimePosted]" title="{$article->createdAt|beautifulDateTime}">{$article->createdAt|relativeDate}</span>
+{/define}
+
+{define author}
+	{cache 'article-' . $article->id . '-author', tags => $cacheTags}
+		<span n:if="$c[article][showAuthor] && $article->authors !== NULL && count($article->authors) > 0">
+			&middot;&middot;
+			{foreach $article->authors as $author}
+				<a href="{$presenter->link('Blog:author', [author-slug => $author->slug])}">{$author->name}</a>{sep}, {/sep}
+			{/foreach}
+		</span>
+	{/cache}
+{/define}
+
+{define category}
+	{cache 'article-' . $article->id . '-category', tags => $cacheTags}
+		<span n:if="$c[article][showCategory]">{_'article.general.inCategory'} <a href="{$presenter->link('Blog:category', [category-slug => $article->category->slug])}">{$article->category->title}</a></span>
+	{/cache}
+{/define}
+
+{define showArticleButton}
+	<span class="pull-right"><a href="{$articleLink}">{_'article.button.showArticle'}</a></span>
+{/define}
+
+{define image}
+	{var $style = $article->imageConfig[styles][$context]}
+	<a n:if="$showImg" n:tag-if="$openImg || !$detail" href="{if $openImg}{$baseUri}/{$article->image}" target="_blank{elseif !$detail}{$articleLink}{/if}">
+		<img n:if="$showImg" style="{if $style < 2}max-width:250px;margin-right:20px;{/if}margin-bottom:15px;" n:class="$style === 2 ? img-responsive : pull-left" src="{$baseUri}/{$article->image}">
+	</a>
+{/define}
+
+{define adminTools}
+	<span n:secured="WebContent, Edit" class="pull-right btn-group">
+		<span n:if="!$article->isPublic">{control publishButton-$article->id, isPublic => $article->isPublic}</span>
+		<a n:class="btn, $detail && $ajaxEnabled ? ajax" title="{_'article.button.editArticle'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit])}">{icon pencil}</a>
+		<a n:class="btn, text-danger, $detail && $ajaxEnabled ? ajax" title="{_'common.button.delete'}" href="{$presenter->link('Blog:article', [article-slug => $article->slug, article-view => Edit, article-editArticle-view => Delete])}">{icon trash}</a>
+	</span>
+{/define}
+
+
+{block article}
+
+	{var $root = isset($isRootCategory) ? $isRootCategory : FALSE}
+	{var $detail = isset($isDetail) ? $isDetail : FALSE}
+	{var $list = !$detail && !$root}
+	{var $context = $root ? 'root' : ($detail ? 'detail' : 'list')}
+
+	{var $showImg = $article->image !== NULL && $article->imageConfig[visible][$context]}
+	{var $openImg = $article->imageConfig[open][$context]}
+	{var $articleLink = $presenter->link('Blog:article', [article-slug => $article->slug])}
+	{var $isCurrentCategory = isset($category) && $category === $article->category}
+
+	<div n:class="$root && $article->isMain ? lead">
+
+		{include #adminTools article => $article}
+
+		{if $article->imageConfig[styles][$context] === 0}{include #image}{/if}
+
+		<h3><a n:tag-if="!$detail" href="{$articleLink}">{$article->title}</a></h3>
+
+		<p class="text-muted">
+			<em>
+				{include #timeCreated} {if !$isCurrentCategory || $c[article][showCategoryInCategory]}{include #category}{/if} {include #author}
+			</em>
+		</p>
+
+		{if ($detail && !$c[article][tagsOnBottom]) || (!$detail && !$c[list][tagsOnBottom])}
+			{include #tags}
+		{/if}
+
+		{if $article->imageConfig[styles][$context] > 0}{include #image}{/if}
+
+		{$article->perex|texy|noescape}
+
+		{if !$detail && $c[list][showArticleButton]}{include #showArticleButton}{/if}
+
+		<div class="clearfix"></div>
+
+		<div n:if="isset($articleContent)">
+			{$articleContent|texy|noescape}
+
+		</div>
+
+		{if ($detail && $c[article][tagsOnBottom]) || (!$detail && $c[list][tagsOnBottom])}
+			{include #tags}
+		{/if}
+	</div>
+
+{/block}

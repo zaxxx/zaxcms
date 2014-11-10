@@ -17,3 +17,16 @@ class MailTemplateService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectMailTemplateService {
+
+	/** @var MailTemplateService */
+	protected $mailTemplateService;
+
+	public function injectMailTemplateService(MailTemplateService $mailTemplateService) {
+		$this->mailTemplateService = $mailTemplateService;
+	}
+
+}
+

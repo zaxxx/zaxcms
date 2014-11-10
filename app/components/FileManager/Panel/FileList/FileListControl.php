@@ -15,20 +15,10 @@ use Nette,
  */
 class FileListControl extends FileManagerAbstract {
 
-	/**
-	 * @var IRenameFileFactory
-	 */
-	protected $renameFileFactory;
-
-	/**
-	 * @var IDeleteFileFactory
-	 */
-	protected $deleteFileFactory;
-
-	/**
-	 * @var IUploadFileFactory
-	 */
-	protected $uploadFileFactory;
+	use TInjectRenameFileFactory,
+		TInjectDeleteFileFactory,
+		TInjectUploadFileFactory,
+		Zax\Utils\TInjectRootDir;
 
 	/**
 	 * @var
@@ -55,27 +45,6 @@ class FileListControl extends FileManagerAbstract {
 	 */
 	protected $extensions;
 
-	/**
-	 * @var Zax\Utils\RootDir
-	 */
-	protected $rootDirProvider;
-
-	/**
-	 * @param IRenameFileFactory $renameFileFactory
-	 * @param IDeleteFileFactory $deleteFileFactory
-	 * @param IUploadFileFactory $uploadFileFactory
-	 */
-	public function __construct(IRenameFileFactory $renameFileFactory,
-								IDeleteFileFactory $deleteFileFactory,
-								IUploadFileFactory $uploadFileFactory,
-								Zax\Utils\RootDir $rootDirProvider
-	) {
-		$this->renameFileFactory = $renameFileFactory;
-		$this->deleteFileFactory = $deleteFileFactory;
-		$this->uploadFileFactory = $uploadFileFactory;
-		$this->rootDirProvider = $rootDirProvider;
-	}
-
 	/** @secured FileManager, Use */
 	public function viewDefault() {
 
@@ -101,7 +70,7 @@ class FileListControl extends FileManagerAbstract {
 		$dir = $this->getAbsoluteDirectory();
 
 		$this->template->rootDir = $this->getRoot();
-		$this->template->rootDirProvider = $this->rootDirProvider;
+		$this->template->rootDirProvider = $this->rootDir;
 		$this->template->fileSystemCurrent = Nette\Utils\Finder::findFiles('*')->in($dir);
 	}
 

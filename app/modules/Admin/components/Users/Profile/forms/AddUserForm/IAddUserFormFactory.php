@@ -8,3 +8,15 @@ interface IAddUserFormFactory {
     public function create();
 
 }
+
+
+trait TInjectAddUserFormFactory {
+
+	protected $addUserFormFactory;
+
+	public function injectAddUserFormFactory(IAddUserFormFactory $addUserFormFactory) {
+		$this->addUserFormFactory = $addUserFormFactory;
+	}
+
+}
+

@@ -1,0 +1,14 @@
+{layout './@layout.latte'}
+
+{define panelContent}
+
+	<div class="row">
+		<div class="col-sm-7 text-right">
+			<p class="form-control-static">{_'article.form.confirmDeleteCategory', NULL, [category => $category->title]}</p>
+		</div>
+		<div class="col-sm-5">
+			{control deleteCategoryForm}
+		</div>
+	</div>
+
+{/define}

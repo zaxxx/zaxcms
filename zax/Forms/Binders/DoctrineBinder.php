@@ -6,7 +6,7 @@ use Zax,
 
 class DoctrineBinder extends Nette\Object implements IBinder {
 
-	public function formToEntity(Nette\Forms\Form $form, $entity) {
+	public function formToEntity(Nette\Forms\Container $form, $entity) {
 		foreach($form->getComponents() as $name => $control) {
 			if(isset($entity->$name)) {
 				$value = $form[$name]->getValue();
@@ -19,7 +19,7 @@ class DoctrineBinder extends Nette\Object implements IBinder {
 		return $entity;
 	}
 
-	public function entityToForm($entity, Nette\Forms\Form $form) {
+	public function entityToForm($entity, Nette\Forms\Container $form) {
 		foreach($form->getComponents() as $name => $control) {
 			if(isset($entity->$name)) {
 				$form[$name]->setValue($entity->$name);

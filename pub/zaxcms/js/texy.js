@@ -146,6 +146,10 @@ Texy.prototype = jQuery.extend({}, Selection.prototype, {
 
     div: function(divClass) {
         this.tag('/--div .[' + divClass + ']\n\n', '\n\n\\--');
+    },
+
+    closedDiv: function(divClass) {
+        this.tag('<div class="' + divClass + '"></div>\n', '');
     }
 
 });

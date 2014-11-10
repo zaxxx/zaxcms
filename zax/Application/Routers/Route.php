@@ -94,7 +94,7 @@ class Route extends Nette\Application\Routers\Route {
 	}
 
 	/**
-	 * Metadata factory
+	 * Metadata factory. First two parameters can be replaced with one parameter - array of metadata.
 	 *
 	 * @param       $presenter
 	 * @param null  $action
@@ -104,13 +104,19 @@ class Route extends Nette\Application\Routers\Route {
 	 */
 	static public function createMetadata($presenter, $action = NULL, $aliases = array(), $persistentBoolParams = array()) {
 
-		$metadata = [
-			'presenter' => $presenter
-		];
+		if(is_array($presenter)) {
+			$metadata = $presenter;
+			list(,$aliases, $persistentBoolParams) = func_get_args();
+		} else {
+			$metadata = [
+				'presenter' => $presenter
+			];
 
-		if(strlen($action) > 0) {
-			$metadata['action'] = $action;
+			if(strlen($action) > 0) {
+				$metadata['action'] = $action;
+			}
 		}
+
 
 		if(count($aliases) > 0) {
 			$metadata[NULL] = self::createAliases($aliases);

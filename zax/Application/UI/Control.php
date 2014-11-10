@@ -266,6 +266,7 @@ abstract class Control extends Nette\Application\UI\Control {
 	 */
 	public function attached($presenter) {
 		parent::attached($presenter);
+		$this->startup();
 		if($this->translator === NULL) {
 			$this->translator = $presenter->translator;
 		}
@@ -360,10 +361,7 @@ abstract class Control extends Nette\Application\UI\Control {
 		return $control;
 	}
 
-	/**
-	 * replacement for render(), descendants should override this method
-	 */
-	protected function beforeRender() {}
+	public function startup() {}
 
 	/**
 	 * Life cycle
@@ -373,6 +371,7 @@ abstract class Control extends Nette\Application\UI\Control {
 	 * @throws \Nette\Application\UI\BadSignalException
 	 */
 	final public function run($render = '', $renderParams = []) {
+
 		$template = $this->getTemplate();
 		$template->setFile($this->getTemplatePath($this->view, $render));
 

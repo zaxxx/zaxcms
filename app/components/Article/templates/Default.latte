@@ -1,8 +1,0 @@
-
-<span class="pull-right" n:secured="WebContent, Edit">
-	<a n:href="this, view => Edit" title="{_'article.button.editArticle'}">{icon pencil}</a>
-</span>
-
-{includeblock '../articleListItem.latte'}
-
-{$article->content|texy|noescape}

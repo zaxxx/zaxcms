@@ -27,10 +27,46 @@ class CategoryService extends Zax\Model\Doctrine\Service {
 		$doctrineCache->flushAll();
 	}
 
-	public function findPath(Entity\Category $node) {
-		$ids = explode('/', $node->path);
-		$nodes = $this->findBy(['id' => $ids], ['depth' => 'ASC']);
-		return $nodes;
+	public function getBySlug($slug) {
+		$qb = $this->createQueryBuilder()
+			->select('a')
+			->from(Entity\Category::getClassName(), 'a')
+			->where('a.slug = :slug')
+			->setParameter('slug', $slug);
+		return $qb->getQuery()
+			->useQueryCache(TRUE)
+			->useResultCache(TRUE, NULL, self::CACHE_TAG)
+			->getSingleResult();
 	}
 
-} 
+	public function findByIds($ids) {
+		$qb = $this->createQueryBuilder()
+			->select('a')
+			->from(Entity\Category::getClassName(), 'a')
+			->where('a.id IN (:ids)')
+			->orderBy('a.depth', 'ASC')
+			->setParameter('ids', $ids);
+		return $qb->getQuery()
+			->useQueryCache(TRUE)
+			->useResultCache(TRUE, NULL, self::CACHE_TAG)
+			->getResult();
+	}
+
+	public function findPath(Entity\Category $node) {
+		return $this->findByIds(explode('/', $node->path));
+	}
+
+}
+
+
+trait TInjectCategoryService {
+
+	/** @var CategoryService */
+	protected $categoryService;
+
+	public function injectCategoryService(CategoryService $categoryService) {
+		$this->categoryService = $categoryService;
+	}
+
+}
+

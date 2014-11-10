@@ -25,10 +25,12 @@ class FormFactory extends Nette\Object implements IFormFactory {
 
 	public function __construct($defaultClass = NULL,
 								Kdyby\Translation\Translator $translator,
-								Zax\Html\Icons\IIcons $icons) {
+								Zax\Html\Icons\IIcons $icons,
+								Zax\Forms\FormExtension $formExtension) {
 		$this->defaultClass = $defaultClass;
 		$this->translator = $translator;
 		$this->icons = $icons;
+		$formExtension->register();
 	}
 
 	/**

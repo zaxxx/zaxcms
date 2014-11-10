@@ -33,3 +33,16 @@ class WebContentService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectWebContentService {
+
+	/** @var WebContentService */
+	protected $webContentService;
+
+	public function injectWebContentService(WebContentService $webContentService) {
+		$this->webContentService = $webContentService;
+	}
+
+}
+

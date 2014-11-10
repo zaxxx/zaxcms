@@ -81,3 +81,33 @@ input.about-2-chars-long {
 .popover{
     max-width: none;
 }
+
+.tab-pane-form {
+    padding-top: 30px;
+}
+
+.inactive-transparent {
+    opacity: 1;
+}
+.inactive-transparent:hover {
+    opacity: 1;
+}
+
+.radio.radio-inline {
+    padding-left: 0px;
+}
+
+.img-responsive.img-thumbnail.img-thumbnail-filemanager{
+    max-height:45px;
+    margin-right:10px;
+    z-index:999999;
+}
+
+.img-thumbnail-filemanager:hover{
+    position:relative;
+    transform: scale(5);
+}
+
+.whitespace {
+    margin-bottom:30px;
+}

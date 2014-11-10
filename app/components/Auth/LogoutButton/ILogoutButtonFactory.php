@@ -8,3 +8,15 @@ interface ILogoutButtonFactory {
     public function create();
 
 }
+
+
+trait TInjectLogoutButtonFactory {
+
+	protected $logoutButtonFactory;
+
+	public function injectLogoutButtonFactory(ILogoutButtonFactory $logoutButtonFactory) {
+		$this->logoutButtonFactory = $logoutButtonFactory;
+	}
+
+}
+

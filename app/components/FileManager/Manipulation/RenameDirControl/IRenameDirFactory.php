@@ -11,3 +11,15 @@ interface IRenameDirFactory {
 	public function create();
 
 }
+
+
+trait TInjectRenameDirFactory {
+
+	protected $renameDirFactory;
+
+	public function injectRenameDirFactory(IRenameDirFactory $renameDirFactory) {
+		$this->renameDirFactory = $renameDirFactory;
+	}
+
+}
+

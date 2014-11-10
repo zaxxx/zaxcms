@@ -8,3 +8,15 @@ interface IAddPageFormFactory {
     public function create();
 
 }
+
+
+trait TInjectAddPageFormFactory {
+
+	protected $addPageFormFactory;
+
+	public function injectAddPageFormFactory(IAddPageFormFactory $addPageFormFactory) {
+		$this->addPageFormFactory = $addPageFormFactory;
+	}
+
+}
+

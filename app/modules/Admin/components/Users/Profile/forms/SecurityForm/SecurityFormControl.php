@@ -12,25 +12,12 @@ use Nette,
 
 class SecurityFormControl extends FormControl {
 
+	use Model\CMS\Service\TInjectUserService,
+		Model\CMS\TInjectAclFactory,
+		Model\CMS\Service\TInjectRoleService,
+		Model\CMS\Service\TInjectUserLoginService;
+
     protected $selectedUser;
-
-    protected $userService;
-
-    protected $aclFactory;
-
-    protected $roleService;
-
-	protected $loginService;
-
-    public function __construct(Model\CMS\Service\UserService $userService,
-                                  Model\CMS\AclFactory $aclFactory,
-                                  Model\CMS\Service\RoleService $roleService,
-								Model\CMS\Service\UserLoginService $loginService) {
-        $this->userService = $userService;
-        $this->aclFactory = $aclFactory;
-        $this->roleService = $roleService;
-	    $this->loginService = $loginService;
-    }
 
 	/** @secured Users, Use */
     public function viewDefault() {

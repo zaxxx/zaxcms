@@ -1,0 +1,9 @@
+
+
+{control searchForm}
+
+{if $searchConfig->articlesEnabled && strlen($control->q) > 0}
+	<h3>{_'common.form.search'} {_'article.general.articles'}</h3>
+
+	{control articleList}
+{/if}

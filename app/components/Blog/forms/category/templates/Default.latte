@@ -1,0 +1,58 @@
+<form n:name="form">
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#{$htmlId}-main" role="tab" data-toggle="tab">{icon pencil} {_'webContent.button.content'}</a></li>
+		<li role="presentation"><a href="#{$htmlId}-pic" role="tab" data-toggle="tab">{icon picture} {_'article.form.introPicture'}</a></li>
+		<li role="presentation"><a href="#{$htmlId}-sidebar" role="tab" data-toggle="tab">{icon align-right} {_'common.form.sidebar'}</a></li>
+		<li role="presentation"><a href="#{$htmlId}-options" role="tab" data-toggle="tab">{icon cog} {_'common.form.options'}</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane tab-pane-form active" id="{$htmlId}-main">
+			<div class="row">
+				<div class="col-sm-12">
+					{$form->renderer->renderContainer($form, $form['main'])}
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane tab-pane-form" id="{$htmlId}-pic">
+			<div class="row">
+				<div class="col-sm-12">
+					{if $category->image !== NULL}
+						<div class="row">
+							<div class="col-sm-3"></div>
+							<div class="col-sm-6">
+								<pre>{$baseUri}/{$category->image}</pre>
+								<img src="{$baseUri}/{$category->image}" class="img-responsive" style="margin-bottom:30px">
+							</div>
+							<div class="col-sm-3"></div>
+						</div>
+
+					{/if}
+
+					{$form->renderer->renderContainer($form, $form['pic'])}
+
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane tab-pane-form" id="{$htmlId}-sidebar">
+			<div class="row">
+				<div class="col-sm-12">
+					{$form->renderer->renderContainer($form, $form['sidebar'])}
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane tab-pane-form" id="{$htmlId}-options">
+			<div class="row">
+				<div class="col-sm-12">
+					{* $form->renderer->renderContainer($form, $form['options']) *}
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+	{$form->renderer->renderContainer($form, $form['footer'])}
+
+</form>

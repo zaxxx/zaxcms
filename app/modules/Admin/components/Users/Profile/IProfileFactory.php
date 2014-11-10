@@ -8,3 +8,15 @@ interface IProfileFactory {
     public function create();
 
 }
+
+
+trait TInjectProfileFactory {
+
+	protected $profileFactory;
+
+	public function injectProfileFactory(IProfileFactory $profileFactory) {
+		$this->profileFactory = $profileFactory;
+	}
+
+}
+

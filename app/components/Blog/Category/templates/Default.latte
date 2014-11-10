@@ -1,0 +1,38 @@
+<div n:snippet>
+	<div class="row">
+		<div class="col-sm-{=12-$c[category][sidebarWidth]}">
+			<ol class="breadcrumb" n:if="$c[category][showBreadCrumb]">
+				Kategorie:
+				{foreach $ancestors as $ancestor}
+					<li><a href="{$presenter->link('Blog:category', [category-slug => $ancestor->slug])}">{$ancestor->title}</a></li>
+				{/foreach}
+			</ol>
+
+
+
+			<ul n:if="$c['category']['showSubcategories'] && count($category->children) > 0">
+				<li n:foreach="$category->children as $child"><a href="{$presenter->link('Blog:category', [category-slug => $child->slug])}">{$child->title}</a></li>
+			</ul>
+
+			<hr n:secured="WebContent, Edit">
+
+			<span n:secured="WebContent, Edit" class="pull-right">
+				<a n:class="btn, $ajaxEnabled ? ajax" title="{_'article.button.editCategory'}" n:href="this, view => EditCategory">{icon pencil}</a>
+				<a n:class="btn, text-danger, $ajaxEnabled ? ajax" title="{_'common.button.delete'}" n:href="this, view => EditCategory, editCategory-view => Delete">{icon trash}</a>
+			</span>
+
+			<div>
+				<a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => Add">{icon plus} {_'article.button.addArticle'}</a>
+				<a n:secured="WebContent, Edit" n:class="$ajaxEnabled ? ajax, btn, btn-primary" n:href="this, view => AddCategory">{icon plus} {_'article.button.addCategory'}</a>
+			</div>
+
+			{$category->perex|texy|noescape}
+
+			{control articleList, category => $category}
+
+		</div>
+		<div class="col-sm-{$c[category][sidebarWidth]}">
+			{includeblock '../../categorySidebar.latte'}
+		</div>
+	</div>
+</div>

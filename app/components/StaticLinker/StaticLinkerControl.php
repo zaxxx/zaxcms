@@ -17,7 +17,7 @@ use Nette,
  * @method addJsFile($file)
  * @method addJsFiles($files)
  *
- * @package Zax\Components\StaticLinker
+ * @deprecated use WebLoader
  */
 class StaticLinkerControl extends Control {
 

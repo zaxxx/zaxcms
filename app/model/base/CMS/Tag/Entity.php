@@ -44,6 +44,12 @@ abstract class BaseTag extends BaseEntity {
 	protected $slug;
 
 	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $aboutTag;
+
+	/**
 	 * @Gedmo\Locale
 	 */
 	private $locale;

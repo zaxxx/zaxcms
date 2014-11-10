@@ -77,6 +77,8 @@ doctrine:
 
 services:
 
+    - Zax\Forms\FormExtension
+
     ## Empty Control factory
     - Zax\Application\UI\IEmptyFactory
 

@@ -8,3 +8,15 @@ interface IRoleFilterFactory {
     public function create();
 
 }
+
+
+trait TInjectRoleFilterFactory {
+
+	protected $roleFilterFactory;
+
+	public function injectRoleFilterFactory(IRoleFilterFactory $roleFilterFactory) {
+		$this->roleFilterFactory = $roleFilterFactory;
+	}
+
+}
+

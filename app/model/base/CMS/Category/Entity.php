@@ -45,6 +45,12 @@ abstract class BaseCategory extends BaseEntity {
 	protected $title;
 
 	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $perex;
+
+	/**
 	 * @Gedmo\Slug(handlers={
 	 *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\TreeSlugHandler", options={
 	 *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
@@ -56,10 +62,35 @@ abstract class BaseCategory extends BaseEntity {
 	protected $slug;
 
 	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $sidebarContent;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $sidebarParent;
+
+	/**
+	 * @ORM\Column(type="string", length=512, nullable=TRUE)
+	 */
+	protected $image;
+
+	/**
 	 * @ORM\OneToMany(targetEntity="Article", mappedBy="category")
 	 * @ORM\OrderBy({"id" = "DESC"})
 	 */
 	protected $articles;
+
+	public function getSlugName() {
+		$slug = $this->slug;
+		if(strpos($slug, '/') > 0) {
+			$ex = explode('/', $slug);
+			$slug = end($ex);
+		}
+		return $slug;
+	}
 
 	/**
 	 * @Gedmo\Locale

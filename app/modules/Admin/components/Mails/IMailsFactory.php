@@ -8,3 +8,16 @@ interface IMailsFactory {
     public function create();
 
 }
+
+
+trait TInjectMailsFactory {
+
+	/** @var IMailsFactory */
+	protected $mailsFactory;
+
+	public function injectMailsFactory(IMailsFactory $mailsFactory) {
+		$this->mailsFactory = $mailsFactory;
+	}
+
+}
+

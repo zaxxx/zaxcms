@@ -1,0 +1,37 @@
+services:
+    - ZaxCMS\Components\Blog\IArticleListFactory
+
+    - ZaxCMS\Components\Blog\IArticleFactory
+    - ZaxCMS\Components\Blog\ICategoryFactory
+    - ZaxCMS\Components\Blog\ITagFactory
+    - ZaxCMS\Components\Blog\IAuthorFactory
+
+    - ZaxCMS\Components\Blog\IAddArticleFactory
+    - ZaxCMS\Components\Blog\IEditArticleFactory
+
+    - ZaxCMS\Components\Blog\IAddCategoryFactory
+    - ZaxCMS\Components\Blog\IEditCategoryFactory
+    - ZaxCMS\Components\Blog\IDeleteCategoryFormFactory
+
+    - ZaxCMS\Components\Blog\IAddArticleFormFactory
+    - ZaxCMS\Components\Blog\IEditArticleFormFactory
+    - ZaxCMS\Components\Blog\IDeleteArticleFormFactory
+
+    - ZaxCMS\Components\Blog\IAddCategoryFormFactory
+    - ZaxCMS\Components\Blog\IEditCategoryFormFactory
+
+    - ZaxCMS\Components\Blog\IPublishButtonFactory
+
+    - ZaxCMS\Components\Blog\IAuthorListFactory
+    - ZaxCMS\Components\Blog\IEditAuthorFactory
+    - ZaxCMS\Components\Blog\IDeleteAuthorFormFactory
+
+    - ZaxCMS\Components\Blog\IEditTagFactory
+    - ZaxCMS\Components\Blog\IDeleteTagFormFactory
+
+    - ZaxCMS\Components\Blog\IEditAuthorFormFactory
+
+
+
+
+

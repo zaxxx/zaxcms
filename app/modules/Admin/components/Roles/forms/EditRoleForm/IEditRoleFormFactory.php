@@ -8,3 +8,15 @@ interface IEditRoleFormFactory {
     public function create();
 
 }
+
+
+trait TInjectEditRoleFormFactory {
+
+	protected $editRoleFormFactory;
+
+	public function injectEditRoleFormFactory(IEditRoleFormFactory $editRoleFormFactory) {
+		$this->editRoleFormFactory = $editRoleFormFactory;
+	}
+
+}
+

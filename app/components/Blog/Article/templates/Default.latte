@@ -1,0 +1,14 @@
+<div n:snippet>
+	<div class="row">
+		<div class="col-sm-{=12-$c[article][sidebarWidth]}">
+			{includeblock '../../articleListItem.latte', isDetail => TRUE, articleContent => $article->content, c => $c}
+		</div>
+		<div class="col-sm-{$c[article][sidebarWidth]}">
+
+			{include '../../articleSidebar.latte'}
+
+		</div>
+
+
+	</div>
+</div>

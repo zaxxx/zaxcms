@@ -53,11 +53,43 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 		return $this;
 	}
 
-	public function search($needle) {
-		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($needle) {
+	public function byAuthor(Model\CMS\Entity\Author $author = NULL) {
+		if($author === NULL) {
+			return $this;
+		}
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($author) {
+			$qb->innerJoin('a.authors', 'innerAuthors')
+				->andWhere('innerAuthors.id = :authors')->setParameter('authors', $author->id);
+		};
+		return $this;
+	}
+
+	public function search($needle = NULL, $titleOnly = FALSE) {
+		if($needle === NULL) {
+			return $this;
+		}
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($needle, $titleOnly) {
 
 			$qb->andWhere('a.title LIKE :search')
 				->setParameter('search', "%$needle%");
+
+			/*if(!$titleOnly) {
+				$qb->orWhere('a.perex LIKE :search');
+				$qb->orWhere('a.content LIKE :search');
+			}*/
+		};
+		return $this;
+	}
+
+	public function addRootCategoryFilter(Model\CMS\Entity\Category $category = NULL, $canEditArticles = FALSE) {
+		if($category === NULL || $category->depth > 0) {
+			return $this;
+		}
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($category, $canEditArticles) {
+			if(!$canEditArticles) {
+				$qb->andWhere('a.isVisibleInRootCategory = :showInRoot')->setParameter('showInRoot', TRUE);
+			}
+			$qb->addOrderBy('a.isMain', 'DESC');
 		};
 		return $this;
 	}
@@ -66,19 +98,18 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 		$qb = $repository->createQueryBuilder()
 			->select('a, b, c, d')
 			->from(Model\CMS\Entity\Article::getClassName(), 'a')
-			->innerJoin('a.category', 'b')
+			->leftJoin('a.category', 'b')
 			->leftJoin('a.tags', 'c')
-			->innerJoin('a.author', 'd')
-			->orderBy('a.id', 'DESC');
+			->leftJoin('a.authors', 'd');
+
 		$this->applyFilters($qb);
+
+		$qb->addOrderBy('a.createdAt', 'DESC');
+
+
 		$query = $qb->getQuery()
-			;//->useResultCache(TRUE, NULL, Model\CMS\AclFactory::CACHE_TAG);
-		/*if($this->locale !== NULL) {
-			$query->setHint(
-				Gedmo\Translatable\TranslatableListener::HINT_TRANSLATABLE_LOCALE,
-				$this->locale
-			);
-		}*/
+			->useResultCache(TRUE, NULL, Model\CMS\Service\ArticleService::CACHE_TAG);
+
 		return $query;
 	}
 

@@ -15,6 +15,10 @@ button:
     preview: "Preview"
     older: "Older"
     newer: "Newer"
+    setCreatedNow: "Set time created to now"
+    actions: "Actions"
+    publish: "Publish"
+    customize: "Customize"
 form:
     id: "ID"
     name: "Name"
@@ -26,9 +30,14 @@ form:
     displayName: "Displayed name"
     description: "Description"
     confirmDelete: "Do you really want to delete this item?"
+    options: "Options"
     advancedOptions: "Show advanced options"
     sort: "Sort"
     filter: "Filter"
+    image: "Image"
+    removeImage: "Remove image"
+    sidebar: "Sidebar"
+    sidebarContent: "Sidebar content"
 alert:
     changesSaved: "Changes saved."
     changesError: "Error while saving changes."
@@ -38,6 +47,7 @@ alert:
 general:
     note: "Note"
     never: "Never"
+    nothing: "nothing"
     is: "is"
     isnt: "is not"
     yes: "Yes"

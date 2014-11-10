@@ -18,6 +18,7 @@ services:
     - ZaxCMS\Model\CMS\Service\CategoryService
     - ZaxCMS\Model\CMS\Service\ArticleService
     - ZaxCMS\Model\CMS\Service\TagService
+    - ZaxCMS\Model\CMS\Service\AuthorService
 
     ## Model classes
     - ZaxCMS\Model\CMS\DeleteRole

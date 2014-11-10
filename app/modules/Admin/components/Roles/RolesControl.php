@@ -11,38 +11,21 @@ use Nette,
 
 class RolesControl extends SecuredControl {
 
+	use Model\CMS\Service\TInjectRoleService,
+		TInjectAddRoleFormFactory,
+		TInjectEditRoleFormFactory,
+		TInjectDeleteRoleFormFactory,
+		TInjectPermissionsFactory,
+		ZaxCMS\Components\LocaleSelect\TInjectLocaleSelectFactory,
+		Model\CMS\TInjectAclFactory;
+
 	/** @persistent */
 	public $selectRole;
 
 	public $onUpdate = [];
 
-	protected $roleService;
-
-	protected $addRoleFormFactory;
-
-	protected $editRoleFormFactory;
-
-	protected $deleteRoleFormFactory;
-
-	protected $permissionsFactory;
-
-	protected $localeSelectFactory;
-
-	public function __construct(Model\CMS\Service\RoleService $roleService,
-	                            IAddRoleFormFactory $addRoleFormFactory,
-								IEditRoleFormFactory $editRoleFormFactory,
-								IDeleteRoleFormFactory $deleteRoleFormFactory,
-								IPermissionsFactory $permissionsFactory,
-								ZaxCMS\Components\LocaleSelect\ILocaleSelectFactory $localeSelectFactory,
-								Model\CMS\AclFactory $aclFactory) {
-		$this->roleService = $roleService;
-		$this->addRoleFormFactory = $addRoleFormFactory;
-		$this->editRoleFormFactory = $editRoleFormFactory;
-		$this->deleteRoleFormFactory = $deleteRoleFormFactory;
-		$this->permissionsFactory = $permissionsFactory;
-		$this->localeSelectFactory = $localeSelectFactory;
-
-		$this->onUpdate[] = [$aclFactory, 'invalidateCache'];
+	public function startup() {
+		$this->onUpdate[] = [$this->aclFactory, 'invalidateCache'];
 	}
 
 	/** @secured Roles, Use */

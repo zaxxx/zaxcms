@@ -28,3 +28,15 @@ class AppDir extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectAppDir {
+
+	protected $appDir;
+
+	public function injectAppDir(AppDir $appDir) {
+		$this->appDir = $appDir;
+	}
+
+}
+

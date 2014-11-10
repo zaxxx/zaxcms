@@ -31,4 +31,17 @@ class PageService extends Zax\Model\Doctrine\Service {
 		$doctrineCache->flushAll();
 	}
 
-} 
+}
+
+
+trait TInjectPageService {
+
+	/** @var PageService */
+	protected $pageService;
+
+	public function injectPageService(PageService $pageService) {
+		$this->pageService = $pageService;
+	}
+
+}
+

@@ -11,3 +11,15 @@ interface IUploadFileFactory {
 	public function create();
 
 }
+
+
+trait TInjectUploadFileFactory {
+
+	protected $uploadFileFactory;
+
+	public function injectUploadFileFactory(IUploadFileFactory $uploadFileFactory) {
+		$this->uploadFileFactory = $uploadFileFactory;
+	}
+
+}
+

@@ -58,3 +58,17 @@ class AclService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+
+trait TInjectAclService {
+
+	/** @var AclService */
+	protected $aclService;
+
+	public function injectAclService(AclService $aclService) {
+		$this->aclService = $aclService;
+	}
+
+}
+

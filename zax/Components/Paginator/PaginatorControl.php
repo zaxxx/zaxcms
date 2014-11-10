@@ -37,7 +37,9 @@ class PaginatorControl extends Control implements Zax\Model\Doctrine\IResultSetF
 	}
 
 	public function filterResultSet(Kdyby\Doctrine\ResultSet $resultSet) {
-		$resultSet->applyPaginator($this->getPaginator());
+		$resultSet->applyPaginator($paginator = $this->getPaginator());
+
+		$this->page = max(1, min($paginator->getPageCount(), (int)$this->page));
 	}
 
     public function viewDefault() {

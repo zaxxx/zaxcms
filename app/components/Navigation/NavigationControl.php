@@ -10,6 +10,9 @@ use Nette,
 
 class NavigationControl extends SecuredControl {
 
+	use Model\CMS\Service\TInjectMenuService,
+		TInjectEditFactory;
+
 	protected $defaultLinkParams = [
 		'edit-selectItem' => NULL,
 		'edit-selectMenu' => NULL,
@@ -26,10 +29,6 @@ class NavigationControl extends SecuredControl {
 
 	protected $dropdown = FALSE;
 
-	protected $menuService;
-
-	protected $editFactory;
-
 	protected $menuName;
 
 	protected $menu;
@@ -42,11 +41,8 @@ class NavigationControl extends SecuredControl {
 
 	protected $markActiveStrategy;
 
-	public function __construct(Model\CMS\Service\MenuService $menuService,
-								IEditFactory $editFactory) {
-		$this->menuService = $menuService;
-		$this->editFactory = $editFactory;
-		$this->markActiveStrategy = new MarkActiveStrategies\StrategyList;
+	public function __construct() {
+		$this->markActiveStrategy = new MarkActiveStrategies\StrategyList();
 	}
 
 	public function getMarkActiveStrategy() {

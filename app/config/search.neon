@@ -1,0 +1,6 @@
+extensions:
+    ZaxCMSSearch: ZaxCMS\DI\SearchExtension
+
+ZaxCMSSearch:
+    articlesEnabled: TRUE
+    articlesPerPage: 5

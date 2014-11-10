@@ -8,3 +8,15 @@ interface IEditFormFactory {
 	public function create();
 
 }
+
+
+trait TInjectEditFormFactory {
+
+	protected $editFormFactory;
+
+	public function injectEditFormFactory(IEditFormFactory $editFormFactory) {
+		$this->editFormFactory = $editFormFactory;
+	}
+
+}
+

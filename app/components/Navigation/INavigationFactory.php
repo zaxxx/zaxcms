@@ -8,3 +8,16 @@ interface INavigationFactory {
     public function create();
 
 }
+
+
+trait TInjectNavigationFactory {
+
+	/** @var INavigationFactory */
+	protected $navigationFactory;
+
+	public function injectNavigationFactory(INavigationFactory $navigationFactory) {
+		$this->navigationFactory = $navigationFactory;
+	}
+
+}
+

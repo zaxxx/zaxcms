@@ -28,3 +28,15 @@ class RootDir extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectRootDir {
+
+	protected $rootDir;
+
+	public function injectRootDir(RootDir $rootDir) {
+		$this->rootDir = $rootDir;
+	}
+
+}
+

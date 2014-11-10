@@ -1,0 +1,16 @@
+{layout './@layout.latte'}
+
+{define panelContent}
+
+	<div class="row">
+		<div class="col-xs-4 text-right">
+			<a n:class="$ajaxEnabled ? ajax, btn, btn-warning" n:href="setCreatedNow!">{icon time} {_'common.button.setCreatedNow'}</a>
+		</div>
+		<div class="col-xs-8">
+			<p class=" form-control-static">
+
+			</p>
+		</div>
+	</div>
+
+{/define}

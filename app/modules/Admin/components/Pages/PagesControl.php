@@ -11,34 +11,16 @@ use Nette,
 
 class PagesControl extends Zax\Components\Collections\FilterableControl {
 
-	use Zax\Components\Collections\TPaginable;
+	use Zax\Components\Collections\TPaginable,
+		Model\CMS\Service\TInjectPageService,
+		TInjectAddPageFormFactory,
+		TInjectEditPageFormFactory,
+		ZaxCMS\Components\WebContent\TInjectWebContentFactory;
 
 	/** @persistent */
 	public $page;
 
 	protected $pageEntity;
-
-	protected $pageService;
-
-	protected $addPageFormFactory;
-
-	protected $editPageFormFactory;
-
-	protected $deletePageFormFactory;
-
-	protected $webContentFactory;
-
-	public function __construct(Model\CMS\Service\PageService $pageService,
-								IAddPageFormFactory $addPageFormFactory,
-								IEditPageFormFactory $editPageFormFactory,
-								IDeletePageFormFactory $deletePageFormFactory,
-								ZaxCMS\Components\WebContent\IWebContentFactory $webContentFactory) {
-		$this->pageService = $pageService;
-		$this->addPageFormFactory = $addPageFormFactory;
-		$this->editPageFormFactory = $editPageFormFactory;
-		$this->deletePageFormFactory = $deletePageFormFactory;
-		$this->webContentFactory = $webContentFactory;
-	}
 
 	protected function createQueryObject() {
 		return new Model\CMS\Query\PageQuery;

@@ -25,3 +25,16 @@ class SendMail extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectSendMail {
+
+	/** @var SendMail */
+	protected $sendMail;
+
+	public function injectSendMail(SendMail $sendMail) {
+		$this->sendMail = $sendMail;
+	}
+
+}
+

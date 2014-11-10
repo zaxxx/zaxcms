@@ -73,9 +73,10 @@ class Form extends Nette\Application\UI\Form {
 
 	/**
 	 * @param array $buttonTypes
+	 * @param int $choiceControlMaxInlineItems
 	 * @return $this
 	 */
-	protected function enableBootstrapOnInputs($buttonTypes = []) {
+	protected function enableBootstrapOnInputs($buttonTypes = [], $choiceControlMaxInlineItems = 2) {
 		foreach($this->getControls() as $name => $control) {
 				if($control instanceof Nette\Forms\Controls\Button || $control instanceof Zax\Forms\Controls\LinkSubmitButton) {
 					$applied = FALSE;
@@ -97,7 +98,12 @@ class Form extends Nette\Application\UI\Form {
 				} else if ($control instanceof Nette\Forms\Controls\Checkbox
 					|| $control instanceof Nette\Forms\Controls\CheckboxList
 					|| $control instanceof Nette\Forms\Controls\RadioList) {
+
+					if($control instanceof Nette\Forms\Controls\ChoiceControl && count($control->getItems()) <= $choiceControlMaxInlineItems) {
+						$control->getSeparatorPrototype()->setName('div')->addClass($control->getControlPrototype()->type . '-inline');
+					}
 						$control->getSeparatorPrototype()->setName('div')->addClass($control->getControlPrototype()->type);
+
 
 				}/* else if ($control instanceof Zax\Forms\IControl) { // Just some future plans ;-)
 					$control->enableBootstrap();
@@ -125,7 +131,7 @@ class Form extends Nette\Application\UI\Form {
 	 * @param string $type Bootstrap form type, eg. 'form-horizontal', 'form-inline'
 	 * @return $this
 	 */
-	public function enableBootstrap($buttonTypes = [], $groupSubmits = FALSE, $gridLabelSize = 3, $deviceSize = 'sm', $type = 'form-horizontal') {
+	public function enableBootstrap($buttonTypes = [], $groupSubmits = FALSE, $gridLabelSize = 3, $deviceSize = 'sm', $type = 'form-horizontal', $choiceControlMaxInlineItems = 2) {
 
 		// Setup renderer, blah, I want this nasty code somewhere "away" from my projects
 		$r = $this->getRenderer();
@@ -150,71 +156,9 @@ class Form extends Nette\Application\UI\Form {
 		$this->getElementPrototype()->addClass($type);
 		$this->getElementPrototype()->role = 'form';
 
-		$this->enableBootstrapOnInputs($buttonTypes);
+		$this->enableBootstrapOnInputs($buttonTypes, $choiceControlMaxInlineItems);
 
 		return $this;
-	}
-
-	/**
-	 * Submit button using <button> tag for icons
-	 *
-	 * @param       $name
-	 * @param null  $label
-	 * @param null  $icon
-	 * @param array $data
-	 * @return Nette\Forms\Controls\SubmitButton
-	 */
-	public function addButtonSubmit($name, $label = NULL, $icon = NULL, $data = array()) {
-		$control = new Nette\Forms\Controls\SubmitButton($label);
-		$proto = $control->getControlPrototype();
-		$proto->setName('button');
-		$proto->setType('submit');
-		foreach($data as $key=>$value) {
-			$proto->setData($key, $value);
-		}
-
-		$label = $this->makeLabel($this->translator->translate($label), $icon);
-
-		$proto->setHtml($label);
-		return $this[$name] = $control;
-	}
-
-	public function addTexyArea($name, $label) {
-		$control = new Zax\Forms\Controls\TexyAreaInput($label);
-		$control->injectIcons($this->icons);
-		return $this[$name] = $control;
-	}
-
-	/**
-	 * Custom file upload factory to support 'filestyle' library.
-	 *
-	 * @param      $name
-	 * @param null $label
-	 * @param bool $multiple
-	 * @return Nette\Forms\Controls\UploadControl
-	 */
-	public function addUpload($name, $label = NULL, $multiple = FALSE) {
-		$upload = parent::addUpload($name, $label, $multiple);
-		$upload->getControlPrototype()->setData(['buttonText' => $this->translator->translate('common.button.chooseFile' . ($multiple ? 's' : ''))]);
-		return $upload;
-	}
-
-	public function addEmail($name, $label = NULL, $cols = NULL, $maxLength = NULL) {
-		$text = parent::addText($name, $label, $cols, $maxLength);
-		$text->setType('email');
-		$text->addCondition(Nette\Forms\Form::FILLED)
-			->addRule(Nette\Forms\Form::EMAIL);
-		return $text;
-	}
-
-	public function addArrayTextArea($name, $label = NULL, $keyValDelimiter = NULL) {
-		$control = new Zax\Forms\Controls\ArrayTextAreaControl($label, $keyValDelimiter);
-		return $this[$name] = $control;
-	}
-
-	public function addNeonTextArea($name, $label=NULL) {
-		$control = new Zax\Forms\Controls\NeonTextAreaControl($label);
-		return $this[$name] = $control;
 	}
 
 	/**
@@ -237,36 +181,6 @@ class Form extends Nette\Application\UI\Form {
 			$label = $tmpLabel . ' ' . $label;
 		}
 		return $label;
-	}
-
-	/**
-	 * Static read-only control displayed as text (not input)
-	 *
-	 * @param $name
-	 * @param $label
-	 * @return Zax\Forms\Controls\StaticControl
-	 */
-	public function addStatic($name, $label) {
-		$control = new Zax\Forms\Controls\StaticControl($label);
-		return $this[$name] = $control;
-	}
-
-	/**
-	 * A link that pretends to be a button. Great for 'cancel' submit buttons in forms with files (because regular
-	 * submit will take the time to upload the file before checking that a 'cancel' button has been clicked)
-	 *
-	 * @param      $name
-	 * @param null $label
-	 * @param null $icon
-	 * @param null $destination
-	 * @return Zax\Forms\Controls\LinkSubmitButton
-	 */
-	public function addLinkSubmit($name, $label = NULL, $icon = NULL, $destination = NULL) {
-		$control = new Zax\Forms\Controls\LinkSubmitButton($label);
-		$proto = $control->getControlPrototype();
-		$proto->href($destination);
-		$proto->setHtml($this->makeLabel($this->translator->translate($label), $icon));
-		return $this[$name] = $control;
 	}
 
 	public function addDateTime($name, $label = NULL, $canBeNull = FALSE) {

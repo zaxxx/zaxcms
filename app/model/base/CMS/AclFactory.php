@@ -164,3 +164,16 @@ class AclFactory extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectAclFactory {
+
+	/** @var AclFactory */
+	protected $aclFactory;
+
+	public function injectAclFactory(AclFactory $aclFactory) {
+		$this->aclFactory = $aclFactory;
+	}
+
+}
+

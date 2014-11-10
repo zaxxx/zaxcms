@@ -28,3 +28,15 @@ class TempDir extends Nette\Object {
 	}
 
 }
+
+
+trait TInjectTempDir {
+
+	protected $tempDir;
+
+	public function injectTempDir(TempDir $tempDir) {
+		$this->tempDir = $tempDir;
+	}
+
+}
+

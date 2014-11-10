@@ -21,6 +21,7 @@ class TagService extends Zax\Model\Doctrine\Service {
 		if($tag === NULL) {
 			$tag = $this->create();
 			$tag->title = $title;
+			$tag->aboutTag = '#### ' . $title;
 			$this->persist($tag);
 			$this->flush();
 		}
@@ -28,3 +29,16 @@ class TagService extends Zax\Model\Doctrine\Service {
 	}
 
 }
+
+
+trait TInjectTagService {
+
+	/** @var TagService */
+	protected $tagService;
+
+	public function injectTagService(TagService $tagService) {
+		$this->tagService = $tagService;
+	}
+
+}
+

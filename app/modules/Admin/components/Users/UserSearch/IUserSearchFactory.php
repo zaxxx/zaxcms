@@ -8,3 +8,15 @@ interface IUserSearchFactory {
     public function create();
 
 }
+
+
+trait TInjectUserSearchFactory {
+
+	protected $userSearchFactory;
+
+	public function injectUserSearchFactory(IUserSearchFactory $userSearchFactory) {
+		$this->userSearchFactory = $userSearchFactory;
+	}
+
+}
+

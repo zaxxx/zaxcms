@@ -18,6 +18,9 @@
 			<div class="navbar-right navbar-form">
 				{control localeSelect:presenterLocale}
 			</div>
+			<div class="navbar-right navbar-form">
+				{control searchForm}
+			</div>
 		</div>
 	</nav>
 	<div class="container">
@@ -25,4 +28,5 @@
 		{include #content|indent}
 
 	</div>
+	<div class="container-fluid">{control webContent-footer}</div>
 {/block}
