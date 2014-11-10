@@ -55,7 +55,7 @@ class EditCategoryControl extends SecuredControl {
 	/** @secured FileManager, Use */
 	protected function createComponentFileManager() {
 		return $this->fileManagerFactory->create()
-			->setRoot($this->rootDir . '/upload/category/' . $this->category->id . '-' . strpos($this->category->slug, '/') > 0 ? end(explode('/', $this->category->slug)) : $this->category->slug)
+			->setRoot($this->rootDir . '/upload/category/' . $this->category->id . '-' . $this->category->getSlugName())
 			->enableFeatures(
 				[
 					'createDir',

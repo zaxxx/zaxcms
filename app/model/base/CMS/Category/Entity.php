@@ -83,6 +83,15 @@ abstract class BaseCategory extends BaseEntity {
 	 */
 	protected $articles;
 
+	public function getSlugName() {
+		$slug = $this->slug;
+		if(strpos($slug, '/') > 0) {
+			$ex = explode('/', $slug);
+			$slug = end($ex);
+		}
+		return $slug;
+	}
+
 	/**
 	 * @Gedmo\Locale
 	 */

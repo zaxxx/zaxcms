@@ -110,7 +110,7 @@ abstract class CategoryFormControl extends AbstractFormControl {
 
 	        // Process upload image
 	        if($values->pic->img instanceof Nette\Http\FileUpload && $values->pic->img->isOk()) {
-		        $this->category->image = $this->processImageUpload($values->pic->img, 'category', $this->category->id);
+		        $this->category->image = $this->processImageUpload($values->pic->img, 'category', $this->category->id . '-' . $this->category->getSlugName());
 		        $this->categoryService->persist($this->category);
 		        $this->categoryService->flush();
 	        }
