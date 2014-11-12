@@ -76,7 +76,7 @@
 
 		<p class="text-muted">
 			<em>
-				{include #timeCreated} {if !$isCurrentCategory || $c[article][showCategoryInCategory]}{include #category}{/if} {include #author}
+				{include #timeCreated} {if (!$detail || $c[article][showCategoryInDetail]) && (!$isCurrentCategory || $c[article][showCategoryInCategory])}{include #category}{/if} {include #author}
 			</em>
 		</p>
 

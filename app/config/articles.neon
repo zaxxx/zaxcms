@@ -36,6 +36,7 @@ ZaxCMSArticle:
         showAuthor: TRUE
         showCategory: TRUE
         showCategoryInCategory: FALSE
+        showCategoryInDetail: FALSE
         showTagsList: FALSE
         showTagsDetail: TRUE
         tagsOnBottom: TRUE

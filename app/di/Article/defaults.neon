@@ -34,6 +34,7 @@ article:
     showAuthor: FALSE
     showCategory: FALSE
     showCategoryInCategory: FALSE
+    showCategoryInDetail: FALSE
     showTagsList: FALSE
     showTagsDetail: FALSE
     tagsOnBottom: FALSE
