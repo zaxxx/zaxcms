@@ -4,7 +4,7 @@ namespace Zax\Html\Icons;
 use Zax,
 	Nette;
 
-class Glyphicons extends Nette\Object implements IIcons {
+class Glyphicons extends AbstractIcons {
 
 	protected $prefix = 'glyphicon glyphicon-';
 
@@ -73,7 +73,7 @@ class Glyphicons extends Nette\Object implements IIcons {
 		'list',
 		'indent-left',
 		'indent-right',
-		'facetime-video',
+		'youtube' => 'facetime-video',
 		'picture',
 		'map-marker',
 		'adjust',
@@ -210,14 +210,5 @@ class Glyphicons extends Nette\Object implements IIcons {
 		'tree-conifer',
 		'tree-deciduous'
 	];
-
-	public function getIcon($icon) {
-		return Nette\Utils\Html::el('span')
-			->class($this->prefix . $icon);
-	}
-
-	public function getAvailableIcons() {
-		return $this->availableIcons;
-	}
 
 }

@@ -7,6 +7,7 @@
         "nette.ajax.js": "v1.2.2",
         "nette-forms": "v2.2.2",
         "bootstrap-filestyle": "v1.1.2",
+        "font-awesome": "4.2.0",
         "texyla-selection": "https://raw.githubusercontent.com/janmarek/Texyla/0.6.1/texyla/js/selection.js",
         "texyla-selection-licence": "https://raw.githubusercontent.com/janmarek/Texyla/0.6.1/mit.txt"
     }

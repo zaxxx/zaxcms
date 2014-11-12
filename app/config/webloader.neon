@@ -22,6 +22,7 @@ webloader:
                 - %zax.webloader.bowerDir%/jquery-ui/themes/base/menu.css
                 - %zax.webloader.bowerDir%/jquery-ui/themes/base/theme.css
                 - %zax.webloader.bowerDir%/jquery-ui/themes/base/autocomplete.css
+                - %zax.webloader.bowerDir%/font-awesome/css/font-awesome.min.css
                 - %rootDir%/pub/zaxcms/css/zax.alerts.css
                 - %rootDir%/pub/zaxcms/css/zax.flags.css
                 - %rootDir%/pub/zaxcms/css/zax.panelTabs.css

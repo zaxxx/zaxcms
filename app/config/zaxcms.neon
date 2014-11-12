@@ -38,7 +38,7 @@ services:
     #
     # Encapsulates rendering icons
     #
-    - Zax\Html\Icons\Glyphicons
+    - Zax\Html\Icons\FontAwesome
 
     ## Zax\Security\IPermission
     #
