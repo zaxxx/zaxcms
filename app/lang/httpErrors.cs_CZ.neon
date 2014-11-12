@@ -1,0 +1,12 @@
+title:
+    403: 'Přístup odepřen'
+    404: 'Stránka nenalezena'
+    405: 'Nepovolená metoda'
+    410: 'Stránka nenalezena'
+    500: 'Chyba serveru'
+presenter:
+    403: 'Pro zobrazení této stránky nemáte potřebná oprávnění.'
+    404: 'Požadovanou stránku se nepodařilo nalézt. Je možné, že byla odstraněna.'
+    500: 'Něco se pokazilo u nás na serveru.'
+control:
+    403: 'Pro zobrazení tohoto ovládacího prvku nemáte potřebná oprávnění.'

@@ -18,6 +18,22 @@ class BlogPresenter extends BasePresenter {
 		Blog\TInjectAuthorFactory,
 		Blog\TInjectAuthorListFactory;
 
+	public function renderArticle() {
+		$this->template->title = $this['article']->article->title;
+	}
+
+	public function renderCategory() {
+		$this->template->category = $this['category']->category;
+	}
+
+	public function renderTag() {
+		$this->template->title = $this['tag']->tag->title;
+	}
+
+	public function renderAuthor() {
+		$this->template->title = $this['author']->author->name;
+	}
+
 	protected function createComponentArticle() {
 	    return $this->articleFactory->create()
 		    ->enableAjax();

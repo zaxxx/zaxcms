@@ -46,6 +46,8 @@ class Bootstrap implements Zax\IBootstrap {
 
 	protected $catchExceptions = TRUE;
 
+	protected $errorPresenters;
+
 	/**
 	 * @param $appDir
 	 * @param $rootDir
@@ -164,6 +166,14 @@ class Bootstrap implements Zax\IBootstrap {
 	 */
 	public function setErrorPresenter($errorPresenter) {
 		$this->errorPresenter = $errorPresenter;
+		return $this;
+	}
+
+	public function setErrorPresenters($presenter, $control) {
+		$this->errorPresenters = [
+			'presenter' => $presenter,
+			'control' => $control
+		];
 		return $this;
 	}
 
@@ -294,12 +304,14 @@ class Bootstrap implements Zax\IBootstrap {
 
 		$container = $this->setUp();
 
-		$app = $container->application;
+		$app = $container->getByType('Zax\Application\Application');
 
 		$app->catchExceptions = $this->catchExceptions;
 
 		if($this->errorPresenter !== NULL) {
 			$app->errorPresenter = $this->errorPresenter;
+		} else if($this->errorPresenters !== NULL) {
+			$app->errorPresenters = $this->errorPresenters;
 		}
 
 		$app->run();

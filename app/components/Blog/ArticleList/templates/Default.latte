@@ -3,7 +3,7 @@
 <div n:class="!$article->isPublic || $isRootCategory && !$article->isVisibleInRootCategory ? inactive-transparent">
 	{includeblock '../../articleListItem.latte', isRootCategory => $isRootCategory, c => $c}
 </div>
-	{sep}<hr n:if="$c[list][showDivider]">{/sep}
+	{sep}<hr n:if="$c[list][showDivider]" n:class="(expand) $c[list][dividerClasses]">{/sep}
 {/foreach}
 
 {control paginator:pager, suffix => ' ' . $template->translate('article.general.articles')}
