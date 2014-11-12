@@ -3,6 +3,7 @@
 namespace ZaxCMS\Components\Blog;
 use Nette,
     Zax,
+	Doctrine,
     ZaxCMS\Model,
 	ZaxCMS,
     Zax\Application\UI as ZaxUI,
@@ -35,14 +36,12 @@ class CategoryControl extends SecuredControl {
 
 	public function getCategory() {
 		if($this->category === NULL) {
-			$category = $this->categoryService
-				->getBySlug($this->getSlug());
-			if($category === NULL) {
+			try {
+				$this->category = $this->categoryService
+					->getBySlug($this->getSlug());
+			} catch (Doctrine\ORM\NoResultException $ex) {
 				throw new Nette\Application\BadRequestException;
 			}
-			//$category->setTranslatableLocale($this->getLocale());
-			//$this->categoryService->refresh($category);
-			$this->category = $category;
 		}
 		return $this->category;
 	}

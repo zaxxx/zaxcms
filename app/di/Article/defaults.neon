@@ -6,6 +6,7 @@ list:
     tagsOnBottom: FALSE
     showArticleButton: TRUE
     showDivider: TRUE
+    dividerClasses: []
 category:
     showBreadCrumb: FALSE
     showSubcategories: FALSE

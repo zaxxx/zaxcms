@@ -9,4 +9,7 @@ use Nette,
 
 
 abstract class BasePresenter extends ZaxCMS\BasePresenter {
+
+
+
 }

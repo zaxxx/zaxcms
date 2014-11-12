@@ -8,6 +8,7 @@ ZaxCMSArticle:
         tagsOnBottom: TRUE
         showArticleButton: FALSE
         showDivider: TRUE
+        dividerClasses: []
     category:
         showBreadCrumb: NULL
         showSubcategories: NULL

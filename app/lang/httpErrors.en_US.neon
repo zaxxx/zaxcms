@@ -1,0 +1,9 @@
+title:
+    403: 'Access Denied'
+    404: 'Page Not Found'
+    405: 'Method Not Allowed'
+    410: 'Page Not Found'
+    500: 'Server Error'
+presenter:
+
+control:
