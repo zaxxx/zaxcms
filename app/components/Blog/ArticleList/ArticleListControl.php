@@ -26,8 +26,6 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 
 	protected $search;
 
-	protected $searchTitleOnly = FALSE;
-
 	public function setMainCategory(Model\CMS\Entity\Category $category) {
 		$this->category = $category;
 		return $this;
@@ -48,9 +46,8 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 		return $this;
 	}
 
-	public function setSearch($s, $titleOnly = FALSE) {
+	public function setSearch($s) {
 		$this->search = $s;
-		$this->searchTitleOnly = $titleOnly;
 		return $this;
 	}
 
@@ -63,7 +60,7 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
 			->inCategories($this->categories)
 			->withTag($this->tag)
 			->byAuthor($this->author)
-			->search($this->search, $this->searchTitleOnly)
+			->search($this->search)
 			->publicOnly(!$this->user->isAllowed('WebContent', 'Edit'))
 			->addRootCategoryFilter($this->category, $this->user->isAllowed('WebContent', 'Edit'));
 	}

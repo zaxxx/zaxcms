@@ -18,9 +18,6 @@ class SearchControl extends Control {
 	/** @persistent */
 	public $q;
 
-	/** @persistent */
-	public $filters = [];
-
     public function viewDefault() {
         
     }
@@ -32,7 +29,7 @@ class SearchControl extends Control {
 	protected function createComponentArticleList() {
 		if($this->searchConfig->getArticlesEnabled()) {
 		    return $this->articleListFactory->create()
-			    ->setSearch($this->q, FALSE)
+			    ->setSearch($this->q)
 			    ->enablePaginator($this->searchConfig->getArticlesPerPage());
 		}
 	}

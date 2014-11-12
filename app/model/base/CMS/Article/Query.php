@@ -68,9 +68,11 @@ class ArticleQuery extends Zax\Model\Doctrine\QueryObject {
 		if($needle === NULL) {
 			return $this;
 		}
-		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($needle, $titleOnly) {
+		$this->filter[] = function(Kdyby\Doctrine\QueryBuilder $qb) use ($needle) {
 
 			$qb->andWhere('a.title LIKE :search')
+				->orWhere('a.perex LIKE :search')
+				->orWhere('a.content LIKE :search')
 				->setParameter('search', "%$needle%");
 
 			/*if(!$titleOnly) {

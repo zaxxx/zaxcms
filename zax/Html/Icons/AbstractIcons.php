@@ -10,12 +10,17 @@ abstract class AbstractIcons extends Nette\Object implements IIcons {
 
 	protected $availableIcons = [];
 
+	protected $cachedIcons = [];
+
 	public function getIcon($icon) {
-		if(array_key_exists($icon, $this->availableIcons)) {
-			$icon = $this->availableIcons[$icon];
+		if(!isset($this->cachedIcons[$icon])) {
+			if (array_key_exists($icon, $this->availableIcons)) {
+				$icon = $this->availableIcons[$icon];
+			}
+			$this->cachedIcons[$icon] = Nette\Utils\Html::el('span')
+				->class($this->prefix . $icon);
 		}
-		return Nette\Utils\Html::el('span')
-			->class($this->prefix . $icon);
+		return $this->cachedIcons[$icon];
 	}
 
 	public function getAvailableIcons() {
