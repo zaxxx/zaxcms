@@ -17,11 +17,14 @@ class AuthorService extends Zax\Model\Doctrine\Service {
 	}
 
 	public function getOrCreateAuthor($name) {
-		$author = $this->getBy(['name' => $name]);
+		$names = explode(' ', $name);
+		$surname = array_pop($names);
+		$firstName = implode(' ', $names);
+		$author = $this->getBy(['firstName' => $firstName, 'surname' => $surname]);
 		if($author === NULL) {
 			$author = $this->create();
-			$author->name = $name;
-			$author->aboutAuthor = '#### ' . $name;
+			$author->firstName = $firstName;
+			$author->surname = $surname;
 			$this->persist($author);
 			$this->flush();
 		}

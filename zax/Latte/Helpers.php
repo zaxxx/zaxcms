@@ -3,6 +3,8 @@
 namespace Zax\Latte;
 use Nette,
 	Kdyby,
+	TexyPatterns,
+	TexyRegexp,
 	Zax;
 
 /**
@@ -35,6 +37,21 @@ class Helpers extends Nette\Object {
 	protected static $months = [
 		'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'
 	];
+
+	/**
+	 * Regular expressions in this method are copy&pasted from Texy: author David Grudl, BSD Licence, http://texy.info
+	 *
+	 * @param $string
+	 * @return string
+	 */
+	public function texyAutoNbsp($string) {
+		$patterns = [
+			'#(?<=.{50})\s++(?=[\x17-\x1F]*\S{1,6}[\x17-\x1F]*$)#us' => "\xc2\xa0",
+			'#(?<=^| |\.|,|-|\+|\x16|\(|\d\x{A0})([\x17-\x1F]*\d++\.?[\x17-\x1F]*)\s++(?=[\x17-\x1F]*[%' . TexyPatterns::CHAR . '\x{b0}-\x{be}\x{2020}-\x{214f}])#mu' => "\$1\xc2\xa0",
+			'#(?<=^|[^0-9' . TexyPatterns::CHAR . '])([\x17-\x1F]*[ksvzouiKSVZOUIA][\x17-\x1F]*)\s++(?=[\x17-\x1F]*[0-9' . TexyPatterns::CHAR . '])#mus' => "\$1\xc2\xa0"
+		];
+		return TexyRegexp::replace($string, $patterns);
+	}
 
 	/**
 	 * @param $month 1-12

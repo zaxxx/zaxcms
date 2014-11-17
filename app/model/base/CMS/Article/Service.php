@@ -31,6 +31,7 @@ class ArticleService extends Zax\Model\Doctrine\Service {
 		$article->isPublic = $config['isPublic'];
 		$article->sidebarCategory = $config['sidebarCategory'];
 		$article->imageConfig = $config['imageConfig'];
+		$article->hideAuthors = $config['hideAuthors'];
 		return $article;
 	}
 

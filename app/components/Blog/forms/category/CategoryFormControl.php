@@ -12,13 +12,10 @@ use Nette,
 
 abstract class CategoryFormControl extends AbstractFormControl {
 
-	protected $categoryService;
+	use Model\CMS\Service\TInjectCategoryService,
+		Model\CMS\Service\TInjectArticleService;
 
 	protected $category;
-
-	public function __construct(Model\CMS\Service\CategoryService $categoryService) {
-		$this->categoryService = $categoryService;
-	}
 
 	public function setCategory(Model\CMS\Entity\Category $category) {
 		$this->category = $category;
@@ -119,6 +116,7 @@ abstract class CategoryFormControl extends AbstractFormControl {
 	        $this->categoryService->flush();
 
 	        $this->categoryService->invalidateCache();
+	        $this->articleService->invalidateCache();
 
 	        $this->flashMessage('article.alert.categorySaved', 'success');
 	        $this->presenter->redirect('Blog:category', ['category-slug' => $this->category->slug]);

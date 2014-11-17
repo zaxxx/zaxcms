@@ -12,7 +12,8 @@ use Nette,
 
 class EditAuthorFormControl extends AbstractFormControl {
 
-	use Model\CMS\Service\TInjectAuthorService;
+	use Model\CMS\Service\TInjectAuthorService,
+		Model\CMS\Service\TInjectArticleService;
 
 	protected $author;
 
@@ -39,7 +40,12 @@ class EditAuthorFormControl extends AbstractFormControl {
 
 	    $main = $f->addContainer('main');
 
-	    $main->addText('name', 'common.form.name');
+	    $main->addText('firstName', 'common.form.humanName');
+	    $main->addText('surname', 'common.form.surname');
+
+	    $main->addTexyArea('perex', 'article.form.perex')
+		    ->getControlPrototype()
+		    ->rows(5);
 
 	    $main->addTexyArea('aboutAuthor', 'article.form.aboutAuthor')
 		    ->getControlPrototype()
@@ -67,7 +73,7 @@ class EditAuthorFormControl extends AbstractFormControl {
 	    $this->binder->entityToForm($this->author, $pic);
 	    $this->binder->entityToForm($this->author, $sidebar);
 
-	    $f->autofocus('main-name');
+	    $f->autofocus('main-firstName');
 
 	    return $f;
     }
@@ -97,6 +103,8 @@ class EditAuthorFormControl extends AbstractFormControl {
 			    $this->authorService->persist($this->author);
 			    $this->authorService->flush();
 		    }
+
+		    $this->articleService->invalidateCache();
 
 		    $this->flashMessage('article.alert.articleSaved', 'success');
 		    $this->presenter->redirect('Blog:author', ['author-slug' => $this->author->slug, 'author-view' => 'Default']);

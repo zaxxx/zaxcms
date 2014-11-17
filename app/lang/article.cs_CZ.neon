@@ -4,11 +4,13 @@ general:
     tag: "Štítek"
     tags: "Štítky"
     inCategory: "v kategorii"
+    countArticles: "%count% článek|%count% články|%count% článků"
 button:
     addArticle: "Přidat článek"
     editArticle: "Upravit článek"
     addCategory: "Přidat kategorii"
     editCategory: "Upravit kategorii"
+    editAuthor: "Upravit autora"
     saveAndGo: "a zobrazit"
     showArticle: "celý článek"
 form:
@@ -37,6 +39,8 @@ form:
     useCategorySidebar: "Použít boční lištu z kategorie"
     useParentCategorySidebar: "Použít boční lištu z nadřazené kategorie"
     useCategoryImage: "Použít obrázek kategorie"
+    aboutAuthor: "O autorovi"
+    hideAuthors: "Skrýt autory"
     confirmDeleteArticle: "Opravdu chcete odstranit článek '%article%'?"
     confirmDeleteCategory: "Opravdu chcete odstranit kategorii '%category%'?"
     confirmDeleteTag: "Opravdu chcete odstranit štítek '%tag%'?"
@@ -44,3 +48,5 @@ form:
 alert:
     articleSaved: "Článek byl uložen."
     categorySaved: "Kategorie byla uložena."
+title:
+    allAuthors: "Všichni autoři"

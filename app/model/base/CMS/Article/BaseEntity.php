@@ -88,6 +88,11 @@ abstract class BaseArticle extends BaseEntity {
 	protected $authors;
 
 	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $hideAuthors;
+
+	/**
 	 * @ORM\Column(type="string", length=512, nullable=TRUE)
 	 */
 	protected $image;

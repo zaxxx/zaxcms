@@ -27,10 +27,15 @@ abstract class BaseAuthor extends BaseEntity {
 	/**
 	 * @ORM\Column(type="string", length=127)
 	 */
-	protected $name;
+	protected $firstName;
 
 	/**
-	 * @Gedmo\Slug(fields={"name"})
+	 * @ORM\Column(type="string", length=127)
+	 */
+	protected $surname;
+
+	/**
+	 * @Gedmo\Slug(fields={"firstName", "surname"})
 	 * @ORM\Column(name="slug", type="string", length=127, unique=TRUE)
 	 */
 	protected $slug;
@@ -39,6 +44,12 @@ abstract class BaseAuthor extends BaseEntity {
 	 * @ORM\Column(type="string", length=512, nullable=TRUE)
 	 */
 	protected $image;
+
+	/**
+	 * @Gedmo\Translatable
+	 * @ORM\Column(type="text", nullable=TRUE)
+	 */
+	protected $perex;
 
 	/**
 	 * @Gedmo\Translatable
@@ -58,5 +69,9 @@ abstract class BaseAuthor extends BaseEntity {
 	 * @ORM\OrderBy({"id" = "DESC"})
 	 */
 	protected $articles;
+
+	public function getName() {
+		return $this->firstName . ' ' . $this->surname;
+	}
 
 }

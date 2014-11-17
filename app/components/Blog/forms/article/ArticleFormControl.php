@@ -47,18 +47,22 @@ abstract class ArticleFormControl extends AbstractFormControl {
 			    return $cat->title;
 		    });
 
-	    $main->addText('title', 'article.form.title')
+	    $main->addTextarea('title', 'article.form.title')
 		    ->setRequired()
 		    ->getControlPrototype()
 		    ->addClass('input-lg');
 	    $main['title']->getLabelPrototype()
 		    ->addClass('lead');
 
-	    $allAuthors = $this->authorService->findPairs(NULL, 'name');
+	    $allAuthors = $this->authorService->findAll();
+	    $authors = [];
+	    foreach($allAuthors as $author) {
+		    $authors[] = $author->firstName . ' ' . $author->surname;
+	    }
 	    $filledAuthors = Arrays::objectsToString($this->article->authors, function($author) {
-		    return $author->name;
+		    return $author->firstName . ' ' . $author->surname;
 	    });
-	    $main->addMultiAutoComplete('authorsList', 'article.form.authors', array_values($allAuthors))
+	    $main->addMultiAutoComplete('authorsList', 'article.form.authors', $authors)
 		    ->setDefaultValue($filledAuthors);
 
 	    $allTags = $this->tagService->findPairs(NULL, 'title');
@@ -127,6 +131,8 @@ abstract class ArticleFormControl extends AbstractFormControl {
 	    $options['isVisibleInRootCategory']
 		    ->addCondition(Form::EQUAL, TRUE)
 		        ->toggle($id . '-style-isMain');
+
+	    $options->addCheckbox('hideAuthors', 'article.form.hideAuthors');
 
 	    $sidebar = $f->addContainer('sidebar');
 

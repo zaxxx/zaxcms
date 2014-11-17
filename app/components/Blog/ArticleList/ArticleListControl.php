@@ -73,6 +73,7 @@ class ArticleListControl extends Zax\Components\Collections\FilterableControl {
         $this->template->articles = $this->getFilteredResultSet();
 	    $this->template->c = $this->articleConfig->getConfig();
 	    $this->template->category = $category;
+	    $this->template->author = $this->author;
     }
 
 	protected function createComponentPublishButton() {

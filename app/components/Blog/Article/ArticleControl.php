@@ -17,6 +17,15 @@ class ArticleControl extends SecuredControl {
 		ZaxCMS\DI\TInjectArticleConfig,
 		TInjectPublishButtonFactory;
 
+	protected $defaultLinkParams = [
+		'editArticle-view' => NULL,
+		'editArticle-fileManager-dir' => NULL,
+		'editArticle-fileManager-fileList-file' => NULL,
+		'editArticle-fileManager-view' => NULL,
+		'editArticle-fileManager-fileList-view' => NULL,
+		'editArticle-fileManager-directoryList-view' => NULL
+	];
+
 	/** @persistent */
 	public $slug;
 

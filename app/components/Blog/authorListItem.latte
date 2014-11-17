@@ -1,0 +1,39 @@
+{define image}
+{var $style = $c[author][imageConfig][styles][$context]}
+	<a n:if="$showImg" n:tag-if="$openImg || $list" href="{if $openImg}{$baseUri}/{$image}" target="_blank{elseif $list}{$presenter->link('Blog:author', [author-slug => $slug])}{/if}">
+		<img n:if="$showImg" style="{if $style < 2}max-width:150px;margin-right:20px;{/if}margin-bottom:15px;" n:class="$style === 2 ? img-responsive : pull-left" src="{$baseUri}/{$image}">
+	</a>
+{/define}
+
+{block author}
+
+	{var $list = isset($authors)}
+	{var $context = $list ? 'list' : 'detail'}
+
+	{var $slug = $list ? $author[slug] : $author->slug}
+	{var $name = $list ? $author[firstName] . ' ' . $author[surname] : $author->firstName . ' ' . $author->surname}
+	{var $perex = $list ? $author[perex] : $author->perex}
+	{var $articles = $list ? $author[countArticles] : NULL}
+	{var $image = $list ? $author[image] : $author->image}
+
+	{var $showImg = $image !== NULL && $c[author][imageConfig][visible][$context]}
+	{var $openImg = $c[author][imageConfig][open][$context]}
+
+	<span class="pull-right" n:secured="WebContent, Edit">
+		<a n:class="btn, $ajaxEnabled && !$list ? ajax" title="{_'article.button.editAuthor'}" href="{$presenter->link('Blog:author', [author-slug => $slug, author-view => Edit])}">{icon pencil}</a>
+		<a n:class="btn, text-danger, $ajaxEnabled && !$list ? ajax" title="{_'common.button.delete'}" href="{$presenter->link('Blog:author', [author-slug => $slug, author-view => Edit, author-editAuthor-view => Delete])}">{icon trash}</a>
+	</span>
+
+	{if $c[author][imageConfig][styles][$context] === 0}{include #image}{/if}
+
+	<h2 n:tag-if="!$list"><h3 n:tag-if="$list"><a n:tag-if="$list" href="{$presenter->link('Blog:author', [author-slug => $slug])}">{$name}</a></h3></h2>
+
+	<p n:if="$list"><em>{_'article.general.countArticles', $articles}</em></p>
+
+	{if $c[author][imageConfig][styles][$context] > 0}{include #image}{/if}
+
+	{$perex|texy|noescape}
+
+	<div class="clearfix"></div>
+
+{/block}

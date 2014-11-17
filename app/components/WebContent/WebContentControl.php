@@ -21,14 +21,14 @@ class WebContentControl extends SecuredControl {
 
 	protected $webContent;
 
-	protected $texyHeadingTop = 3;
+	protected $texyHeadingTop = 2;
 
 	/**
 	 * @var string
 	 */
 	protected $name;
 
-	public function setTexyHeadingTop($top = 3) {
+	public function setTexyHeadingTop($top = 2) {
 		$this->texyHeadingTop = $top;
 		return $this;
 	}

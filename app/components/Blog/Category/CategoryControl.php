@@ -19,6 +19,15 @@ class CategoryControl extends SecuredControl {
 		TInjectAddCategoryFactory,
 		ZaxCMS\DI\TInjectArticleConfig;
 
+	protected $defaultLinkParams = [
+		'editCategory-view' => NULL,
+		'editCategory-fileManager-dir' => NULL,
+		'editCategory-fileManager-fileList-file' => NULL,
+		'editCategory-fileManager-view' => NULL,
+		'editCategory-fileManager-fileList-view' => NULL,
+		'editCategory-fileManager-directoryList-view' => NULL
+	];
+
 	/** @persistent */
 	public $slug;
 

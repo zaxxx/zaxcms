@@ -19,7 +19,7 @@
 
 {define author}
 	{cache 'article-' . $article->id . '-author', tags => $cacheTags}
-		<span n:if="$c[article][showAuthor] && $article->authors !== NULL && count($article->authors) > 0">
+		<span n:if="!$article->hideAuthors && $c[article][showAuthor] && $article->authors !== NULL && count($article->authors) > 0">
 			&middot;&middot;
 			{foreach $article->authors as $author}
 				<a href="{$presenter->link('Blog:author', [author-slug => $author->slug])}">{$author->name}</a>{sep}, {/sep}
@@ -29,9 +29,11 @@
 {/define}
 
 {define category}
+	{if !$article->hideAuthors}
 	{cache 'article-' . $article->id . '-category', tags => $cacheTags}
 		<span n:if="$c[article][showCategory]">{_'article.general.inCategory'} <a href="{$presenter->link('Blog:category', [category-slug => $article->category->slug])}">{$article->category->title}</a></span>
 	{/cache}
+	{/if}
 {/define}
 
 {define showArticleButton}
@@ -65,6 +67,7 @@
 	{var $openImg = $article->imageConfig[open][$context]}
 	{var $articleLink = $presenter->link('Blog:article', [article-slug => $article->slug])}
 	{var $isCurrentCategory = isset($category) && $category === $article->category}
+	{var $isAuthorList = isset($author) && $author !== NULL}
 
 	<div n:class="$root && $article->isMain ? lead">
 
@@ -72,11 +75,15 @@
 
 		{if $article->imageConfig[styles][$context] === 0}{include #image}{/if}
 
-		<h3><a n:tag-if="!$detail" href="{$articleLink}">{$article->title}</a></h3>
+		<h2 n:tag-if="$detail"><h3 n:tag-if="!$detail"><a n:tag-if="!$detail" href="{$articleLink}">{$article->title|escape|nl2br|texyAutoNbsp|noescape}</a></h3></h2>
 
 		<p class="text-muted">
 			<em>
-				{include #timeCreated} {if (!$detail || $c[article][showCategoryInDetail]) && (!$isCurrentCategory || $c[article][showCategoryInCategory])}{include #category}{/if} {include #author}
+				{include #timeCreated}
+
+				{if (!$detail || $c[article][showCategoryInDetail]) && (!$isCurrentCategory || $c[article][showCategoryInCategory])}{include #category}{/if}
+
+				{if !$isAuthorList || $c[article][showAuthorInAuthor]}{include #author}{/if}
 			</em>
 		</p>
 
@@ -94,7 +101,6 @@
 
 		<div n:if="isset($articleContent)">
 			{$articleContent|texy|noescape}
-
 		</div>
 
 		{if ($detail && $c[article][tagsOnBottom]) || (!$detail && $c[list][tagsOnBottom])}

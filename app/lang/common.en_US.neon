@@ -22,6 +22,8 @@ button:
 form:
     id: "ID"
     name: "Name"
+    humanName: "Name"
+    surname: "Surname"
     uniqueName: "Unique name"
     search: "Search"
     title: "Title"

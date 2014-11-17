@@ -23,6 +23,8 @@ button:
 form:
     id: "ID"
     name: "Název"
+    humanName: "Jméno"
+    surname: "Příjmení"
     uniqueName: "Unikátní název"
     search: "Hledat"
     title: "Titulek"

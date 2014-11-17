@@ -59,4 +59,13 @@ class BlogPresenter extends BasePresenter {
 		    ->enableAjax();
 	}
 
+	protected function createComponentWebContent() {
+		return new NetteUI\Multiplier(function($name) {
+			return $this->webContentFactory->create()
+				->setCacheNamespace('ZaxCMS.WebContent.' . $name)
+				->enableAjax()
+				->setName($name);
+		});
+	}
+
 }

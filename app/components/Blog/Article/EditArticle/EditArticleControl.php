@@ -50,6 +50,7 @@ class EditArticleControl extends SecuredControl {
 		$this->article->isPublic = TRUE;
 		$this->articleService->persist($this->article);
 		$this->articleService->flush();
+		$this->articleService->invalidateCache();
 		$this->go('this');
 	}
 
@@ -58,6 +59,7 @@ class EditArticleControl extends SecuredControl {
 		$this->article->createdAt = new \DateTime;
 		$this->articleService->persist($this->article);
 		$this->articleService->flush();
+		$this->articleService->invalidateCache();
 		$this->go('this');
 	}
 
