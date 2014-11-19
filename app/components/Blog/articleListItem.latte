@@ -29,11 +29,9 @@
 {/define}
 
 {define category}
-	{if !$article->hideAuthors}
 	{cache 'article-' . $article->id . '-category', tags => $cacheTags}
 		<span n:if="$c[article][showCategory]">{_'article.general.inCategory'} <a href="{$presenter->link('Blog:category', [category-slug => $article->category->slug])}">{$article->category->title}</a></span>
 	{/cache}
-	{/if}
 {/define}
 
 {define showArticleButton}
