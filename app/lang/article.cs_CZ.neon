@@ -13,6 +13,12 @@ button:
     editAuthor: "Upravit autora"
     saveAndGo: "a zobrazit"
     showArticle: "celý článek"
+formHint:
+    authors: "Můžete zadat jednoho nebo i více autorů, oddělené čárkou."
+    tags: "Více štítků oddělte čárkou."
+    useCategoryImage: "Tímto zaškrtávátkem zvolíte stejný úvodní obrázek, jako má kategorie, v které je článek zařazen."
+    displayImg: "Úvodní obrázek se zobrazí jen v zaškrtnutých kontextech."
+    imgOpenOnClick: "Zaškrtnuté = kliknutí na obrázek otevře obrázek v plné velikosti. Nezaškrtnuté = kliknutí na obrázek otevře článek (v detailu článku neudělá nic)."
 form:
     title: "Nadpis"
     perex: "Perex"

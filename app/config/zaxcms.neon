@@ -40,6 +40,12 @@ services:
     #
     - Zax\Html\Icons\FontAwesome
 
+    ## Zax\Forms\ILabelFactory
+    #
+    # Helper for creating richer form labels
+    #
+    - Zax\Forms\DefaultLabelFactory
+
     ## Zax\Security\IPermission
     #
     # Provides methods for easy ACL checks.

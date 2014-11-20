@@ -9,6 +9,7 @@ use Nette,
     Nette\Forms\Form,
     Zax\Application\UI as ZaxUI,
 	Nette\Application\UI as NetteUI,
+	Nette\Utils\Html,
     Zax\Application\UI\Control,
     Zax\Application\UI\FormControl;
 
@@ -62,14 +63,14 @@ abstract class ArticleFormControl extends AbstractFormControl {
 	    $filledAuthors = Arrays::objectsToString($this->article->authors, function($author) {
 		    return $author->firstName . ' ' . $author->surname;
 	    });
-	    $main->addMultiAutoComplete('authorsList', 'article.form.authors', $authors)
+	    $main->addMultiAutoComplete('authorsList', $this->label('article.form.authors', 'article.formHint.authors'), $authors)
 		    ->setDefaultValue($filledAuthors);
 
 	    $allTags = $this->tagService->findPairs(NULL, 'title');
 	    $filledTags = Arrays::objectsToString($this->article->tags, function($tag) {
 		    return $tag->title;
 	    });
-	    $main->addMultiAutoComplete('tagsList', 'article.form.tags', array_values($allTags))
+	    $main->addMultiAutoComplete('tagsList', $this->label('article.form.tags', 'article.formHint.tags'), array_values($allTags))
 		    ->setDefaultValue($filledTags);
 
 	    $main->addTexyArea('perex', 'article.form.perex')
@@ -83,7 +84,7 @@ abstract class ArticleFormControl extends AbstractFormControl {
 
 
 	    if($this->article->category->image !== NULL) {
-		    $pic->addCheckbox('useCategoryImage', 'article.form.useCategoryImage')
+		    $pic->addCheckbox('useCategoryImage', $this->label('article.form.useCategoryImage', 'article.formHint.useCategoryImage'))
 			    ->addCondition(Form::FILLED)
 			    ->toggle($id . '-pic-customize');
 	    }
@@ -96,11 +97,11 @@ abstract class ArticleFormControl extends AbstractFormControl {
 		    'detail' => 'article.form.inArticleDetail'
 	    ];
 
-	    $picConfig->addCheckboxList('displayImg', 'article.form.displayImg', $contexts)
+	    $picConfig->addCheckboxList('displayImg', $this->label('article.form.displayImg', 'article.formHint.displayImg'), $contexts)
 		    ->setValue(Arrays::boolToCbl($this->article->getImageConfig('visible')))
 		    ->setOption('id', $id . '-pic-displayImg');
 
-	    $picConfig->addCheckboxList('displayImgOpen', 'article.form.imgOpenOnClick', $contexts)
+	    $picConfig->addCheckboxList('displayImgOpen', $this->label('article.form.imgOpenOnClick', 'article.formHint.imgOpenOnClick'), $contexts)
 		    ->setValue(Arrays::boolToCbl($this->article->getImageConfig('open')))
 		    ->setOption('id', $id . '-pic-displayImgOpen');
 
